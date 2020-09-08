@@ -1,1 +1,1 @@
-# TutorHUb
+# Welcome to the GoStudy application
