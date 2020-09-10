@@ -16,7 +16,7 @@
       "sourceMap": true //Might be false for dev environment
     },
     "exclude": [
-      "node_modules",
+      "react-native/node_modules",
       "babel.config.ts",
       "metro.config.ts",
       "prettierrc.js",
