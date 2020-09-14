@@ -17,4 +17,4 @@ class App extends Component {
         );
     }
 }
-AppRegistry.registerComponent(App, () => App);
+AppRegistry.registerComponent('GoStudy', () => App);
