@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'TutorHub' do
+target 'GoStudy' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'TutorHubTests' do
+  target 'GoStudyTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'TutorHub' do
   end
 end
 
-target 'TutorHub-tvOS' do
-  # Pods for TutorHub-tvOS
+target 'GoStudy-tvOS' do
+  # Pods for GoStudy-tvOS
 
-  target 'TutorHub-tvOSTests' do
+  target 'GoStudy-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
