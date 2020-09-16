@@ -17,8 +17,8 @@
     },
     "exclude": [
       "react-native/node_modules",
-      "babel.config.ts",
-      "metro.config.ts",
+      "babel.config.js",
+      "metro.config.js",
       "prettierrc.js",
       ".eslint.js"
     ]
