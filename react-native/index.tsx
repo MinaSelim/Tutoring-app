@@ -1,7 +1,10 @@
-import {AppRegistry} from 'react-native';
-import React from 'react';
-import {Component} from 'react';
-import {View, Text} from 'react-native';
+import {AppRegistry, View} from 'react-native';
+import React, {Component} from 'react';
+import styles from './src/styles/parentLayoutStyles'
+import TopButton from './src/components/randomButtons/TopButton';
+import BottomButton from './src/components/randomButtons/BottomButton';
+import MiddleButton from './src/components/randomButtons/MiddleButton';
+
 
 class App extends Component {
     constructor(props){
@@ -11,8 +14,10 @@ class App extends Component {
 
     render(){
         return(
-            <View>
-                <Text>Hello World!</Text>
+            <View style={styles.container}>
+                <TopButton/>
+                <BottomButton/>
+                <MiddleButton/>
             </View>
         );
     }
