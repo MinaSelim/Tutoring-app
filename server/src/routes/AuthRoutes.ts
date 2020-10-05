@@ -1,6 +1,5 @@
 
 import { Application, Request, Response } from 'express';
-import { auth } from 'firebase-admin';
 import AuthManager from '../services/managers/AuthManager';
 
 export class AuthRoutes {
@@ -28,6 +27,7 @@ export class AuthRoutes {
             {
                 let user = await this.authManager.loginUser(req.body.idToken);
                 req.session.userId = user.id;
+                req.session.isLoggedIn = true;
                 res.sendStatus(200);
             }
             catch (error)
