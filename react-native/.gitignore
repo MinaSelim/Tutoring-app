@@ -67,3 +67,6 @@ package-lock.json
 
 # coverage report
 /coverage
+
+#Firebase
+fire.ts
