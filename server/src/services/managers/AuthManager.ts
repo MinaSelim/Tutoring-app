@@ -8,6 +8,7 @@ export default class AuthManager {
 
     constructor(admin = firebase)
     {
+        this.admin = admin;
         this.admin.initializeApp({
             credential: admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS)
         })
