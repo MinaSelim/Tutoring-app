@@ -18,6 +18,7 @@
     "typings/browser.d.ts",
     "typings/browser",
     "node_modules",
-    "./tests/"
+    "./tests/",
+    "dist"
   ]
 }

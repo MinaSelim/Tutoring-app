@@ -9,7 +9,7 @@ import * as dotenv from 'dotenv';
 export default class App {
     public app: express.Application;
     private authRoutes: AuthRoutes;
-
+s
     constructor() {
         this.app = express();
         this.config();

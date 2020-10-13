@@ -8,7 +8,7 @@
     "prestart": "npm run build",
     "start": "node .",
     "test": "mocha -r ts-node/register './tests/**/*.test.ts'",
-    "lint": "eslint .",
+    "lint": "eslint --ext .ts ./src",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
   },
   "author": "",
