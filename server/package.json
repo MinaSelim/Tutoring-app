@@ -9,6 +9,7 @@
     "start": "node .",
     "test": "mocha -r ts-node/register './tests/**/*.test.ts'",
     "lint": "eslint --ext .ts ./src",
+    "lint-fix": "npm run lint -- --fix",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
   },
   "author": "",

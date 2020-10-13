@@ -1,3 +1,1 @@
-export default class Constants {
-    
-}
+export default class Constants {}
