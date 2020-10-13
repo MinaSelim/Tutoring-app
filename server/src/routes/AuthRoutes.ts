@@ -2,13 +2,16 @@
 import { Application, Request, Response } from 'express';
 import AuthManager from '../services/managers/AuthManager';
 
+/**
+ * Class that handles all the routes related to authenthication
+ */
 export class AuthRoutes {
 
     private authManager = new AuthManager();
 
     public route(app: Application) {
 
-        app.get('/auth/register', async (req: Request, res: Response) => {
+        app.post('/auth/register', async (req: Request, res: Response) => {
             try
             {
                 await this.authManager.registerUser(req.body);
@@ -22,7 +25,10 @@ export class AuthRoutes {
 
         });
 
-        app.get('/auth/login', async (req: Request, res: Response) => {
+        /**
+         * Logs in, and store the user unique ID in the session
+         */
+        app.post('/auth/login', async (req: Request, res: Response) => {
             try
             {
                 let user = await this.authManager.loginUser(req.body.idToken);

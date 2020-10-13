@@ -3,6 +3,7 @@ import express from 'express';
 import { expect } from "chai";
 import sinon from 'sinon';
 import admin from 'firebase-admin';
+import App from '../src/config/app'
 const test = require('firebase-functions-test')();
 
 describe("Server initialization", () => {
@@ -16,7 +17,7 @@ describe("Server initialization", () => {
     // Stub all functions called by admin from firebase
     adminInitStub = sinon.stub(admin, 'initializeApp');
     credentialsStub = sinon.stub(admin.credential, 'cert')
-    server = require('../src/config/app');
+    server = new App().app;
   });
 
   it("Server instance should exist", () => {

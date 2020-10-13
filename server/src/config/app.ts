@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 
 
 
-class App {
+export default class App {
     public app: express.Application;
     private authRoutes: AuthRoutes;
 
@@ -27,4 +27,3 @@ class App {
         //TODO attach Redis to expressSession
     }
 }
-export default new App().app;
