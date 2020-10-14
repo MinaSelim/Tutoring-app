@@ -7,7 +7,14 @@ import AuthManager from '../services/managers/AuthManager';
 export class AuthRoutes {
    private authManager = new AuthManager();
 
-   public route(app: Application) {
+   /**
+    * This is the function that adds the auth routes to the function
+    * @param app the application to set routes on
+    */
+   public route(app: Application) : void {
+      /**
+       *  Register the user and sends success, or the error to the front end
+       */
       app.post('/auth/register', async (req: Request, res: Response) => {
          try {
             await this.authManager.registerUser(req.body);
@@ -24,7 +31,7 @@ export class AuthRoutes {
       app.post('/auth/login', async (req: Request, res: Response) => {
          try {
             const user = await this.authManager.loginUser(req.body.idToken);
-            req.session.userId = user.id;
+            req.session.firebase_uid = user.firebase_uid;
             req.session.isLoggedIn = true;
             res.sendStatus(200);
          } catch (error) {
