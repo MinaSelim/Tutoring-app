@@ -1,53 +1,18 @@
-import { assert } from 'chai';
-import Database from '../../src/database/database';
-import IUser from '../../src/models/IUser';
-// Use this to practice with local instance
-describe.skip('Local dynamo test', () => {
-  it('Should create table, add user, and get user', () => {
-    let db = new Database();
+import { assert } from "chai";
+import Sinon from "sinon";
+import sinon from "sinon";
+import Dynamo from "../../src/database/dynamo";
 
-    let params = {
-      AttributeDefinitions: [
-        {
-          AttributeName: 'firebase_uid',
-          AttributeType: 'S',
-        },
-      ],
-      KeySchema: [
-        {
-          AttributeName: 'firebase_uid',
-          KeyType: 'HASH',
-        },
-      ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5,
-      },
-      TableName: 'User',
-    };
+describe("Dynamo singleton instance",() => {
 
-    let user: IUser = {
-      id: 'string',
-      name: 'string',
-      email: 'string',
-      firebase_uid: 'string',
-      stripe_customer_id: 'string',
-      is_validated: true,
-    };
+    it('Should return the same instance', ()=> {
+        let spy:Sinon.SinonSpy = sinon.spy(Dynamo, 'getInstance');
 
-    return db
-      .createTable(params)
-      .then(() => {
-        return db.addUserInUserCollection(user);
-      })
-      .then(() => {
-        return db.getUserByFirebaseId('string');
-      }).then((res) => {
-        assert.equal(res.email, user.email)
-        assert.equal(res.is_validated, user.is_validated)
-        assert.equal(res.firebase_uid, user.firebase_uid)
-        assert.equal(res.stripe_customer_id, user.stripe_customer_id)
-        assert.equal(res.name, user.name)
-      });
-  });
+        let instance1 = Dynamo.getInstance();
+        let instance2 = Dynamo.getInstance();
+
+        assert(spy.calledTwice)
+        assert.deepEqual(instance1, instance2);
+        spy.restore();
+    });
 });
