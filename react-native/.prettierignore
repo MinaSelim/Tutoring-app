@@ -1,0 +1,10 @@
+build
+coverage
+android
+ios
+.eslintrc.js
+tsconfig.json
+app.json
+.watchmanconfig
+.huskyrc.js
+index.tsx
