@@ -1,9 +1,8 @@
-import {AppRegistry} from 'react-native';
-import React from 'react';
-import {Component} from 'react';
-import {View, Text} from 'react-native';
+import {AppRegistry, View, Text} from 'react-native';
+import React, {Component} from 'react';
 
 class App extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
