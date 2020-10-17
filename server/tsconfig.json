@@ -1,25 +1,24 @@
 {
-    "compilerOptions": {
-      "allowJs": true,
-      "allowSyntheticDefaultImports":true,
-      "esModuleInterop":true,
-      "isolatedModules":true,
-      "jsx": "react",
-      "lib": ["es6"],
-      "moduleResolution": "node",
-      "noEmit": true,  
-      "target": "esnext",
-      "noImplicitAny": false,
-      "module": "commonjs",
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": true //Might be false for dev environment
-    },
-    "exclude": [
-      "react-native/node_modules",
-      "babel.config.ts",
-      "metro.config.ts",
-      "prettierrc.js",
-      ".eslint.js"
-    ]
-  }
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "build",
+    "baseUrl": "src",
+    "paths": {
+      "*": ["node_modules/*"],
+      "src/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*", "tests/**.test.ts"],
+  "exclude": [
+    "typings/browser.d.ts",
+    "typings/browser",
+    "node_modules",
+    "./tests/",
+    "dist"
+  ]
+}
