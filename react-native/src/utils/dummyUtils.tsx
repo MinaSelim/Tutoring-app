@@ -11,6 +11,7 @@ class DummyUtils extends Component {
     return (
       <View>
         <Text>Hello World!</Text>
+        <Text>arbitrary change for commit test</Text>
       </View>
     );
   }
