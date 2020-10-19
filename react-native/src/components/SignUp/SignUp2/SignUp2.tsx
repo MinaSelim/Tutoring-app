@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import 'react-native-gesture-handler';
+import * as Actions from '../../ActionsTypes';
+import {dispatch} from 'react-redux';
 
 class SignUp2 extends Component {
   
@@ -10,10 +11,17 @@ class SignUp2 extends Component {
   }
   handleStudent = () => {
     this.setState({ userType: "student" })
+    dispatch({
+      type: Actions.SET_USER_TYPE,
+      payload: {userType: this.state.userType}
+    })
   }
   handleTutor = () => {
     this.setState({ userType: "tutor" })
-    //TODO Navigate to next page
+    dispatch({
+      type: Actions.SET_USER_TYPE,
+      payload: {userType: this.state.userType}
+    })
   }
 
   render() {

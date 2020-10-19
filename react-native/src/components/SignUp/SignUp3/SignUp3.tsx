@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground} from 'react-native';
 import 'react-native-gesture-handler';
+import * as Actions from '../../ActionsTypes';
+import {dispatch} from 'react-redux';
 
 class SignUp3 extends Component {
 
+  constructor(props){
+    super(props);
+  
+    this.handleAddUniversity = this.handleAddUniversity.bind(this);
+  }
+
   state = {
-    search: '',
     university: ''
+    }
+
+  handleAddUniversity(){
+      dispatch({
+            type: Actions.SET_UNIVERSITY,
+            payload: {university: this.state.university}
+      })
   }
+
   handleSearch = (text) => {
-    this.setState({ search: text })
+    this.setState({ university: text })
   }
-  handleUniversity = () => {
-    this.state.university = this.state.search;
-  }
+
   finish = () => {
     //Go to Home page
   }
@@ -31,7 +44,7 @@ class SignUp3 extends Component {
                     placeholder="Add University..."
                     style={styles.inputBox}
                     onChangeText = {this.handleSearch}
-                    onSubmitEditing = {this.handleUniversity}
+                    onSubmitEditing = {this.handleAddUniversity}
                     />
                   </View>
               </View>

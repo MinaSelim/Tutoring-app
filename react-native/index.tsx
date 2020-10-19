@@ -1,8 +1,9 @@
 import {AppRegistry, View, Text} from 'react-native';
-import React, {Component} from 'react';
-import SignUp from './src/components/SignUp/SignUp';
-import SignUp2 from './src/components/SignUp/SignUp2';
-import SignUp3 from './src/components/SignUp/SignUp3';
+import React from 'react';
+import {Component} from 'react';
+import SignUp from './src/components/SignUp/SignUp1/SignUp1';
+import SignUp2 from './src/components/SignUp/SignUp2/SignUp2';
+import SignUp3 from './src/components/SignUp/SignUp3/SignUp3';
 import SignIn from './src/components/SignIn/SignIn';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';

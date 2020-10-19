@@ -1,31 +1,69 @@
 import React, { Component } from 'react';
 import {View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import 'react-native-gesture-handler';
+import * as Actions from '../../ActionsTypes';
+import {dispatch} from 'react-redux';
 
 class SignUp extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.saveInfo.bind(this);
+    }
 
     state = {
         firstName: '',
         lastName: '',
         email: '',
         phone: '',
-        password: ''
+        password: '',
      }
+     
      handleFirstName = (text) => {
         this.setState({ firstName: text })
      }
+     
      handleLastName = (text) => {
         this.setState({ lastName: text })
      }
+     
      handleEmail = (text) => {
         this.setState({ email: text })
      }
+     
      handlePhone = (text) => {
         this.setState({ phone: text })
      }
+     
      handlePassword = (text) => {
         this.setState({ password: text })
      }
+     
+     saveInfo() {
+        dispatch({
+            type: Actions.SET_FIRST_NAME,
+            payload: {firstName: this.state.firstName}
+        },
+        {
+            type: Actions.SET_LAST_NAME,
+            payload: {lastName: this.state.lastName}
+        },
+        {
+            type: Actions.SET_EMAIL,
+            payload: {email: this.state.email}
+        },
+        {
+            type: Actions.SET_PHONE,
+            payload: {phone: this.state.phone}
+        },
+        {
+            type: Actions.SET_PASSWORD,
+            payload: {password: this.state.password}
+        }
+        )
+    }
+    
     signInWithGoogle = () => {
         //TODO: Redirect to Google sign-in
     }
@@ -76,7 +114,8 @@ class SignUp extends Component {
                 <TouchableOpacity
                     style = {styles.nextButton}
                     onPress = {
-                        () => {navigation.navigate('SignUp2')}
+                        () => {this.saveInfo()
+                        navigation.navigate('SignUp2')}
                     }>
                     <Text style = {{color: 'white'}}> Next </Text>
                 </TouchableOpacity>
