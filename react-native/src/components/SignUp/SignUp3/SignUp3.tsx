@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground, Image} from 'react-native';
 import 'react-native-gesture-handler';
 import * as Actions from '../../ActionsTypes';
 import {dispatch} from 'react-redux';
@@ -17,10 +17,10 @@ class SignUp3 extends Component {
     }
 
   handleAddUniversity(){
-      dispatch({
-            type: Actions.SET_UNIVERSITY,
-            payload: {university: this.state.university}
-      })
+      // dispatch({
+      //       type: Actions.SET_UNIVERSITY,
+      //       payload: {university: this.state.university}
+      // })
   }
 
   handleSearch = (text) => {
@@ -34,7 +34,11 @@ class SignUp3 extends Component {
   render() {
     const { navigation } = this.props;
       return(
-        <View style={{flex: 1, backgroundColor: '#FFFFFF', justifyContent: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <ImageBackground source={require('../../../assets/images/signUpBackground.png')} style={{width: '100%', height: '100%', position: 'absolute'}}/>
+          <TouchableOpacity style={{position: 'absolute'}} onPress = {() => navigation.goBack()}>
+              <Image source={require('../../../assets/images/backBtn.png')} style={{width:40, height:30, left: 10, top: 10}} />
+          </TouchableOpacity>
           <View style={{flex:0.8, marginBottom: 50, marginLeft: 25, marginRight: 25, justifyContent: 'space-between'}}>
               <Text style={{fontSize: 20, marginLeft: 20}}>Find your campus</Text> 
               <View>

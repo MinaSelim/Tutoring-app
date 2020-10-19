@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert} from 'react-native';
 import 'react-native-gesture-handler';
 import * as Actions from '../../ActionsTypes';
 import {dispatch} from 'react-redux';
@@ -39,29 +39,39 @@ class SignUp extends Component {
      handlePassword = (text) => {
         this.setState({ password: text })
      }
+
+     alertMandatoryFields() {
+        Alert.alert("Fields with * are mandatory");
+     }
      
      saveInfo() {
-        dispatch({
-            type: Actions.SET_FIRST_NAME,
-            payload: {firstName: this.state.firstName}
-        },
-        {
-            type: Actions.SET_LAST_NAME,
-            payload: {lastName: this.state.lastName}
-        },
-        {
-            type: Actions.SET_EMAIL,
-            payload: {email: this.state.email}
-        },
-        {
-            type: Actions.SET_PHONE,
-            payload: {phone: this.state.phone}
-        },
-        {
-            type: Actions.SET_PASSWORD,
-            payload: {password: this.state.password}
-        }
-        )
+         if(this.state.firstName === '' || this.state.lastName === '' || this.state.email === '' || this.state.password === ''){
+             return false;
+         }
+
+        // dispatch({
+        //     type: Actions.SET_FIRST_NAME,
+        //     payload: {firstName: this.state.firstName}
+        // },
+        // {
+        //     type: Actions.SET_LAST_NAME,
+        //     payload: {lastName: this.state.lastName}
+        // },
+        // {
+        //     type: Actions.SET_EMAIL,
+        //     payload: {email: this.state.email}
+        // },
+        // {
+        //     type: Actions.SET_PHONE,
+        //     payload: {phone: this.state.phone}
+        // },
+        // {
+        //     type: Actions.SET_PASSWORD,
+        //     payload: {password: this.state.password}
+        // }
+        // )
+        
+        return true;
     }
     
     signInWithGoogle = () => {
@@ -69,9 +79,13 @@ class SignUp extends Component {
     }
 
     render() {
-        const { navigation } = this.props;
+    const { navigation } = this.props;
       return(
-        <View style={{flex: 1, backgroundColor: '#FFFFFF', alignItems: 'stretch'}}>
+        <View style={{flex: 1, alignItems: 'stretch'}}>
+            <ImageBackground source={require('../../../assets/images/signUpBackground.png')} style={{width: '100%', height: '100%', position: 'absolute'}}/>
+            <TouchableOpacity style={{position: 'absolute'}} onPress = {() => navigation.goBack()}>
+                <Image source={require('../../../assets/images/backBtn.png')} style={{width:40, height:30, left: 10, top: 10}} />
+            </TouchableOpacity>
             <View style={{flex: 0.3, justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{fontSize: 36, fontWeight: 'bold'}}>
                     Sign up
@@ -79,34 +93,40 @@ class SignUp extends Component {
             </View>
             <View style={{flex: 1}}>
                 <View style={styles.inputSection}>
-                    <Text style={[styles.text]}>
-                        First Name <Text style={[styles.star]}>*</Text>
-                    </Text>
-                    <TextInput style={styles.inputBox} onChangeText = {this.handleFirstName}/>
+                    <Text style={[styles.star]}>*</Text> 
+                    <TextInput style={styles.inputBox} 
+                    placeholder = "First Name"
+                    placeholderTextColor = "#8B9CB3"
+                    onChangeText = {this.handleFirstName}/>
                 </View>
                 <View style={styles.inputSection}>
-                    <Text style={[styles.text]}>
-                        Last Name <Text style={[styles.star]}>*</Text>
-                    </Text>
-                    <TextInput style={styles.inputBox} onChangeText = {this.handleLastName}/>
+                    <Text style={[styles.star]}>*</Text> 
+                    <TextInput style={styles.inputBox} 
+                    placeholder = "Last Name"
+                    placeholderTextColor = "#8B9CB3"
+                    onChangeText = {this.handleLastName}/>
                 </View>
                 <View style={styles.inputSection}>
-                    <Text style={[styles.text]}>
-                        Email <Text style={[styles.star]}>*</Text>
-                    </Text>
-                    <TextInput style={styles.inputBox} onChangeText = {this.handleEmail}/>
+                    <Text style={[styles.star]}>*</Text> 
+                    <TextInput style={styles.inputBox}
+                    placeholder = "Email"
+                    placeholderTextColor = "#8B9CB3"
+                    onChangeText = {this.handleEmail}/>
                 </View>
                 <View style={styles.inputSection}>
-                    <Text style={[styles.text]}>
-                        Phone <Text style={[styles.star]}>*</Text>
-                    </Text>
-                    <TextInput style={styles.inputBox} onChangeText = {this.handlePhone}/>
+                    <Text style={[styles.star]}>*</Text> 
+                    <TextInput style={styles.inputBox} 
+                    placeholder = "Phone"
+                    placeholderTextColor = "#8B9CB3"
+                    onChangeText = {this.handlePhone}/>
                 </View>
                 <View style={styles.inputSection}>
-                <Text style={[styles.text]}>
-                        Password <Text style={[styles.star]}>*</Text>
-                    </Text>
-                    <TextInput style={styles.inputBox} onChangeText = {this.handlePassword}/>
+                    <Text style={[styles.star]}>*</Text> 
+                    <TextInput style={styles.inputBox} 
+                    placeholder = "Password"
+                    secureTextEntry={true}
+                    placeholderTextColor = "#8B9CB3"
+                    onChangeText = {this.handlePassword}/>
                 </View>
             </View>
             <View style={{flex: 0.5, marginLeft: '5%', marginRight: '5%', 
@@ -114,16 +134,17 @@ class SignUp extends Component {
                 <TouchableOpacity
                     style = {styles.nextButton}
                     onPress = {
-                        () => {this.saveInfo()
-                        navigation.navigate('SignUp2')}
+                        () => {this.saveInfo() ? navigation.navigate('SignUp2') : this.alertMandatoryFields()}
                     }>
                     <Text style = {{color: 'white'}}> Next </Text>
+                    <Image source={require('../../../assets/images/nextArrow.png')} style={styles.nextArrow}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style = {styles.signInWithGoogleButton}
                     onPress = {
                         () => this.signInWithGoogle()
                     }>
+                    <Image source={require('../../../assets/images/googleIcon.png')} style={styles.googleIcon}/>
                     <Text style = {{color: '#8B9CB3'}}> Sign in with Google </Text>
                 </TouchableOpacity>
                 <Text style={styles.footer}>go.study</Text> 
@@ -139,38 +160,54 @@ const styles = StyleSheet.create({
         color: '#8B9CB3'
     },
     star: {
-        color: '#E86D2C'
+        color: '#E86D2C',
+        fontWeight: 'bold',
     },
     inputSection: {
         flex: 1, 
         marginLeft: '5%', 
         marginRight: '5%',
+        flexDirection: 'row'
     },
     inputBox: {
         borderColor: '#979797', 
         borderBottomWidth: 1, 
         width: '100%', 
-        height: 30
+        height: 40, 
+        fontSize: 18,
+        color: 'black'
     },
     nextButton: {
-        backgroundColor: '#F1AA3E',
+        backgroundColor: '#F0793A',
         margin: 5,
         height: 50,
         width: '85%',
         borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
     },
+    nextArrow: {
+        width:20, 
+        height: 12, 
+        marginLeft: 5,
+   },
     signInWithGoogleButton: {
         backgroundColor: '#F1F3F8',
         margin: 5,
         marginBottom: 10,
         height: 50,
         width: '85%',
-        borderRadius: 30,
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
+   googleIcon:{
+        width:20, 
+        height: 22, 
+        position:'absolute',
+         left: 25
+   },
     footer: {
         alignSelf: 'center', 
         color: '#E9EAEE', 

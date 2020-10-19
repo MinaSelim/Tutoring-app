@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Alert} from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ImageBackground, Alert} from 'react-native'
 import Login from '../../api/authentication/login'
 import 'react-native-gesture-handler';
 import * as Actions from '../ActionsTypes';
@@ -14,27 +14,38 @@ class SignIn extends Component {
    } 
     
     state = {
-      username: '',
+      email: '',
       password: '',
    }
 
-   handleUsername = (text) => {
-      this.setState({ username: text })
+   handleEmail = (text) => {
+      this.setState({ email: text })
    }
+
    handlePassword = (text) => {
       this.setState({ password: text })
    }
-   signIn = () => {
-    dispatch({
-        type: Actions.SET_USERNAME,
-        payload: {inputUsername: this.state.username}
-    },
-    {
-        type: Actions.SET_USERNAME,
-        payload: {inputPassword: this.state.password}
+
+   alertMandatoryFields() {
+    Alert.alert("Please fill the required information before proceeding.");
     }
-    ) 
-      //TODO: Redirect to App
+
+   signIn = () => {
+    if(this.state.email === '' || this.state.password === ''){
+        return false;
+    }
+
+    // dispatch({
+    //     type: Actions.SET_INPUT_EMAIL,
+    //     payload: {inputEmail: this.state.email}
+    // },
+    // {
+    //     type: Actions.SET_INPUT_PASSWORD,
+    //     payload: {inputPassword: this.state.password}
+    // }
+    // ) 
+
+    return true;
    }
    forgotPassword = () => {
     //TODO: Redirect to forgot password page
@@ -47,9 +58,12 @@ class SignIn extends Component {
     const { navigation } = this.props;
       return (
         <View style={{flex:1}}>
-            <Text style = {styles.title}>go.study</Text>
 
-            <Image style={{position: 'absolute'}} source={require('../../assets/images/backBtn.png')} />
+            <ImageBackground source={require('../../assets/images/signInBackground1.png')} style={styles.background}/>
+
+            <View style={{position: "absolute", top: 0, right: 0, height: 75, width:200, marginTop: 10, marginRight: 10}}>
+                <Image source={require('../../assets/images/logo.png')} style = {styles.title}/>
+            </View>
 
             <View style = {styles.container}>
 
@@ -58,28 +72,41 @@ class SignIn extends Component {
 
                     <Text style={styles.signInToContinue}>Sign in to continue</Text>
 
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "username"
-                    placeholderTextColor = "#8B9CB3"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleUsername}/>
-
-                    <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "password"
-                    placeholderTextColor = "#8B9CB3"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handlePassword}/>
+                    <View style={{flexDirection: 'row', margin: 15}}>
+                        <View style ={styles.iconBox}>
+                            <Image source={require('../../assets/images/user.png')} style = {styles.icon}/>
+                        </View>
+                        <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "email"
+                        placeholderTextColor = "#8B9CB3"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handleEmail}/>
+                    </View>
+                    
+                    <View style={{flexDirection: 'row', margin: 15}}>
+                        <View style ={styles.iconBox}>
+                            <Image source={require('../../assets/images/lock.png')} style = {styles.icon}/>
+                        </View>
+                        <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "password"
+                        secureTextEntry={true}
+                        placeholderTextColor = "#8B9CB3"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handlePassword}/> 
+                    </View>
+                    
                 </View>
 
                 <View style={{alignItems: 'center'}}>
-                    <TouchableOpacity
+                    <TouchableOpacity 
                     style = {styles.signInButton}
                     onPress = {
-                        () => this.signIn()
+                        () => {this.signIn() ? navigation.navigate('') : this.alertMandatoryFields()}
                     }>
                     <Text style = {{color: 'white'}}> Sign In </Text>
+                    <Image source={require('../../assets/images/nextArrow.png')} style={styles.nextArrow}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -103,6 +130,7 @@ class SignIn extends Component {
                     onPress = {
                         () => this.signInWithGoogle()
                     }>
+                    <Image source={require('../../assets/images/googleIcon.png')} style={styles.googleIcon}/>
                     <Text style = {{color: '#8B9CB3'}}> Sign in with Google </Text>
                     </TouchableOpacity>
                 </View>
@@ -114,6 +142,11 @@ class SignIn extends Component {
 export default SignIn
 
 const styles = StyleSheet.create({
+
+    background:{
+        width: '100%', 
+        height: '100%'
+    },
    container: {
         position: "absolute",
         bottom: 0,
@@ -121,11 +154,8 @@ const styles = StyleSheet.create({
         width: '100%',
    },
    title: {
-        position: "absolute",
-        top: 10,
-        right: 30,
-        fontSize: 30,
-        fontWeight: 'bold'
+        width: '100%', 
+        height: '100%'
    },
    welcome: {
         fontSize: 30,
@@ -133,16 +163,31 @@ const styles = StyleSheet.create({
         marginBottom: 18,
         marginLeft: 20
    },
+   icon: {
+        width: '60%', 
+        height: '50%',
+        alignSelf: 'center',
+   },
+   iconBox: {
+        backgroundColor:'#FCEED9', 
+        height: 40, 
+        width: 32, 
+        borderRadius:10, 
+        justifyContent: 'center'
+   },
    signInToContinue:{
         fontSize:20,
         marginBottom: 28,
         marginLeft: 20
    },
    input: {
-        margin: 15,
         height: 40,
         borderColor: '#8B9CB3',
-        borderBottomWidth: 1
+        borderBottomWidth: 0.75,
+        width: '100%',
+        marginLeft: 15,
+        fontSize: 18,
+        color: 'black'
    },
    signInButton: {
         backgroundColor: '#F0793A',
@@ -151,7 +196,13 @@ const styles = StyleSheet.create({
         width: '85%',
         borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
+   },
+   nextArrow: {
+        width:20, 
+        height: 12, 
+        marginLeft: 5
    },
    forgotPasswordButton:{
         margin: 5,
@@ -162,7 +213,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
    },
    createAnAccountButton:{
-        backgroundColor: '#F2AB40',
+        backgroundColor: '#FCEED9',
         margin: 5,
         height: 50,
         width: '85%',
@@ -176,8 +227,15 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         height: 50,
         width: '85%',
-        borderRadius: 30,
+        borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
+   },
+   googleIcon:{
+        width:20, 
+        height: 22, 
+        position:'absolute',
+         left: 25
    }
 })

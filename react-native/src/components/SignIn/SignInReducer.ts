@@ -1,15 +1,15 @@
 import * as Actions from '../ActionsTypes';
 
 const initialState = {
-    inputUsername: '',
+    inputEmail: '',
     inputPassword: ''
 }
 
 export default function SignInReducer(initialState, action){
     switch(action.type){
-        case Actions.SET_INPUT_USERNAME:
+        case Actions.SET_INPUT_EMAIL:
             return{
-                inputUsername: initialState.inputUsername
+                inputEmail: initialState.inputEmail
             };
         case Actions.SET_INPUT_PASSWORD:
             return{
