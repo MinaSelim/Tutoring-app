@@ -11,7 +11,7 @@ class Dynamo {
     * The Singleton's constructor.
     */
    private constructor() {
-      AWS.config.update({ region: config.aws.region });
+      AWS.config.update({ region: config.aws.REGION });
    }
 
    /**
@@ -20,7 +20,7 @@ class Dynamo {
     */
    public static getInstance(): AWS.DynamoDB {
       if (!Dynamo.instance) {
-         Dynamo.instance = new AWS.DynamoDB({ apiVersion: config.aws.apiVersion, endpoint: config.aws.endpoint });
+         Dynamo.instance = new AWS.DynamoDB({ apiVersion: config.aws.APIVERSION, endpoint: config.aws.ENDPOINT });
       }
       return Dynamo.instance;
    }

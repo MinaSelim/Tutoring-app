@@ -10,6 +10,7 @@ import {
 import Dynamo from './dynamo';
 import { v4 as uuidv4 } from 'uuid';
 import { AWSError } from 'aws-sdk';
+import * as config from './config.json';
 
 export default class Database {
    /**
@@ -48,7 +49,7 @@ export default class Database {
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
-         TableName: 'User',
+         TableName: config.tableNames.USER,
       };
       return this.putItem(params);
    };
@@ -64,7 +65,7 @@ export default class Database {
                S: id,
             },
          },
-         TableName: 'User',
+         TableName: config.tableNames.USER,
       };
       return this.getItem(params).then(
          (data: GetItemOutput): Promise<IUser> => {
