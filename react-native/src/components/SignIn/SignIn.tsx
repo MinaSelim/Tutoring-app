@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Alert} from 'react-native'
 import Login from '../../api/authentication/login'
 import 'react-native-gesture-handler';
+import * as Actions from '../ActionsTypes';
+import {dispatch} from 'react-redux';
 
 class SignIn extends Component {
 
@@ -14,17 +16,24 @@ class SignIn extends Component {
     state = {
       username: '',
       password: '',
-      login: ''
    }
+
    handleUsername = (text) => {
       this.setState({ username: text })
    }
    handlePassword = (text) => {
       this.setState({ password: text })
    }
-   signIn = (username, password) => {
-      Alert.alert('username: ' + username + ' password: ' + password)
-      //TODO: Manage states
+   signIn = () => {
+    dispatch({
+        type: Actions.SET_USERNAME,
+        payload: {inputUsername: this.state.username}
+    },
+    {
+        type: Actions.SET_USERNAME,
+        payload: {inputPassword: this.state.password}
+    }
+    ) 
       //TODO: Redirect to App
    }
    forgotPassword = () => {
@@ -39,6 +48,8 @@ class SignIn extends Component {
       return (
         <View style={{flex:1}}>
             <Text style = {styles.title}>go.study</Text>
+
+            <Image style={{position: 'absolute'}} source={require('../../assets/images/backBtn.png')} />
 
             <View style = {styles.container}>
 
@@ -66,7 +77,7 @@ class SignIn extends Component {
                     <TouchableOpacity
                     style = {styles.signInButton}
                     onPress = {
-                        () => this.signIn(this.state.username, this.state.password)
+                        () => this.signIn()
                     }>
                     <Text style = {{color: 'white'}}> Sign In </Text>
                     </TouchableOpacity>
