@@ -1,18 +1,17 @@
-import { assert } from "chai";
-import Sinon from "sinon";
-import sinon from "sinon";
-import Dynamo from "../../src/database/dynamo";
+import { assert } from 'chai';
+import Sinon from 'sinon';
+import sinon from 'sinon';
+import Dynamo from '../../src/database/dynamo';
 
-describe("Dynamo singleton instance",() => {
+describe('Dynamo singleton instance', () => {
+   it('Should return the same instance', () => {
+      const spy: Sinon.SinonSpy = sinon.spy(Dynamo, 'getInstance');
 
-    it('Should return the same instance', ()=> {
-        let spy:Sinon.SinonSpy = sinon.spy(Dynamo, 'getInstance');
+      const instance1 = Dynamo.getInstance();
+      const instance2 = Dynamo.getInstance();
 
-        let instance1 = Dynamo.getInstance();
-        let instance2 = Dynamo.getInstance();
-
-        assert(spy.calledTwice)
-        assert.deepEqual(instance1, instance2);
-        spy.restore();
-    });
+      assert(spy.calledTwice);
+      assert.deepEqual(instance1, instance2);
+      spy.restore();
+   });
 });

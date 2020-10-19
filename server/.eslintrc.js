@@ -1,25 +1,21 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  rules: {
-    "@typescript-eslint/explicit-function-return-type": 0
-  },
+   parser: '@typescript-eslint/parser',
+   extends: ['plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
+   parserOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module',
+   },
+   rules: {
+      '@typescript-eslint/explicit-function-return-type': 0,
+   },
 
-  overrides: [
-    {
-      files: ["dist/**/*.js", "dist/*.js"],
-      excludedFiles: "*.test.js",
-      rules: {
-        quotes: ["error", "single"]
-      }
-    }
-  ]
+   overrides: [
+      {
+         files: ['dist/**/*.js', 'dist/*.js'],
+         excludedFiles: '*.test.js',
+         rules: {
+            quotes: ['error', 'single'],
+         },
+      },
+   ],
 };

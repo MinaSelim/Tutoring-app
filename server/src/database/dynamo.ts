@@ -1,28 +1,29 @@
 import AWS from 'aws-sdk';
+import * as config from './config.json';
 
 /**
  * The singleton class that manages the dynamo db API
  */
 class Dynamo {
-  private static instance: AWS.DynamoDB;
+   private static instance: AWS.DynamoDB;
 
-  /**
-   * The Singleton's constructor.
-   */
-  private constructor() {}
+   /**
+    * The Singleton's constructor.
+    */
+   private constructor() {
+      AWS.config.update({ region: config.aws.region });
+   }
 
-  /**
-   * Function that returns the instance of the database to use.
-   * @returns An instance of the dynamo DB api.
-   */
-  public static getInstance(): AWS.DynamoDB {
-    if (!Dynamo.instance) {
-        AWS.config.update({region: 'local'});
-        Dynamo.instance = new AWS.DynamoDB({apiVersion: '2012-08-10', endpoint: 'http://localhost:8000'});
-    }
-    return Dynamo.instance;
-  }
-
+   /**
+    * Function that returns the instance of the database to use.
+    * @returns An instance of the dynamo DB api.
+    */
+   public static getInstance(): AWS.DynamoDB {
+      if (!Dynamo.instance) {
+         Dynamo.instance = new AWS.DynamoDB({ apiVersion: config.aws.apiVersion, endpoint: config.aws.endpoint });
+      }
+      return Dynamo.instance;
+   }
 }
 
 export default Dynamo;

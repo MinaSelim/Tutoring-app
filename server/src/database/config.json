@@ -1,0 +1,7 @@
+{
+   "aws": {
+      "region": "local",
+      "apiVersion": "2012-08-10",
+      "endpoint": "http://localhost:8000"
+   }
+}
