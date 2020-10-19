@@ -1,4 +1,4 @@
-export const SET_INPUT_USERNAME = "set_input_username";
+export const SET_INPUT_EMAIL = "set_input_email";
 export const SET_INPUT_PASSWORD = "set_input_password";
 export const SET_PASSWORD = "set_password";
 export const SET_FIRST_NAME = "set_first_name";

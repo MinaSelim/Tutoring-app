@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import SignIn from './SignIn';
 
 const mapStateToProps = (state) => ({
-    inputUsername: state.SignInReducer.inputUsername,
+    inputEmail: state.SignInReducer.inputEmail,
     inputPassword: state.SignInReducer.inputPassword
 });
 
