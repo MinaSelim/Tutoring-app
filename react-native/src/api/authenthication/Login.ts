@@ -1,7 +1,7 @@
-import fire from './Fire';
 import {auth} from 'firebase';
-import IUserLogin from '../../model/IUserLogin';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
+import fire from './Fire';
+import IUserLogin from '../../model/IUserLogin';
 
 /**
  * this class provides api abstraction for firebase
@@ -32,7 +32,7 @@ export default class Login {
     const user = this.auth.currentUser;
     const token = user && (await user.getIdToken());
 
-    const res = await fetch(SERVER_LINK + '/auth/login', {
+    const res = await fetch(`${SERVER_LINK}/auth/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
