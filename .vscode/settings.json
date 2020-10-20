@@ -1,5 +1,0 @@
-{
-    "eslint.lintTask.options": ". --ext .js,.jsx,.ts,.ts,./src",
-    "editor.tabSize": 2,
-    "editor.formatOnSave": true
-}
