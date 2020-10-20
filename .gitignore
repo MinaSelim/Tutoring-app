@@ -1,1 +1,4 @@
 .DS_Store
+.scannerwork/css-bundle
+.scannerwork/.sonar_lock
+
