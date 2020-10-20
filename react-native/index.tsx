@@ -10,9 +10,10 @@ class App extends Component {
   render() {
     return (
       <View>
-        <Text>Hello World!</Text>
+        <Text>Hello World</Text>
       </View>
     );
   }
 }
+
 AppRegistry.registerComponent('GoStudy', () => App);

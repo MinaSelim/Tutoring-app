@@ -1,8 +1,8 @@
-import {AppRegistry, View, Text} from 'react-native';
-import React, {Component} from 'react';
+import React from 'react';
+import {Component} from 'react';
+import {View, Text} from 'react-native';
 
 class DummyUtils extends Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
