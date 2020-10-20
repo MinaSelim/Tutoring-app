@@ -21,7 +21,6 @@ describe('Database test', () => {
    let dynamo: AWS.DynamoDB;
 
    const user: IUser = {
-      id: 'string',
       name: 'string',
       email: 'string',
       firebase_uid: 'string',
@@ -30,7 +29,6 @@ describe('Database test', () => {
    };
 
    const userNoStripe: IUser = {
-      id: 'string',
       name: 'string',
       email: 'string',
       firebase_uid: 'string',
@@ -38,7 +36,6 @@ describe('Database test', () => {
    };
 
    const userNoValid: IUser = {
-      id: 'string',
       name: 'string',
       email: 'string',
       firebase_uid: 'string',

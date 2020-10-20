@@ -27,7 +27,6 @@ describe('Local dynamo test', () => {
       };
 
       const user: IUser = {
-         id: 'string',
          name: 'string',
          email: 'string',
          firebase_uid: 'string',

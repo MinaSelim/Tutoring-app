@@ -8,7 +8,6 @@ import {
    PutItemOutput,
 } from 'aws-sdk/clients/dynamodb';
 import Dynamo from './dynamo';
-import { v4 as uuidv4 } from 'uuid';
 import { AWSError } from 'aws-sdk';
 import * as config from './config.json';
 
@@ -70,7 +69,6 @@ export default class Database {
       return this.getItem(params).then(
          (data: GetItemOutput): Promise<IUser> => {
             const user: IUser = {
-               id: uuidv4(),
                email: data.Item.email.S,
                is_validated: data.Item.email_validation.BOOL,
                firebase_uid: data.Item.firebase_uid.S,
