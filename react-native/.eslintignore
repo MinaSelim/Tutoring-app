@@ -3,5 +3,3 @@
 /docs/**
 /jsdoc/**
 /tools/internal-rules/node_modules/**
-.eslintrc.js
-index.tsx

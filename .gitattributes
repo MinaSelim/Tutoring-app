@@ -1,5 +1,5 @@
 # Set the default behavior, in case people don’t have core.autocrlf set.
-* text=auto
+*text=auto eol=lf;
 
 # Declare files that will always have LF line endings on checkout.
 *.js text eol=lf
