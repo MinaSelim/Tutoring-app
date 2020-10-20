@@ -1,9 +1,17 @@
-.DS_Store
+# SonnarScanner
 .scannerwork/css-bundle
 .scannerwork/.sonar_lock
+
+# Node modules
 react-native/node_modules
 server/node_modules
-.idea
+
+# Environment variables
+*.env
+.env.development
+
+# Firebase
+react-native/Fire.ts
 
 # Xcode
 !**/*.xcodeproj
