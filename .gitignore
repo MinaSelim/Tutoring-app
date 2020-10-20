@@ -1,4 +1,8 @@
 .DS_Store
 .scannerwork/css-bundle
 .scannerwork/.sonar_lock
+react-native/node_modules
+server/node_modules
+
+
 
