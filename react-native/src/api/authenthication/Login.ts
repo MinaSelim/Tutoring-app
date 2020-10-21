@@ -1,3 +1,7 @@
+/* eslint-disable no-return-await */
+/* eslint-disable no-shadow */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import {auth} from 'firebase';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
 import fire from './Fire';
