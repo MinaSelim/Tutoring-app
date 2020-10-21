@@ -6,3 +6,5 @@ tsconfig.json
 app.json
 .watchmanconfig
 .huskyrc.js
+# Temporary ignore until files are implemented
+react-native/src/api/authentication/Login.ts
