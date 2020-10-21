@@ -1,24 +1,46 @@
 import React, { Component } from 'react';
 import {View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert} from 'react-native';
 import 'react-native-gesture-handler';
-import * as Actions from '../../ActionsTypes';
-import {dispatch} from 'react-redux';
+import {NavigationInjectedProps} from 'react-navigation';
 
-class SignUp extends Component {
+interface IProps {
+    firstName: string, 
+    lastName: string,
+    email: string,
+    phone: string,
+    password: string,
+    navigation: NavigationInjectedProps
+}
+
+interface IState {
+    firstName: string, 
+    lastName: string,
+    email: string,
+    phone: string,
+    password: string,
+}
+
+class SignUp extends Component<IProps, IState> {
 
     constructor(props){
         super(props);
 
-        this.saveInfo.bind(this);
-    }
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            password: '',
+         }
 
-    state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        password: '',
-     }
+        this.saveInfo = this.saveInfo.bind(this);
+        this.handleFirstName = this.handleFirstName.bind(this);
+        this.handleLastName = this.handleLastName.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePhone = this.handlePhone.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.alertMandatoryFields = this.alertMandatoryFields.bind(this);
+    }
      
      handleFirstName = (text) => {
         this.setState({ firstName: text })
@@ -41,36 +63,14 @@ class SignUp extends Component {
      }
 
      alertMandatoryFields() {
-        Alert.alert("Fields with * are mandatory");
+        Alert.alert("Fields with * are mandatory.");
      }
      
      saveInfo() {
          if(this.state.firstName === '' || this.state.lastName === '' || this.state.email === '' || this.state.password === ''){
              return false;
          }
-
-        // dispatch({
-        //     type: Actions.SET_FIRST_NAME,
-        //     payload: {firstName: this.state.firstName}
-        // },
-        // {
-        //     type: Actions.SET_LAST_NAME,
-        //     payload: {lastName: this.state.lastName}
-        // },
-        // {
-        //     type: Actions.SET_EMAIL,
-        //     payload: {email: this.state.email}
-        // },
-        // {
-        //     type: Actions.SET_PHONE,
-        //     payload: {phone: this.state.phone}
-        // },
-        // {
-        //     type: Actions.SET_PASSWORD,
-        //     payload: {password: this.state.password}
-        // }
-        // )
-        
+        //TODO send info to node.js
         return true;
     }
     
@@ -79,11 +79,10 @@ class SignUp extends Component {
     }
 
     render() {
-    const { navigation } = this.props;
       return(
         <View style={{flex: 1, alignItems: 'stretch'}}>
             <ImageBackground source={require('../../../assets/images/signUpBackground.png')} style={{width: '100%', height: '100%', position: 'absolute'}}/>
-            <TouchableOpacity style={{position: 'absolute'}} onPress = {() => navigation.goBack()}>
+            <TouchableOpacity style={{position: 'absolute'}} onPress = {() => this.props.navigation.goBack()}>
                 <Image source={require('../../../assets/images/backBtn.png')} style={{width:40, height:30, left: 10, top: 10}} />
             </TouchableOpacity>
             <View style={{flex: 0.3, justifyContent: 'center', alignItems: 'center'}}>
@@ -114,9 +113,8 @@ class SignUp extends Component {
                     onChangeText = {this.handleEmail}/>
                 </View>
                 <View style={styles.inputSection}>
-                    <Text style={[styles.star]}>*</Text> 
                     <TextInput style={styles.inputBox} 
-                    placeholder = "Phone"
+                    placeholder = " Phone"
                     placeholderTextColor = "#8B9CB3"
                     onChangeText = {this.handlePhone}/>
                 </View>
@@ -134,7 +132,7 @@ class SignUp extends Component {
                 <TouchableOpacity
                     style = {styles.nextButton}
                     onPress = {
-                        () => {this.saveInfo() ? navigation.navigate('SignUp2') : this.alertMandatoryFields()}
+                        () => {this.saveInfo() ? this.props.navigation.navigate('SignUp2') : this.alertMandatoryFields()}
                     }>
                     <Text style = {{color: 'white'}}> Next </Text>
                     <Image source={require('../../../assets/images/nextArrow.png')} style={styles.nextArrow}/>

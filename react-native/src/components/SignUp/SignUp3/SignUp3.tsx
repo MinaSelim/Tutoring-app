@@ -1,48 +1,76 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground, Image} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, TextInput, ImageBackground, Image, Alert} from 'react-native';
 import 'react-native-gesture-handler';
-import * as Actions from '../../ActionsTypes';
-import {dispatch} from 'react-redux';
+import {NavigationInjectedProps} from 'react-navigation';
 
-class SignUp3 extends Component {
+interface IProps {
+  university: string,
+  navigation: NavigationInjectedProps
+}
+
+interface IState {
+  university: string
+}
+
+class SignUp3 extends Component<IProps, IState> {
 
   constructor(props){
     super(props);
+
+    this.state = {
+      university: 'Find your campus'
+      }
   
     this.handleAddUniversity = this.handleAddUniversity.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.isUniversitySelected = this.isUniversitySelected.bind(this);
+    this.finish = this.finish.bind(this);
   }
 
-  state = {
-    university: ''
-    }
-
   handleAddUniversity(){
-      // dispatch({
-      //       type: Actions.SET_UNIVERSITY,
-      //       payload: {university: this.state.university}
-      // })
+      //send info to node.js
   }
 
   handleSearch = (text) => {
     this.setState({ university: text })
+
+    if(text==='')
+      this.setState({ university: 'Find your campus' })
+  }
+
+  isUniversitySelected(){
+    if(this.state.university==='Find your campus')
+      return false;
+    else
+      return true;
+  }
+
+  alertMandatoryField(){
+    Alert.alert("Please select a campus first.");
   }
 
   finish = () => {
-    //Go to Home page
+    if(this.isUniversitySelected){
+      this.handleAddUniversity();
+      return true;
+    }
+    else
+      return false;
   }
 
   render() {
-    const { navigation } = this.props;
       return(
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ImageBackground source={require('../../../assets/images/signUpBackground.png')} style={{width: '100%', height: '100%', position: 'absolute'}}/>
-          <TouchableOpacity style={{position: 'absolute'}} onPress = {() => navigation.goBack()}>
-              <Image source={require('../../../assets/images/backBtn.png')} style={{width:40, height:30, left: 10, top: 10}} />
+          <TouchableOpacity style={{position: 'absolute', top: 10}} onPress = {() => this.props.navigation.goBack()}>
+              <Image source={require('../../../assets/images/backBtn.png')} style={{width:40, height:30, left: 10, top: 3}} />
           </TouchableOpacity>
-          <View style={{flex:0.8, marginBottom: 50, marginLeft: 25, marginRight: 25, justifyContent: 'space-between'}}>
-              <Text style={{fontSize: 20, marginLeft: 20}}>Find your campus</Text> 
-              <View>
-                  <Text style={{alignSelf:'center'}}>{this.state.university}</Text>
+          <View style={{flex:1, marginBottom: 50, marginLeft: 25, marginRight: 25, justifyContent: 'space-between'}}>
+              <Text style={{fontSize: 20, marginLeft: 20, marginTop: 70}}>Select your campus</Text> 
+              <View style={{justifyContent:'space-between', height: 200, marginBottom: 100}}>
+                <Image source={require('../../../assets/images/university.png')} style={[{alignSelf: 'center'}, this.isUniversitySelected() ?
+                  { opacity: 1 } : { opacity: 0.25 }]}/> 
+                  <Text style={{alignSelf:'center', fontSize: 22}}>{this.state.university}</Text>
                   <View>
                     <TextInput
                     placeholder="Add University..."
@@ -55,7 +83,7 @@ class SignUp3 extends Component {
               <TouchableOpacity
                 style = {styles.finishButton}
                 onPress = {
-                    () => this.finish()
+                    () => this.finish() ? this.props.navigation.navigate('') : this.alertMandatoryField()
                 }>
                 <Text style = {{color: 'white'}}> Finish </Text>
               </TouchableOpacity>
@@ -68,15 +96,15 @@ class SignUp3 extends Component {
 
 const styles = StyleSheet.create({   
   inputBox: {
-    borderColor: '#F2AC41', 
+    borderColor: '#F0793A', 
     borderWidth: 2, 
     borderRadius: 9,
     width: '90%', 
-    height: 30,
-    alignSelf: 'center'
+    height: 40,
+    alignSelf: 'center',
   },
   finishButton: {
-    backgroundColor: '#F1AA3E',
+    backgroundColor: '#F0793A',
     margin: 5,
     height: 50,
     width: '75%',
@@ -98,6 +126,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute'
+  },
+  icon: {
+    width:20,
+    height: 20,
   }
   })
 
