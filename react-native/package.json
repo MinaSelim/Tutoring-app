@@ -58,7 +58,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,/src,js,jsx,ts,ts,/src}": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,jsx,ts,tsx,/src,js,jsx,ts,ts,/src}": "eslint --cache --ignore-path .react-native/.eslintignore . --fix",
+    "*.{js,css,md}": "prettier -ignore-path .react-native/.prettierignore . --write"
   }
 }
