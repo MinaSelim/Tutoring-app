@@ -1,37 +1,45 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image} from 'react-native';
 import 'react-native-gesture-handler';
-import * as Actions from '../../ActionsTypes';
-import {dispatch} from 'react-redux';
+import {NavigationInjectedProps} from 'react-navigation';
 
-class SignUp2 extends Component {
+interface IProps {
+  userType: string,
+  navigation: NavigationInjectedProps
+}
+
+interface IState {
+  userType: string
+}
+
+class SignUp2 extends Component<IProps, IState> {
   
-  state = {
-    userType: ''
+  constructor(props){
+    super(props);
+
+    this.state = {
+        userType: ''
+     }
+
+     this.handleStudent = this.handleStudent.bind(this);
+     this.handleTutor = this.handleTutor.bind(this);
   }
+
   handleStudent = () => {
-    this.setState({ userType: "student" })
-    // dispatch({
-    //   type: Actions.SET_USER_TYPE,
-    //   payload: {userType: this.state.userType}
-    // })
+    this.setState({ userType: 'Student' })
+    //Send info to node.js
   }
-  handleTutor = () => {
-    // this.setState({ userType: "tutor" })
-    // dispatch({
-    //   type: Actions.SET_USER_TYPE,
-    //   payload: {userType: this.state.userType}
-    // })
-  }
+
+ handleTutor = () => {
+  this.setState({ userType: 'Tutor' })
+  //Send info to node.js
+ }
 
   render() {
-
-    const { navigation } = this.props;
-
       return(
         <View style={{flex: 1}}>
           <ImageBackground source={require('../../../assets/images/signUpBackground.png')} style={{width: '100%', height: '100%', position: 'absolute'}}/>
-          <TouchableOpacity style={{position: 'absolute'}} onPress = {() => navigation.goBack()}>
+          <TouchableOpacity style={{position: 'absolute'}} onPress = {() => this.props.navigation.goBack()}>
                 <Image source={require('../../../assets/images/backBtn.png')} style={{width:40, height:30, left: 10, top: 10}} />
           </TouchableOpacity>
           <View style={{height:170, marginBottom: 50, justifyContent: 'space-between', width: '100%', marginTop: '50%'}}>
@@ -40,7 +48,7 @@ class SignUp2 extends Component {
                   style = {styles.student}
                   onPress = {
                     () => {this.handleStudent()
-                      navigation.navigate('SignUp3')}
+                      this.props.navigation.navigate('SignUp3')}
                   }>
                   <Text style = {{color: 'white'}}> Student </Text>
               </TouchableOpacity>
@@ -48,7 +56,7 @@ class SignUp2 extends Component {
                   style = {styles.tutor}
                   onPress = {
                       () => {this.handleTutor()
-                      navigation.navigate('SignUp3')}
+                      this.props.navigation.navigate('SignUp3')}
                   }>
                   <Text style = {{color: 'white'}}> Tutor </Text>
               </TouchableOpacity>

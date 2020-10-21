@@ -1,23 +1,40 @@
-import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ImageBackground, Alert} from 'react-native'
-import Login from '../../api/authentication/login'
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ImageBackground, Alert} from 'react-native';
+import Login from '../../api/authentication/login';
 import 'react-native-gesture-handler';
-import * as Actions from '../ActionsTypes';
-import {dispatch} from 'react-redux';
+import {NavigationInjectedProps} from 'react-navigation';
 
-class SignIn extends Component {
+interface IProps {
+    email: string, 
+    password: string,
+    navigation: NavigationInjectedProps
+}
+
+interface IState {
+    email: string, 
+    password: string
+}
+
+class SignIn extends Component<IProps, IState> {
 
     private login: Login;
 
     constructor(props){
         super(props);
-   } 
-    
-    state = {
-      email: '',
-      password: '',
-   }
 
+        this.state = {
+        email: '',
+        password: '',
+        }
+
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.alertMandatoryFields = this.alertMandatoryFields.bind(this);
+        this.signIn = this.signIn.bind(this);
+        this.forgotPassword = this.forgotPassword.bind(this);
+        this.signInWithGoogle = this.signInWithGoogle.bind(this);
+   } 
+  
    handleEmail = (text) => {
       this.setState({ email: text })
    }
@@ -34,32 +51,23 @@ class SignIn extends Component {
     if(this.state.email === '' || this.state.password === ''){
         return false;
     }
-
-    // dispatch({
-    //     type: Actions.SET_INPUT_EMAIL,
-    //     payload: {inputEmail: this.state.email}
-    // },
-    // {
-    //     type: Actions.SET_INPUT_PASSWORD,
-    //     payload: {inputPassword: this.state.password}
-    // }
-    // ) 
-
+    //TODO Pass sign in info to node.js code
     return true;
    }
+
    forgotPassword = () => {
     //TODO: Redirect to forgot password page
     }
+
     signInWithGoogle = () => {
         //TODO: Redirect to Google Sign In
     }
   
     render() {
-    const { navigation } = this.props;
       return (
         <View style={{flex:1}}>
 
-            <ImageBackground source={require('../../assets/images/signInBackground1.png')} style={styles.background}/>
+            <ImageBackground source={require('../../assets/images/signInBackground.png')} style={styles.background}/>
 
             <View style={{position: "absolute", top: 0, right: 0, height: 75, width:200, marginTop: 10, marginRight: 10}}>
                 <Image source={require('../../assets/images/logo.png')} style = {styles.title}/>
@@ -103,7 +111,7 @@ class SignIn extends Component {
                     <TouchableOpacity 
                     style = {styles.signInButton}
                     onPress = {
-                        () => {this.signIn() ? navigation.navigate('') : this.alertMandatoryFields()}
+                        () => {this.signIn() ? this.props.navigation.navigate('') : this.alertMandatoryFields()}
                     }>
                     <Text style = {{color: 'white'}}> Sign In </Text>
                     <Image source={require('../../assets/images/nextArrow.png')} style={styles.nextArrow}/>
@@ -120,7 +128,7 @@ class SignIn extends Component {
                     <TouchableOpacity
                     style = {styles.createAnAccountButton}
                     onPress={
-                        () => {navigation.navigate('SignUp')}}
+                        () => {this.props.navigation.navigate('SignUp')}}
                     >
                     <Text style = {{color: '#E86D2C'}}> Create an account </Text>
                     </TouchableOpacity>
@@ -139,7 +147,7 @@ class SignIn extends Component {
       )
    }
 }
-export default SignIn
+export default SignIn;
 
 const styles = StyleSheet.create({
 

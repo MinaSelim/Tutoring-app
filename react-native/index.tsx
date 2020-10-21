@@ -8,6 +8,8 @@ import SignIn from './src/components/SignIn/SignIn';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+import { Provider } from 'react-redux'
+import Store from '../react-native/src/components/store';
 
 const Stack = createStackNavigator();
 
@@ -19,14 +21,16 @@ class App extends Component {
 
   render() {
     return(
-      <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="SignIn">
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="SignUp2" component={SignUp2} />
-        <Stack.Screen name="SignUp3" component={SignUp3} />
-      </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={Store}>
+        <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="SignIn">
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="SignUp2" component={SignUp2} />
+          <Stack.Screen name="SignUp3" component={SignUp3} />
+        </Stack.Navigator>
+        </NavigationContainer>
+        </Provider>
     );
   }
 }
