@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-constructor */
 import {AppRegistry, View, Text} from 'react-native';
 import React, {Component} from 'react';
 
