@@ -7,8 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "prettier --check . --ext .ts,.tsx,./src && eslint . --ext .ts,.ts,./src",
-    "lint_fix": "prettier --write . --ext .ts,.tsx,./src && eslint . --ext .ts,.tsx,./src --fix",
+    "lint": "prettier --check . --ext .ts,.tsx,./src && eslint --cache . --ext .ts,.ts,./src",
+    "lint_fix": "prettier --write . --ext .ts,.tsx,./src && eslint . --ext .ts,.tsx,./src --cache --fix",
     "prepush": "npm run lint && npm run test"
   },
   "dependencies": {
@@ -59,7 +59,7 @@
   },
   "lint-staged": {
     "*.{ts,ts,/src},!(*Login).ts": [
-      "eslint --fix",
+      "eslint --cache --fix",
       "prettier --write"
     ]
   }
