@@ -1,23 +1,19 @@
 import IUser from '../models/IUser';
-import {
-   CreateTableInput,
-   CreateTableOutput,
-   GetItemInput,
-   GetItemOutput,
-   PutItemInput,
-   PutItemOutput,
-} from 'aws-sdk/clients/dynamodb';
+import { GetItemInput, GetItemOutput, PutItemInput, PutItemOutput } from 'aws-sdk/clients/dynamodb';
 import Dynamo from './dynamo';
 import { AWSError } from 'aws-sdk';
 import * as config from './config.json';
 
 export default class Database {
+   private dynamo: AWS.DynamoDB = Dynamo.getInstance();
+
    /**
     * Adds a user to the database
     * @param user User to add
+    * @returns A promise.
     */
    public addUserInUserCollection = (user: IUser): Promise<PutItemOutput> => {
-      // Create shallow copy to modify without affecting input user
+      // Create deep copy to modify without affecting input user
       const tempUser = { ...user };
 
       // Fill in missing parameters
@@ -55,7 +51,8 @@ export default class Database {
 
    /**
     * Retreives a user from the database
-    * @param id
+    * @param id The firebase user ID
+    * @returns A promise.
     */
    public getUserByFirebaseId = (id: string): Promise<IUser> => {
       const params: GetItemInput = {
@@ -81,37 +78,12 @@ export default class Database {
    };
 
    /**
-    * Creates a table if it doesn't already exist.
-    * Note that dynamo only needs KEY attributes to create a table, other
-    * non-key attributes can be added during queries.
-    * @param params The table create parameters.
-    * @returns A promise.
-    */
-   public createTable = (params: CreateTableInput): Promise<CreateTableOutput> => {
-      return Dynamo.getInstance()
-         .createTable(params)
-         .promise()
-         .catch((err: AWSError) => {
-            if (err.code == 'ResourceInUseException') {
-               // skip error if table already exists
-               console.warn('Table already exists');
-               const createTableResponse: CreateTableOutput = {
-                  TableDescription: {},
-               };
-               return Promise.resolve(createTableResponse);
-            } else {
-               console.error('Failed creating table');
-               return Promise.reject(err);
-            }
-         });
-   };
-
-   /**
     * Add an item to a table in dynamo.
     * @param params
+    * @returns A promise.
     */
    public putItem = (params: PutItemInput): Promise<PutItemOutput> => {
-      return Dynamo.getInstance()
+      return this.dynamo
          .putItem(params)
          .promise()
          .catch((err: AWSError) => {
@@ -123,9 +95,10 @@ export default class Database {
    /**
     * Retreive an item from a table in dynamo.
     * @param params
+    * @returns A promise.
     */
    public getItem = (params: GetItemInput): Promise<GetItemOutput> => {
-      return Dynamo.getInstance()
+      return this.dynamo
          .getItem(params)
          .promise()
          .catch((err: AWSError) => {

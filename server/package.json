@@ -2,18 +2,18 @@
   "name": "express-ts",
   "version": "1.0.0",
   "description": "",
+  "license": "ISC",
+  "author": "",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "prestart": "npm run build",
-    "start": "node .",
-    "test": "mocha -r ts-node/register './tests/**/*.test.ts'",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
     "lint": "eslint --ext .ts ./src",
     "lint-fix": "npm run lint -- --fix",
-    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+    "prestart": "npm run build",
+    "start": "node .",
+    "test": "mocha -r ts-node/register './tests/**/*.test.ts'"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.771.0",
     "dotenv": "^8.2.0",

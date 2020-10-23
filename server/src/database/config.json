@@ -1,6 +1,6 @@
 {
    "aws": {
-      "REGION": "local",
+      "REGION": "Local",
       "APIVERSION": "2012-08-10",
       "ENDPOINT": "http://localhost:8000"
    },
