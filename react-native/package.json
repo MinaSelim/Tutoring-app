@@ -7,8 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "prettier --check . --ext .js,.jsx,.ts,.tsx,./src && eslint . --ext .js,.jsx,.ts,.ts,./src",
-    "lint_fix": "prettier --write . --ext .js,.jsx,.ts,.tsx,./src && eslint . --ext .js,.jsx,.ts,.tsx,./src --fix",
+    "lint": "prettier --check . --ext .ts,.tsx,./src && eslint . --ext .js,.jsx,.ts,.ts,./src",
+    "lint_fix": "prettier --write . --ext .ts,.tsx,./src && eslint . --ext .js,.jsx,.ts,.tsx,./src --fix",
     "prepush": "npm run lint && npm run test"
   },
   "dependencies": {
@@ -58,7 +58,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,/src,js,jsx,ts,ts,/src}": "eslint --cache --ignore-path .react-native/.eslintignore . --fix",
+    "*.{ts,tsx,/src,js,jsx,ts,ts,/src}": "eslint --cache --ignore-path .react-native/.eslintignore . --fix",
     "*.{js,css,md}": "prettier -ignore-path .react-native/.prettierignore . --write"
   }
 }
