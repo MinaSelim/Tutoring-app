@@ -7,8 +7,8 @@ react-native/node_modules
 server/node_modules
 
 # Environment variables
-*.env
-.env.development
+#*.env
+#.env.development
 
 # Firebase
 react-native/Fire.ts
