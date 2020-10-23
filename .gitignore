@@ -1,3 +1,6 @@
+# Eslint
+.eslintcache
+
 # SonnarScanner
 .scannerwork/css-bundle
 .scannerwork/.sonar_lock
