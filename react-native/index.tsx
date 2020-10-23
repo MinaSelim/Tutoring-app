@@ -1,8 +1,8 @@
+/* eslint-disable no-useless-constructor */
 import {AppRegistry, View, Text} from 'react-native';
 import React, {Component} from 'react';
 
 class App extends Component {
-  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
@@ -15,5 +15,4 @@ class App extends Component {
     );
   }
 }
-
 AppRegistry.registerComponent('GoStudy', () => App);
