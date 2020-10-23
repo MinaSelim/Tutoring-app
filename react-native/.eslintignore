@@ -3,5 +3,3 @@
 /docs/**
 /jsdoc/**
 /tools/internal-rules/node_modules/**
-# Temporary ignore until files are implemented
-react-native/src/api/authenthication/Login.ts
