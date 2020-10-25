@@ -1,6 +1,0 @@
-projectKey=GoStudy
-serverUrl=http://localhost:9000
-serverVersion=8.5.0.37579
-dashboardUrl=http://localhost:9000/dashboard?id=GoStudy
-ceTaskId=AXU9Sq7p8OpQAi6XZ5g8
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXU9Sq7p8OpQAi6XZ5g8
