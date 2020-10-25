@@ -4,7 +4,15 @@
       "APIVERSION": "2012-08-10",
       "ENDPOINT": "http://localhost:8000"
    },
-   "tableNames": {
-       "USER": "User"
+   "tables": [
+      {
+         "name": "User",
+         "keyName": "firebase_uid",
+         "keyType": "S",
+         "KeyType": "HASH"
+      }
+   ],
+   "tableNames" : {
+      "USER": "User"
    }
 }

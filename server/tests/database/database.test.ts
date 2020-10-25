@@ -2,7 +2,14 @@ import Sinon from 'sinon';
 import sinon from 'sinon';
 import Database from '../../src/database/database';
 import { AWSError } from 'aws-sdk';
-import { GetItemInput, GetItemOutput, PutItemInput, PutItemOutput } from 'aws-sdk/clients/dynamodb';
+import {
+   CreateTableInput,
+   CreateTableOutput,
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   PutItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import IUser from '../../src/models/IUser';
 import { assert } from 'chai';
 import Dynamo from '../../src/database/dynamo';
@@ -46,6 +53,12 @@ describe('Database test', () => {
          stripe_id: { S: user.stripe_customer_id },
       },
       ConsumedCapacity: { TableName: 'User', CapacityUnits: 1 },
+   };
+
+   const createTableResponseGood: CreateTableOutput = {
+      TableDescription: {
+         TableName: 'User',
+      },
    };
 
    const error: AWSError = {
@@ -291,6 +304,79 @@ describe('Database test', () => {
          .catch((err) => {
             assert(spy.calledOnce);
             assert(spy.calledWith(params));
+            assert.equal(err, error);
+         });
+   });
+
+   it('Should create a new valid table', () => {
+      const params: CreateTableInput = {
+         AttributeDefinitions: [
+            {
+               AttributeName: 'test',
+               AttributeType: 'S',
+            },
+         ],
+         KeySchema: [
+            {
+               AttributeName: 'test',
+               KeyType: 'HASH',
+            },
+         ],
+         ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
+         },
+         TableName: 'Test',
+      };
+
+      const outputCreateTable = ({
+         promise() {
+            return Promise.resolve(createTableResponseGood);
+         },
+      } as unknown) as AWS.Request<CreateTableOutput, AWSError>;
+
+      sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
+      return db.createTable(params).then((res: CreateTableOutput) => {
+         assert.equal(res.TableDescription.TableName, createTableResponseGood.TableDescription.TableName);
+      });
+   });
+
+   it('Should not create table that already exists', () => {
+      const params: CreateTableInput = {
+         AttributeDefinitions: [
+            {
+               AttributeName: 'test',
+               AttributeType: 'S',
+            },
+         ],
+         KeySchema: [
+            {
+               AttributeName: 'test',
+               KeyType: 'HASH',
+            },
+         ],
+         ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
+         },
+         TableName: 'Test',
+      };
+
+      const outputCreateTable = ({
+         promise() {
+            return Promise.reject(error);
+         },
+      } as unknown) as AWS.Request<CreateTableOutput, AWSError>;
+
+      const spy = sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
+
+      return db
+         .createTable(params)
+         .then(() => {
+            assert.fail('Should not pass');
+         })
+         .catch((err) => {
+            assert(spy.calledOnce);
             assert.equal(err, error);
          });
    });
