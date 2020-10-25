@@ -4,7 +4,7 @@
 # SonnarScanner
 .scannerwork/css-bundle
 .scannerwork/.sonar_lock
-
+.scannerwork/report-task.txt
 # Node modules
 react-native/node_modules
 server/node_modules
