@@ -3,7 +3,6 @@ import { assert } from 'chai';
 import Database from '../../src/database/database';
 import Dynamo from '../../src/database/dynamo';
 import IUser from '../../src/models/IUser';
-import * as config from '../../src/database/config.json';
 /**
  * Run this code to make sure you have a properly working local database before
  * testing any other online code. It will create the USER table if it doesn't already
