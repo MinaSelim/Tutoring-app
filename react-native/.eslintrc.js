@@ -7,7 +7,7 @@ module.exports = {
     'no-useless-constructor': 'warn',
     'no-unused-vars': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
-    'func-names': 'off',
+    'func-names': ['warn', 'always'], // for better debugging (name func. expressions so they are not reported as "anonymous function" in stack trace)
     'no-process-exit': 'off',
     'class-methods-use-this': 'off',
   },
