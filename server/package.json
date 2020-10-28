@@ -59,7 +59,7 @@
       }
     },
     "lint-staged": {
-      "*.{ts,ts,/src},!(*test).ts": [
+      "*.{ts,ts,/src}": [
         "eslint --cache --fix",
         "prettier --write"
       ]

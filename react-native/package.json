@@ -58,7 +58,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,ts,/src},!(*Login).ts": [
+    "*.{ts,ts,/src}": [
       "eslint --cache --fix",
       "prettier --write"
     ]
