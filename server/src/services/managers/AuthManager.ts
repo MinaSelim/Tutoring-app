@@ -24,7 +24,7 @@ export default class AuthManager {
     * registers the user by adding them to the database.
     * @param user The user to add to the database
     */
-   public registerUser = async (user: IUser) : Promise<void> => {
+   public registerUser = async (user: IUser): Promise<void> => {
       await this.database.addUserInUserCollection(user);
    };
 

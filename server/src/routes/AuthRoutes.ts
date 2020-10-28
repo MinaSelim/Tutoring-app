@@ -11,7 +11,7 @@ export class AuthRoutes {
     * This is the function that adds the auth routes to the function
     * @param app the application to set routes on
     */
-   public route(app: Application) : void {
+   public route(app: Application): void {
       /**
        *  Register the user and sends success, or the error to the front end
        */
