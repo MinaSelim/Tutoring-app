@@ -18,7 +18,9 @@ interface IProps {
   email: string;
   phone: string;
   password: string;
+  confirmPassword: string;
   navigation: NavigationInjectedProps;
+  passwordHidden: boolean;
 }
 
 interface IState {
@@ -27,6 +29,8 @@ interface IState {
   email: string;
   phone: string;
   password: string;
+  confirmPassword: string;
+  passwordHidden: boolean;
 }
 
 class SignUp extends Component<IProps, IState> {
@@ -39,6 +43,8 @@ class SignUp extends Component<IProps, IState> {
       email: '',
       phone: '',
       password: '',
+      confirmPassword: '',
+      passwordHidden: true,
     };
 
     this.saveInfo = this.saveInfo.bind(this);
@@ -47,6 +53,7 @@ class SignUp extends Component<IProps, IState> {
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.handleConfirmPassword = this.handleConfirmPassword.bind(this);
     this.alertMandatoryFields = this.alertMandatoryFields.bind(this);
   }
 
@@ -70,16 +77,35 @@ class SignUp extends Component<IProps, IState> {
     this.setState({password: text});
   };
 
+  handleConfirmPassword = (text) => {
+    this.setState({confirmPassword: text});
+  };
+
+  changePasswordVisibility = () => {
+    this.setState({passwordHidden: !this.state.passwordHidden})
+  };
+
   alertMandatoryFields() {
-    Alert.alert('Fields with * are mandatory.');
+    if(!this.state.email.includes("@")){
+      Alert.alert('Make sure email is valid.');
+    } else if(this.state.password.length < 8){
+      Alert.alert('Password must be at least 8 characters.');
+    }else if(this.state.password !== this.state.confirmPassword){
+      Alert.alert('Password does not match password confirmation.');
+    }else{
+      Alert.alert('Fields with * are mandatory.');
+    }
   }
 
   saveInfo() {
     if (
-      this.state.firstName === '' ||
+      (this.state.firstName === '' ||
       this.state.lastName === '' ||
       this.state.email === '' ||
-      this.state.password === ''
+      this.state.password === '') ||
+      !this.state.email.includes("@") ||
+      this.state.password.length < 8 ||
+      this.state.password !== this.state.confirmPassword
     ) {
       return false;
     }
@@ -139,9 +165,10 @@ class SignUp extends Component<IProps, IState> {
             />
           </View>
           <View style={styles.inputSection}>
+          <Text style={{opacity: 0}}>*</Text>
             <TextInput
               style={styles.inputBox}
-              placeholder=" Phone"
+              placeholder="Phone"
               placeholderTextColor="#8B9CB3"
               onChangeText={this.handlePhone}
             />
@@ -151,10 +178,32 @@ class SignUp extends Component<IProps, IState> {
             <TextInput
               style={styles.inputBox}
               placeholder="Password"
-              secureTextEntry={true}
+              secureTextEntry={this.state.passwordHidden}
               placeholderTextColor="#8B9CB3"
               onChangeText={this.handlePassword}
             />
+            <TouchableOpacity style={styles.eyeButton} onPress={this.changePasswordVisibility}>
+              <Image
+              source={this.state.passwordHidden?require('../../../assets/images/eyeClosed.png'):require('../../../assets/images/eyeOpened.png')}
+              style={styles.eyeIcon}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.inputSection}>
+            <Text style={[styles.star]}>*</Text>
+            <TextInput
+              style={styles.inputBox}
+              placeholder="Confirm Password"
+              secureTextEntry={this.state.passwordHidden}
+              placeholderTextColor="#8B9CB3"
+              onChangeText={this.handleConfirmPassword}
+            />
+            <TouchableOpacity style={styles.eyeButton} onPress={this.changePasswordVisibility}>
+              <Image
+              source={this.state.passwordHidden?require('../../../assets/images/eyeClosed.png'):require('../../../assets/images/eyeOpened.png')}
+              style={styles.eyeIcon}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -169,7 +218,7 @@ class SignUp extends Component<IProps, IState> {
             style={styles.nextButton}
             onPress={() => {
               this.saveInfo()
-                ? this.props.navigation.navigate('SignUp2')
+                ? this.props.navigation.navigate('SignUpUserType')
                 : this.alertMandatoryFields();
             }}>
             <Text style={{color: 'white'}}> Next </Text>
@@ -216,6 +265,14 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 18,
     color: 'black',
+  },
+  eyeButton: {
+    position: "absolute",
+    right: 0,
+    top: 5,
+  },
+  eyeIcon: {
+    position:"relative"
   },
   nextButton: {
     backgroundColor: '#F0793A',

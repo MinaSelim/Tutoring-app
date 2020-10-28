@@ -71,7 +71,7 @@ class SignUp2 extends Component<IProps, IState> {
             style={styles.student}
             onPress={() => {
               this.handleStudent();
-              this.props.navigation.navigate('SignUp3');
+              this.props.navigation.navigate('SignUpSelectCampus');
             }}>
             <Text style={{color: 'white'}}> Student </Text>
           </TouchableOpacity>
@@ -79,7 +79,7 @@ class SignUp2 extends Component<IProps, IState> {
             style={styles.tutor}
             onPress={() => {
               this.handleTutor();
-              this.props.navigation.navigate('SignUp3');
+              this.props.navigation.navigate('SignUpSelectCampus');
             }}>
             <Text style={{color: 'white'}}> Tutor </Text>
           </TouchableOpacity>

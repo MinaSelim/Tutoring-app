@@ -9,7 +9,6 @@ import {
   ImageBackground,
   Alert,
 } from 'react-native';
-//import Login from '../../api/authentication/login';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 
@@ -17,15 +16,16 @@ interface IProps {
   email: string;
   password: string;
   navigation: NavigationInjectedProps;
+  passwordHidden: boolean;
 }
 
 interface IState {
   email: string;
   password: string;
+  passwordHidden: boolean;
 }
 
 class SignIn extends Component<IProps, IState> {
-  //private login: Login;
 
   constructor(props) {
     super(props);
@@ -33,6 +33,7 @@ class SignIn extends Component<IProps, IState> {
     this.state = {
       email: '',
       password: '',
+      passwordHidden: true,
     };
 
     this.handleEmail = this.handleEmail.bind(this);
@@ -49,6 +50,10 @@ class SignIn extends Component<IProps, IState> {
 
   handlePassword = (text) => {
     this.setState({password: text});
+  };
+
+  changePasswordVisibility = () => {
+    this.setState({passwordHidden: !this.state.passwordHidden})
   };
 
   alertMandatoryFields() {
@@ -129,11 +134,17 @@ class SignIn extends Component<IProps, IState> {
                 style={styles.input}
                 underlineColorAndroid="transparent"
                 placeholder="password"
-                secureTextEntry={true}
+                secureTextEntry={this.state.passwordHidden}
                 placeholderTextColor="#8B9CB3"
                 autoCapitalize="none"
                 onChangeText={this.handlePassword}
               />
+              <TouchableOpacity style={styles.eyeButton} onPress={this.changePasswordVisibility}>
+              <Image
+              source={this.state.passwordHidden?require('../../assets/images/eyeClosed.png'):require('../../assets/images/eyeOpened.png')}
+              style={styles.eyeIcon}
+              />
+            </TouchableOpacity>
             </View>
           </View>
 
@@ -164,7 +175,7 @@ class SignIn extends Component<IProps, IState> {
             <TouchableOpacity
               style={styles.createAnAccountButton}
               onPress={() => {
-                this.props.navigation.navigate('SignUp');
+                this.props.navigation.navigate('SignUpCredentials');
               }}>
               <Text style={{color: '#E86D2C'}}> Create an account </Text>
             </TouchableOpacity>
@@ -232,6 +243,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 18,
     color: 'black',
+  },
+  eyeButton: {
+    right: 35,
+    top: 5,
+  },
+  eyeIcon: {
+    position:"relative"
   },
   signInButton: {
     backgroundColor: '#F0793A',

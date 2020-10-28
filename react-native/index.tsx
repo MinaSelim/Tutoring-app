@@ -1,9 +1,9 @@
 import {AppRegistry, View, Text} from 'react-native';
 import React from 'react';
 import {Component} from 'react';
-import SignUp from './src/components/SignUp/SignUp1/SignUp1';
-import SignUp2 from './src/components/SignUp/SignUp2/SignUp2';
-import SignUp3 from './src/components/SignUp/SignUp3/SignUp3';
+import SignUpCredentials from './src/components/SignUp/SignUpCredentials/SignUpCredentials';
+import SignUpUserType from './src/components/SignUp/SignUpUserType/SignUpUserType';
+import SignUpSelectCampus from './src/components/SignUp/SignUpSelectCampus/SignUpSelectCampus';
 import SignIn from './src/components/SignIn/SignIn';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -25,9 +25,9 @@ class App extends Component {
         <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="SignIn">
           <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="SignUp2" component={SignUp2} />
-          <Stack.Screen name="SignUp3" component={SignUp3} />
+          <Stack.Screen name="SignUpCredentials" component={SignUpCredentials} />
+          <Stack.Screen name="SignUpUserType" component={SignUpUserType} />
+          <Stack.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
         </Stack.Navigator>
         </NavigationContainer>
         </Provider>
