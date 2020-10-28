@@ -1,0 +1,8 @@
+build
+coverage
+android
+ios
+tsconfig.json
+app.json
+.watchmanconfig
+.huskyrc.js

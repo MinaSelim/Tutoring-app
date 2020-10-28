@@ -1,7 +1,7 @@
-import fire from './Fire';
 import {auth} from 'firebase';
-import IUserLogin from '../../model/IUserLogin';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
+import fire from './Fire';
+import IUserLogin from '../../model/IUserLogin';
 
 /**
  * this class provides api abstraction for firebase
@@ -14,7 +14,7 @@ export default class Login {
   }
 
   /**
-   * Abstraction provided to communicate with firebase to authenthicate the user. it returns user information from the backend
+   * Abstraction provided to communicate with firebase to authenticate the user. it returns user information from the backend
    * @param loginInfo the username and password of the user
    */
   public signInWithEmailAndPassword = async (loginInfo: IUserLogin) => {
@@ -26,13 +26,13 @@ export default class Login {
   };
 
   /**
-   * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
+   * this method communicates with the backend, sending an auth token to the server so it could authenticate the user
    */
   private signInWithServer = async () => {
     const user = this.auth.currentUser;
     const token = user && (await user.getIdToken());
 
-    const res = await fetch(SERVER_LINK + '/auth/login', {
+    const res = await fetch(`${SERVER_LINK}/auth/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

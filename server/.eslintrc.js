@@ -1,12 +1,19 @@
 module.exports = {
    parser: '@typescript-eslint/parser',
-   extends: ['plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
    parserOptions: {
       ecmaVersion: 2018,
       sourceType: 'module',
    },
+   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'prettier/@typescript-eslint'],
+   plugins: ['@typescript-eslint', 'prettier'],
    rules: {
       '@typescript-eslint/explicit-function-return-type': 0,
+      'no-useless-constructor': 'warn',
+      'no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      'func-names': ['error', 'always'], // for better debugging (name func. expressions so they are not reported as "anonymous function" in stack trace)
+      'no-process-exit': 'off',
+      'class-methods-use-this': 'off',
    },
 
    overrides: [

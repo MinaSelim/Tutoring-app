@@ -5,7 +5,7 @@ if [ "$branch" = "refs/heads/master" ]; then
 fi`;
 
 module.exports = {
-  hooks: {
-    'pre-push': preventPushToMaster,
-  },
+   hooks: {
+      'pre-push': preventPushToMaster,
+   },
 };

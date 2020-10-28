@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
-import { AuthRoutes } from '../routes/AuthRoutes';
+import {AuthRoutes} from '../routes/AuthRoutes';
 import * as dotenv from 'dotenv';
 import Database from '../database/database';
 /**
