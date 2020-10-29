@@ -12,9 +12,9 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
+import {studentSignUpInfo} from '../StudentSignUpInfo'
 
 interface IProps {
-  university: string;
   navigation: NavigationInjectedProps;
 }
 
@@ -30,14 +30,14 @@ class SignUp3 extends Component<IProps, IState> {
       university: 'Find your campus',
     };
 
-    this.handleAddUniversity = this.handleAddUniversity.bind(this);
+    this.handleRegistration = this.handleRegistration.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.isUniversitySelected = this.isUniversitySelected.bind(this);
     this.finish = this.finish.bind(this);
   }
 
-  handleAddUniversity() {
-    //send info to node.js
+  handleRegistration() {
+    //TODO send student info to backend
   }
 
   handleSearch = (text) => {
@@ -62,7 +62,8 @@ class SignUp3 extends Component<IProps, IState> {
 
   finish = () => {
     if (this.state.university !== 'Find your campus') {
-      this.handleAddUniversity();
+      studentSignUpInfo.campus = this.state.university;
+      this.handleRegistration();
       return true;
     } else {
       return false;
@@ -116,7 +117,7 @@ class SignUp3 extends Component<IProps, IState> {
                 placeholder="Add University..."
                 style={styles.inputBox}
                 onChangeText={this.handleSearch}
-                onSubmitEditing={this.handleAddUniversity}
+                onSubmitEditing={this.handleRegistration}
               />
             </View>
           </View>
@@ -124,7 +125,8 @@ class SignUp3 extends Component<IProps, IState> {
             style={styles.finishButton}
             onPress={() =>
               {this.finish()
-                ? this.props.navigation.navigate('')
+                ? this.props.navigation.navigate('') 
+                //TODO Redirect to Home page
                 : this.alertMandatoryField();
               }}>
             <Text style={{color: colors.appWhite}}> Finish </Text>

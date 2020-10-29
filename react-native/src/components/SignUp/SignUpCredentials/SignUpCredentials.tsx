@@ -12,24 +12,15 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpCredentialsStyles'
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
+import {signUpInfo} from '../SignUpInfo'
+import ISignUpCredentials from '../../../model/ISignUpCredentials'
+
 
 interface IProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
   navigation: NavigationInjectedProps;
-  passwordHidden: boolean;
 }
 
-interface IState {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  password: string;
+interface IState extends ISignUpCredentials {
   confirmPassword: string;
   passwordHidden: boolean;
 }
@@ -110,7 +101,12 @@ class SignUp extends Component<IProps, IState> {
     ) {
       return false;
     }
-    //TODO send info to node.js
+  
+  signUpInfo.first_name = this.state.firstName
+  signUpInfo.last_name = this.state.lastName
+  signUpInfo.email = this.state.email
+  signUpInfo.password = this.state.password
+  signUpInfo.phone = this.state.phone
     return true;
   }
 
