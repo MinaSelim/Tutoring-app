@@ -12,17 +12,13 @@ import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
+import IUserLogin from '../../model/IUserLogin'
 
 interface IProps {
-  email: string;
-  password: string;
   navigation: NavigationInjectedProps;
-  passwordHidden: boolean;
 }
 
-interface IState {
-  email: string;
-  password: string;
+interface IState extends IUserLogin {
   passwordHidden: boolean;
 }
 

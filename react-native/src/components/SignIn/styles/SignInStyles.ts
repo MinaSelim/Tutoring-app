@@ -93,7 +93,7 @@ export default StyleSheet.create({
       justifyContent: 'center',
     },
     signInWithGoogleButton: {
-      backgroundColor: colors.appDarkGrey,
+      backgroundColor: colors.appLightGrey,
       margin: 5,
       marginBottom: 20,
       height: 50,

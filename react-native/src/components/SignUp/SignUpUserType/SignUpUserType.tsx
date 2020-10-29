@@ -10,9 +10,10 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
+import {signUpInfo} from '../SignUpInfo'
+import {studentSignUpInfo} from '../StudentSignUpInfo'
 
 interface IProps {
-  userType: string;
   navigation: NavigationInjectedProps;
 }
 
@@ -34,12 +35,18 @@ class SignUp2 extends Component<IProps, IState> {
 
   handleStudent = () => {
     this.setState({userType: 'Student'});
-    //Send info to node.js
+    studentSignUpInfo.first_name = signUpInfo.first_name;
+    studentSignUpInfo.last_name = signUpInfo.last_name;
+    studentSignUpInfo.email = signUpInfo.email;
+    studentSignUpInfo.password = signUpInfo.password;
+    studentSignUpInfo.phone = signUpInfo.phone;
+    studentSignUpInfo.userType = signUpInfo.userType
   };
 
   handleTutor = () => {
     this.setState({userType: 'Tutor'});
-    //Send info to node.js
+    signUpInfo.userType = this.state.userType;
+    //TODO send tutor info to backend
   };
 
   render() {
@@ -80,7 +87,8 @@ class SignUp2 extends Component<IProps, IState> {
             style={styles.tutor}
             onPress={() => {
               this.handleTutor();
-              this.props.navigation.navigate('SignUpSelectCampus');
+              this.props.navigation.navigate('');
+              //TODO Redirect to Home page
             }}>
             <Text style={{color: colors.appWhite}}> Tutor </Text>
           </TouchableOpacity>
