@@ -4,11 +4,12 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  StyleSheet,
   Image,
   ImageBackground,
   Alert,
 } from 'react-native';
+import styles from './styles/SignInStyles';
+import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 
@@ -117,7 +118,7 @@ class SignIn extends Component<IProps, IState> {
                 style={styles.input}
                 underlineColorAndroid="transparent"
                 placeholder="email"
-                placeholderTextColor="#8B9CB3"
+                placeholderTextColor= {colors.appSilver}
                 autoCapitalize="none"
                 onChangeText={this.handleEmail}
               />
@@ -135,7 +136,7 @@ class SignIn extends Component<IProps, IState> {
                 underlineColorAndroid="transparent"
                 placeholder="password"
                 secureTextEntry={this.state.passwordHidden}
-                placeholderTextColor="#8B9CB3"
+                placeholderTextColor= {colors.appSilver}
                 autoCapitalize="none"
                 onChangeText={this.handlePassword}
               />
@@ -156,7 +157,7 @@ class SignIn extends Component<IProps, IState> {
                   ? this.props.navigation.navigate('')
                   : this.alertMandatoryFields();
               }}>
-              <Text style={{color: 'white'}}> Sign In </Text>
+              <Text style={{color: colors.appWhite}}> Sign In </Text>
               <Image
                 source={require('../../assets/images/nextArrow.png')}
                 style={styles.nextArrow}
@@ -166,9 +167,8 @@ class SignIn extends Component<IProps, IState> {
             <TouchableOpacity
               style={styles.forgotPasswordButton}
               onPress={() => this.forgotPassword()}>
-              <Text style={{color: '#96A7AF', fontSize: 12}}>
-                {' '}
-                Forgot password?{' '}
+              <Text style={styles.forgotPasswordText}>
+                Forgot password?
               </Text>
             </TouchableOpacity>
 
@@ -177,7 +177,7 @@ class SignIn extends Component<IProps, IState> {
               onPress={() => {
                 this.props.navigation.navigate('SignUpCredentials');
               }}>
-              <Text style={{color: '#E86D2C'}}> Create an account </Text>
+              <Text style={{color: colors.appOrange}}> Create an account </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -187,7 +187,7 @@ class SignIn extends Component<IProps, IState> {
                 source={require('../../assets/images/googleIcon.png')}
                 style={styles.googleIcon}
               />
-              <Text style={{color: '#8B9CB3'}}> Sign in with Google </Text>
+              <Text style={{color: colors.appSilver}}> Sign in with Google </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -196,108 +196,3 @@ class SignIn extends Component<IProps, IState> {
   }
 }
 export default SignIn;
-
-const styles = StyleSheet.create({
-  background: {
-    width: '100%',
-    height: '100%',
-  },
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    alignItems: 'stretch',
-    width: '100%',
-  },
-  title: {
-    width: '100%',
-    height: '100%',
-  },
-  welcome: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 18,
-    marginLeft: 20,
-  },
-  icon: {
-    width: '60%',
-    height: '50%',
-    alignSelf: 'center',
-  },
-  iconBox: {
-    backgroundColor: '#FCEED9',
-    height: 40,
-    width: 32,
-    borderRadius: 10,
-    justifyContent: 'center',
-  },
-  signInToContinue: {
-    fontSize: 20,
-    marginBottom: 28,
-    marginLeft: 20,
-  },
-  input: {
-    height: 40,
-    borderColor: '#8B9CB3',
-    borderBottomWidth: 0.75,
-    width: '100%',
-    marginLeft: 10,
-    fontSize: 18,
-    color: 'black',
-  },
-  eyeButton: {
-    right: 35,
-    top: 5,
-  },
-  eyeIcon: {
-    position:"relative"
-  },
-  signInButton: {
-    backgroundColor: '#F0793A',
-    margin: 5,
-    height: 50,
-    width: '85%',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  nextArrow: {
-    width: 20,
-    height: 12,
-    marginLeft: 5,
-  },
-  forgotPasswordButton: {
-    margin: 5,
-    height: 25,
-    width: '85%',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  createAnAccountButton: {
-    backgroundColor: '#FCEED9',
-    margin: 5,
-    height: 50,
-    width: '85%',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  signInWithGoogleButton: {
-    backgroundColor: '#F1F3F8',
-    margin: 5,
-    marginBottom: 20,
-    height: 50,
-    width: '85%',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  googleIcon: {
-    width: 20,
-    height: 22,
-    position: 'absolute',
-    left: 25,
-  },
-})

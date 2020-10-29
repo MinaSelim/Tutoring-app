@@ -3,12 +3,13 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   TextInput,
   ImageBackground,
   Image,
   Alert,
 } from 'react-native';
+import styles from './styles/SignUpSelectCampusStyles';
+import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 
@@ -73,14 +74,14 @@ class SignUp3 extends Component<IProps, IState> {
       <View style={{flex: 1, justifyContent: 'center'}}>
         <ImageBackground
           source={require('../../../assets/images/signUpBackground.png')}
-          style={{width: '100%', height: '100%', position: 'absolute'}}
+          style={styles.backgroundImage}
         />
         <TouchableOpacity
           style={{position: 'absolute', top: 10}}
           onPress={() => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/backBtn.png')}
-            style={{width: 40, height: 30, left: 10, top: 3}}
+            style={styles.goBackButton}
           />
         </TouchableOpacity>
         <View
@@ -91,7 +92,7 @@ class SignUp3 extends Component<IProps, IState> {
             marginRight: 25,
             justifyContent: 'space-between',
           }}>
-          <Text style={{fontSize: 20, marginLeft: 20, marginTop: 70}}>
+          <Text style={styles.selectYourCampus}>
             Select your campus
           </Text>
           <View
@@ -107,7 +108,7 @@ class SignUp3 extends Component<IProps, IState> {
                 this.isUniversitySelected() ? {opacity: 1} : {opacity: 0.25},
               ]}
             />
-            <Text style={{alignSelf: 'center', fontSize: 22}}>
+            <Text style={styles.universityText}>
               {this.state.university}
             </Text>
             <View>
@@ -126,7 +127,7 @@ class SignUp3 extends Component<IProps, IState> {
                 ? this.props.navigation.navigate('')
                 : this.alertMandatoryField();
               }}>
-            <Text style={{color: 'white'}}> Finish </Text>
+            <Text style={{color: colors.appWhite}}> Finish </Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.footer}> go.study </Text>
@@ -134,44 +135,5 @@ class SignUp3 extends Component<IProps, IState> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  inputBox: {
-    borderColor: '#F0793A',
-    borderWidth: 2,
-    borderRadius: 9,
-    width: '90%',
-    height: 40,
-    alignSelf: 'center',
-  },
-  finishButton: {
-    backgroundColor: '#F0793A',
-    margin: 5,
-    height: 50,
-    width: '75%',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
-  footer: {
-    alignSelf: 'center',
-    color: '#E9EAEE',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    position: 'absolute',
-    bottom: 10,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  icon: {
-    width: 20,
-    height: 20,
-  },
-});
 
 export default SignUp3;
