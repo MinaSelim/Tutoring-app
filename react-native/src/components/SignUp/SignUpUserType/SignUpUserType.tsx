@@ -10,8 +10,8 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import {signUpInfo} from '../SignUpInfo'
-import {studentSignUpInfo} from '../StudentSignUpInfo'
+import ITutorSignUpInfo from '../../../model/ITutorSignUpInfo'
+import {signUpData} from '../SignUpData';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -21,7 +21,7 @@ interface IState {
   userType: string;
 }
 
-class SignUp2 extends Component<IProps, IState> {
+class SignUpUserType extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -29,24 +29,20 @@ class SignUp2 extends Component<IProps, IState> {
       userType: '',
     };
 
-    this.handleStudent = this.handleStudent.bind(this);
     this.handleTutor = this.handleTutor.bind(this);
   }
 
-  handleStudent = () => {
-    this.setState({userType: 'Student'});
-    studentSignUpInfo.first_name = signUpInfo.first_name;
-    studentSignUpInfo.last_name = signUpInfo.last_name;
-    studentSignUpInfo.email = signUpInfo.email;
-    studentSignUpInfo.password = signUpInfo.password;
-    studentSignUpInfo.phone = signUpInfo.phone;
-    studentSignUpInfo.userType = signUpInfo.userType
-  };
-
   handleTutor = () => {
-    this.setState({userType: 'Tutor'});
-    signUpInfo.userType = this.state.userType;
-    //TODO send tutor info to backend
+    var tutorInfo:ITutorSignUpInfo = { 
+      firstName: signUpData.firstName,
+      lastName: signUpData.lastName,
+      email: signUpData.email,
+      password: signUpData.password,
+      phone: signUpData.phone,
+      avatar: "",
+      firebase_uid: "",
+   } 
+    //TODO send above tutor info to backend
   };
 
   render() {
@@ -78,7 +74,6 @@ class SignUp2 extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.student}
             onPress={() => {
-              this.handleStudent();
               this.props.navigation.navigate('SignUpSelectCampus');
             }}>
             <Text style={{color: colors.appWhite}}> Student </Text>
@@ -99,4 +94,4 @@ class SignUp2 extends Component<IProps, IState> {
   }
 }
 
-export default SignUp2;
+export default SignUpUserType;

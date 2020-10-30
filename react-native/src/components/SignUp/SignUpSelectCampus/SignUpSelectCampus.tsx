@@ -12,7 +12,8 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import {studentSignUpInfo} from '../StudentSignUpInfo'
+import IStudentSignUpInfo from '../../../model/IStudentSignUpInfo'
+import {signUpData} from '../SignUpData'
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -22,7 +23,7 @@ interface IState {
   university: string;
 }
 
-class SignUp3 extends Component<IProps, IState> {
+class SignUpSelectCampus extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -37,7 +38,17 @@ class SignUp3 extends Component<IProps, IState> {
   }
 
   handleRegistration() {
-    //TODO send student info to backend
+    var studentInfo:IStudentSignUpInfo = { 
+      firstName: signUpData.firstName,
+      lastName: signUpData.lastName,
+      email: signUpData.email,
+      password: signUpData.password,
+      phone: signUpData.phone,
+      campus: this.state.university,
+      avatar: "",
+      firebase_uid: "",
+   } 
+    //TODO send above student info to backend
   }
 
   handleSearch = (text) => {
@@ -62,7 +73,6 @@ class SignUp3 extends Component<IProps, IState> {
 
   finish = () => {
     if (this.state.university !== 'Find your campus') {
-      studentSignUpInfo.campus = this.state.university;
       this.handleRegistration();
       return true;
     } else {
@@ -138,4 +148,4 @@ class SignUp3 extends Component<IProps, IState> {
   }
 }
 
-export default SignUp3;
+export default SignUpSelectCampus;
