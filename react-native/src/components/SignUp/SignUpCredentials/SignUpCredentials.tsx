@@ -12,8 +12,8 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpCredentialsStyles'
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import {signUpInfo} from '../SignUpInfo'
 import ISignUpCredentials from '../../../model/ISignUpCredentials'
+import {signUpData} from '../SignUpData';
 
 
 interface IProps {
@@ -25,7 +25,7 @@ interface IState extends ISignUpCredentials {
   passwordHidden: boolean;
 }
 
-class SignUp extends Component<IProps, IState> {
+class SignUpCredentials extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -102,11 +102,11 @@ class SignUp extends Component<IProps, IState> {
       return false;
     }
   
-  signUpInfo.first_name = this.state.firstName
-  signUpInfo.last_name = this.state.lastName
-  signUpInfo.email = this.state.email
-  signUpInfo.password = this.state.password
-  signUpInfo.phone = this.state.phone
+  signUpData.firstName = this.state.firstName
+  signUpData.lastName = this.state.lastName
+  signUpData.email = this.state.email
+  signUpData.password = this.state.password
+  signUpData.phone = this.state.phone
     return true;
   }
 
@@ -240,4 +240,4 @@ class SignUp extends Component<IProps, IState> {
   }
 }
 
-export default SignUp;
+export default SignUpCredentials;
