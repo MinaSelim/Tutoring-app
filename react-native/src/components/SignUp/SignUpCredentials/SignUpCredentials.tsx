@@ -13,8 +13,6 @@ import styles from './styles/SignUpCredentialsStyles'
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 import ISignUpCredentials from '../../../model/ISignUpCredentials'
-import {signUpData} from '../SignUpData';
-
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -30,8 +28,8 @@ class SignUpCredentials extends Component<IProps, IState> {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       email: '',
       phone: '',
       password: '',
@@ -50,11 +48,11 @@ class SignUpCredentials extends Component<IProps, IState> {
   }
 
   handleFirstName = (text) => {
-    this.setState({firstName: text});
+    this.setState({first_name: text});
   };
 
   handleLastName = (text) => {
-    this.setState({lastName: text});
+    this.setState({last_name: text});
   };
 
   handleEmail = (text) => {
@@ -91,8 +89,8 @@ class SignUpCredentials extends Component<IProps, IState> {
 
   saveInfo() {
     if (
-      (this.state.firstName === '' ||
-      this.state.lastName === '' ||
+      (this.state.first_name === '' ||
+      this.state.last_name === '' ||
       this.state.email === '' ||
       this.state.password === '') ||
       !this.state.email.includes("@") ||
@@ -101,12 +99,7 @@ class SignUpCredentials extends Component<IProps, IState> {
     ) {
       return false;
     }
-  
-  signUpData.firstName = this.state.firstName
-  signUpData.lastName = this.state.lastName
-  signUpData.email = this.state.email
-  signUpData.password = this.state.password
-  signUpData.phone = this.state.phone
+
     return true;
   }
 
@@ -216,8 +209,8 @@ class SignUpCredentials extends Component<IProps, IState> {
             onPress={() => {
               this.saveInfo()
                 ? this.props.navigation.navigate('SignUpUserType', {
-                  firstName: this.state.firstName,
-                  lastName: this.state.lastName,
+                  firstName: this.state.first_name,
+                  lastName: this.state.last_name,
                   email: this.state.email,
                   phone: this.state.phone,
                   password: this.state.password
