@@ -4,14 +4,13 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  Image,
+  Image
 } from 'react-native';
 import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 import ITutorSignUpInfo from '../../../model/ITutorSignUpInfo'
-import {signUpData} from '../SignUpData';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -32,13 +31,13 @@ class SignUpUserType extends Component<IProps, IState> {
     this.handleTutor = this.handleTutor.bind(this);
   }
 
-  handleTutor = () => {
+  handleTutor = (firstName, lastName, email, phone, password) => {
     var tutorInfo:ITutorSignUpInfo = { 
-      firstName: signUpData.firstName,
-      lastName: signUpData.lastName,
-      email: signUpData.email,
-      password: signUpData.password,
-      phone: signUpData.phone,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      phone: phone,
       avatar: "",
       firebase_uid: "",
    } 
@@ -46,6 +45,8 @@ class SignUpUserType extends Component<IProps, IState> {
   };
 
   render() {
+    const { route } = this.props;
+    const { firstName, lastName, email, phone, password } = route.params;
     return (
       <View style={{flex: 1}}>
         <ImageBackground
@@ -74,14 +75,20 @@ class SignUpUserType extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.student}
             onPress={() => {
-              this.props.navigation.navigate('SignUpSelectCampus');
+              this.props.navigation.navigate('SignUpSelectCampus', {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phone: phone,
+                password: password
+              });
             }}>
             <Text style={{color: colors.appWhite}}> Student </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.tutor}
             onPress={() => {
-              this.handleTutor();
+              this.handleTutor(firstName, lastName, email, phone, password);
               this.props.navigation.navigate('');
               //TODO Redirect to Home page
             }}>

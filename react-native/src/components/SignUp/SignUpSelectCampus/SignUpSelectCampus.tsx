@@ -12,8 +12,7 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import IStudentSignUpInfo from '../../../model/IStudentSignUpInfo'
-import {signUpData} from '../SignUpData'
+import IStudentSignUpInfo from '../../../model/IStudentSignUpInfo' 
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -31,24 +30,9 @@ class SignUpSelectCampus extends Component<IProps, IState> {
       university: 'Find your campus',
     };
 
-    this.handleRegistration = this.handleRegistration.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.isUniversitySelected = this.isUniversitySelected.bind(this);
     this.finish = this.finish.bind(this);
-  }
-
-  handleRegistration() {
-    var studentInfo:IStudentSignUpInfo = { 
-      firstName: signUpData.firstName,
-      lastName: signUpData.lastName,
-      email: signUpData.email,
-      password: signUpData.password,
-      phone: signUpData.phone,
-      campus: this.state.university,
-      avatar: "",
-      firebase_uid: "",
-   } 
-    //TODO send above student info to backend
   }
 
   handleSearch = (text) => {
@@ -71,9 +55,19 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     Alert.alert('Please select a campus first.');
   }
 
-  finish = () => {
+  finish = (firstName, lastName, email, phone, password) => {
     if (this.state.university !== 'Find your campus') {
-      this.handleRegistration();
+      var studentInfo:IStudentSignUpInfo = { 
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        phone: phone,
+        campus: this.state.university,
+        avatar: "",
+        firebase_uid: "",
+     } 
+      //TODO send above student info to backend
       return true;
     } else {
       return false;
@@ -81,6 +75,8 @@ class SignUpSelectCampus extends Component<IProps, IState> {
   };
 
   render() {
+    const { route } = this.props;
+    const { firstName, lastName, email, phone, password } = route.params;
     return (
       <View style={{flex: 1, justifyContent: 'center'}}>
         <ImageBackground
@@ -127,14 +123,13 @@ class SignUpSelectCampus extends Component<IProps, IState> {
                 placeholder="Add University..."
                 style={styles.inputBox}
                 onChangeText={this.handleSearch}
-                onSubmitEditing={this.handleRegistration}
               />
             </View>
           </View>
           <TouchableOpacity
             style={styles.finishButton}
             onPress={() =>
-              {this.finish()
+              {this.finish(firstName, lastName, email, phone, password)
                 ? this.props.navigation.navigate('') 
                 //TODO Redirect to Home page
                 : this.alertMandatoryField();

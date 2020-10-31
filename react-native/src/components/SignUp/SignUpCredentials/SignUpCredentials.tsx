@@ -215,7 +215,13 @@ class SignUpCredentials extends Component<IProps, IState> {
             style={styles.nextButton}
             onPress={() => {
               this.saveInfo()
-                ? this.props.navigation.navigate('SignUpUserType')
+                ? this.props.navigation.navigate('SignUpUserType', {
+                  firstName: this.state.firstName,
+                  lastName: this.state.lastName,
+                  email: this.state.email,
+                  phone: this.state.phone,
+                  password: this.state.password
+                })
                 : this.alertMandatoryFields();
             }}>
             <Text style={{color: colors.appWhite}}> Next </Text>
