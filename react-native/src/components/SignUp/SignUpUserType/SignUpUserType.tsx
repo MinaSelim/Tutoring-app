@@ -10,7 +10,7 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import ITutorSignUpInfo from '../../../model/ITutorSignUpInfo'
+import ITutorSignUpInfo from '../../../model/ITutor'
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -33,8 +33,8 @@ class SignUpUserType extends Component<IProps, IState> {
 
   handleTutor = (firstName, lastName, email, phone, password) => {
     var tutorInfo:ITutorSignUpInfo = { 
-      firstName: firstName,
-      lastName: lastName,
+      first_name: firstName,
+      last_name: lastName,
       email: email,
       password: password,
       phone: phone,

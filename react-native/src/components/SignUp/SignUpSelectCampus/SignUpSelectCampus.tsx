@@ -12,7 +12,7 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import IStudentSignUpInfo from '../../../model/IStudentSignUpInfo' 
+import IStudent from '../../../model/IStudent' 
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -57,9 +57,9 @@ class SignUpSelectCampus extends Component<IProps, IState> {
 
   finish = (firstName, lastName, email, phone, password) => {
     if (this.state.university !== 'Find your campus') {
-      var studentInfo:IStudentSignUpInfo = { 
-        firstName: firstName,
-        lastName: lastName,
+      var studentInfo:IStudent = { 
+        first_name: firstName,
+        last_name: lastName,
         email: email,
         password: password,
         phone: phone,
