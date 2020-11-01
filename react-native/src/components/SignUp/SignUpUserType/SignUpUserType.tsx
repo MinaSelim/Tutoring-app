@@ -10,7 +10,7 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import ITutorSignUpInfo from '../../../model/ITutor'
+import ITutorSignUpInfo from '../../../model/Common/ITutor'
 
 interface IProps {
   navigation: NavigationInjectedProps;
