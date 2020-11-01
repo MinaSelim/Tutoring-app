@@ -36,11 +36,11 @@ class SignUpUserType extends Component<IProps, IState> {
       first_name: firstName,
       last_name: lastName,
       email: email,
-      password: password,
       phone: phone,
       avatar: "",
       firebase_uid: "",
    } 
+    //TODO Deal with password
     //TODO send above tutor info to backend
   };
 

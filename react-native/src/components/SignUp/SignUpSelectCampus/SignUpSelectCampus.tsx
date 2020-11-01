@@ -61,13 +61,13 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         first_name: firstName,
         last_name: lastName,
         email: email,
-        password: password,
         phone: phone,
         campus: this.state.university,
         avatar: "",
         firebase_uid: "",
      } 
       //TODO send above student info to backend
+      //TODO Deal with password
       return true;
     } else {
       return false;
