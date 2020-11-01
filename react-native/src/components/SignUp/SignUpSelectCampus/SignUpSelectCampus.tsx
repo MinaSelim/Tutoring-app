@@ -12,7 +12,7 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import IStudent from '../../../model/IStudent' 
+import IStudent from '../../../model/Common/IStudent' 
 
 interface IProps {
   navigation: NavigationInjectedProps;
