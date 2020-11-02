@@ -19,7 +19,9 @@ export default class StudentAuth implements IAuth {
    * Abstraction provided to communicate with firebase to authenthicate the user. it returns user information from the backend
    * @param loginInfo the username and password of the user
    */
-  public signInWithEmailAndPassword = async (loginInfo: IUserLogin) : Promise<IStudent>  => {
+  public signInWithEmailAndPassword = async (
+    loginInfo: IUserLogin,
+  ): Promise<IStudent> => {
     await this.auth.signInWithEmailAndPassword(
       loginInfo.email,
       loginInfo.password,
@@ -27,29 +29,32 @@ export default class StudentAuth implements IAuth {
     return await this.signInWithServer();
   };
 
-
-    /**
-     * this function registers the student and stores them in server db and the firebase auth API
-     *@param loginInfo the username and password of the user
-     *@param student the student that needs to be registered with the server. The firebase UID can be left empty.
-     */
-  public registerWithEmailAndPassword = async (loginInfo: IUserLogin, student : IStudent) : Promise<void> => {
+  /**
+   * this function registers the student and stores them in server db and the firebase auth API
+   *@param loginInfo the username and password of the user
+   *@param student the student that needs to be registered with the server. The firebase UID can be left empty.
+   */
+  public registerWithEmailAndPassword = async (
+    loginInfo: IUserLogin,
+    student: IStudent,
+  ): Promise<void> => {
     try {
-      const result = await this.auth.createUserWithEmailAndPassword(loginInfo.email, loginInfo.password);
+      const result = await this.auth.createUserWithEmailAndPassword(
+        loginInfo.email,
+        loginInfo.password,
+      );
       student.firebase_uid = result.user.uid;
-      let response = fetch((SERVER_LINK + "/auth/student/register"), {
+      let response = fetch(SERVER_LINK + '/auth/student/register', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
+          Accept: 'application/json',
+          'Content-type': 'application/json',
         },
-        body: JSON.stringify(student)
+        body: JSON.stringify(student),
       });
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   /**
@@ -62,7 +67,7 @@ export default class StudentAuth implements IAuth {
     const res = await fetch(SERVER_LINK + '/auth/student/login', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({idtoken: token}),

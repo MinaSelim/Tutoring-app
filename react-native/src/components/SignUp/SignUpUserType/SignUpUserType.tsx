@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  Image
+  Image,
 } from 'react-native';
 import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
@@ -12,7 +12,7 @@ import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -33,27 +33,30 @@ class SignUpUserType extends Component<IProps, IState> {
     this.handleTutor = this.handleTutor.bind(this);
   }
 
+  //Send the tutor's information to the back-end
   handleTutor = async (firstName, lastName, email, phone, password) => {
-    
-    let tutorAuth = new TutorAuth(); 
-    var tutor:ITutor = { 
+    let tutorAuth = new TutorAuth();
+    var tutor: ITutor = {
       first_name: firstName,
       last_name: lastName,
       email: email,
       phone: phone,
-      avatar: "",
-      firebase_uid: "",
-   } 
-   try{
-    await tutorAuth.registerWithEmailAndPassword({email:email, password:password}, tutor);
-  }catch(error){
-    Alert.alert("Something went wrong signing up as a tutor.")
-  }
+      avatar: '',
+      firebase_uid: '',
+    };
+    try {
+      await tutorAuth.registerWithEmailAndPassword(
+        {email: email, password: password},
+        tutor,
+      );
+    } catch (error) {
+      Alert.alert('Something went wrong signing up as a tutor.');
+    }
   };
 
   render() {
-    const { route } = this.props;
-    const { firstName, lastName, email, phone, password } = route.params;
+    const {route} = this.props;
+    const {firstName, lastName, email, phone, password} = route.params;
     return (
       <View style={{flex: 1}}>
         <ImageBackground
@@ -76,9 +79,7 @@ class SignUpUserType extends Component<IProps, IState> {
             width: '100%',
             marginTop: '50%',
           }}>
-          <Text style={styles.iAmText}>
-            I am a
-          </Text>
+          <Text style={styles.iAmText}>I am a</Text>
           <TouchableOpacity
             style={styles.student}
             onPress={() => {
@@ -87,7 +88,7 @@ class SignUpUserType extends Component<IProps, IState> {
                 lastName: lastName,
                 email: email,
                 phone: phone,
-                password: password
+                password: password,
               });
             }}>
             <Text style={{color: colors.appWhite}}> Student </Text>

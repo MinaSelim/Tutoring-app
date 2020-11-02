@@ -12,7 +12,7 @@ import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import IUserLogin from '../../model/IUserLogin'
+import IUserLogin from '../../model/IUserLogin';
 import IAuth from '../../api/authentication/IAuth';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
@@ -26,7 +26,6 @@ interface IState extends IUserLogin {
 }
 
 class SignIn extends Component<IProps, IState> {
-
   constructor(props) {
     super(props);
 
@@ -53,27 +52,28 @@ class SignIn extends Component<IProps, IState> {
   };
 
   changePasswordVisibility = () => {
-    this.setState({passwordHidden: !this.state.passwordHidden})
+    this.setState({passwordHidden: !this.state.passwordHidden});
   };
 
   alertMandatoryFields() {
     Alert.alert('Please fill the required information before proceeding.');
   }
 
+  //Send the user's input to the back-end
   signIn = async () => {
-    if (!this.state.email.includes('@') || this.state.password.length < 8){
+    if (!this.state.email.includes('@') || this.state.password.length < 8) {
       return false;
     }
-    let auth:IAuth;
-    if(true){ //TODO add for tutor
-    auth = new StudentAuth();
-    }else{
-    auth = new TutorAuth();
+    let auth: IAuth;
+    if (true){ //TODO add for tutor
+      auth = new StudentAuth();
+    } else {
+      auth = new TutorAuth();
     }
-    try{
+    try {
       let user = await auth.signInWithEmailAndPassword(this.state);
-    }catch(error){
-      Alert.alert("Something went wrong signing in.")
+    } catch (error){
+      Alert.alert('Something went wrong signing in.');
     }
     return true;
   };
@@ -127,7 +127,7 @@ class SignIn extends Component<IProps, IState> {
                 style={styles.input}
                 underlineColorAndroid="transparent"
                 placeholder="email"
-                placeholderTextColor= {colors.appSilver}
+                placeholderTextColor={colors.appSilver}
                 autoCapitalize="none"
                 onChangeText={this.handleEmail}
               />
@@ -145,24 +145,30 @@ class SignIn extends Component<IProps, IState> {
                 underlineColorAndroid="transparent"
                 placeholder="password"
                 secureTextEntry={this.state.passwordHidden}
-                placeholderTextColor= {colors.appSilver}
+                placeholderTextColor={colors.appSilver}
                 autoCapitalize="none"
                 onChangeText={this.handlePassword}
               />
-              <TouchableOpacity style={styles.eyeButton} onPress={this.changePasswordVisibility}>
-              <Image
-              source={this.state.passwordHidden?require('../../assets/images/eyeClosed.png'):require('../../assets/images/eyeOpened.png')}
-              style={styles.eyeIcon}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.eyeButton}
+                onPress={this.changePasswordVisibility}>
+                <Image
+                  source={
+                    this.state.passwordHidden
+                      ? require('../../assets/images/eyeClosed.png')
+                      : require('../../assets/images/eyeOpened.png')
+                  }
+                  style={styles.eyeIcon}
+                />
+              </TouchableOpacity>
             </View>
           </View>
 
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.signInButton}
-              onPress={() => 
-                {this.signIn()
+              onPress={() => {
+                this.signIn()
                   ? this.props.navigation.navigate('')
                   : this.alertMandatoryFields();
               }}>
@@ -176,9 +182,7 @@ class SignIn extends Component<IProps, IState> {
             <TouchableOpacity
               style={styles.forgotPasswordButton}
               onPress={() => this.forgotPassword()}>
-              <Text style={styles.forgotPasswordText}>
-                Forgot password?
-              </Text>
+              <Text style={styles.forgotPasswordText}>Forgot password?</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -196,7 +200,10 @@ class SignIn extends Component<IProps, IState> {
                 source={require('../../assets/images/googleIcon.png')}
                 style={styles.googleIcon}
               />
-              <Text style={{color: colors.appSilver}}> Sign in with Google </Text>
+              <Text style={{color: colors.appSilver}}>
+                {' '}
+                Sign in with Google{' '}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

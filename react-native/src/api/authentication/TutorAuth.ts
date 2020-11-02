@@ -19,7 +19,9 @@ export default class TutorAuth implements IAuth {
    * Abstraction provided to communicate with firebase to authenthicate the user. it returns user information from the backend
    * @param loginInfo the username and password of the user
    */
-  public signInWithEmailAndPassword = async (loginInfo: IUserLogin) : Promise<ITutor> => {
+  public signInWithEmailAndPassword = async (
+    loginInfo: IUserLogin,
+  ): Promise<ITutor> => {
     await this.auth.signInWithEmailAndPassword(
       loginInfo.email,
       loginInfo.password,
@@ -27,28 +29,32 @@ export default class TutorAuth implements IAuth {
     return await this.signInWithServer();
   };
 
-    /**
-     * this function registers the student and stores them in server db and the firebase auth API.
-     *@param loginInfo the username and password of the user
-     *@param tutor the tutor that needs to be registered with the server. The firebase UID can be left empty.
-     */
-  public registerWithEmailAndPassword = async (loginInfo: IUserLogin, tutor : ITutor) : Promise<void> => {
+  /**
+   * this function registers the student and stores them in server db and the firebase auth API.
+   *@param loginInfo the username and password of the user
+   *@param tutor the tutor that needs to be registered with the server. The firebase UID can be left empty.
+   */
+  public registerWithEmailAndPassword = async (
+    loginInfo: IUserLogin,
+    tutor: ITutor,
+  ): Promise<void> => {
     try {
-      const result = await this.auth.createUserWithEmailAndPassword(loginInfo.email, loginInfo.password);
+      const result = await this.auth.createUserWithEmailAndPassword(
+        loginInfo.email,
+        loginInfo.password,
+      );
       tutor.firebase_uid = result.user.uid;
-      let response = fetch((SERVER_LINK + "/auth/tutor/register"), {
+      let response = fetch(SERVER_LINK + '/auth/tutor/register', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
+          Accept: 'application/json',
+          'Content-type': 'application/json',
         },
-        body: JSON.stringify(tutor)
+        body: JSON.stringify(tutor),
       });
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   /**
@@ -61,13 +67,13 @@ export default class TutorAuth implements IAuth {
     const res = await fetch(SERVER_LINK + '/auth/tutor/login', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({idtoken: token}),
       credentials: 'include',
-    })
-    
+    });
+
     const responseInJson = await res.json();
     return responseInJson;
   };

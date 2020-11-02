@@ -9,10 +9,10 @@ import {
   Alert,
 } from 'react-native';
 import {colors} from '../../../styles/appColors';
-import styles from './styles/SignUpCredentialsStyles'
+import styles from './styles/SignUpCredentialsStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import ISignUpCredentials from '../../../model/ISignUpCredentials'
+import ISignUpCredentials from '../../../model/ISignUpCredentials';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -37,7 +37,7 @@ class SignUpCredentials extends Component<IProps, IState> {
       passwordHidden: true,
     };
 
-    this.saveInfo = this.saveInfo.bind(this);
+    this.isInputValid = this.isInputValid.bind(this);
     this.handleFirstName = this.handleFirstName.bind(this);
     this.handleLastName = this.handleLastName.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
@@ -72,28 +72,30 @@ class SignUpCredentials extends Component<IProps, IState> {
   };
 
   changePasswordVisibility = () => {
-    this.setState({passwordHidden: !this.state.passwordHidden})
+    this.setState({passwordHidden: !this.state.passwordHidden});
   };
 
+  //alert the user if some inputs are invalid
   alertMandatoryFields() {
-    if(!this.state.email.includes("@")){
+    if (!this.state.email.includes('@')) {
       Alert.alert('Make sure email is valid.');
-    } else if(this.state.password.length < 8){
+    } else if (this.state.password.length < 8) {
       Alert.alert('Password must be at least 8 characters.');
-    }else if(this.state.password !== this.state.confirmPassword){
+    } else if (this.state.password !== this.state.confirmPassword) {
       Alert.alert('Password does not match password confirmation.');
-    }else{
+    } else {
       Alert.alert('Fields with * are mandatory.');
     }
   }
 
-  saveInfo() {
+  //check if all inputs are valid before moving to next page
+  isInputValid() {
     if (
-      (this.state.first_name === '' ||
+      this.state.first_name === '' ||
       this.state.last_name === '' ||
       this.state.email === '' ||
-      this.state.password === '') ||
-      !this.state.email.includes("@") ||
+      this.state.password === '' ||
+      !this.state.email.includes('@') ||
       this.state.password.length < 8 ||
       this.state.password !== this.state.confirmPassword
     ) {
@@ -155,7 +157,7 @@ class SignUpCredentials extends Component<IProps, IState> {
             />
           </View>
           <View style={styles.inputSection}>
-          <Text style={{opacity: 0}}>*</Text>
+            <Text style={{opacity: 0}}>*</Text>
             <TextInput
               style={styles.inputBox}
               placeholder="Phone"
@@ -172,10 +174,16 @@ class SignUpCredentials extends Component<IProps, IState> {
               placeholderTextColor={colors.appSilver}
               onChangeText={this.handlePassword}
             />
-            <TouchableOpacity style={styles.eyeButton} onPress={this.changePasswordVisibility}>
+            <TouchableOpacity
+              style={styles.eyeButton}
+              onPress={this.changePasswordVisibility}>
               <Image
-              source={this.state.passwordHidden?require('../../../assets/images/eyeClosed.png'):require('../../../assets/images/eyeOpened.png')}
-              style={styles.eyeIcon}
+                source={
+                  this.state.passwordHidden
+                    ? require('../../../assets/images/eyeClosed.png')
+                    : require('../../../assets/images/eyeOpened.png')
+                }
+                style={styles.eyeIcon}
               />
             </TouchableOpacity>
           </View>
@@ -188,10 +196,16 @@ class SignUpCredentials extends Component<IProps, IState> {
               placeholderTextColor={colors.appSilver}
               onChangeText={this.handleConfirmPassword}
             />
-            <TouchableOpacity style={styles.eyeButton} onPress={this.changePasswordVisibility}>
+            <TouchableOpacity
+              style={styles.eyeButton}
+              onPress={this.changePasswordVisibility}>
               <Image
-              source={this.state.passwordHidden?require('../../../assets/images/eyeClosed.png'):require('../../../assets/images/eyeOpened.png')}
-              style={styles.eyeIcon}
+                source={
+                  this.state.passwordHidden
+                    ? require('../../../assets/images/eyeClosed.png')
+                    : require('../../../assets/images/eyeOpened.png')
+                }
+                style={styles.eyeIcon}
               />
             </TouchableOpacity>
           </View>
@@ -207,14 +221,14 @@ class SignUpCredentials extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.nextButton}
             onPress={() => {
-              this.saveInfo()
+              this.isInputValid()
                 ? this.props.navigation.navigate('SignUpUserType', {
-                  firstName: this.state.first_name,
-                  lastName: this.state.last_name,
-                  email: this.state.email,
-                  phone: this.state.phone,
-                  password: this.state.password
-                })
+                    firstName: this.state.first_name,
+                    lastName: this.state.last_name,
+                    email: this.state.email,
+                    phone: this.state.phone,
+                    password: this.state.password,
+                  })
                 : this.alertMandatoryFields();
             }}>
             <Text style={{color: colors.appWhite}}> Next </Text>

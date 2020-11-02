@@ -12,7 +12,7 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import IStudent from '../../../model/common/IStudent' 
+import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
 
 interface IProps {
@@ -56,23 +56,27 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     Alert.alert('Please select a campus first.');
   }
 
+  //Send the student's information to the back-end
   finish = async (firstName, lastName, email, phone, password) => {
     if (this.state.university !== 'Find your campus') {
       let studentAuth = new StudentAuth();
-      var studentInfo:IStudent = { 
+      var studentInfo: IStudent = {
         first_name: firstName,
         last_name: lastName,
         email: email,
         phone: phone,
         campus: this.state.university,
-        avatar: "",
-        firebase_uid: "",
-     } 
-     try{
-      await studentAuth.registerWithEmailAndPassword({email:email, password:password}, studentInfo);
-    }catch(error){
-      Alert.alert("Something went wrong signing up as a student.")
-    }
+        avatar: '',
+        firebase_uid: '',
+      };
+      try {
+        await studentAuth.registerWithEmailAndPassword(
+          {email: email, password: password},
+          studentInfo,
+        );
+      } catch (error) {
+        Alert.alert('Something went wrong signing up as a student.');
+      }
       return true;
     } else {
       return false;
@@ -80,8 +84,8 @@ class SignUpSelectCampus extends Component<IProps, IState> {
   };
 
   render() {
-    const { route } = this.props;
-    const { firstName, lastName, email, phone, password } = route.params;
+    const {route} = this.props;
+    const {firstName, lastName, email, phone, password} = route.params;
     return (
       <View style={{flex: 1, justifyContent: 'center'}}>
         <ImageBackground
@@ -104,9 +108,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             marginRight: 25,
             justifyContent: 'space-between',
           }}>
-          <Text style={styles.selectYourCampus}>
-            Select your campus
-          </Text>
+          <Text style={styles.selectYourCampus}>Select your campus</Text>
           <View
             style={{
               justifyContent: 'space-between',
@@ -120,9 +122,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
                 this.isUniversitySelected() ? {opacity: 1} : {opacity: 0.25},
               ]}
             />
-            <Text style={styles.universityText}>
-              {this.state.university}
-            </Text>
+            <Text style={styles.universityText}>{this.state.university}</Text>
             <View>
               <TextInput
                 placeholder="Add University..."
@@ -133,12 +133,12 @@ class SignUpSelectCampus extends Component<IProps, IState> {
           </View>
           <TouchableOpacity
             style={styles.finishButton}
-            onPress={() =>
-              {this.finish(firstName, lastName, email, phone, password)
-                ? this.props.navigation.navigate('') 
-                //TODO Redirect to Home page
-                : this.alertMandatoryField();
-              }}>
+            onPress={() => {
+              this.finish(firstName, lastName, email, phone, password)
+                ? this.props.navigation.navigate('')
+                : //TODO Redirect to Home page
+                  this.alertMandatoryField();
+            }}>
             <Text style={{color: colors.appWhite}}> Finish </Text>
           </TouchableOpacity>
         </View>

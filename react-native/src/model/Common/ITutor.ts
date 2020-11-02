@@ -1,5 +1,5 @@
-import IUser from "./IUser";
+import IUser from './IUser';
 
 export default interface ITutor extends IUser {
-    campuses?: string;
-}
+  campuses?: string;
+};
