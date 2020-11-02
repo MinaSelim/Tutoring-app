@@ -23,6 +23,7 @@ interface IState {
   university: string;
 }
 
+//This component corresponds to the third sign up page
 class SignUpSelectCampus extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -44,16 +45,12 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     }
   };
 
-  isUniversitySelected() {
+  isUniversitySelected = () => {
     if (this.state.university === 'Find your campus') {
       return false;
     } else {
       return true;
     }
-  }
-
-  alertMandatoryField() {
-    Alert.alert('Please select a campus first.');
   }
 
   //Send the student's information to the back-end
@@ -76,9 +73,11 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         );
       } catch (error) {
         Alert.alert('Something went wrong signing up as a student.');
+        return false;
       }
       return true;
     } else {
+      Alert.alert('Please select a campus first.');
       return false;
     }
   };
@@ -135,9 +134,8 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             style={styles.finishButton}
             onPress={() => {
               this.finish(firstName, lastName, email, phone, password)
-                ? this.props.navigation.navigate('')
-                : //TODO Redirect to Home page
-                  this.alertMandatoryField();
+                ? this.props.navigation.navigate('') //TODO Redirect to Home page
+                : true;
             }}>
             <Text style={{color: colors.appWhite}}> Finish </Text>
           </TouchableOpacity>

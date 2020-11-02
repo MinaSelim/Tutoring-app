@@ -23,6 +23,7 @@ interface IState extends ISignUpCredentials {
   passwordHidden: boolean;
 }
 
+//This component corresponds to the first sign up page
 class SignUpCredentials extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -76,7 +77,7 @@ class SignUpCredentials extends Component<IProps, IState> {
   };
 
   //alert the user if some inputs are invalid
-  alertMandatoryFields() {
+  alertMandatoryFields = () => {
     if (!this.state.email.includes('@')) {
       Alert.alert('Make sure email is valid.');
     } else if (this.state.password.length < 8) {
@@ -89,7 +90,7 @@ class SignUpCredentials extends Component<IProps, IState> {
   }
 
   //check if all inputs are valid before moving to next page
-  isInputValid() {
+  isInputValid = () => {
     if (
       this.state.first_name === '' ||
       this.state.last_name === '' ||

@@ -25,6 +25,7 @@ interface IState extends IUserLogin {
   passwordHidden: boolean;
 }
 
+//This component corresponds to the sign in page
 class SignIn extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -37,7 +38,6 @@ class SignIn extends Component<IProps, IState> {
 
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.alertMandatoryFields = this.alertMandatoryFields.bind(this);
     this.signIn = this.signIn.bind(this);
     this.forgotPassword = this.forgotPassword.bind(this);
     this.signInWithGoogle = this.signInWithGoogle.bind(this);
@@ -55,13 +55,10 @@ class SignIn extends Component<IProps, IState> {
     this.setState({passwordHidden: !this.state.passwordHidden});
   };
 
-  alertMandatoryFields() {
-    Alert.alert('Please fill the required information before proceeding.');
-  }
-
   //Send the user's input to the back-end
   signIn = async () => {
     if (!this.state.email.includes('@') || this.state.password.length < 8) {
+      Alert.alert('Please fill the required information before proceeding.');
       return false;
     }
     let auth: IAuth;
@@ -74,6 +71,7 @@ class SignIn extends Component<IProps, IState> {
       let user = await auth.signInWithEmailAndPassword(this.state);
     } catch (error){
       Alert.alert('Something went wrong signing in.');
+      return false;
     }
     return true;
   };
@@ -170,7 +168,7 @@ class SignIn extends Component<IProps, IState> {
               onPress={() => {
                 this.signIn()
                   ? this.props.navigation.navigate('')
-                  : this.alertMandatoryFields();
+                  : true;
               }}>
               <Text style={{color: colors.appWhite}}> Sign In </Text>
               <Image

@@ -3,5 +3,5 @@ export default interface ISignUpCredentials {
   last_name: string;
   email: string;
   phone?: string;
-  password: string; //TODO what to do with password?
+  password: string;
 };

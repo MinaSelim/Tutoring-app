@@ -22,6 +22,7 @@ interface IState {
   userType: string;
 }
 
+//This component corresponds to the second sign up page
 class SignUpUserType extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -51,7 +52,9 @@ class SignUpUserType extends Component<IProps, IState> {
       );
     } catch (error) {
       Alert.alert('Something went wrong signing up as a tutor.');
+      return false;
     }
+    return true;
   };
 
   render() {
@@ -96,9 +99,9 @@ class SignUpUserType extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.tutor}
             onPress={() => {
-              this.handleTutor(firstName, lastName, email, phone, password);
-              this.props.navigation.navigate('');
-              //TODO Redirect to Home page
+              this.handleTutor(firstName, lastName, email, phone, password)
+              ? this.props.navigation.navigate('') //TODO Redirect to Home page
+              : true;
             }}>
             <Text style={{color: colors.appWhite}}> Tutor </Text>
           </TouchableOpacity>
