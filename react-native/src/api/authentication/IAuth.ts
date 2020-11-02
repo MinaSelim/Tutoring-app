@@ -1,4 +1,4 @@
-import IUser from "../../model/IUser";
+import IUser from "../../model/common/IUser";
 import IUserLogin from "../../model/IUserLogin";
 
 export default interface IAuth {

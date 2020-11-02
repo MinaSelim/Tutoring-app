@@ -13,6 +13,9 @@ import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
 import IUserLogin from '../../model/IUserLogin'
+import IAuth from '../../api/authentication/IAuth';
+import StudentAuth from '../../api/authentication/StudentAuth';
+import TutorAuth from '../../api/authentication/TutorAuth';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -57,11 +60,21 @@ class SignIn extends Component<IProps, IState> {
     Alert.alert('Please fill the required information before proceeding.');
   }
 
-  signIn = () => {
-    if (this.state.email === '' || this.state.password === ''){
+  signIn = async () => {
+    if (!this.state.email.includes('@') || this.state.password.length < 8){
       return false;
     }
-    //TODO Pass sign in info to node.js code
+    let auth:IAuth;
+    if(true){ //TODO add for tutor
+    auth = new StudentAuth();
+    }else{
+    auth = new TutorAuth();
+    }
+    try{
+      let user = await auth.signInWithEmailAndPassword(this.state);
+    }catch(error){
+      Alert.alert("Something went wrong signing in.")
+    }
     return true;
   };
 

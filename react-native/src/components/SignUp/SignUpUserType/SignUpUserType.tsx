@@ -10,7 +10,9 @@ import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import ITutorSignUpInfo from '../../../model/Common/ITutor'
+import TutorAuth from '../../../api/authentication/TutorAuth';
+import ITutor from '../../../model/common/ITutor';
+import { Alert } from 'react-native';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -31,8 +33,10 @@ class SignUpUserType extends Component<IProps, IState> {
     this.handleTutor = this.handleTutor.bind(this);
   }
 
-  handleTutor = (firstName, lastName, email, phone, password) => {
-    var tutorInfo:ITutorSignUpInfo = { 
+  handleTutor = async (firstName, lastName, email, phone, password) => {
+    
+    let tutorAuth = new TutorAuth(); 
+    var tutor:ITutor = { 
       first_name: firstName,
       last_name: lastName,
       email: email,
@@ -40,8 +44,11 @@ class SignUpUserType extends Component<IProps, IState> {
       avatar: "",
       firebase_uid: "",
    } 
-    //TODO Deal with password
-    //TODO send above tutor info to backend
+   try{
+    await tutorAuth.registerWithEmailAndPassword({email:email, password:password}, tutor);
+  }catch(error){
+    Alert.alert("Something went wrong signing up as a tutor.")
+  }
   };
 
   render() {

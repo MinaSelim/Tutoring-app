@@ -12,7 +12,8 @@ import styles from './styles/SignUpSelectCampusStyles';
 import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
 import {NavigationInjectedProps} from 'react-navigation';
-import IStudent from '../../../model/Common/IStudent' 
+import IStudent from '../../../model/common/IStudent' 
+import StudentAuth from '../../../api/authentication/StudentAuth';
 
 interface IProps {
   navigation: NavigationInjectedProps;
@@ -55,8 +56,9 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     Alert.alert('Please select a campus first.');
   }
 
-  finish = (firstName, lastName, email, phone, password) => {
+  finish = async (firstName, lastName, email, phone, password) => {
     if (this.state.university !== 'Find your campus') {
+      let studentAuth = new StudentAuth();
       var studentInfo:IStudent = { 
         first_name: firstName,
         last_name: lastName,
@@ -66,8 +68,11 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         avatar: "",
         firebase_uid: "",
      } 
-      //TODO send above student info to backend
-      //TODO Deal with password
+     try{
+      await studentAuth.registerWithEmailAndPassword({email:email, password:password}, studentInfo);
+    }catch(error){
+      Alert.alert("Something went wrong signing up as a student.")
+    }
       return true;
     } else {
       return false;
