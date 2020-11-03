@@ -1,5 +1,3 @@
-import {StyleSheet} from 'react-native';
-
 export const colors = {
   appBeige: '#FCEED9',
   appBlack: 'black',

@@ -1,5 +1,6 @@
 import {colors} from '../../../../styles/appColors';
 import {StyleSheet} from 'react-native';
+import { fonts } from '../../../../styles/appFonts';
 
 export default StyleSheet.create({
   student: {
@@ -37,6 +38,11 @@ export default StyleSheet.create({
     fontSize: 18,
     marginLeft: '12.5%',
     marginBottom: 10,
+    fontFamily: fonts.quickSandRegular
+  },
+  buttonText:{
+    color: colors.appWhite,
+    fontFamily: fonts.quickSandBold
   },
   footer: {
     color: colors.appLightGrey,

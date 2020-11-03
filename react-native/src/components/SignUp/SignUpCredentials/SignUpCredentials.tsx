@@ -11,17 +11,12 @@ import {
 import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpCredentialsStyles';
 import 'react-native-gesture-handler';
-import {NavigationInjectedProps} from 'react-navigation';
-import ISignUpCredentials from '../../../model/ISignUpCredentials';
+import INavigation from '../../../model/navigation/INavigation';
+import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';
 
-interface IProps {
-  navigation: NavigationInjectedProps;
-}
+interface IProps extends INavigation {}
 
-interface IState extends ISignUpCredentials {
-  confirmPassword: string;
-  passwordHidden: boolean;
-}
+interface IState extends ISignUpCredentialsPage {}
 
 //This component corresponds to the first sign up page
 class SignUpCredentials extends Component<IProps, IState> {
@@ -114,14 +109,14 @@ class SignUpCredentials extends Component<IProps, IState> {
     return (
       <View style={{flex: 1, alignItems: 'stretch'}}>
         <ImageBackground
-          source={require('../../../assets/images/signUpBackground.png')}
+          source={require('../../../assets/images/icons/signUpBackground.png')}
           style={styles.backgroundImage}
         />
         <TouchableOpacity
           style={{position: 'absolute'}}
           onPress={() => this.props.navigation.goBack()}>
           <Image
-            source={require('../../../assets/images/backBtn.png')}
+            source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
           />
         </TouchableOpacity>
@@ -181,8 +176,8 @@ class SignUpCredentials extends Component<IProps, IState> {
               <Image
                 source={
                   this.state.passwordHidden
-                    ? require('../../../assets/images/eyeClosed.png')
-                    : require('../../../assets/images/eyeOpened.png')
+                    ? require('../../../assets/images/icons/eyeClosed.png')
+                    : require('../../../assets/images/icons/eyeOpened.png')
                 }
                 style={styles.eyeIcon}
               />
@@ -203,8 +198,8 @@ class SignUpCredentials extends Component<IProps, IState> {
               <Image
                 source={
                   this.state.passwordHidden
-                    ? require('../../../assets/images/eyeClosed.png')
-                    : require('../../../assets/images/eyeOpened.png')
+                    ? require('../../../assets/images/icons/eyeClosed.png')
+                    : require('../../../assets/images/icons/eyeOpened.png')
                 }
                 style={styles.eyeIcon}
               />
@@ -232,9 +227,9 @@ class SignUpCredentials extends Component<IProps, IState> {
                   })
                 : this.alertMandatoryFields();
             }}>
-            <Text style={{color: colors.appWhite}}> Next </Text>
+            <Text style={styles.nextText}> Next </Text>
             <Image
-              source={require('../../../assets/images/nextArrow.png')}
+              source={require('../../../assets/images/icons/nextArrow.png')}
               style={styles.nextArrow}
             />
           </TouchableOpacity>
@@ -242,10 +237,10 @@ class SignUpCredentials extends Component<IProps, IState> {
             style={styles.signInWithGoogleButton}
             onPress={() => this.signInWithGoogle()}>
             <Image
-              source={require('../../../assets/images/googleIcon.png')}
+              source={require('../../../assets/images/icons/googleIcon.png')}
               style={styles.googleIcon}
             />
-            <Text style={{color: colors.appSilver}}> Sign in with Google </Text>
+            <Text style={styles.signInWithGoogleText}> Sign in with Google </Text>
           </TouchableOpacity>
           <Text style={styles.footer}>go.study</Text>
         </View>

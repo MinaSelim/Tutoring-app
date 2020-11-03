@@ -11,19 +11,16 @@ import {
 import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
-import {NavigationInjectedProps} from 'react-navigation';
-import IUserLogin from '../../model/IUserLogin';
+import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from '../../api/authentication/IAuth';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
+import INavigation from '../../model/navigation/INavigation'
+import ISignInPage from '../../model/signInSignUp/ISignInPage';
 
-interface IProps {
-  navigation: NavigationInjectedProps;
-}
+interface IProps extends INavigation {}
 
-interface IState extends IUserLogin {
-  passwordHidden: boolean;
-}
+interface IState extends IUserLogin, ISignInPage {}
 
 //This component corresponds to the sign in page
 class SignIn extends Component<IProps, IState> {
@@ -88,22 +85,14 @@ class SignIn extends Component<IProps, IState> {
     return (
       <View style={{flex: 1}}>
         <ImageBackground
-          source={require('../../assets/images/signInBackground.png')}
+          source={require('../../assets/images/icons/signInBackground.png')}
           style={styles.background}
         />
 
         <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            height: 75,
-            width: 200,
-            marginTop: 10,
-            marginRight: 10,
-          }}>
+          style={styles.logo}>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require('../../assets/images/icons/logo.png')}
             style={styles.title}
           />
         </View>
@@ -117,7 +106,7 @@ class SignIn extends Component<IProps, IState> {
             <View style={{flexDirection: 'row', margin: 15, marginLeft: 30}}>
               <View style={styles.iconBox}>
                 <Image
-                  source={require('../../assets/images/user.png')}
+                  source={require('../../assets/images/icons/user.png')}
                   style={styles.icon}
                 />
               </View>
@@ -134,7 +123,7 @@ class SignIn extends Component<IProps, IState> {
             <View style={{flexDirection: 'row', margin: 15, marginLeft: 30}}>
               <View style={styles.iconBox}>
                 <Image
-                  source={require('../../assets/images/lock.png')}
+                  source={require('../../assets/images/icons/lock.png')}
                   style={styles.icon}
                 />
               </View>
@@ -143,7 +132,7 @@ class SignIn extends Component<IProps, IState> {
                 underlineColorAndroid="transparent"
                 placeholder="password"
                 secureTextEntry={this.state.passwordHidden}
-                placeholderTextColor={colors.appSilver}
+                placeholderTextColor={colors.appSilver}         
                 autoCapitalize="none"
                 onChangeText={this.handlePassword}
               />
@@ -153,8 +142,8 @@ class SignIn extends Component<IProps, IState> {
                 <Image
                   source={
                     this.state.passwordHidden
-                      ? require('../../assets/images/eyeClosed.png')
-                      : require('../../assets/images/eyeOpened.png')
+                      ? require('../../assets/images/icons/eyeClosed.png')
+                      : require('../../assets/images/icons/eyeOpened.png')
                   }
                   style={styles.eyeIcon}
                 />
@@ -170,9 +159,9 @@ class SignIn extends Component<IProps, IState> {
                   ? this.props.navigation.navigate('')
                   : true;
               }}>
-              <Text style={{color: colors.appWhite}}> Sign In </Text>
+              <Text style={styles.signInText}> Sign In </Text>
               <Image
-                source={require('../../assets/images/nextArrow.png')}
+                source={require('../../assets/images/icons/nextArrow.png')}
                 style={styles.nextArrow}
               />
             </TouchableOpacity>
@@ -188,17 +177,17 @@ class SignIn extends Component<IProps, IState> {
               onPress={() => {
                 this.props.navigation.navigate('SignUpCredentials');
               }}>
-              <Text style={{color: colors.appOrange}}> Create an account </Text>
+              <Text style={styles.createAccountText}> Create an account </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.signInWithGoogleButton}
               onPress={() => this.signInWithGoogle()}>
               <Image
-                source={require('../../assets/images/googleIcon.png')}
+                source={require('../../assets/images/icons/googleIcon.png')}
                 style={styles.googleIcon}
               />
-              <Text style={{color: colors.appSilver}}>
+              <Text style={styles.signInWithGoogleText}>
                 {' '}
                 Sign in with Google{' '}
               </Text>

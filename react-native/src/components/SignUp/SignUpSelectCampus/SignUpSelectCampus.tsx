@@ -9,19 +9,15 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles/SignUpSelectCampusStyles';
-import {colors} from '../../../styles/appColors';
 import 'react-native-gesture-handler';
-import {NavigationInjectedProps} from 'react-navigation';
+import INavigation from '../../../model/navigation/INavigation';
 import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
+import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
 
-interface IProps {
-  navigation: NavigationInjectedProps;
-}
+interface IProps extends INavigation {}
 
-interface IState {
-  university: string;
-}
+interface IState extends ISignUpSelectCampusPage {}
 
 //This component corresponds to the third sign up page
 class SignUpSelectCampus extends Component<IProps, IState> {
@@ -88,14 +84,14 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     return (
       <View style={{flex: 1, justifyContent: 'center'}}>
         <ImageBackground
-          source={require('../../../assets/images/signUpBackground.png')}
+          source={require('../../../assets/images/icons/signUpBackground.png')}
           style={styles.backgroundImage}
         />
         <TouchableOpacity
           style={{position: 'absolute', top: 10}}
           onPress={() => this.props.navigation.goBack()}>
           <Image
-            source={require('../../../assets/images/backBtn.png')}
+            source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
           />
         </TouchableOpacity>
@@ -115,7 +111,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
               marginBottom: 100,
             }}>
             <Image
-              source={require('../../../assets/images/university.png')}
+              source={require('../../../assets/images/icons/university.png')}
               style={[
                 {alignSelf: 'center'},
                 this.isUniversitySelected() ? {opacity: 1} : {opacity: 0.25},
@@ -137,7 +133,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
                 ? this.props.navigation.navigate('') //TODO Redirect to Home page
                 : true;
             }}>
-            <Text style={{color: colors.appWhite}}> Finish </Text>
+            <Text style={styles.finishText}> Finish </Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.footer}> go.study </Text>

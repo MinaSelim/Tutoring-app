@@ -1,6 +1,6 @@
 import fire from './Fire';
 import {auth} from 'firebase';
-import IUserLogin from '../../model/IUserLogin';
+import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
 import IAuth from './IAuth';
 import IStudent from '../../model/common/IStudent';
@@ -39,7 +39,7 @@ export default class StudentAuth implements IAuth {
     student: IStudent,
   ): Promise<void> => {
     try {
-      const result = await this.auth.createUserWithEmailAndPassword(
+      let result = await this.auth.createUserWithEmailAndPassword(
         loginInfo.email,
         loginInfo.password,
       );
@@ -61,10 +61,10 @@ export default class StudentAuth implements IAuth {
    * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
    */
   private signInWithServer = async () => {
-    const user = this.auth.currentUser;
-    const token = user && (await user.getIdToken());
+    let user = this.auth.currentUser;
+    let token = user && (await user.getIdToken());
 
-    const res = await fetch(SERVER_LINK + '/auth/student/login', {
+    let response = await fetch(SERVER_LINK + '/auth/student/login', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -74,6 +74,6 @@ export default class StudentAuth implements IAuth {
       credentials: 'include',
     }).then((response) => response.json());
 
-    return res;
+    return response;
   };
 }

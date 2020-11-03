@@ -1,10 +1,20 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../styles/appColors';
+import {fonts} from '../../../styles/appFonts';
 
 export default StyleSheet.create({
   background: {
     width: '100%',
     height: '100%',
+  },
+  logo: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    height: 75,
+    width: 200,
+    marginTop: 10,
+    marginRight: 10,
   },
   container: {
     position: 'absolute',
@@ -18,9 +28,9 @@ export default StyleSheet.create({
   },
   welcome: {
     fontSize: 30,
-    fontWeight: 'bold',
     marginBottom: 18,
     marginLeft: 20,
+    fontFamily: fonts.quickSandBold, 
   },
   icon: {
     width: '60%',
@@ -36,6 +46,7 @@ export default StyleSheet.create({
   },
   signInToContinue: {
     fontSize: 20,
+    fontFamily: fonts.quickSandRegular, 
     marginBottom: 28,
     marginLeft: 20,
   },
@@ -45,6 +56,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0.75,
     width: '100%',
     marginLeft: 10,
+    fontFamily: fonts.quickSandRegular, 
     fontSize: 18,
     color: colors.appBlack,
   },
@@ -65,6 +77,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+  signInText: {
+    color: colors.appWhite, 
+    fontFamily: fonts.quickSandBold
+  },
   nextArrow: {
     width: 20,
     height: 12,
@@ -81,6 +97,7 @@ export default StyleSheet.create({
   forgotPasswordText: {
     color: colors.appDarkGrey,
     fontSize: 12,
+    fontFamily: fonts.quickSandBold
   },
   createAnAccountButton: {
     backgroundColor: colors.appBeige,
@@ -90,6 +107,10 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  createAccountText: {
+    color: colors.appOrange, 
+    fontFamily: fonts.quickSandBold
   },
   signInWithGoogleButton: {
     backgroundColor: colors.appLightGrey,
@@ -101,6 +122,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+  },
+  signInWithGoogleText: {
+    color: colors.appSilver, 
+    fontFamily: fonts.quickSandBold
   },
   googleIcon: {
     width: 20,

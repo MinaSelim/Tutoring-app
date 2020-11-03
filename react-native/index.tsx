@@ -1,10 +1,10 @@
 import {AppRegistry, View, Text} from 'react-native';
 import React from 'react';
 import {Component} from 'react';
-import SignUpCredentials from './src/components/SignUp/SignUpCredentials/SignUpCredentials';
-import SignUpUserType from './src/components/SignUp/SignUpUserType/SignUpUserType';
-import SignUpSelectCampus from './src/components/SignUp/SignUpSelectCampus/SignUpSelectCampus';
-import SignIn from './src/components/SignIn/SignIn';
+import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
+import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
+import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
+import SignIn from './src/components/signIn/SignIn';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';

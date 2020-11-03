@@ -6,21 +6,17 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
-import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
-import {NavigationInjectedProps} from 'react-navigation';
+import INavigation from '../../../model/navigation/INavigation';
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import {Alert} from 'react-native';
+import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage'
 
-interface IProps {
-  navigation: NavigationInjectedProps;
-}
+interface IProps extends INavigation {}
 
-interface IState {
-  userType: string;
-}
+interface IState extends ISignUpUserTypePage {}
 
 //This component corresponds to the second sign up page
 class SignUpUserType extends Component<IProps, IState> {
@@ -63,14 +59,14 @@ class SignUpUserType extends Component<IProps, IState> {
     return (
       <View style={{flex: 1}}>
         <ImageBackground
-          source={require('../../../assets/images/signUpBackground.png')}
+          source={require('../../../assets/images/icons/signUpBackground.png')}
           style={styles.backgroundImage}
         />
         <TouchableOpacity
           style={{position: 'absolute'}}
           onPress={() => this.props.navigation.goBack()}>
           <Image
-            source={require('../../../assets/images/backBtn.png')}
+            source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
           />
         </TouchableOpacity>
@@ -94,7 +90,7 @@ class SignUpUserType extends Component<IProps, IState> {
                 password: password,
               });
             }}>
-            <Text style={{color: colors.appWhite}}> Student </Text>
+            <Text style={styles.buttonText}> Student </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.tutor}
@@ -103,7 +99,7 @@ class SignUpUserType extends Component<IProps, IState> {
               ? this.props.navigation.navigate('') //TODO Redirect to Home page
               : true;
             }}>
-            <Text style={{color: colors.appWhite}}> Tutor </Text>
+            <Text style={styles.buttonText}> Tutor </Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.footer}> go.study </Text>

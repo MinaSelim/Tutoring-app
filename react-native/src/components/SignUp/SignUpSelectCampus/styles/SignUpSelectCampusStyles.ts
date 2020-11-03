@@ -1,5 +1,6 @@
 import {colors} from '../../../../styles/appColors';
 import {StyleSheet} from 'react-native';
+import { fonts } from '../../../../styles/appFonts';
 
 export default StyleSheet.create({
   inputBox: {
@@ -9,6 +10,7 @@ export default StyleSheet.create({
     width: '90%',
     height: 40,
     alignSelf: 'center',
+    fontFamily: fonts.quickSandRegular
   },
   finishButton: {
     backgroundColor: colors.appOrange,
@@ -19,6 +21,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+  },
+  finishText: {
+    color: colors.appWhite,
+    fontFamily: fonts.quickSandBold
   },
   backgroundImage: {
     width: '100%',
@@ -33,12 +39,14 @@ export default StyleSheet.create({
   },
   selectYourCampus: {
     fontSize: 20,
+    fontFamily: fonts.quickSandSemiBold,
     marginLeft: 20,
     marginTop: 70,
   },
   universityText: {
     alignSelf: 'center',
     fontSize: 22,
+    fontFamily: fonts.quickSandRegular
   },
   footer: {
     alignSelf: 'center',
