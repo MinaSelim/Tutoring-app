@@ -61,7 +61,7 @@
     "*.{ts,tsx,/src}": [
       "eslint --cache --fix",
       "prettier --write",
-      "jest --findRelatedTests --bail"
+      "jest --bail"
     ]
   }
 }
