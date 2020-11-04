@@ -1,20 +1,31 @@
-import {assert} from 'chai';
-import Sinon from 'sinon';
 import sinon from 'sinon';
-import * as dotenv from 'dotenv';
 import FirebaseAuth from '../../src/services/FirebaseAuth';
+import firebase from 'firebase-admin';
+import firebaseTest = require('firebase-functions-test');
+import Sinon = require('sinon');
+import {assert} from 'chai';
+
 
 describe('FirebaseAuth singleton instance', () => {
-   it.skip('Should return the same instance', () => {
-      dotenv.config(); // fix this test
+   it('Should return the same instance', () => {
 
-      const spy: Sinon.SinonSpy = sinon.spy(FirebaseAuth, 'getInstance');
+       
+      const sandbox:Sinon.SinonSandbox = sinon.createSandbox();
+      sandbox.stub(firebase, 'initializeApp');
+      sandbox.stub(firebase.credential, 'cert')
+
+      sinon.stub(firebase, 'auth').get(() => () => ({
+         getUserByEmail: true
+       }));
+
 
       const instance1 = FirebaseAuth.getInstance();
       const instance2 = FirebaseAuth.getInstance();
 
-      assert(spy.calledTwice);
       assert.deepEqual(instance1, instance2);
-      spy.restore();
+
+      // Restore stubs
+      sandbox.restore();
+      firebaseTest().cleanup();
    });
 });
