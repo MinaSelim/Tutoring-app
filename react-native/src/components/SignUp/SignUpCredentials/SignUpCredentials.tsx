@@ -82,7 +82,7 @@ class SignUpCredentials extends Component<IProps, IState> {
     } else {
       Alert.alert('Fields with * are mandatory.');
     }
-  }
+  };
 
   //check if all inputs are valid before moving to next page
   isInputValid = (): boolean => {
@@ -99,7 +99,7 @@ class SignUpCredentials extends Component<IProps, IState> {
     }
 
     return true;
-  }
+  };
 
   signInWithGoogle = (): void => {
     //TODO: Redirect to Google sign-in
@@ -240,7 +240,10 @@ class SignUpCredentials extends Component<IProps, IState> {
               source={require('../../../assets/images/icons/googleIcon.png')}
               style={styles.googleIcon}
             />
-            <Text style={styles.signInWithGoogleText}> Sign in with Google </Text>
+            <Text style={styles.signInWithGoogleText}>
+              {' '}
+              Sign in with Google{' '}
+            </Text>
           </TouchableOpacity>
           <Text style={styles.footer}>go.study</Text>
         </View>

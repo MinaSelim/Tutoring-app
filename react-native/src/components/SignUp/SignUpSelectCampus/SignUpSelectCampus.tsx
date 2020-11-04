@@ -47,10 +47,16 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     } else {
       return true;
     }
-  }
+  };
 
   //Send the student's information to the back-end
-  finish = async (firstName, lastName, email, phone, password): Promise<boolean> => {
+  finish = async (
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+  ): Promise<boolean> => {
     if (this.state.university !== 'Find your campus') {
       let studentAuth = new StudentAuth();
       var studentInfo: IStudent = {

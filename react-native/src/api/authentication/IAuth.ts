@@ -17,4 +17,4 @@ export default interface IAuth {
     loginInfo: IUserLogin,
     user: IUser,
   ): Promise<void>;
-};
+}

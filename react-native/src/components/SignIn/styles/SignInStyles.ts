@@ -30,7 +30,7 @@ export default StyleSheet.create({
     fontSize: 30,
     marginBottom: 18,
     marginLeft: 20,
-    fontFamily: fonts.quickSandBold, 
+    fontFamily: fonts.quickSandBold,
   },
   icon: {
     width: '60%',
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   },
   signInToContinue: {
     fontSize: 20,
-    fontFamily: fonts.quickSandRegular, 
+    fontFamily: fonts.quickSandRegular,
     marginBottom: 28,
     marginLeft: 20,
   },
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     borderBottomWidth: 0.75,
     width: '100%',
     marginLeft: 10,
-    fontFamily: fonts.quickSandRegular, 
+    fontFamily: fonts.quickSandRegular,
     fontSize: 18,
     color: colors.appBlack,
   },
@@ -78,8 +78,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   signInText: {
-    color: colors.appWhite, 
-    fontFamily: fonts.quickSandBold
+    color: colors.appWhite,
+    fontFamily: fonts.quickSandBold,
   },
   nextArrow: {
     width: 20,
@@ -97,7 +97,7 @@ export default StyleSheet.create({
   forgotPasswordText: {
     color: colors.appDarkGrey,
     fontSize: 12,
-    fontFamily: fonts.quickSandBold
+    fontFamily: fonts.quickSandBold,
   },
   createAnAccountButton: {
     backgroundColor: colors.appBeige,
@@ -109,8 +109,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   createAccountText: {
-    color: colors.appOrange, 
-    fontFamily: fonts.quickSandBold
+    color: colors.appOrange,
+    fontFamily: fonts.quickSandBold,
   },
   signInWithGoogleButton: {
     backgroundColor: colors.appLightGrey,
@@ -124,8 +124,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   signInWithGoogleText: {
-    color: colors.appSilver, 
-    fontFamily: fonts.quickSandBold
+    color: colors.appSilver,
+    fontFamily: fonts.quickSandBold,
   },
   googleIcon: {
     width: 20,

@@ -1,6 +1,6 @@
 import {colors} from '../../../../styles/appColors';
 import {StyleSheet} from 'react-native';
-import { fonts } from '../../../../styles/appFonts';
+import {fonts} from '../../../../styles/appFonts';
 
 export default StyleSheet.create({
   text: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   signUpText: {
     fontSize: 36,
-    fontFamily: fonts.quickSandSemiBold
+    fontFamily: fonts.quickSandSemiBold,
   },
   star: {
     color: colors.appOrange,
@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   nextText: {
     color: colors.appWhite,
-    fontFamily: fonts.quickSandBold
+    fontFamily: fonts.quickSandBold,
   },
   nextArrow: {
     width: 20,
@@ -78,9 +78,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  signInWithGoogleText:{
-    color: colors.appSilver, 
-    fontFamily: fonts.quickSandBold 
+  signInWithGoogleText: {
+    color: colors.appSilver,
+    fontFamily: fonts.quickSandBold,
   },
   googleIcon: {
     width: 20,

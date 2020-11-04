@@ -15,7 +15,7 @@ import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from '../../api/authentication/IAuth';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
-import INavigation from '../../model/navigation/INavigation'
+import INavigation from '../../model/navigation/INavigation';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
 
 interface IProps extends INavigation {}
@@ -59,14 +59,15 @@ class SignIn extends Component<IProps, IState> {
       return false;
     }
     let auth: IAuth;
-    if (true){ //TODO add for tutor
+    if (true) {
+      //TODO add for tutor
       auth = new StudentAuth();
     } else {
       auth = new TutorAuth();
     }
     try {
       let user = await auth.signInWithEmailAndPassword(this.state);
-    } catch (error){
+    } catch (error) {
       Alert.alert('Something went wrong signing in.');
       return false;
     }
@@ -89,8 +90,7 @@ class SignIn extends Component<IProps, IState> {
           style={styles.background}
         />
 
-        <View
-          style={styles.logo}>
+        <View style={styles.logo}>
           <Image
             source={require('../../assets/images/icons/logo.png')}
             style={styles.title}
@@ -132,7 +132,7 @@ class SignIn extends Component<IProps, IState> {
                 underlineColorAndroid="transparent"
                 placeholder="password"
                 secureTextEntry={this.state.passwordHidden}
-                placeholderTextColor={colors.appSilver}         
+                placeholderTextColor={colors.appSilver}
                 autoCapitalize="none"
                 onChangeText={this.handlePassword}
               />
@@ -155,9 +155,7 @@ class SignIn extends Component<IProps, IState> {
             <TouchableOpacity
               style={styles.signInButton}
               onPress={() => {
-                this.signIn()
-                  ? this.props.navigation.navigate('')
-                  : true;
+                this.signIn() ? this.props.navigation.navigate('') : true;
               }}>
               <Text style={styles.signInText}> Sign In </Text>
               <Image

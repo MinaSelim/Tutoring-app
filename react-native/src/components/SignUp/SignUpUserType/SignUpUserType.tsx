@@ -12,7 +12,7 @@ import INavigation from '../../../model/navigation/INavigation';
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import {Alert} from 'react-native';
-import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage'
+import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
 
 interface IProps extends INavigation {}
 
@@ -31,7 +31,13 @@ class SignUpUserType extends Component<IProps, IState> {
   }
 
   //Send the tutor's information to the back-end
-  handleTutor = async (firstName, lastName, email, phone, password): Promise<boolean> => {
+  handleTutor = async (
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+  ): Promise<boolean> => {
     let tutorAuth = new TutorAuth();
     var tutor: ITutor = {
       first_name: firstName,
@@ -96,8 +102,8 @@ class SignUpUserType extends Component<IProps, IState> {
             style={styles.tutor}
             onPress={() => {
               this.handleTutor(firstName, lastName, email, phone, password)
-              ? this.props.navigation.navigate('') //TODO Redirect to Home page
-              : true;
+                ? this.props.navigation.navigate('') //TODO Redirect to Home page
+                : true;
             }}>
             <Text style={styles.buttonText}> Tutor </Text>
           </TouchableOpacity>

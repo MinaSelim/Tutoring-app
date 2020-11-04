@@ -55,13 +55,13 @@
    },
    "husky": {
       "hooks": {
-        "pre-commit": "lint-staged"
+         "pre-commit": "lint-staged"
       }
-    },
-    "lint-staged": {
+   },
+   "lint-staged": {
       "*.{ts,ts,/src}": [
-        "eslint --cache --fix",
-        "prettier --write"
+         "eslint --cache --fix",
+         "prettier --write"
       ]
-    }
+   }
 }

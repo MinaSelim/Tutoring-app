@@ -6,4 +6,4 @@ export default interface ISignUpCredentialsPage {
   password: string;
   confirmPassword: string;
   passwordHidden: boolean;
-};
+}

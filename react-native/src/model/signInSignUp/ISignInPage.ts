@@ -1,3 +1,3 @@
 export default interface ISignInPage {
-    passwordHidden: boolean;
-  };
+  passwordHidden: boolean;
+}
