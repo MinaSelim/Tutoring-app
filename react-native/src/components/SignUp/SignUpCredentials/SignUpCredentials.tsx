@@ -43,36 +43,36 @@ class SignUpCredentials extends Component<IProps, IState> {
     this.alertMandatoryFields = this.alertMandatoryFields.bind(this);
   }
 
-  handleFirstName = (text) => {
+  handleFirstName = (text): void => {
     this.setState({first_name: text});
   };
 
-  handleLastName = (text) => {
+  handleLastName = (text): void => {
     this.setState({last_name: text});
   };
 
-  handleEmail = (text) => {
+  handleEmail = (text): void => {
     this.setState({email: text});
   };
 
-  handlePhone = (text) => {
+  handlePhone = (text): void => {
     this.setState({phone: text});
   };
 
-  handlePassword = (text) => {
+  handlePassword = (text): void => {
     this.setState({password: text});
   };
 
-  handleConfirmPassword = (text) => {
+  handleConfirmPassword = (text): void => {
     this.setState({confirmPassword: text});
   };
 
-  changePasswordVisibility = () => {
+  changePasswordVisibility = (): void => {
     this.setState({passwordHidden: !this.state.passwordHidden});
   };
 
   //alert the user if some inputs are invalid
-  alertMandatoryFields = () => {
+  alertMandatoryFields = (): void => {
     if (!this.state.email.includes('@')) {
       Alert.alert('Make sure email is valid.');
     } else if (this.state.password.length < 8) {
@@ -85,7 +85,7 @@ class SignUpCredentials extends Component<IProps, IState> {
   }
 
   //check if all inputs are valid before moving to next page
-  isInputValid = () => {
+  isInputValid = (): boolean => {
     if (
       this.state.first_name === '' ||
       this.state.last_name === '' ||
@@ -101,7 +101,7 @@ class SignUpCredentials extends Component<IProps, IState> {
     return true;
   }
 
-  signInWithGoogle = () => {
+  signInWithGoogle = (): void => {
     //TODO: Redirect to Google sign-in
   };
 

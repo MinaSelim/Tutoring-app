@@ -9,10 +9,10 @@ import IStudent from '../../model/common/IStudent';
  * this class provides api abstraction for firebase
  */
 export default class StudentAuth implements IAuth {
-  private auth: auth.Auth;
+  private firebaseAuth: auth.Auth;
 
   constructor(auth: auth.Auth = fire.auth()) {
-    this.auth = auth;
+    this.firebaseAuth = auth;
   }
 
   /**
@@ -22,7 +22,7 @@ export default class StudentAuth implements IAuth {
   public signInWithEmailAndPassword = async (
     loginInfo: IUserLogin,
   ): Promise<IStudent> => {
-    await this.auth.signInWithEmailAndPassword(
+    await this.firebaseAuth.signInWithEmailAndPassword(
       loginInfo.email,
       loginInfo.password,
     );
@@ -39,7 +39,7 @@ export default class StudentAuth implements IAuth {
     student: IStudent,
   ): Promise<void> => {
     try {
-      let result = await this.auth.createUserWithEmailAndPassword(
+      let result = await this.firebaseAuth.createUserWithEmailAndPassword(
         loginInfo.email,
         loginInfo.password,
       );
@@ -61,7 +61,7 @@ export default class StudentAuth implements IAuth {
    * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
    */
   private signInWithServer = async () => {
-    let user = this.auth.currentUser;
+    let user = this.firebaseAuth.currentUser;
     let token = user && (await user.getIdToken());
 
     let response = await fetch(SERVER_LINK + '/auth/student/login', {

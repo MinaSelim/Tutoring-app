@@ -72,9 +72,8 @@ export default class TutorAuth implements IAuth {
       },
       body: JSON.stringify({idtoken: token}),
       credentials: 'include',
-    });
-
-    let responseInJson = await response.json();
-    return responseInJson;
+    }).then((response) => response.json());
+    
+    return response;
   };
 }

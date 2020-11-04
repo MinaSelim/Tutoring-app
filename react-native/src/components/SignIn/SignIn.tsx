@@ -40,20 +40,20 @@ class SignIn extends Component<IProps, IState> {
     this.signInWithGoogle = this.signInWithGoogle.bind(this);
   }
 
-  handleEmail = (text) => {
+  handleEmail = (text): void => {
     this.setState({email: text});
   };
 
-  handlePassword = (text) => {
+  handlePassword = (text): void => {
     this.setState({password: text});
   };
 
-  changePasswordVisibility = () => {
+  changePasswordVisibility = (): void => {
     this.setState({passwordHidden: !this.state.passwordHidden});
   };
 
   //Send the user's input to the back-end
-  signIn = async () => {
+  signIn = async (): Promise<boolean> => {
     if (!this.state.email.includes('@') || this.state.password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
       return false;
@@ -73,11 +73,11 @@ class SignIn extends Component<IProps, IState> {
     return true;
   };
 
-  forgotPassword = () => {
+  forgotPassword = (): void => {
     //TODO: Redirect to forgot password page
   };
 
-  signInWithGoogle = () => {
+  signInWithGoogle = (): void => {
     //TODO: Redirect to Google Sign In
   };
 

@@ -33,7 +33,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     this.finish = this.finish.bind(this);
   }
 
-  handleSearch = (text) => {
+  handleSearch = (text): void => {
     this.setState({university: text});
 
     if (text === '') {
@@ -41,7 +41,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     }
   };
 
-  isUniversitySelected = () => {
+  isUniversitySelected = (): boolean => {
     if (this.state.university === 'Find your campus') {
       return false;
     } else {
@@ -50,7 +50,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
   }
 
   //Send the student's information to the back-end
-  finish = async (firstName, lastName, email, phone, password) => {
+  finish = async (firstName, lastName, email, phone, password): Promise<boolean> => {
     if (this.state.university !== 'Find your campus') {
       let studentAuth = new StudentAuth();
       var studentInfo: IStudent = {

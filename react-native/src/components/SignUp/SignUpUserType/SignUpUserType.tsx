@@ -31,7 +31,7 @@ class SignUpUserType extends Component<IProps, IState> {
   }
 
   //Send the tutor's information to the back-end
-  handleTutor = async (firstName, lastName, email, phone, password) => {
+  handleTutor = async (firstName, lastName, email, phone, password): Promise<boolean> => {
     let tutorAuth = new TutorAuth();
     var tutor: ITutor = {
       first_name: firstName,
