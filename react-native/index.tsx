@@ -11,7 +11,7 @@ import {AppRegistry, View} from 'react-native';
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-native/no-inline-styles */
 import * as eva from '@eva-design/eva';
-import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
+import {ApplicationProvider, Button, Layout, Text} from '@ui-kitten/components';
 
 const Stack = createStackNavigator();
 
