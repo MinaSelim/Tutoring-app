@@ -11,7 +11,7 @@ import {
 import styles from './styles/SignUpSelectCampusStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/INavigation';
-import IStudent from '../../../model/common2/IStudent';
+import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
 

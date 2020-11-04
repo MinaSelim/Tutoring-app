@@ -4,7 +4,7 @@ import {Component} from 'react';
 import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
 import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
 import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
-import SignIn from './src/components/signIn2/SignIn';
+import SignIn from './src/components/signIn/SignIn';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import 'react-native-gesture-handler';
