@@ -3,7 +3,7 @@ import {auth} from 'firebase';
 import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
 import IAuth from './IAuth';
-import ITutor from '../../model/common/ITutor';
+import ITutor from '../../model/common2/ITutor';
 
 /**
  * this class provides api abstraction for firebase

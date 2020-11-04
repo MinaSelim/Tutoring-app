@@ -10,7 +10,7 @@ import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/INavigation';
 import TutorAuth from '../../../api/authentication/TutorAuth';
-import ITutor from '../../../model/common/ITutor';
+import ITutor from '../../../model/common2/ITutor';
 import {Alert} from 'react-native';
 import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
 
