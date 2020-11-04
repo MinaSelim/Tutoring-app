@@ -27,7 +27,9 @@ class App extends Component {
       <Provider store={Store}>
       <ApplicationProvider {...eva} theme={eva.light}>
         <Layout
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          // eslint-disable-next-line prettier/prettier
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+        >
           <Text>Welcome to UI Kitten</Text>
         </Layout>
         <NavigationContainer>
