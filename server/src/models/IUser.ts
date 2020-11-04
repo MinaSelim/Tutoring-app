@@ -1,10 +1,13 @@
 /**
- * the model for the user //TODO: add models for the students and tutors that inherit from this class.
+ * the model for the user
  */
 export default interface IUser {
-   name: string;
+   first_name: string;
+   last_name: string;
    email: string;
    firebase_uid: string;
    stripe_customer_id?: string;
    is_validated?: boolean;
+   profileImage?: string;
+   phone?: string;
 }

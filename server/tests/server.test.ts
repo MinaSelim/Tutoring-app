@@ -9,18 +9,17 @@ import { CreateTableOutput } from 'aws-sdk/clients/dynamodb';
 import { AWSError } from 'aws-sdk';
 import Sinon = require('sinon');
 import Dynamo from '../src/database/dynamo';
+import FirebaseAuth from '../src/services/FirebaseAuth';
 
 describe('Server initialization', () => {
    let server: express.Application;
-   let adminInitStub: sinon.SinonStub;
-   let credentialsStub: sinon.SinonStub;
+   let authStub: sinon.SinonStub;
    let sandbox: Sinon.SinonSandbox;
    let dynamo: AWS.DynamoDB;
 
    before(() => {
       // Stub all functions called by admin from firebase
-      adminInitStub = sinon.stub(admin, 'initializeApp');
-      credentialsStub = sinon.stub(admin.credential, 'cert');
+      authStub = sinon.stub(FirebaseAuth, 'getInstance').returns(null);
 
       // Stub all db calls during db init phase
       dynamo = Dynamo.getInstance();
@@ -46,9 +45,8 @@ describe('Server initialization', () => {
 
    // Clean up your test
    after(() => {
-      // Restore admin.initializeApp() to its original method.
-      adminInitStub.restore();
-      credentialsStub.restore();
+      authStub.restore();
+      sandbox.restore();
       // Do other cleanup tasks.
       firebaseTest().cleanup();
    });
