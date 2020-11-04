@@ -44,10 +44,10 @@ export default class TutorAuth implements IAuth {
         loginInfo.password,
       );
       tutor.firebase_uid = result.user.uid;
-      let response = fetch(SERVER_LINK + '/auth/tutor/register', {
+      let response = await fetch(SERVER_LINK + '/auth/tutor/register', {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
+          'Accept': 'application/json',
           'Content-type': 'application/json',
         },
         body: JSON.stringify(tutor),
@@ -67,10 +67,10 @@ export default class TutorAuth implements IAuth {
     let response = await fetch(SERVER_LINK + '/auth/tutor/login', {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({idtoken: token}),
+      body: JSON.stringify({idToken: token}),
       credentials: 'include',
     }).then((response) => response.json());
 
