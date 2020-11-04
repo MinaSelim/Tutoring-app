@@ -12,7 +12,7 @@
          "KeyType": "HASH"
       }
    ],
-   "tableNames" : {
+   "tableNames": {
       "USER": "User"
    }
 }

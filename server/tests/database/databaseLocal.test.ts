@@ -1,8 +1,8 @@
-import { PutItemOutput } from 'aws-sdk/clients/dynamodb';
-import { assert } from 'chai';
+import {PutItemOutput} from 'aws-sdk/clients/dynamodb';
+import {assert} from 'chai';
 import Database from '../../src/database/database';
 import Dynamo from '../../src/database/dynamo';
-import IUser from '../../src/models/IUser';
+import IStudent from '../../src/models/IStudent';
 /**
  * Run this code to make sure you have a properly working local database before
  * testing any other online code. It will create the USER table if it doesn't already
@@ -50,29 +50,37 @@ describe('Local dynamo test', () => {
          TableName: 'User',
       };
 
-      const user: IUser = {
-         name: 'string',
+      const student: IStudent = {
+         first_name: 'string',
+         last_name: 'string',
          email: 'string',
          firebase_uid: 'string',
          stripe_customer_id: 'string',
          is_validated: true,
+         profileImage: 'string',
+         campus: 'string',
+         phone: 'string',
       };
 
       return db
          .createTable(params)
          .then(() => {
-            return db.addUserInUserCollection(user);
+            return db.addStudentInUserCollection(student);
          })
          .then((data: PutItemOutput) => {
             console.log(data);
-            return db.getUserByFirebaseId('string');
+            return db.getStudentByFirebaseId('string');
          })
-         .then((res: IUser) => {
-            assert.equal(res.email, user.email);
-            assert.equal(res.is_validated, user.is_validated);
-            assert.equal(res.firebase_uid, user.firebase_uid);
-            assert.equal(res.stripe_customer_id, user.stripe_customer_id);
-            assert.equal(res.name, user.name);
+         .then((res: IStudent) => {
+            assert.equal(res.email, student.email);
+            assert.equal(res.is_validated, student.is_validated);
+            assert.equal(res.firebase_uid, student.firebase_uid);
+            assert.equal(res.stripe_customer_id, student.stripe_customer_id);
+            assert.equal(res.first_name, student.first_name);
+            assert.equal(res.last_name, student.last_name);
+            assert.equal(res.profileImage, student.profileImage);
+            assert.equal(res.campus, student.campus);
+            assert.equal(res.phone, student.phone);
          });
    });
 });
