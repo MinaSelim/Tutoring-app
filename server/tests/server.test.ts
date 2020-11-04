@@ -2,7 +2,6 @@ import 'mocha';
 import express from 'express';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import admin from 'firebase-admin';
 import App from '../src/config/app';
 import firebaseTest = require('firebase-functions-test');
 import {CreateTableOutput} from 'aws-sdk/clients/dynamodb';
@@ -13,17 +12,15 @@ import FirebaseAuth from '../src/services/FirebaseAuth';
 
 describe('Server initialization', () => {
    let server: express.Application;
-   let authStub: sinon.SinonStub;
    let sandbox: Sinon.SinonSandbox;
    let dynamo: AWS.DynamoDB;
 
    before(() => {
-      // Stub all functions called by admin from firebase
-      authStub = sinon.stub(FirebaseAuth, 'getInstance').returns(null);
-
-      // Stub all db calls during db init phase
+       // Stub calls to resources
       dynamo = Dynamo.getInstance();
       sandbox = sinon.createSandbox();
+
+      sandbox.stub(FirebaseAuth, 'getInstance').returns(null);
 
       const outputCreateTable = ({
          promise() {
@@ -45,7 +42,6 @@ describe('Server initialization', () => {
 
    // Clean up your test
    after(() => {
-      authStub.restore();
       sandbox.restore();
       // Do other cleanup tasks.
       firebaseTest().cleanup();
