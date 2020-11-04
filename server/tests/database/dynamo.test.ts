@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import {assert} from 'chai';
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import Dynamo from '../../src/database/dynamo';

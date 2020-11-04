@@ -1,4 +1,4 @@
-import { Application, Request, Response } from 'express';
+import {Application, Request, Response} from 'express';
 import StudentAuthManager from '../../services/managers/StudentAuthManager';
 
 /**

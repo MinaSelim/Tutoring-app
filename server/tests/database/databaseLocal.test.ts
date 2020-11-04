@@ -1,5 +1,5 @@
-import { PutItemOutput } from 'aws-sdk/clients/dynamodb';
-import { assert } from 'chai';
+import {PutItemOutput} from 'aws-sdk/clients/dynamodb';
+import {assert} from 'chai';
 import Database from '../../src/database/database';
 import Dynamo from '../../src/database/dynamo';
 import IStudent from '../../src/models/IStudent';

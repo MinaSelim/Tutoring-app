@@ -19,8 +19,8 @@ class Dynamo {
     */
    public static getInstance(): AWS.DynamoDB {
       if (!Dynamo.instance) {
-         AWS.config.update({ region: config.aws.REGION });
-         Dynamo.instance = new AWS.DynamoDB({ apiVersion: config.aws.APIVERSION, endpoint: config.aws.ENDPOINT });
+         AWS.config.update({region: config.aws.REGION});
+         Dynamo.instance = new AWS.DynamoDB({apiVersion: config.aws.APIVERSION, endpoint: config.aws.ENDPOINT});
       }
       return Dynamo.instance;
    }

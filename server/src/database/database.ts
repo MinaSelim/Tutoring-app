@@ -11,7 +11,7 @@ import {
    CreateTableInput,
 } from 'aws-sdk/clients/dynamodb';
 import Dynamo from './dynamo';
-import { AWSError } from 'aws-sdk';
+import {AWSError} from 'aws-sdk';
 import * as config from './config.json';
 
 export default class Database {
@@ -61,7 +61,7 @@ export default class Database {
     */
    public addStudentInUserCollection = (student: IStudent): Promise<PutItemOutput> => {
       // Create deep copy to modify without affecting input student
-      const tempUser = { ...student };
+      const tempUser = {...student};
 
       if (!student.is_validated) {
          tempUser.is_validated = false;
@@ -122,7 +122,7 @@ export default class Database {
     */
    public addTutorInUserCollection = (tutor: ITutor): Promise<PutItemOutput> => {
       // Create deep copy to modify without affecting input tutor
-      const tempUser = { ...tutor };
+      const tempUser = {...tutor};
 
       if (!tutor.is_validated) {
          tempUser.is_validated = false;

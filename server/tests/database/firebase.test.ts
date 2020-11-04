@@ -1,12 +1,10 @@
-import { assert } from 'chai';
+import {assert} from 'chai';
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import * as dotenv from 'dotenv';
 import FirebaseAuth from '../../src/services/FirebaseAuth';
 
-
 describe('FirebaseAuth singleton instance', () => {
-   
    it.skip('Should return the same instance', () => {
       dotenv.config(); // fix this test
 

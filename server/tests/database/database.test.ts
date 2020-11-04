@@ -1,7 +1,7 @@
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import Database from '../../src/database/database';
-import { AWSError } from 'aws-sdk';
+import {AWSError} from 'aws-sdk';
 import {
    CreateTableInput,
    CreateTableOutput,
@@ -12,7 +12,7 @@ import {
 } from 'aws-sdk/clients/dynamodb';
 import IStudent from '../../src/models/IStudent';
 import ITutor from '../../src/models/ITutor';
-import { assert } from 'chai';
+import {assert} from 'chai';
 import Dynamo from '../../src/database/dynamo';
 
 describe('Database test', () => {
@@ -66,37 +66,37 @@ describe('Database test', () => {
    };
 
    const putItemResponseGood: PutItemOutput = {
-      ConsumedCapacity: { TableName: 'User', CapacityUnits: 1 },
+      ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
 
    const getItemResponseGood: GetItemOutput = {
       Item: {
-         first_name: { S: student.first_name },
-         last_name: { S: student.last_name },
-         email: { S: student.email },
-         is_validated: { BOOL: student.is_validated },
-         firebase_uid: { S: student.firebase_uid },
-         stripe_customer_id: { S: student.stripe_customer_id },
-         profileImage: {S: student.profileImage },
-         campus: {S: student.campus },
-         phone: {S: student.phone },
+         first_name: {S: student.first_name},
+         last_name: {S: student.last_name},
+         email: {S: student.email},
+         is_validated: {BOOL: student.is_validated},
+         firebase_uid: {S: student.firebase_uid},
+         stripe_customer_id: {S: student.stripe_customer_id},
+         profileImage: {S: student.profileImage},
+         campus: {S: student.campus},
+         phone: {S: student.phone},
       },
-      ConsumedCapacity: { TableName: 'User', CapacityUnits: 1 },
+      ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
 
    const getTutorItemResponseGood: GetItemOutput = {
       Item: {
-         first_name: { S: tutor.first_name },
-         last_name: { S: tutor.last_name },
-         email: { S: tutor.email },
-         is_validated: { BOOL: tutor.is_validated },
-         firebase_uid: { S: tutor.firebase_uid },
-         stripe_customer_id: { S: tutor.stripe_customer_id },
+         first_name: {S: tutor.first_name},
+         last_name: {S: tutor.last_name},
+         email: {S: tutor.email},
+         is_validated: {BOOL: tutor.is_validated},
+         firebase_uid: {S: tutor.firebase_uid},
+         stripe_customer_id: {S: tutor.stripe_customer_id},
          profileImage: {S: tutor.profileImage},
-         campuses: {S: tutor.campuses },
-         phone: {S: tutor.phone },
+         campuses: {S: tutor.campuses},
+         phone: {S: tutor.phone},
       },
-      ConsumedCapacity: { TableName: 'User', CapacityUnits: 1 },
+      ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
 
    const createTableResponseGood: CreateTableOutput = {

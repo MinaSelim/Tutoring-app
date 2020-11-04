@@ -1,12 +1,12 @@
 import 'mocha';
 import express from 'express';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import sinon from 'sinon';
 import admin from 'firebase-admin';
 import App from '../src/config/app';
 import firebaseTest = require('firebase-functions-test');
-import { CreateTableOutput } from 'aws-sdk/clients/dynamodb';
-import { AWSError } from 'aws-sdk';
+import {CreateTableOutput} from 'aws-sdk/clients/dynamodb';
+import {AWSError} from 'aws-sdk';
 import Sinon = require('sinon');
 import Dynamo from '../src/database/dynamo';
 import FirebaseAuth from '../src/services/FirebaseAuth';
