@@ -1,3 +1,1 @@
-export default interface IMessageRow {
-    
-}
+export default interface IMessageRow {}

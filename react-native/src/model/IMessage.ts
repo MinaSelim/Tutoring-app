@@ -1,5 +1,6 @@
 export default interface IMessage {
-    userName: string,
-    createdAt: Date,
-    content: string,
+  id: string;
+  userName: string;
+  createdAt: Date;
+  content: string;
 }
