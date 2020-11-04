@@ -60,8 +60,8 @@
   "lint-staged": {
     "*.{ts,tsx,/src}": [
       "eslint --cache --fix",
-      "prettier --write",
-      "jest --bail"
+      "jest --bail",
+      "prettier --write"
     ]
   }
 }
