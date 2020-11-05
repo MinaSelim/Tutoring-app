@@ -2,6 +2,11 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   tinyIcon: {
+    width: 30,
+    height: 24,
+  },
+
+  tinySendIcon: {
     width: 24,
     height: 24,
   },
@@ -14,30 +19,24 @@ export const styles = StyleSheet.create({
   onlineStatus: {
     width: 10,
     height: 10,
+    alignSelf: 'center',
   },
 
   inputContainer: {
-    flex: 0,
-    height: 100,
-    backgroundColor: 'darkred',
+    height: 'auto',
+    flexDirection: 'row',
   },
 
   topLeftContainer: {
     flex: 1,
-    width: 100,
-    height: 100,
-    backgroundColor: 'red',
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
 
   topCenterContainer: {
     flex: 1,
-    width: 100,
-    height: 100,
     alignContent: 'center',
     padding: 5,
-    marginBottom: 10,
     flexGrow: 2,
     backgroundColor: 'blue',
     justifyContent: 'center',
@@ -53,28 +52,31 @@ export const styles = StyleSheet.create({
 
   topRightContainer: {
     flex: 1,
-    width: 100,
-    height: 100,
     flexGrow: 1.7,
-    backgroundColor: 'purple',
     justifyContent: 'center',
   },
 
   messageContainer: {
     borderBottomColor: '#BFBFBF',
     borderBottomWidth: 1,
-    backgroundColor: 'green',
-    height: '25%',
+    height: 'auto',
   },
 
   backButton: {
     margin: 5,
     height: 50,
-    width: '20%',
+    width: '70%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'pink',
+    alignSelf: 'center',
   },
+
+  sendButton: {
+    padding: 10,
+    justifyContent: 'center',
+  },
+
   container: {
     flex: 1,
     padding: 10,
@@ -82,8 +84,8 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     backgroundColor: 'skyblue',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
+    marginLeft: 5,
   },
 
   memberName: {
@@ -91,20 +93,19 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: 'bold',
+    marginLeft: 10,
   },
 
   detailText: {
-    fontSize: 16,
+    fontSize: 12,
     backgroundColor: 'skyblue',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
   },
 
   chatText: {
     fontSize: 16,
     marginBottom: 10,
     marginLeft: 10,
-    backgroundColor: 'pink',
   },
   bookButton: {
     backgroundColor: '#E86D2C',
