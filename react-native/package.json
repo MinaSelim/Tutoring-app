@@ -71,8 +71,9 @@
     }
   },
   "lint-staged": {
-    "*.{ts,ts,/src}": [
+    "*.{ts,tsx,/src}": [
       "eslint --cache --fix",
+      "jest --bail",
       "prettier --write"
     ]
   }
