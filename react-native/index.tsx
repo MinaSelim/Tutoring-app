@@ -11,7 +11,17 @@ import {AppRegistry, View} from 'react-native';
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-native/no-inline-styles */
 import * as eva from '@eva-design/eva';
-import {ApplicationProvider, Button, Layout, Text} from '@ui-kitten/components';
+import mapping from './mapping.json';
+import {AppNavigator} from './src/ui_theme/navigation.component';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import theme from './custom-theme.json'; // <-- Import app theme
+import {
+  ApplicationProvider,
+  IconRegistry,
+  Button,
+  Layout,
+  Text,
+} from '@ui-kitten/components';
 
 const Stack = createStackNavigator();
 
@@ -22,17 +32,21 @@ class App extends Component {
 
   render() {
     return (
-        
-        
       <Provider store={Store}>
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <Layout
-          // eslint-disable-next-line prettier/prettier
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+      <NavigationContainer>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider
+          {...eva}
+          customMapping={mapping}
+          theme={{...eva.light, ...theme}}
         >
-          <Text>Welcome to UI Kitten</Text>
-        </Layout>
-        <NavigationContainer>
+          {/* <Layout
+            // eslint-disable-next-line prettier/prettier
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          >
+            <Text>Welcome to UI Kitten</Text>
+            <Button>HOME</Button>
+          </Layout> */}
           <Stack.Navigator
             screenOptions={{headerShown: false}}
             initialRouteName="SignIn">

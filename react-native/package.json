@@ -18,6 +18,7 @@
     "@react-navigation/stack": "5.9.3",
     "@types/react-native": "^0.63.23",
     "@ui-kitten/components": "^5.0.0",
+    "@ui-kitten/eva-icons": "^5.0.0",
     "eslint-plugin-prettier": "^3.1.4",
     "firebase": "^7.22.0",
     "install-peerdeps": "^2.0.3",
