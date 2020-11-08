@@ -7,12 +7,23 @@ import {
   ScrollView,
   FlatList,
   Image,
+  StyleSheet,
 } from 'react-native';
 import 'react-native-gesture-handler';
+import {
+  IconRegistry,
+  Icon,
+  Layout,
+  MenuItem,
+  OverflowMenu,
+  TopNavigation,
+  TopNavigationAction,
+} from '@ui-kitten/components';
 import {styles} from './styles/styles';
 import MessageList from './MessageList';
 import MessageRow from './MessageRow';
 import IMessage from '../../model/IMessage';
+import {EvaIconsPack} from '@ui-kitten/eva-icons';
 
 const DATA: IMessage[] = [
   {
@@ -56,15 +67,58 @@ const DATA: IMessage[] = [
   },
 ];
 
-class ChatUI extends Component {
-  constructor(props) {
-    super(props);
-  }
+const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View
+const EditIcon = (props) => <Icon {...props} name="edit" />;
+
+const MenuIcon = (props) => <Icon {...props} name="more-vertical" />;
+
+const InfoIcon = (props) => <Icon {...props} name="info" />;
+
+const LogoutIcon = (props) => <Icon {...props} name="log-out" />;
+
+export const ChatUI = ({navigation}) => {
+  const [menuVisible, setMenuVisible] = React.useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const renderMenuAction = () => (
+    <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
+  );
+
+  const renderRightActions = () => (
+    <>
+      <TopNavigationAction icon={EditIcon} />
+      <OverflowMenu
+        anchor={renderMenuAction}
+        visible={menuVisible}
+        onBackdropPress={toggleMenu}
+      >
+        <MenuItem accessoryLeft={InfoIcon} title="About" />
+        <MenuItem accessoryLeft={LogoutIcon} title="Logout" />
+      </OverflowMenu>
+    </>
+  );
+
+  const renderBackAction = () => <TopNavigationAction icon={BackIcon} />;
+
+  return (
+    <View style={styles.container}>
+      <Layout style={{
+            height: 'auto',
+          }} level="1" >
+        <TopNavigation
+          alignment="center"
+          title="Eva Application"
+          subtitle="Subtitle"
+          accessoryLeft={renderBackAction}
+          accessoryRight={renderRightActions}
+        />
+      </Layout>
+
+      {/* <View
           style={{
             flexDirection: 'row',
             height: 'auto',
@@ -102,40 +156,38 @@ class ChatUI extends Component {
               <Text style={{color: 'white'}}> Book </Text>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={{flex: 1, flexGrow: 1}}>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}>
-            {DATA.map((message: IMessage) => (
-              <MessageRow {...message} />
-            ))}
-          </ScrollView>
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'white',
-              flex: 1,
-            }}
-            // submitAction={this.sendMessage}
-            underlineColorAndroid="transparent"
-            placeholder="Say something"
-            placeholderTextColor="#8B9CB3"
-            autoCapitalize="none"
-          />
-
-          <TouchableOpacity style={styles.sendButton} onPress={() => {}}>
-            <Image
-              style={styles.tinySendIcon}
-              source={require('../../assets/icons/send-arrow.png')}
-            />
-          </TouchableOpacity>
-        </View>
+        </View> */}
+      <View style={{flex: 1, flexGrow: 1}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}>
+          {DATA.map((message: IMessage) => (
+            <MessageRow {...message} />
+          ))}
+        </ScrollView>
       </View>
-    );
-  }
-}
-export default ChatUI;
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            flex: 1,
+          }}
+          // submitAction={this.sendMessage}
+          underlineColorAndroid="transparent"
+          placeholder="Say something"
+          placeholderTextColor="#8B9CB3"
+          autoCapitalize="none"
+        />
+
+        <TouchableOpacity style={styles.sendButton} onPress={() => {}}>
+          <Image
+            style={styles.tinySendIcon}
+            source={require('../../assets/icons/send-arrow.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
