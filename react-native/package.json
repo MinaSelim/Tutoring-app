@@ -73,7 +73,7 @@
   "lint-staged": {
     "*.{ts,tsx,/src}": [
       "eslint --cache --fix",
-      "jest --bail",
+      "jest --bail --passWithNoTests",
       "prettier --write"
     ]
   }
