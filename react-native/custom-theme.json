@@ -94,13 +94,12 @@
   "color-basic-transparent-500": "rgba(128, 128, 128, 0.4)",
   "color-basic-transparent-600": "rgba(128, 128, 128, 0.48)",
 
-
   "color-primary-default": "$color-primary-500",
   "color-primary-hover": "$color-primary-400",
   "color-primary-focus": "$color-primary-600",
   "color-primary-active": "$color-primary-600",
   "color-primary-disabled": "$color-basic-transparent-300",
-  
+
   "color-info-default": "$color-info-500",
   "color-info-hover": "$color-info-400",
   "color-info-focus": "$color-info-600",
@@ -110,5 +109,4 @@
   "text-basic-color": "$color-basic-1000",
   "text-hint-color": "$color-basic-500",
   "text-disabled-color": "$color-basic-400"
-
 }
