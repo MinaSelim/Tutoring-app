@@ -15,11 +15,13 @@ import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
 
-interface IProps extends INavigation {}
+interface IProps extends INavigation {
+  route: any;
+}
 
 interface IState extends ISignUpSelectCampusPage {}
 
-//This component corresponds to the third sign up page
+// This component corresponds to the third sign up page
 class SignUpSelectCampus extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -44,12 +46,11 @@ class SignUpSelectCampus extends Component<IProps, IState> {
   isUniversitySelected = (): boolean => {
     if (this.state.university === 'Find your campus') {
       return false;
-    } else {
-      return true;
     }
+    return true;
   };
 
-  //Send the student's information to the back-end
+  // Send the student's information to the back-end
   finish = async (
     firstName,
     lastName,
@@ -58,19 +59,19 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     password,
   ): Promise<boolean> => {
     if (this.state.university !== 'Find your campus') {
-      let studentAuth = new StudentAuth();
-      var studentInfo: IStudent = {
+      const studentAuth = new StudentAuth();
+      const studentInfo: IStudent = {
         first_name: firstName,
         last_name: lastName,
-        email: email,
-        phone: phone,
+        email,
+        phone,
         campus: this.state.university,
         avatar: '',
         firebase_uid: '',
       };
       try {
         await studentAuth.registerWithEmailAndPassword(
-          {email: email, password: password},
+          {email, password},
           studentInfo,
         );
       } catch (error) {
@@ -78,10 +79,9 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         return false;
       }
       return true;
-    } else {
-      Alert.alert('Please select a campus first.');
-      return false;
     }
+    Alert.alert('Please select a campus first.');
+    return false;
   };
 
   render() {
@@ -135,9 +135,9 @@ class SignUpSelectCampus extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.finishButton}
             onPress={() => {
-              this.finish(firstName, lastName, email, phone, password)
-                ? this.props.navigation.navigate('') //TODO Redirect to Home page
-                : true;
+              if (this.finish(firstName, lastName, email, phone, password)) {
+                this.props.navigation.navigate(''); // TODO Redirect to Home page
+              }
             }}>
             <Text style={styles.finishText}> Finish </Text>
           </TouchableOpacity>

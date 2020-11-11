@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export default interface ISignUpCredentialsPage {
   first_name: string;
   last_name: string;

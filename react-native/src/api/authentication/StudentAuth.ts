@@ -1,7 +1,7 @@
-import fire from './Fire';
 import {auth} from 'firebase';
-import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
+import fire from './Fire';
+import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from './IAuth';
 import IStudent from '../../model/common/IStudent';
 
@@ -11,8 +11,8 @@ import IStudent from '../../model/common/IStudent';
 export default class StudentAuth implements IAuth {
   private firebaseAuth: auth.Auth;
 
-  constructor(auth: auth.Auth = fire.auth()) {
-    this.firebaseAuth = auth;
+  constructor(fireAuth: auth.Auth = fire.auth()) {
+    this.firebaseAuth = fireAuth;
   }
 
   /**
@@ -26,7 +26,7 @@ export default class StudentAuth implements IAuth {
       loginInfo.email,
       loginInfo.password,
     );
-    return await this.signInWithServer();
+    return this.signInWithServer();
   };
 
   /**
@@ -39,15 +39,15 @@ export default class StudentAuth implements IAuth {
     student: IStudent,
   ): Promise<void> => {
     try {
-      let result = await this.firebaseAuth.createUserWithEmailAndPassword(
+      const result = await this.firebaseAuth.createUserWithEmailAndPassword(
         loginInfo.email,
         loginInfo.password,
       );
       student.firebase_uid = result.user.uid;
-      let response = await fetch(SERVER_LINK + '/auth/student/register', {
+      const response = await fetch(`${SERVER_LINK}/auth/student/register`, {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-type': 'application/json',
         },
         body: JSON.stringify(student),
@@ -61,18 +61,18 @@ export default class StudentAuth implements IAuth {
    * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
    */
   private signInWithServer = async () => {
-    let user = this.firebaseAuth.currentUser;
-    let token = user && (await user.getIdToken());
+    const user = this.firebaseAuth.currentUser;
+    const token = user && (await user.getIdToken());
 
-    let response = await fetch(SERVER_LINK + '/auth/student/login', {
+    const response = await fetch(`${SERVER_LINK}/auth/student/login`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({idToken: token}),
       credentials: 'include',
-    }).then((response) => response.json());
+    }).then((unformattedResponse) => unformattedResponse.json());
 
     return response;
   };

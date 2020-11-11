@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "prettier --check . && eslint --cache . --ext .ts,.ts,./src",
+    "lint": "prettier --check . && eslint --cache . --ext .ts,.tsx,./src",
     "lint-fix": "prettier --write . && eslint . --ext .ts,.tsx,./src --cache --fix",
     "prepush": "npm run lint && npm run test"
   },
@@ -73,7 +73,7 @@
   "lint-staged": {
     "*.{ts,tsx,/src}": [
       "eslint --cache --fix",
-      "jest --bail",
+      "jest --bail --passWithNoTests",
       "prettier --write"
     ]
   }

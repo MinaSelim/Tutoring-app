@@ -18,7 +18,7 @@ interface IProps extends INavigation {}
 
 interface IState extends ISignUpCredentialsPage {}
 
-//This component corresponds to the first sign up page
+// This component corresponds to the first sign up page
 class SignUpCredentials extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -68,10 +68,10 @@ class SignUpCredentials extends Component<IProps, IState> {
   };
 
   changePasswordVisibility = (): void => {
-    this.setState({passwordHidden: !this.state.passwordHidden});
+    this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
   };
 
-  //alert the user if some inputs are invalid
+  // alert the user if some inputs are invalid
   alertMandatoryFields = (): void => {
     if (!this.state.email.includes('@')) {
       Alert.alert('Make sure email is valid.');
@@ -84,7 +84,7 @@ class SignUpCredentials extends Component<IProps, IState> {
     }
   };
 
-  //check if all inputs are valid before moving to next page
+  // check if all inputs are valid before moving to next page
   isInputValid = (): boolean => {
     if (
       this.state.first_name === '' ||
@@ -102,7 +102,7 @@ class SignUpCredentials extends Component<IProps, IState> {
   };
 
   signInWithGoogle = (): void => {
-    //TODO: Redirect to Google sign-in
+    // TODO: Redirect to Google sign-in
   };
 
   render() {
