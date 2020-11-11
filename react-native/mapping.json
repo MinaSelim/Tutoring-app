@@ -1,48 +1,17 @@
 {
   "components": {
     "Button": {
-      "meta": {
-        "variantGroups": {
-          "status": {
-            "signup": {
-              "default": false
-            }
-          },
-          "appearances": {
-            "filled": {
-              "mapping": {},
-              "variantGroups": {
-                "status": {
-                  "signup": {
-                    "borderColor": "color-primary-default-border",
-                    "backgroundColor": "color-primary-300",
-                    "textColor": "color-primary-500",
-                    "iconTintColor": "color-primary-500",
-                    "state": {
-                      "focused": {
-                        "borderColor": "color-primary-focus-border",
-                        "backgroundColor": "color-primary-focus"
-                      },
-                      "hover": {
-                        "borderColor": "color-primary-hover-border",
-                        "backgroundColor": "color-primary-hover"
-                      },
-                      "active": {
-                        "borderColor": "color-primary-active-border",
-                        "backgroundColor": "color-primary-300"
-                      },
-                      "disabled": {
-                        "borderColor": "color-primary-disabled-border",
-                        "backgroundColor": "color-primary-disabled",
-                        "textColor": "text-disabled-color",
-                        "iconTintColor": "text-disabled-color"
-                      }
-                    }
-                  }
-                }
+      "meta": {},
+      "appearances": {
+        "filled": {
+          "mapping": {},
+          "variantGroups": {
+            "size": {
+              "large": {
+                "borderRadius": 12
               }
             }
-          }
+          } 
         }
       }
     }
