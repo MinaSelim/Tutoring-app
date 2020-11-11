@@ -3,6 +3,9 @@ import {colors} from '../../../styles/appColors';
 import {fonts} from '../../../styles/appFonts';
 
 export default StyleSheet.create({
+  component: {
+    flex: 1,
+  },
   background: {
     width: '100%',
     height: '100%',

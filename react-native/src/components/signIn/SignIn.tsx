@@ -22,7 +22,7 @@ interface IProps extends INavigation {}
 
 interface IState extends IUserLogin, ISignInPage {}
 
-//This component corresponds to the sign in page
+// This component corresponds to the sign in page
 class SignIn extends Component<IProps, IState> {
   constructor(props) {
     super(props);
@@ -49,10 +49,10 @@ class SignIn extends Component<IProps, IState> {
   };
 
   changePasswordVisibility = (): void => {
-    this.setState({passwordHidden: !this.state.passwordHidden});
+    this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
   };
 
-  //Send the user's input to the back-end
+  // Send the user's input to the back-end
   signIn = async (): Promise<boolean> => {
     if (!this.state.email.includes('@') || this.state.password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
@@ -60,13 +60,13 @@ class SignIn extends Component<IProps, IState> {
     }
     let auth: IAuth;
     if (true) {
-      //TODO add for tutor
+      // TODO add for tutor
       auth = new StudentAuth();
     } else {
       auth = new TutorAuth();
     }
     try {
-      let user = await auth.signInWithEmailAndPassword(this.state);
+      const user = await auth.signInWithEmailAndPassword(this.state);
     } catch (error) {
       Alert.alert('Something went wrong signing in.');
       return false;
@@ -75,16 +75,16 @@ class SignIn extends Component<IProps, IState> {
   };
 
   forgotPassword = (): void => {
-    //TODO: Redirect to forgot password page
+    // TODO: Redirect to forgot password page
   };
 
   signInWithGoogle = (): void => {
-    //TODO: Redirect to Google Sign In
+    // TODO: Redirect to Google Sign In
   };
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.component}>
         <ImageBackground
           source={require('../../assets/images/icons/signInBackground.png')}
           style={styles.background}
@@ -155,7 +155,9 @@ class SignIn extends Component<IProps, IState> {
             <TouchableOpacity
               style={styles.signInButton}
               onPress={() => {
-                this.signIn() ? this.props.navigation.navigate('') : true;
+                if (this.signIn()) {
+                  this.props.navigation.navigate('');
+                }
               }}>
               <Text style={styles.signInText}> Sign In </Text>
               <Image

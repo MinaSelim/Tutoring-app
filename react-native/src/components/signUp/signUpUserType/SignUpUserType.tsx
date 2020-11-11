@@ -5,32 +5,30 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  Alert,
 } from 'react-native';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/INavigation';
 import TutorAuth from '../../../api/authentication/TutorAuth';
-import ITutor from '../../../model/common2/ITutor';
-import {Alert} from 'react-native';
+import ITutor from '../../../model/common/ITutor';
+
 import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
 
-interface IProps extends INavigation {}
+interface IProps extends INavigation {
+  route: any;
+}
 
 interface IState extends ISignUpUserTypePage {}
 
-//This component corresponds to the second sign up page
+// This component corresponds to the second sign up page
 class SignUpUserType extends Component<IProps, IState> {
   constructor(props) {
     super(props);
-
-    this.state = {
-      userType: '',
-    };
-
     this.handleTutor = this.handleTutor.bind(this);
   }
 
-  //Send the tutor's information to the back-end
+  // Send the tutor's information to the back-end
   handleTutor = async (
     firstName,
     lastName,
@@ -38,20 +36,17 @@ class SignUpUserType extends Component<IProps, IState> {
     phone,
     password,
   ): Promise<boolean> => {
-    let tutorAuth = new TutorAuth();
-    var tutor: ITutor = {
+    const tutorAuth = new TutorAuth();
+    const tutor: ITutor = {
       first_name: firstName,
       last_name: lastName,
-      email: email,
-      phone: phone,
+      email,
+      phone,
       avatar: '',
       firebase_uid: '',
     };
     try {
-      await tutorAuth.registerWithEmailAndPassword(
-        {email: email, password: password},
-        tutor,
-      );
+      await tutorAuth.registerWithEmailAndPassword({email, password}, tutor);
     } catch (error) {
       Alert.alert('Something went wrong signing up as a tutor.');
       return false;
@@ -89,11 +84,11 @@ class SignUpUserType extends Component<IProps, IState> {
             style={styles.student}
             onPress={() => {
               this.props.navigation.navigate('SignUpSelectCampus', {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                phone: phone,
-                password: password,
+                firstName,
+                lastName,
+                email,
+                phone,
+                password,
               });
             }}>
             <Text style={styles.buttonText}> Student </Text>
@@ -101,9 +96,11 @@ class SignUpUserType extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.tutor}
             onPress={() => {
-              this.handleTutor(firstName, lastName, email, phone, password)
-                ? this.props.navigation.navigate('') //TODO Redirect to Home page
-                : true;
+              if (
+                this.handleTutor(firstName, lastName, email, phone, password)
+              ) {
+                this.props.navigation.navigate(''); // TODO Redirect to Home page
+              }
             }}>
             <Text style={styles.buttonText}> Tutor </Text>
           </TouchableOpacity>

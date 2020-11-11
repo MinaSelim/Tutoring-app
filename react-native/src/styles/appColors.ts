@@ -1,4 +1,4 @@
-export const colors = {
+const colors = {
   appBeige: '#FCEED9',
   appBlack: 'black',
   appWhite: 'white',
@@ -8,3 +8,4 @@ export const colors = {
   appOrange: '#E86D2C',
   appSilver: '#8B9CB3',
 };
+export default colors;

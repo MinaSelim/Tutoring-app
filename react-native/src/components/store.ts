@@ -6,6 +6,6 @@ const rootReducer = (state, action) => {
   return AppReducers(state, action);
 };
 
-let store = createStore(rootReducer);
+const store = createStore(rootReducer);
 
 export default store;
