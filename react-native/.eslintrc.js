@@ -16,6 +16,25 @@ module.exports = {
     'func-names': ['warn', 'always'], // for better debugging (name func. expressions so they are not reported as "anonymous function" in stack trace)
     'no-process-exit': 'off',
     'class-methods-use-this': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
+
   reportUnusedDisableDirectives: true,
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+      },
+      typescript: {},
+    },
+  },
 };
