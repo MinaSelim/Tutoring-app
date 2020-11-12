@@ -2,7 +2,7 @@
    "name": "express-ts",
    "version": "1.0.0",
    "description": "",
-   "main": "dist/server.js",
+   "main": "build/server.js",
    "scripts": {
       "build": "tsc",
       "prestart": "npm run build",
