@@ -33,7 +33,7 @@ class App extends Component {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
           {...eva}
-          customMapping={mapping}
+          customMapping={{...eva.mapping, mapping}}
           theme={{...eva.light, ...theme}}>
           <NavigationContainer>
             <Stack.Navigator
