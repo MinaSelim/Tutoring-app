@@ -10,7 +10,7 @@
       "test": "mocha -r ts-node/register './tests/**/*.test.ts'",
       "lint": "prettier --check . && eslint --cache . --ext .ts,.tsx,./src",
       "lint-fix": "prettier --write . && eslint . --ext .ts,.tsx,./src --cache --fix",
-      "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+      "coverage": "nyc npm run test"
    },
    "author": "",
    "license": "ISC",
@@ -64,5 +64,15 @@
          "eslint --cache --fix",
          "prettier --write"
       ]
+   },
+   "nyc": {
+      "skip-empty": true,
+      "reporter": ["lcov"],
+      "report-dir": "./coverage",
+      "all": true,
+      "extensions": [".ts"],
+      "include": ["src"],
+      "exclude": ["**/*.test.ts"],
+      "clean": true      
    }
 }
