@@ -1,4 +1,6 @@
-const colors = {
+/* eslint-disable import/prefer-default-export */
+
+export const colors = {
   appBeige: '#FCEED9',
   appBlack: 'black',
   appWhite: 'white',
@@ -8,4 +10,4 @@ const colors = {
   appOrange: '#E86D2C',
   appSilver: '#8B9CB3',
 };
-export default colors;
+
