@@ -7,7 +7,7 @@ export default StyleSheet.create({
     borderColor: colors.appOrange,
     borderWidth: 2,
     borderRadius: 9,
-    width: '90%',
+    width: '100%',
     height: 40,
     alignSelf: 'center',
     fontFamily: fonts.quickSandRegular,
@@ -47,6 +47,11 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontSize: 22,
     fontFamily: fonts.quickSandRegular,
+  },
+  listText: {
+    fontFamily: fonts.quickSandSemiBold,
+    padding: 10,
+    marginTop: 2,
   },
   footer: {
     alignSelf: 'center',
