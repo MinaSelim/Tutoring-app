@@ -1,10 +1,11 @@
 import {Application, Request, Response} from 'express';
 import StudentAuthManager from '../../services/managers/StudentAuthManager';
+import IRouteComponent from '../IRouteComponent';
 
 /**
  * Class that handles all the routes related to authenthication
  */
-export class StudentAuthRoutes {
+export class StudentAuthRoutes implements IRouteComponent {
    private authManager = new StudentAuthManager();
 
    /**

@@ -1,10 +1,11 @@
 import {Application, Request, Response} from 'express';
 import TutorAuthManager from '../../services/managers/TutorAuthManager';
+import IRouteComponent from '../IRouteComponent';
 
 /**
  * Class that handles all the routes related to authenthication
  */
-export class TutorAuthRoutes {
+export class TutorAuthRoutes implements IRouteComponent {
    private authManager = new TutorAuthManager();
 
    /**
