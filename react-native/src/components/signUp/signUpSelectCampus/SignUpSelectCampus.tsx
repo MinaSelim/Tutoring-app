@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, {Component} from 'react';
 import {
   View,
@@ -78,7 +76,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
           studentInfo,
         );
       } catch (error) {
-        Alert.alert('Something went wrong signing up as a student.\n' + error);
+        Alert.alert(`Something went wrong signing up as a student.\n${error}`);
         return false;
       }
       return true;
@@ -129,29 +127,28 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             <Text style={styles.universityText}>{this.state.university}</Text>
             <View>
               <SearchableDropdown
-                  onItemSelect={(item) => { //style={styles.inputBox}
-                    let campus = JSON.stringify(item.name); 
-                    campus = JSON.parse(campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'));          
-                    this.setState({ university: campus });
-                  }}
-                  containerStyle={{ padding: 5 }} //box in general
-                  itemStyle={styles.listText}
-                  itemTextStyle={{ color: '#222' }}
-                  itemsContainerStyle={{ maxHeight: 150 }}
-                  items={campuses}
-                  resetValue={false}
-                  textInputProps={
-                    {
-                      placeholder: "Search your campus...",
-                      underlineColorAndroid: "transparent",
-                      style: styles.inputBox,
-                    }
-                  }
-                  listProps={
-                    {
-                      nestedScrollEnabled: true,
-                    }
-                  }
+                onItemSelect={(item) => {
+                  // style={styles.inputBox}
+                  let campus = JSON.stringify(item.name);
+                  campus = JSON.parse(
+                    campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
+                  );
+                  this.setState({university: campus});
+                }}
+                containerStyle={{padding: 5}} // box in general
+                itemStyle={styles.listText}
+                itemTextStyle={{color: '#222'}}
+                itemsContainerStyle={{maxHeight: 150}}
+                items={campuses}
+                resetValue={false}
+                textInputProps={{
+                  placeholder: 'Search your campus...',
+                  underlineColorAndroid: 'transparent',
+                  style: styles.inputBox,
+                }}
+                listProps={{
+                  nestedScrollEnabled: true,
+                }}
               />
             </View>
           </View>

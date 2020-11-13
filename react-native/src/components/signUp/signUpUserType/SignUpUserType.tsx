@@ -48,7 +48,7 @@ class SignUpUserType extends Component<IProps, IState> {
     try {
       await tutorAuth.registerWithEmailAndPassword({email, password}, tutor);
     } catch (error) {
-      Alert.alert('Something went wrong signing up as a tutor.\n' + error);
+      Alert.alert(`Something went wrong signing up as a tutor.\n${error}`);
       return false;
     }
     return true;
