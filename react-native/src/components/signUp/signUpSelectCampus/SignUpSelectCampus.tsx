@@ -128,14 +128,13 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             <View>
               <SearchableDropdown
                 onItemSelect={(item) => {
-                  // style={styles.inputBox}
                   let campus = JSON.stringify(item.name);
                   campus = JSON.parse(
                     campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
                   );
                   this.setState({university: campus});
                 }}
-                containerStyle={{padding: 5}} // box in general
+                containerStyle={{padding: 5}} 
                 itemStyle={styles.listText}
                 itemTextStyle={{color: '#222'}}
                 itemsContainerStyle={{maxHeight: 150}}
