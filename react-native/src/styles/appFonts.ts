@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable import/prefer-default-export */
 
 export const fonts = {
   quickSandBold: 'Quicksand-Bold',
