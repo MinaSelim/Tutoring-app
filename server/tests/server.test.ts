@@ -16,7 +16,7 @@ describe('Server initialization', () => {
    let dynamo: AWS.DynamoDB;
 
    before(() => {
-       // Stub calls to resources
+      // Stub calls to resources
       dynamo = Dynamo.getInstance();
       sandbox = sinon.createSandbox();
 

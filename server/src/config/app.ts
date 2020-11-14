@@ -1,18 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
-import {StudentAuthRoutes} from '../routes/auth/StudentAuthRoutes';
-import {TutorAuthRoutes} from '../routes/auth/TutorAuthRoutes';
-
 import * as dotenv from 'dotenv';
 import Database from '../database/database';
+import IRouteComponent from '../routes/IRouteComponent';
+import RouteRoot from './RouteRoot';
 /**
  * This class represents the application. It is in charge of creating a configured application.
  */
 export default class App {
    public app: express.Application;
-   private studentAuthRoutes: StudentAuthRoutes; // TODO: Implement as composite pattern
-   private tutorAuthRoutes: TutorAuthRoutes;
+   private rootRoutes: IRouteComponent;
 
    /**
     * Constructs the class
@@ -20,10 +18,8 @@ export default class App {
    constructor() {
       this.app = express();
       this.config();
-      this.studentAuthRoutes = new StudentAuthRoutes();
-      this.tutorAuthRoutes = new TutorAuthRoutes();
-      this.studentAuthRoutes.route(this.app);
-      this.tutorAuthRoutes.route(this.app);
+      this.rootRoutes = new RouteRoot();
+      this.rootRoutes.route(this.app);
    }
 
    /**
