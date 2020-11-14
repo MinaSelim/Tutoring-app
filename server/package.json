@@ -67,12 +67,20 @@
    },
    "nyc": {
       "skip-empty": true,
-      "reporter": ["lcov"],
+      "reporter": [
+         "lcov"
+      ],
       "report-dir": "./coverage",
       "all": true,
-      "extensions": [".ts"],
-      "include": ["src"],
-      "exclude": ["**/*.test.ts"],
-      "clean": true      
+      "extensions": [
+         ".ts"
+      ],
+      "include": [
+         "src"
+      ],
+      "exclude": [
+         "**/*.test.ts"
+      ],
+      "clean": true
    }
 }
