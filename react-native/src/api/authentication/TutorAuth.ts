@@ -37,7 +37,7 @@ export default class TutorAuth implements IAuth {
   public registerWithEmailAndPassword = async (
     loginInfo: IUserLogin,
     tutor: ITutor,
-  ): Promise<void> => {
+  ): Promise<any> => {
     try {
       const result = await this.firebaseAuth.createUserWithEmailAndPassword(
         loginInfo.email,
@@ -52,6 +52,7 @@ export default class TutorAuth implements IAuth {
         },
         body: JSON.stringify(tutor),
       });
+      return response;
     } catch (error) {
       console.log(error);
     }

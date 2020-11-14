@@ -16,5 +16,5 @@ export default interface IAuth {
   registerWithEmailAndPassword(
     loginInfo: IUserLogin,
     user: IUser,
-  ): Promise<void>;
+  ): Promise<any>;
 }

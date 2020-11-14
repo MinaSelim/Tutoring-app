@@ -68,7 +68,7 @@ class SignIn extends Component<IProps, IState> {
     try {
       const user = await auth.signInWithEmailAndPassword(this.state);
     } catch (error) {
-      Alert.alert('Something went wrong signing in.');
+      Alert.alert(`Something went wrong signing in.\n${error}`);
       return false;
     }
     return true;
