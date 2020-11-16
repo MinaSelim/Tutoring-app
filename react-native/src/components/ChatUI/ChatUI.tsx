@@ -36,26 +36,13 @@ import {DATA} from './DATA';
 // import {KeyboardAvoidingView} from './KeyboardAvoidingView';
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
-const MenuIcon = (props) => <Icon {...props} name="more-vertical" />;
 
-const keyboardOffset = (height: number): number =>
-  Platform.select({
-    android: 0,
-    ios: height,
-  });
 
 export const ChatUI = () => {
   const styles = useStyleSheet(chatStyles);
 
-  const [menuVisible, setMenuVisible] = React.useState(false);
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
 
-  const renderMenuAction = () => (
-    <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
-  );
 
   const renderRightActions = () => (
     <>
@@ -76,7 +63,7 @@ export const ChatUI = () => {
   const renderTitle = () => (
     <>
       <Button status = 'control' size = 'small'>
-        View Details
+        Title
       </Button>
     </>
   );
