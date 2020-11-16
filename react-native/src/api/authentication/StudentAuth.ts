@@ -55,6 +55,7 @@ export default class StudentAuth implements IAuth {
       return response;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 

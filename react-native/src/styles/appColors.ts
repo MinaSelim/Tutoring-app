@@ -10,4 +10,3 @@ export const colors = {
   appOrange: '#E86D2C',
   appSilver: '#8B9CB3',
 };
-
