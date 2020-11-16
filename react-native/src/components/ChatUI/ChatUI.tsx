@@ -20,6 +20,7 @@ import {
   Input,
   IconRegistry,
   Icon,
+  List,
   Layout,
   MenuItem,
   OverflowMenu,
@@ -36,7 +37,7 @@ import {DATA} from './DATA';
 // import {KeyboardAvoidingView} from './KeyboardAvoidingView';
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
-
+const PaperPlaneIcon = (props) => <Icon {...props} name="paper-plane"  />;
 
 export const ChatUI = () => {
   const styles = useStyleSheet(chatStyles);
@@ -68,6 +69,13 @@ export const ChatUI = () => {
     </>
   );
 
+  const sendMessage = (): void => {
+ 
+  };
+
+  const renderMessage = ({ item }) => (
+    <MessageRow key={item.key} {...item} />
+  );
 
   const renderBackAction = () => <TopNavigationAction icon={BackIcon} />;
 
@@ -87,22 +95,25 @@ export const ChatUI = () => {
         />
       </Layout>
 
-      <ScrollView style={{flex: 1}}>
-        {DATA.map((message: IMessage) => (
-          <MessageRow key={message.key} {...message} />
-        ))}
-      </ScrollView>
+  
+
+      <FlatList<IMessage>
+        keyExtractor={(item) => item.key}
+        renderItem={renderMessage}
+        data={DATA}
+      />
 
       <View style={styles.inputContainer}>
-        <Input style={styles.input} placeholder="Message..." />
-
-        <TouchableOpacity style={styles.sendButton} onPress={() => {}}>
-          <Image
-            style={styles.tinySendIcon}
-            source={require('../../assets/icons/SendArrow.png')}
-          />
-        </TouchableOpacity>
+        <Input style={styles.input} placeholder="Message..." multiline = {true} textStyle ={{maxHeight: 64}} />
+        
       </View>
+
+      <Button
+          appearance='ghost'
+          style={[styles.iconButton, styles.sendButton]}
+          accessoryRight={PaperPlaneIcon}
+          onPress = {sendMessage}
+        />
     </SafeAreaView>
   );
 };

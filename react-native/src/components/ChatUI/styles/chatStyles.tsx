@@ -78,7 +78,7 @@ export const chatStyles = StyleSheet.create({
 
   sendButton: {
     padding: 10,
-    justifyContent: 'center',
+    alignSelf: 'flex-end'
   },
 
   container: {
@@ -120,5 +120,27 @@ export const chatStyles = StyleSheet.create({
   bookButton: {
     width: 98,
     borderRadius: 15,
+  },
+ 
+  chat: {
+    flex: 1,
+  },
+  chatContent: {
+    paddingHorizontal: 8,
+    paddingVertical: 12,
+  },
+ 
+  attachButton: {
+    borderRadius: 24,
+    marginHorizontal: 8,
+  },
+  messageInput: {
+    flex: 1,
+    marginHorizontal: 8,
+  },
+
+  iconButton: {
+    width: 24,
+    height: 24,
   },
 });
