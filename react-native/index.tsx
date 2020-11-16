@@ -4,6 +4,7 @@ import ChatUI from './src/components/ChatUI/ChatUI'
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-native/no-inline-styles */
 import {AppRegistry, View, Text} from 'react-native';
+import {ChatUI} from './src/components/ChatUI/ChatUI';
 import ChatUI from './src/components/ChatUI/ChatUI'
 import React from 'react';
 import {Component} from 'react';

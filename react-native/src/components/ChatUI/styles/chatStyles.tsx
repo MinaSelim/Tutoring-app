@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const chatStyles = StyleSheet.create({
   tinyIcon: {
     width: 30,
     height: 24,
@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
   inputContainer: {
     height: 'auto',
     flexDirection: 'row',
+  },
+
+  input: {
+    flexGrow: 1,
   },
 
   topLeftContainer: {
@@ -78,7 +82,7 @@ export const styles = StyleSheet.create({
   },
 
   container: {
-    flex: 1
+    flex: 1,
   },
   title: {
     fontSize: 18,
@@ -88,6 +92,13 @@ export const styles = StyleSheet.create({
   },
 
   memberName: {
+    fontSize: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+  },
+
+  date: {
     fontSize: 15,
     alignItems: 'center',
     justifyContent: 'center',
@@ -104,15 +115,10 @@ export const styles = StyleSheet.create({
   chatText: {
     fontSize: 16,
     marginBottom: 10,
-    marginLeft: 10,
+    marginRight: 10,
   },
   bookButton: {
-    backgroundColor: '#E86D2C',
-    margin: 15,
-    height: 35,
-    width: '75%',
+    width: 98,
     borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

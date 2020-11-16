@@ -36,7 +36,7 @@ class MessageList extends Component<IMessageListProps, IMessageListState> {
     return (
       <FlatList
         data={this.props.messages}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.key}
         renderItem={this.renderItem}
         inverted>
       </FlatList>

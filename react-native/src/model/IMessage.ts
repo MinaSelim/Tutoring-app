@@ -1,7 +1,9 @@
+import {ImageProps} from 'react-native';
+
 export default interface IMessage {
-  id: string;
+  key: string;
   userName: string;
   createdAt: Date;
   content: string;
-  profile: String;
+  profile: ImageProps;
 }
