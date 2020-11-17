@@ -13,7 +13,9 @@
       "module": "commonjs",
       "removeComments": true,
       "preserveConstEnums": true,
-      "sourceMap": true //Might be false for dev environment
+      "sourceMap": true, //Might be false for dev environment
+      "resolveJsonModule": true,
+      "baseUrl": "src"
     },
     "exclude": [
       "react-native/node_modules",

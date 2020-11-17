@@ -1,0 +1,19 @@
+{
+  "components": {
+    "Button": {
+      "meta": {},
+      "appearances": {
+        "filled": {
+          "mapping": {},
+          "variantGroups": {
+            "size": {
+              "large": {
+                "borderRadius": 12
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -134,7 +134,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
                   );
                   this.setState({university: campus});
                 }}
-                containerStyle={{padding: 5}} 
+                containerStyle={{padding: 5}}
                 itemStyle={styles.listText}
                 itemTextStyle={{color: '#222'}}
                 itemsContainerStyle={{maxHeight: 150}}
