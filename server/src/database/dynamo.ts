@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import * as config from './config.json';
+import * as config from '../config/DatabaseConfigInfo.json';
 
 /**
  * The singleton class that manages the dynamo db API

@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import * as dotenv from 'dotenv';
-import Database from '../database/database';
+import DatabaseConfig from '../config/DatabaseConfig'
 import IRouteComponent from '../routes/IRouteComponent';
 import RouteRoot from './RouteRoot';
 /**
@@ -32,8 +32,7 @@ export default class App {
       //support application/x-www-form-urlencoded post data
       this.app.use(bodyParser.urlencoded({extended: false}));
       this.app.use(expressSession({secret: process.env.SESSION_SECRET, saveUninitialized: false, resave: false}));
-      const db: Database = new Database();
-      Promise.resolve(db.init());
+      Promise.resolve(DatabaseConfig.init());
 
       //TODO attach Redis to expressSession
    }

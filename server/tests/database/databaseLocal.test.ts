@@ -1,5 +1,6 @@
 import {PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import {assert} from 'chai';
+import DatabaseConfig from '../../src/config/DatabaseConfig';
 import Database from '../../src/database/database';
 import Dynamo from '../../src/database/dynamo';
 import IStudent from '../../src/models/IStudent';
@@ -19,7 +20,7 @@ describe('Local dynamo test', () => {
 
    it.skip('Should initiate all tables in db config file', () => {
       const dynamo = Dynamo.getInstance();
-      return db
+      return DatabaseConfig
          .init()
          .then(() => {
             return dynamo.listTables().promise();
@@ -62,7 +63,7 @@ describe('Local dynamo test', () => {
          phone: 'string',
       };
 
-      return db
+      return DatabaseConfig
          .createTable(params)
          .then(() => {
             return db.addStudentInUserCollection(student);
