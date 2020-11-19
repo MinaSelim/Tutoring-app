@@ -36,14 +36,16 @@ import IMessage from '../../model/IMessage';
 import {DATA} from './DATA';
 // import {KeyboardAvoidingView} from './KeyboardAvoidingView';
 
+
+// This is the main front end for the chat, it calls messageRow for the layout of every single message view
+// and uses placeholder data from DATA.tsx to display messages, for prototyping.
+
+
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
-const PaperPlaneIcon = (props) => <Icon {...props} name="paper-plane"  />;
+const PaperPlaneIcon = (props) => <Icon {...props} name="paper-plane" />;
 
 export const ChatUI = () => {
   const styles = useStyleSheet(chatStyles);
-
-
-
 
   const renderRightActions = () => (
     <>
@@ -55,7 +57,7 @@ export const ChatUI = () => {
 
   const renderViewDetails = () => (
     <>
-      <Button status = 'control' size = 'tiny'>
+      <Button status="control" size="tiny">
         View Details
       </Button>
     </>
@@ -63,19 +65,15 @@ export const ChatUI = () => {
 
   const renderTitle = () => (
     <>
-      <Button status = 'control' size = 'small'>
+      <Button status="control" size="small">
         Title
       </Button>
     </>
   );
 
-  const sendMessage = (): void => {
- 
-  };
+  const sendMessage = (): void => {};
 
-  const renderMessage = ({ item }) => (
-    <MessageRow key={item.key} {...item} />
-  );
+  const renderMessage = ({item}) => <MessageRow key={item.key} {...item} />;
 
   const renderBackAction = () => <TopNavigationAction icon={BackIcon} />;
 
@@ -95,8 +93,6 @@ export const ChatUI = () => {
         />
       </Layout>
 
-  
-
       <FlatList<IMessage>
         keyExtractor={(item) => item.key}
         renderItem={renderMessage}
@@ -104,16 +100,20 @@ export const ChatUI = () => {
       />
 
       <View style={styles.inputContainer}>
-        <Input style={styles.input} placeholder="Message..." multiline = {true} textStyle ={{maxHeight: 64}} />
-        
+        <Input
+          style={styles.input}
+          placeholder="Message..."
+          multiline
+          textStyle={{maxHeight: 64}}
+        />
       </View>
 
       <Button
-          appearance='ghost'
-          style={[styles.iconButton, styles.sendButton]}
-          accessoryRight={PaperPlaneIcon}
-          onPress = {sendMessage}
-        />
+        appearance="ghost"
+        style={[styles.iconButton, styles.sendButton]}
+        accessoryRight={PaperPlaneIcon}
+        onPress={sendMessage}
+      />
     </SafeAreaView>
   );
 };

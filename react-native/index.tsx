@@ -1,11 +1,8 @@
-import ChatUI from './src/components/ChatUI/ChatUI'
 /* eslint-disable import/no-duplicates */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-native/no-inline-styles */
 import {AppRegistry, View, Text} from 'react-native';
-import {ChatUI} from './src/components/ChatUI/ChatUI';
-import ChatUI from './src/components/ChatUI/ChatUI'
 import React from 'react';
 import {Component} from 'react';
 import 'react-native-gesture-handler';

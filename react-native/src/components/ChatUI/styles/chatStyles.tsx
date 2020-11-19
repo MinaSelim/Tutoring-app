@@ -78,7 +78,7 @@ export const chatStyles = StyleSheet.create({
 
   sendButton: {
     padding: 10,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
 
   container: {
