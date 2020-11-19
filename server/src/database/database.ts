@@ -2,16 +2,10 @@
 
 import IStudent from '../models/IStudent';
 import ITutor from '../models/ITutor';
-import {
-   GetItemInput,
-   GetItemOutput,
-   PutItemInput,
-   PutItemOutput,
-} from 'aws-sdk/clients/dynamodb';
+import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import Dynamo from './dynamo';
 import {AWSError} from 'aws-sdk';
-import * as config from '../config/DatabaseConfigInfo.json'
-
+import * as config from '../config/DatabaseConfigInfo.json';
 
 export default class Database {
    private dynamo: AWS.DynamoDB = Dynamo.getInstance();

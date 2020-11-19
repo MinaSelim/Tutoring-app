@@ -20,8 +20,7 @@ describe('Local dynamo test', () => {
 
    it.skip('Should initiate all tables in db config file', () => {
       const dynamo = Dynamo.getInstance();
-      return DatabaseConfig
-         .init()
+      return DatabaseConfig.init()
          .then(() => {
             return dynamo.listTables().promise();
          })
@@ -63,8 +62,7 @@ describe('Local dynamo test', () => {
          phone: 'string',
       };
 
-      return DatabaseConfig
-         .createTable(params)
+      return DatabaseConfig.createTable(params)
          .then(() => {
             return db.addStudentInUserCollection(student);
          })

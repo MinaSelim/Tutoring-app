@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import * as dotenv from 'dotenv';
-import DatabaseConfig from '../config/DatabaseConfig'
+import DatabaseConfig from '../config/DatabaseConfig';
 import IRouteComponent from '../routes/IRouteComponent';
 import RouteRoot from './RouteRoot';
 /**
