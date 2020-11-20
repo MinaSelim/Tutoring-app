@@ -99,7 +99,7 @@ class SignUpUserType extends Component<IProps, IState> {
               if (
                 this.handleTutor(firstName, lastName, email, phone, password)
               ) {
-                this.props.navigation.navigate(''); // TODO Redirect to Home page
+                this.props.navigation.navigate('Home');
               }
             }}>
             <Text style={styles.buttonText}> Tutor </Text>

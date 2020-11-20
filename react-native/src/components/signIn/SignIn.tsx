@@ -156,7 +156,7 @@ class SignIn extends Component<IProps, IState> {
               style={styles.signInButton}
               onPress={() => {
                 if (this.signIn()) {
-                  this.props.navigation.navigate('');
+                  this.props.navigation.navigate('Home');
                 }
               }}>
               <Text style={styles.signInText}> Sign In </Text>

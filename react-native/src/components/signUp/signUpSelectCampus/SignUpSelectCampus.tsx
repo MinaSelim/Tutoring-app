@@ -155,7 +155,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             style={styles.finishButton}
             onPress={() => {
               if (this.finish(firstName, lastName, email, phone, password)) {
-                this.props.navigation.navigate(''); // TODO Redirect to Home page
+                this.props.navigation.navigate('Home');
               }
             }}>
             <Text style={styles.finishText}> Finish </Text>
