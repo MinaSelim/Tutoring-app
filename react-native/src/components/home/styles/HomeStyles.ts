@@ -82,4 +82,8 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         bottom: 10
       },
+      sliderTabs: {
+        height: '100%',
+        width: '100%',
+      }
 });

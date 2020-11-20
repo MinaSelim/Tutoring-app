@@ -20,6 +20,7 @@ import {
   Input,
   IconRegistry,
   Icon,
+  ViewPager,
   List,
   Layout,
   TopNavigation,
@@ -27,6 +28,21 @@ import {
 } from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import homeStyles from './styles/HomeStyles';
+import {SideBar} from '../sideBar/sideBar';
+import {MyChats} from '../myChats/myChats';
+
+// export const HomeSlider = (props) => {
+//   const [selectedIndex, setSelectedIndex] = React.useState(1);
+//   return(
+//     <ViewPager
+//     selectedIndex={selectedIndex}
+//     onSelect={index => setSelectedIndex(index)}>
+//       <Layout style={homeStyles.sliderTabs}><SideBar/></Layout>
+//       <Layout style={homeStyles.sliderTabs}><HomeUI/></Layout>
+//       <Layout style={homeStyles.sliderTabs}><MyChats/></Layout>
+//     </ViewPager>
+//   )
+// }
 
 export const HomeUI = (props) => {
     const styles = useStyleSheet(homeStyles);
@@ -58,8 +74,8 @@ export const HomeUI = (props) => {
       <View style={styles.background}>
 
         <View style={styles.upperSection}>
-          <Button style={styles.tabButton} appearance='ghost' accessoryLeft={SideMenuIcon}/>
-          <Text style={styles.helloMessage}>Hey Alex,</Text>
+          <Button style={styles.tabButton} onPress={() => props.navigation.navigate("SideBar")} appearance='ghost' accessoryLeft={SideMenuIcon}/>
+          <Text style={styles.helloMessage}>Hey User,</Text>
           </View>
         <View style={styles.middleSection}>
           <Text style={styles.whatAreYouLookinFor}>What are you looking for?</Text>

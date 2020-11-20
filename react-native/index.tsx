@@ -16,10 +16,12 @@ import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpC
 import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
 import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
 import SignIn from './src/components/signIn/SignIn';
-import {HomeUI} from './src/components/home/home';
+import {HomeSlider, HomeUI} from './src/components/home/home';
 import Store from './src/components/store';
 import mapping from './mapping.json';
 import theme from './custom-theme.json'; // <-- Import app theme
+import {SideBar} from './src/components/sideBar/SideBar';
+import { MyChats } from './src/components/myChats/MyChats';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +41,7 @@ class App extends Component {
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{headerShown: false}}
-              initialRouteName="Home">
+              initialRouteName="SignIn">
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen
                 name="SignUpCredentials"
@@ -50,7 +52,9 @@ class App extends Component {
                 name="SignUpSelectCampus"
                 component={SignUpSelectCampus}
               />
-              <Stack.Screen name="Home" component={HomeUI} />
+              <Stack.Screen name="Home" component={HomeUI} /> 
+              <Stack.Screen name="SideBar" component={SideBar} />
+              <Stack.Screen name="MyChats" component={MyChats} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>
