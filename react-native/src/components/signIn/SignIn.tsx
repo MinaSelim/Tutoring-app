@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useReducer} from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
 import INavigation from '../../model/navigation/INavigation';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
+import store from '../store';
 
 interface IProps extends INavigation {}
 
@@ -67,6 +68,10 @@ class SignIn extends Component<IProps, IState> {
     }
     try {
       const user = await auth.signInWithEmailAndPassword(this.state);
+      store.dispatch({
+        type: "USER_INFO",
+        payload: {email: user.email, firstName: user.first_name, lastName: user.last_name, avatar: user.avatar, phone:user.phone}
+    })
     } catch (error) {
       Alert.alert(`Something went wrong signing in.\n${error}`);
       return false;
