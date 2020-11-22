@@ -69,11 +69,17 @@ class SignIn extends Component<IProps, IState> {
     try {
       const user = await auth.signInWithEmailAndPassword(this.state);
       store.dispatch({
-        type: "USER_INFO",
-        payload: {email: user.email, firstName: user.first_name, lastName: user.last_name, avatar: user.avatar, phone:user.phone}
-    })
+        type: 'USER_INFO',
+        payload: {
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          avatar: user.avatar,
+          phone: user.phone,
+        },
+      });
     } catch (error) {
-      Alert.alert(`Something went wrong signing in.\n${error}`);
+      Alert.alert(`${error}`);
       return false;
     }
     return true;

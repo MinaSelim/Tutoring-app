@@ -90,7 +90,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
           payload: {email: user.email, firstName: user.first_name, lastName: user.last_name, avatar: user.avatar, phone:user.phone}
       })
       } catch (error) {
-        Alert.alert(`Something went wrong signing in as a student.\n${error}`);
+        Alert.alert(`${error}`);
         return false;
       }
       return true;
