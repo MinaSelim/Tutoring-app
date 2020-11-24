@@ -1,6 +1,7 @@
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import Database from '../../src/database/database';
+import DatabaseConfig from '../../src/config/DatabaseConfig';
 import {AWSError} from 'aws-sdk';
 import {
    CreateTableInput,
@@ -432,7 +433,7 @@ describe('Database test', () => {
       } as unknown) as AWS.Request<CreateTableOutput, AWSError>;
 
       sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
-      return db.createTable(params).then((res: CreateTableOutput) => {
+      return DatabaseConfig.createTable(params).then((res: CreateTableOutput) => {
          assert.equal(res.TableDescription.TableName, createTableResponseGood.TableDescription.TableName);
       });
    });
@@ -466,8 +467,7 @@ describe('Database test', () => {
 
       const spy = sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
 
-      return db
-         .createTable(params)
+      return DatabaseConfig.createTable(params)
          .then(() => {
             assert.fail('Should not pass');
          })
