@@ -46,9 +46,6 @@ export default StyleSheet.create({
         height: 50,
         width: '80%',
         borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
     },
     universityImage:{
         alignSelf: 'center', 
@@ -67,13 +64,7 @@ export default StyleSheet.create({
     myChats:{
         backgroundColor: '#E5E5E5',
         borderColor: '#E5E5E5',
-        color: '#E5E5E5',
-        bottom: 40,
-    },
-    swipeDots:{
-        width: '15%',
-        height: '15%',
-        bottom: 20
+        bottom: 30
     },
     footer: {
         alignSelf: 'center',
@@ -81,9 +72,5 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         bottom: 10
-      },
-      sliderTabs: {
-        height: '100%',
-        width: '100%',
       }
 });

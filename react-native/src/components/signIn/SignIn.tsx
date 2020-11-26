@@ -18,13 +18,12 @@ import TutorAuth from '../../api/authentication/TutorAuth';
 import INavigation from '../../model/navigation/INavigation';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
 import store from '../store';
-
-interface IProps extends INavigation {}
+import actions from '../../utils/Actions';
 
 interface IState extends IUserLogin, ISignInPage {}
 
 // This component corresponds to the sign in page
-class SignIn extends Component<IProps, IState> {
+class SignIn extends Component<INavigation, IState> {
   constructor(props) {
     super(props);
 
@@ -69,7 +68,7 @@ class SignIn extends Component<IProps, IState> {
     try {
       const user = await auth.signInWithEmailAndPassword(this.state);
       store.dispatch({
-        type: 'USER_INFO',
+        type: actions.userInfo,
         payload: {
           email: user.email,
           firstName: user.first_name,

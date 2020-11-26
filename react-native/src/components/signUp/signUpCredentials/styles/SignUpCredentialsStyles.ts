@@ -13,8 +13,8 @@ export default StyleSheet.create({
     position: 'absolute',
   },
   goBackButton: {
-    width: 40,
-    height: 30,
+    width: 35,
+    height: 25,
     left: 10,
     top: 10,
   },

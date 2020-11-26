@@ -15,6 +15,7 @@ import ITutor from '../../../model/common/ITutor';
 import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
 import IAuth from '../../../api/authentication/IAuth';
 import store from '../../store';
+import actions from '../../../utils/Actions'; 
 
 interface IProps extends INavigation {
   route: any;
@@ -57,7 +58,7 @@ class SignUpUserType extends Component<IProps, IState> {
     try {
       const user = await auth.signInWithEmailAndPassword({email,password});
       store.dispatch({
-        type: "USER_INFO",
+        type: actions.userInfo,
         payload: {email: user.email, firstName: user.first_name, lastName: user.last_name, avatar: user.avatar, phone:user.phone}
     })
     } catch (error) {

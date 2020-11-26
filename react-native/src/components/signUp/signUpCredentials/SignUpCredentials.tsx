@@ -14,12 +14,10 @@ import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/INavigation';
 import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';
 
-interface IProps extends INavigation {}
-
 interface IState extends ISignUpCredentialsPage {}
 
 // This component corresponds to the first sign up page
-class SignUpCredentials extends Component<IProps, IState> {
+class SignUpCredentials extends Component<INavigation, IState> {
   constructor(props) {
     super(props);
 

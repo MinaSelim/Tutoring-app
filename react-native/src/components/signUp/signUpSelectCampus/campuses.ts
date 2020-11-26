@@ -5,21 +5,27 @@ export const campuses = [
     name: 'Concordia University',
   },
   {
-    name: 'École de technologie supérieure',
+    name: 'McGill University',
+  },
+  {
+    name: 'Bishop\'s University',
+  },
+  {
+    name: 'Dawson College',
   },
   {
     name: 'HEC Montréal',
   },
   {
-    name: 'McGill University',
+    name: 'John Abbott College',
   },
   {
-    name: 'Polytechnique Montréal',
-  },
-  {
-    name: 'Université de Montréal',
+    name: 'Université de Montréal (UDeM)',
   },
   {
     name: 'Université du Québec à Montréal (UQAM)',
+  },
+  {
+    name: 'Vanier College',
   },
 ];

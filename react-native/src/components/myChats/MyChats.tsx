@@ -3,10 +3,12 @@ import 'react-native-gesture-handler';
 import {Text} from '@ui-kitten/components';
 import React from 'react';
 
-export const MyChats = (props) => {
-    return(
-      <View>
+export const MyChats = () => {
+  return (
+    <View>
       <Text>My Chats: Coming Soon!</Text>
     </View>
-    )
-  };
+  );
+};
+
+export default MyChats;
