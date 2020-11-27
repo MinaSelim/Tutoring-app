@@ -16,7 +16,7 @@ import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpC
 import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
 import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
 import SignIn from './src/components/signIn/SignIn';
-import {HomeUI} from './src/components/home/home';
+import {HomeUI} from './src/components/home/Home';
 import Store from './src/components/store';
 import mapping from './mapping.json';
 import theme from './custom-theme.json'; // <-- Import app theme

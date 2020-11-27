@@ -66,6 +66,10 @@ export default StyleSheet.create({
         borderColor: '#E5E5E5',
         bottom: 30
     },
+    myChatsIcon:{
+        height: '100%',
+        width: '10%'
+    },
     footer: {
         alignSelf: 'center',
         color: colors.appLightGrey,

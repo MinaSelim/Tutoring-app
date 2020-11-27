@@ -1,40 +1,27 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View} from 'react-native';
 import 'react-native-gesture-handler';
-import {Text, Button, useStyleSheet, Icon} from '@ui-kitten/components';
+import {Text, Button, useStyleSheet} from '@ui-kitten/components';
 import homeStyles from './styles/HomeStyles';
+import SideMenuIcon from './SideMenuIcon';
+import MessageIcon from './MessageIcon';
+import UniversityImage from './UniversityImage';
 import store from '../store';
+import INavigation from '../../model/navigation/INavigation';
+//import MapStateToProps from './mapFirstNameToHome';
+import actions from '../../utils/Actions';
 
-export const HomeUI = (props) => {
+export const HomeUI: React.FC<INavigation> = (props) => {
   const styles = useStyleSheet(homeStyles);
-  // const email = useSelector(state=>state.email);
-  // const dispatch = useDispatch();
   const name = JSON.parse(
     JSON.stringify(store.getState().SignInReducer.firstName).replace(
       /(\{|,)\s*(.+?)\s*:/g,
       '$1 "$2":',
     ),
   );
-
-  const SideMenuIcon = (props) => (
-    <Icon
-      {...props}
-      fill="black"
-      name="menu-outline"
-      style={homeStyles.tabButton}
-    />
-  );
-
-  const MessageIcon = (props) => (
-    <Icon {...props} fill="#383d39" name="message-square-outline" />
-  );
-
-  const UniversityImage = () => (
-    <Image
-      source={require('../../assets/images/icons/university.png')}
-      style={styles.universityImage}
-    />
-  );
+  // const name = JSON.parse(
+  //   JSON.stringify(MapStateToProps.firstName).replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
+  // );
 
   return (
     <View style={styles.background}>
@@ -53,7 +40,12 @@ export const HomeUI = (props) => {
         </Text>
         <Button
           style={[styles.button, {top: 25}]}
-          onPress={() => props.navigation.navigate('TutorSearch')}>
+          onPress={() => store.dispatch({
+            type: actions.userInfo,
+            payload: {
+              firstName: "test"
+            },
+          })}>
           Find a Tutor
         </Button>
         <Button
@@ -76,5 +68,10 @@ export const HomeUI = (props) => {
     </View>
   );
 };
+
+// HomeUI.propTypes = {
+//   navigation: any,
+//   navigate: any,
+// };
 
 export default HomeUI;
