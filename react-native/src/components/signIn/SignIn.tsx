@@ -31,6 +31,7 @@ class SignIn extends Component<INavigation, IState> {
       email: '',
       password: '',
       passwordHidden: true,
+      validUser: false,
     };
 
     this.handleEmail = this.handleEmail.bind(this);
@@ -52,11 +53,16 @@ class SignIn extends Component<INavigation, IState> {
     this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
   };
 
+  validateUser = (): void => {
+    this.setState({validUser: true});
+  };
+
   // Send the user's input to the back-end
-  signIn = async (): Promise<boolean> => {
+  signIn = async (): Promise<void> => {
+    let valid = false;
     if (!this.state.email.includes('@') || this.state.password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
-      return false;
+      return;
     }
     let auth: IAuth;
     if (true) {
@@ -65,8 +71,9 @@ class SignIn extends Component<INavigation, IState> {
     } else {
       auth = new TutorAuth();
     }
+    let user = null;
     try {
-      const user = await auth.signInWithEmailAndPassword(this.state);
+      user = await auth.signInWithEmailAndPassword(this.state);
       store.dispatch({
         type: actions.userInfo,
         payload: {
@@ -77,11 +84,11 @@ class SignIn extends Component<INavigation, IState> {
           phone: user.phone,
         },
       });
+      this.validateUser();
     } catch (error) {
+      valid = false;
       Alert.alert(`${error}`);
-      return false;
     }
-    return true;
   };
 
   forgotPassword = (): void => {
@@ -165,7 +172,8 @@ class SignIn extends Component<INavigation, IState> {
             <TouchableOpacity
               style={styles.signInButton}
               onPress={() => {
-                if (this.signIn()) {
+                this.signIn();
+                if (this.state.validUser) {
                   this.props.navigation.navigate('Home');
                 }
               }}>

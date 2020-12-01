@@ -1,3 +1,3 @@
 export default interface ISignUpUserTypePage {
-  userType: string;
+  validUser: boolean;
 }

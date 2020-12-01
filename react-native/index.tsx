@@ -43,7 +43,7 @@ class App extends Component {
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{headerShown: false}}
-              initialRouteName="Home">
+              initialRouteName="SignIn">
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen
                 name="SignUpCredentials"
@@ -58,7 +58,7 @@ class App extends Component {
               <Stack.Screen name="SideBar" component={SideBar} />
               <Stack.Screen name="MyChats" component={MyChats} />
               <Stack.Screen name="TutorSearch" component={TutorSearch} />
-              <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
+              <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} /> 
             </Stack.Navigator>
           </NavigationContainer>
         </ApplicationProvider>

@@ -15,7 +15,7 @@ import ITutor from '../../../model/common/ITutor';
 import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
 import IAuth from '../../../api/authentication/IAuth';
 import store from '../../store';
-import actions from '../../../utils/Actions'; 
+import actions from '../../../utils/Actions';
 
 interface IProps extends INavigation {
   route: any;
@@ -27,8 +27,17 @@ interface IState extends ISignUpUserTypePage {}
 class SignUpUserType extends Component<IProps, IState> {
   constructor(props) {
     super(props);
+
+    this.state = {
+      validUser: false,
+    };
+
     this.handleTutor = this.handleTutor.bind(this);
   }
+
+  validateUser = (): void => {
+    this.setState({validUser: true});
+  };
 
   // Send the tutor's information to the back-end
   handleTutor = async (
@@ -37,7 +46,7 @@ class SignUpUserType extends Component<IProps, IState> {
     email,
     phone,
     password,
-  ): Promise<boolean> => {
+  ): Promise<void> => {
     const tutorAuth = new TutorAuth();
     const tutor: ITutor = {
       first_name: firstName,
@@ -51,21 +60,26 @@ class SignUpUserType extends Component<IProps, IState> {
       await tutorAuth.registerWithEmailAndPassword({email, password}, tutor);
     } catch (error) {
       Alert.alert(`Something went wrong signing up as a tutor.\n${error}`);
-      return false;
+      return;
     }
     let auth: IAuth;
     auth = new TutorAuth();
     try {
-      const user = await auth.signInWithEmailAndPassword({email,password});
+      const user = await auth.signInWithEmailAndPassword({email, password});
       store.dispatch({
         type: actions.userInfo,
-        payload: {email: user.email, firstName: user.first_name, lastName: user.last_name, avatar: user.avatar, phone:user.phone}
-    })
+        payload: {
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          avatar: user.avatar,
+          phone: user.phone,
+        },
+      });
+      this.validateUser();
     } catch (error) {
       Alert.alert(`${error}`);
-      return false;
     }
-    return true;
   };
 
   render() {
@@ -110,9 +124,8 @@ class SignUpUserType extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.tutor}
             onPress={() => {
-              if (
-                this.handleTutor(firstName, lastName, email, phone, password)
-              ) {
+              this.handleTutor(firstName, lastName, email, phone, password);
+              if (this.state.validUser) {
                 this.props.navigation.navigate('Home');
               }
             }}>

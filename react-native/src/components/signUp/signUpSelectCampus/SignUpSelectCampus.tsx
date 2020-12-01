@@ -32,6 +32,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
 
     this.state = {
       university: 'Find your campus',
+      validUser: false,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -54,6 +55,10 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     return true;
   };
 
+  validateUser = (): void => {
+    this.setState({validUser: true});
+  };
+
   // Send the student's information to the back-end
   finish = async (
     firstName,
@@ -61,7 +66,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     email,
     phone,
     password,
-  ): Promise<boolean> => {
+  ): Promise<void> => {
     if (this.state.university !== 'Find your campus') {
       const studentAuth = new StudentAuth();
       const studentInfo: IStudent = {
@@ -80,7 +85,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         );
       } catch (error) {
         Alert.alert(`Something went wrong signing up as a student.\n${error}`);
-        return false;
+        return;
       }
       let auth: IAuth;
       auth = new StudentAuth();
@@ -96,14 +101,13 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             phone: user.phone,
           },
         });
+        this.validateUser();
       } catch (error) {
         Alert.alert(`${error}`);
-        return false;
       }
-      return true;
+      return;
     }
     Alert.alert('Please select a campus first.');
-    return false;
   };
 
   render() {
@@ -175,7 +179,8 @@ class SignUpSelectCampus extends Component<IProps, IState> {
           <TouchableOpacity
             style={styles.finishButton}
             onPress={() => {
-              if (this.finish(firstName, lastName, email, phone, password)) {
+              this.finish(firstName, lastName, email, phone, password);
+              if (this.state.validUser) {
                 this.props.navigation.navigate('Home');
               }
             }}>
