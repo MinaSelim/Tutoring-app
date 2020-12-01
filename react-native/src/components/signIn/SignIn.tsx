@@ -31,7 +31,6 @@ class SignIn extends Component<INavigation, IState> {
       email: '',
       password: '',
       passwordHidden: true,
-      validUser: false,
     };
 
     this.handleEmail = this.handleEmail.bind(this);
@@ -51,10 +50,6 @@ class SignIn extends Component<INavigation, IState> {
 
   changePasswordVisibility = (): void => {
     this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
-  };
-
-  validateUser = (): void => {
-    this.setState({validUser: true});
   };
 
   // Send the user's input to the back-end
@@ -84,7 +79,7 @@ class SignIn extends Component<INavigation, IState> {
           phone: user.phone,
         },
       });
-      this.validateUser();
+      this.props.navigation.navigate('Home');
     } catch (error) {
       valid = false;
       Alert.alert(`${error}`);
@@ -173,9 +168,6 @@ class SignIn extends Component<INavigation, IState> {
               style={styles.signInButton}
               onPress={() => {
                 this.signIn();
-                if (this.state.validUser) {
-                  this.props.navigation.navigate('Home');
-                }
               }}>
               <Text style={styles.signInText}> Sign In </Text>
               <Image

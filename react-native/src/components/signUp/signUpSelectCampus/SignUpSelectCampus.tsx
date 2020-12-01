@@ -32,7 +32,6 @@ class SignUpSelectCampus extends Component<IProps, IState> {
 
     this.state = {
       university: 'Find your campus',
-      validUser: false,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -53,10 +52,6 @@ class SignUpSelectCampus extends Component<IProps, IState> {
       return false;
     }
     return true;
-  };
-
-  validateUser = (): void => {
-    this.setState({validUser: true});
   };
 
   // Send the student's information to the back-end
@@ -101,10 +96,11 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             phone: user.phone,
           },
         });
-        this.validateUser();
       } catch (error) {
         Alert.alert(`${error}`);
+        return;
       }
+      this.props.navigation.navigate('Home');
       return;
     }
     Alert.alert('Please select a campus first.');
@@ -180,9 +176,6 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             style={styles.finishButton}
             onPress={() => {
               this.finish(firstName, lastName, email, phone, password);
-              if (this.state.validUser) {
-                this.props.navigation.navigate('Home');
-              }
             }}>
             <Text style={styles.finishText}> Finish </Text>
           </TouchableOpacity>

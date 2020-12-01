@@ -12,7 +12,6 @@ import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/INavigation';
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
-import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
 import IAuth from '../../../api/authentication/IAuth';
 import store from '../../store';
 import actions from '../../../utils/Actions';
@@ -21,23 +20,12 @@ interface IProps extends INavigation {
   route: any;
 }
 
-interface IState extends ISignUpUserTypePage {}
-
 // This component corresponds to the second sign up page
-class SignUpUserType extends Component<IProps, IState> {
+class SignUpUserType extends Component<IProps> {
   constructor(props) {
     super(props);
-
-    this.state = {
-      validUser: false,
-    };
-
     this.handleTutor = this.handleTutor.bind(this);
   }
-
-  validateUser = (): void => {
-    this.setState({validUser: true});
-  };
 
   // Send the tutor's information to the back-end
   handleTutor = async (
@@ -76,7 +64,7 @@ class SignUpUserType extends Component<IProps, IState> {
           phone: user.phone,
         },
       });
-      this.validateUser();
+      this.props.navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);
     }
@@ -125,9 +113,6 @@ class SignUpUserType extends Component<IProps, IState> {
             style={styles.tutor}
             onPress={() => {
               this.handleTutor(firstName, lastName, email, phone, password);
-              if (this.state.validUser) {
-                this.props.navigation.navigate('Home');
-              }
             }}>
             <Text style={styles.buttonText}> Tutor </Text>
           </TouchableOpacity>
