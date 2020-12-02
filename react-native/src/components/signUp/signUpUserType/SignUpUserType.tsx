@@ -50,8 +50,7 @@ class SignUpUserType extends Component<IProps> {
       Alert.alert(`Something went wrong signing up as a tutor.\n${error}`);
       return;
     }
-    let auth: IAuth;
-    auth = new TutorAuth();
+    const auth: IAuth = new TutorAuth();
     try {
       const user = await auth.signInWithEmailAndPassword({email, password});
       store.dispatch({

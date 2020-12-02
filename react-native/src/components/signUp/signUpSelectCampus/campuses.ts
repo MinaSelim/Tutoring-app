@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-export const campuses = [
+const campuses = [
   {
     name: 'Concordia University',
   },
@@ -8,7 +6,7 @@ export const campuses = [
     name: 'McGill University',
   },
   {
-    name: 'Bishop\'s University',
+    name: "Bishop's University",
   },
   {
     name: 'Dawson College',
@@ -29,3 +27,5 @@ export const campuses = [
     name: 'Vanier College',
   },
 ];
+
+export default campuses;

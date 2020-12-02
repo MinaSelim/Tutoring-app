@@ -14,7 +14,7 @@ import INavigation from '../../../model/navigation/INavigation';
 import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
-import {campuses} from './campuses';
+import campuses from './campuses';
 import IAuth from '../../../api/authentication/IAuth';
 import store from '../../store';
 import actions from '../../../utils/Actions';
@@ -23,10 +23,8 @@ interface IProps extends INavigation {
   route: any;
 }
 
-interface IState extends ISignUpSelectCampusPage {}
-
 // This component corresponds to the third sign up page
-class SignUpSelectCampus extends Component<IProps, IState> {
+class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
   constructor(props) {
     super(props);
 
@@ -82,8 +80,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         Alert.alert(`Something went wrong signing up as a student.\n${error}`);
         return;
       }
-      let auth: IAuth;
-      auth = new StudentAuth();
+      const auth: IAuth = new StudentAuth();
       try {
         const user = await auth.signInWithEmailAndPassword({email, password});
         store.dispatch({

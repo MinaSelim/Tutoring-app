@@ -54,7 +54,6 @@ class SignIn extends Component<INavigation, IState> {
 
   // Send the user's input to the back-end
   signIn = async (): Promise<void> => {
-    let valid = false;
     if (!this.state.email.includes('@') || this.state.password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
       return;
@@ -81,7 +80,6 @@ class SignIn extends Component<INavigation, IState> {
       });
       this.props.navigation.navigate('Home');
     } catch (error) {
-      valid = false;
       Alert.alert(`${error}`);
     }
   };

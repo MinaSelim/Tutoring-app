@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import {Text} from '@ui-kitten/components';
 import React from 'react';
 
-export const StudyGroupSearch = () => {
+const StudyGroupSearch = () => {
   return (
     <View>
       <Text>Find a study group: Coming Soon!</Text>

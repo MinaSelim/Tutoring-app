@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import {Text} from '@ui-kitten/components';
 import React from 'react';
 
-export const MyChats = (props) => {
+const MyChats = (props) => {
   return (
     <View>
       <TouchableOpacity

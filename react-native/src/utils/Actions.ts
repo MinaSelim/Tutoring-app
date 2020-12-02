@@ -1,5 +1,5 @@
-export const actions = {
-    userInfo: 'USER_INFO'
-  };
+const actions = {
+  userInfo: 'USER_INFO',
+};
 
 export default actions;

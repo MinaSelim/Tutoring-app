@@ -1,4 +1,7 @@
-const SignInReducer = (state = {email: '', firstName: '', lastName: '', phone: '', avatar: ''}, action) => {
+const SignInReducer = (
+  state = {email: '', firstName: '', lastName: '', phone: '', avatar: ''},
+  action,
+) => {
   // TODO Refactor to just have methods instead of a switch statement
   switch (action.type) {
     case 'USER_INFO':
