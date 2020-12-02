@@ -1,4 +1,5 @@
 import {AppRegistry} from 'react-native';
+import {SERVER_LINK} from 'react-native-dotenv-milkywire';
 import React from 'react';
 import {Component} from 'react';
 import 'react-native-gesture-handler';
@@ -11,6 +12,7 @@ import RouteStack from './routeStack';
 
 class App extends Component {
   render(): JSX.Element {
+      console.log(SERVER_LINK);
     return (
       <>
         <IconRegistry icons={EvaIconsPack} />

@@ -54,7 +54,7 @@ export default class StudentAuth implements IAuth {
       });
       return response;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return null;
     }
   };
@@ -65,7 +65,7 @@ export default class StudentAuth implements IAuth {
   private signInWithServer = async (): Promise<IStudent> => {
     const user = this.firebaseAuth.currentUser;
     const token = user && (await user.getIdToken());
-
+    console.info('[FRONT]- Sending logins', user.email);
     const response = await fetch(`${SERVER_LINK}/auth/student/login`, {
       method: 'POST',
       headers: {
