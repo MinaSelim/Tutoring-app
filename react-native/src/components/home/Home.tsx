@@ -7,11 +7,9 @@ import SideMenuIcon from './SideMenuIcon';
 import MessageIcon from './MessageIcon';
 import UniversityImage from './UniversityImage';
 import store from '../store';
-import INavigation from '../../model/navigation/INavigation';
-//import MapStateToProps from './mapFirstNameToHome';
-import actions from '../../utils/Actions';
+import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
-export const HomeUI: React.FC<INavigation> = (props) => {
+const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
   const styles = useStyleSheet(homeStyles);
   const name = JSON.parse(
     JSON.stringify(store.getState().SignInReducer.firstName).replace(
@@ -19,9 +17,6 @@ export const HomeUI: React.FC<INavigation> = (props) => {
       '$1 "$2":',
     ),
   );
-  // const name = JSON.parse(
-  //   JSON.stringify(MapStateToProps.firstName).replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
-  // );
 
   return (
     <View style={styles.background}>
@@ -40,12 +35,7 @@ export const HomeUI: React.FC<INavigation> = (props) => {
         </Text>
         <Button
           style={[styles.button, {top: 25}]}
-          onPress={() => store.dispatch({
-            type: actions.userInfo,
-            payload: {
-              firstName: "test"
-            },
-          })}>
+          onPress={() => props.navigation.navigate('TutorSearch')}>
           Find a Tutor
         </Button>
         <Button
@@ -68,10 +58,5 @@ export const HomeUI: React.FC<INavigation> = (props) => {
     </View>
   );
 };
-
-// HomeUI.propTypes = {
-//   navigation: any,
-//   navigate: any,
-// };
 
 export default HomeUI;

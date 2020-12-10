@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/INavigation';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import IAuth from '../../../api/authentication/IAuth';

@@ -11,7 +11,7 @@ import {
 import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpCredentialsStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/INavigation';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';
 
 interface IState extends ISignUpCredentialsPage {}

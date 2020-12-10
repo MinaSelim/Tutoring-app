@@ -10,7 +10,7 @@ import {
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import styles from './styles/SignUpSelectCampusStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/INavigation';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';

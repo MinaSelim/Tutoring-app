@@ -15,7 +15,7 @@ import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from '../../api/authentication/IAuth';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
-import INavigation from '../../model/navigation/INavigation';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
 import store from '../store';
 import actions from '../../utils/Actions';

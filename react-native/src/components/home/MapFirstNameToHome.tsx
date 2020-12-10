@@ -3,8 +3,7 @@ import Home from './Home';
 
 const mapStateToProps = (state) => {
   return {
-    firstName: state.SignInReducer.firstName,
+    firstName: state.firstName,
   };
 };
-
 export default connect(mapStateToProps)(Home);
