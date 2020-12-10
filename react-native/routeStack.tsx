@@ -14,7 +14,6 @@ import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch
 const Stack = createStackNavigator();
 
 class RouteStack extends Component {
-
   render() {
     return (
       <NavigationContainer>
