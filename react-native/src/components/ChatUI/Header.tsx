@@ -15,7 +15,11 @@ const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 const renderRightActions = () => (
   <>
     <Button size="small" style={chatStyles.bookButton}>
-      {evaProps => <Text style={{fontSize: 40}} {...evaProps}>Book</Text>}
+      {(evaProps) => (
+        <Text style={{fontSize: 40}} {...evaProps}>
+          Book
+        </Text>
+      )}
     </Button>
   </>
 );

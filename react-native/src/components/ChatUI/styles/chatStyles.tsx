@@ -55,7 +55,7 @@ export const chatStyles = StyleSheet.create({
     paddingTop: 37,
     fontSize: 18,
     textAlign: 'center',
-    fontWeight: '600'
+    fontWeight: '600',
   },
   chatSubTitle: {
     fontSize: 12,
