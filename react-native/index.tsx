@@ -22,7 +22,7 @@ class App extends Component {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
           {...eva}
-          customMapping={{...eva.mapping, mapping}}
+          customMapping={mapping}
           theme={{...eva.light, ...theme}}>
           <RouteStack />
         </ApplicationProvider>

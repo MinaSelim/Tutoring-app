@@ -5,31 +5,25 @@ import {
   Layout,
   TopNavigation,
   TopNavigationAction,
-  Text
+  Text,
 } from '@ui-kitten/components';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import chatStyles from './styles/chatStyles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
 const renderRightActions = () => (
   <>
-    <Button size="medium" style={chatStyles.bookButton}>
-      Book
+    <Button size="small" style={chatStyles.bookButton}>
+      {evaProps => <Text style={{fontSize: 40}} {...evaProps}>Book</Text>}
     </Button>
   </>
 );
 
-
-
 const renderTitle = () => (
   <TouchableOpacity>
-    <Text style = {chatStyles.chatTitle}>
-      Title
-    </Text>
-    <Text style = {chatStyles.chatTitle}>
-      View Details
-    </Text>
+    <Text style={chatStyles.chatTitle}>Jessie Allen</Text>
+    <Text style={chatStyles.chatSubTitle}>View Details</Text>
   </TouchableOpacity>
 );
 
@@ -40,6 +34,8 @@ const Header = () => {
     <Layout
       style={{
         height: 'auto',
+        borderBottomColor: '#949494',
+        borderBottomWidth: 0.5,
       }}
       level="1">
       <TopNavigation

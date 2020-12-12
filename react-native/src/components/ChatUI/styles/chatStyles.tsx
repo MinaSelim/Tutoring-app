@@ -12,8 +12,6 @@ export const chatStyles = StyleSheet.create({
   },
 
   messageContainer: {
-    borderBottomColor: '#BFBFBF',
-    borderBottomWidth: 1,
     height: 'auto',
   },
 
@@ -49,17 +47,20 @@ export const chatStyles = StyleSheet.create({
   bookButton: {
     width: 98,
     height: 2,
-    borderRadius: 15,
-    marginVertical:5
+    borderRadius: 10,
+    marginVertical: 5,
   },
 
-  chatTitle:{
+  chatTitle: {
+    paddingTop: 37,
     fontSize: 18,
     textAlign: 'center',
+    fontWeight: '600'
   },
   chatSubTitle: {
     fontSize: 12,
     textAlign: 'center',
+    paddingBottom: 20,
   },
 
   chatContent: {
