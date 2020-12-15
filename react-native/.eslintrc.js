@@ -8,6 +8,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    '@typescript-eslint/explicit-function-return-type': ['error'],
     'no-unused-expressions': ['error', {allowTernary: true}],
     'react/jsx-closing-bracket-location': 'off',
     'react/jsx-one-expression-per-line': 'off',
