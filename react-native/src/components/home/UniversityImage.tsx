@@ -5,7 +5,7 @@ import styles from './styles/HomeStyles';
 export const UniversityImage = () => {
   return (
     <Image
-      source={require('../../assets/images/icons/university.png')}
+      source={require('../../assets/images/icons/universityHome.png')}
       style={styles.universityImage}
     />
   );
