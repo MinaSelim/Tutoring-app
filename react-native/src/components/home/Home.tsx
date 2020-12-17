@@ -6,13 +6,12 @@ import homeStyles from './styles/HomeStyles';
 import SideMenuIcon from './SideMenuIcon';
 import MessageIcon from './MessageIcon';
 import UniversityImage from './UniversityImage';
-import store from '../store';
 import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
 const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
   const styles = useStyleSheet(homeStyles);
-  const name = "temporaryName";
-  //TODO get name from proper state management
+  const name = 'temporaryName';
+  // TODO get name from proper state management
 
   return (
     <View style={styles.background}>
