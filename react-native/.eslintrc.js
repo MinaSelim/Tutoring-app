@@ -1,7 +1,14 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community', 'airbnb', 'airbnb/hooks', 'prettier'],
+  extends: [
+    '@react-native-community',
+    'airbnb',
+    'airbnb/hooks',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+  ],
   rules: {
+    '@typescript-eslint/explicit-function-return-type': ['error'],
     'no-unused-expressions': ['error', {allowTernary: true}],
     'react/jsx-closing-bracket-location': 'off',
     'react/jsx-one-expression-per-line': 'off',
