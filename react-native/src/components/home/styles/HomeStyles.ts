@@ -46,9 +46,8 @@ export default StyleSheet.create({
   },
   universityImage: {
     alignSelf: 'center',
-    opacity: 0.1,
-    width: '40%',
-    height: '33%',
+    width: 154,
+    height: 115,
     top: 44,
   },
   lowerSection: {
@@ -64,8 +63,10 @@ export default StyleSheet.create({
     bottom: 30,
   },
   myChatsIcon: {
+    position: 'absolute',
     height: '100%',
     width: '10%',
+    right: 20,
   },
   footer: {
     alignSelf: 'center',
