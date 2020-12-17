@@ -11,12 +11,8 @@ import NavigationInjectedPropsConfigured from '../../model/navigation/Navigation
 
 const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
   const styles = useStyleSheet(homeStyles);
-  const name = JSON.parse(
-    JSON.stringify(store.getState().SignInReducer.firstName).replace(
-      /(\{|,)\s*(.+?)\s*:/g,
-      '$1 "$2":',
-    ),
-  );
+  const name = "temporaryName";
+  //TODO get name from proper state management
 
   return (
     <View style={styles.background}>
