@@ -58,6 +58,26 @@
           }
         }
       }
+    },
+    "Divider": {
+      "meta": {
+        "variantGroups": {
+          "strength": {
+            "medium": {
+              "default": false
+            }
+          }
+        }
+      },
+      "appearances": {
+        "default": {
+          "variantGroups": {
+            "medium": {
+              "backgroundColor": "background-basic-color-4"
+            }
+          }
+        }
+      }
     }
   }
 }
