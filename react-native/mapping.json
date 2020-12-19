@@ -14,6 +14,50 @@
           }
         }
       }
+    },
+    "Input": {
+      "meta": {
+        "variantGroups": {
+          "status": {
+            "ghost": {
+              "default": false
+            }
+          }
+        }
+      },
+      "appearances": {
+        "default": {
+          "variantGroups": {
+            "status": {
+              "ghost": {
+                "borderColor": "transparent",
+                "backgroundColor": "transparent",
+                "state": {
+                  "focused": {
+                    "borderColor": "transparent",
+                    "backgroundColor": "transparent",
+                    "iconTintColor": "text-primary-color"
+                  },
+                  "hover": {
+                    "borderColor": "transparent",
+                    "backgroundColor": "transparent"
+                  },
+                  "disabled": {
+                    "borderColor": "transparent",
+                    "backgroundColor": "transparent",
+                    "textColor": "text-disabled-color",
+                    "labelColor": "text-disabled-color",
+                    "captionColor": "text-disabled-color",
+                    "placeholderColor": "text-disabled-color",
+                    "iconTintColor": "text-disabled-color",
+                    "captionIconTintColor": "text-disabled-color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
