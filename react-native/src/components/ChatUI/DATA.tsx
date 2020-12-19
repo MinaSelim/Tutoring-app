@@ -1,6 +1,6 @@
 import IMessage from '../../model/IMessage';
 
-export const DATA: IMessage[] = [
+const DATA: IMessage[] = [
   {
     key: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     userName: 'Alex',
@@ -41,3 +41,4 @@ export const DATA: IMessage[] = [
     profile: require('../../assets/icons/profile2.png'),
   },
 ];
+export default DATA;
