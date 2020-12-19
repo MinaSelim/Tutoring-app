@@ -1,13 +1,11 @@
-import firestore from '@react-native-firebase/firestore';
-import {User} from 'firebase';
-import React, {useState, Component} from 'react';
-import firebase from '../../api/authentication/Fire';
+import {Alert} from 'react-native';
+import firebase from '../authentication/Fire';
 
 function getChat(currentUser, alternateUser) {
   const chatRef = firebase
     .firestore()
     .collection('CHATROOMS')
-    .where('participants', 'array-contains', alternateUser);
+    .where('participants', 'array-contains', currentUser || alternateUser);
   let data = {};
 
   return chatRef
@@ -15,18 +13,23 @@ function getChat(currentUser, alternateUser) {
     .then((querySnapshot) => {
       querySnapshot.forEach((documentSnapshot) => {
         data = documentSnapshot.data();
-        console.log(data);
       });
       return data;
     })
     .catch((err) => {
-      console.error('Error getting documents', err);
+      Alert.alert(`Error getting documents: ${err}`);
     });
 }
 
-function generateChat(chatRef, currentUser, alternateUser, roomName) {
-  if (Object.keys(chatRef).length < 1) {
-    this.db
+function generateChat(
+  chatRef: firebase.firestore.Query<firebase.firestore.DocumentData>,
+  currentUser,
+  alternateUser,
+  roomName,
+) {
+  if (chatRef === undefined || Object.keys(chatRef).length < 1) {
+    firebase
+      .firestore()
       .collection('CHATROOMS')
       .add({
         name: roomName,
@@ -44,32 +47,33 @@ function generateChat(chatRef, currentUser, alternateUser, roomName) {
         });
       });
   } else {
-    console.log('There is already a chat between the provided users');
+    Alert.alert('There is already a chat between the provided users');
   }
 }
 
 function createChatroom(currentUser, alternateUser, roomName) {
-  const userChatRef = this.getChat(currentUser, alternateUser).then((res) =>
+  getChat(
+    currentUser,
+    alternateUser,
+  ).then((res: firebase.firestore.Query<firebase.firestore.DocumentData>) =>
     generateChat(res, currentUser, alternateUser, roomName),
   );
 }
 
-function deleteChatroom(alternateUser): void {
+function deleteChatroom(currentUser, alternateUser): void {
   const convo = firebase
     .firestore()
     .collection('CHATROOMS')
-    .where('participants', 'array-contains', alternateUser);
+    .where('participants', 'array-contains', currentUser || alternateUser);
 
-  convo.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      console.log(doc.id, '=>', doc.data());
+  convo.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
       doc.ref
         .collection('MESSAGES')
         .get()
-        .then(function (Snapshot) {
-          Snapshot.forEach(function (element) {
+        .then((Snapshot) => {
+          Snapshot.forEach((element) => {
             element.ref.delete();
-            console.log('Delete');
           });
           doc.ref.delete();
         });
@@ -84,11 +88,12 @@ async function displayUserChats(currentUser) {
     .collection('CHATROOMS')
     .where('participants', 'array-contains', currentUser);
 
-  const snapshot = await chatRoomsRef.get().then((s) => {
+  await chatRoomsRef.get().then((s) => {
     s.forEach((documentSnapshot) => {
       data.push(documentSnapshot.data());
     });
   });
-  console.log(data);
   return data;
 }
+
+export default {displayUserChats, deleteChatroom, createChatroom};

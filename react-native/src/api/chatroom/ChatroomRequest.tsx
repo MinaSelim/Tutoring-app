@@ -1,18 +1,14 @@
-import firestore from '@react-native-firebase/firestore';
-import {User} from 'firebase';
-import React, {useState, Component} from 'react';
-import firebase from '../../api/authentication/Fire';
+import firebase from '../authentication/Fire';
 
 function sendMessage(currentUser, alternateUser, message) {
   const convo = firebase
     .firestore()
     .collection('CHATROOMS')
-    .where('participants', 'array-contains', alternateUser);
+    .where('participants', 'array-contains', currentUser || alternateUser);
 
   if (message.length > 0) {
-    console.log(message);
-    convo.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    convo.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
         doc.ref.collection('MESSAGES').add({
           content: message,
           createdAt: new Date().getTime(),
@@ -21,6 +17,17 @@ function sendMessage(currentUser, alternateUser, message) {
       });
     });
   }
+
+  convo.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      doc.ref.update({
+        latestMessage: {
+          content: message,
+          createdAt: new Date().getTime(),
+        },
+      });
+    });
+  });
 }
 
 async function displayChat(currentUser, alternateUser) {
@@ -32,10 +39,10 @@ async function displayChat(currentUser, alternateUser) {
   const convo = firebase
     .firestore()
     .collection('CHATROOMS')
-    .where('participants', 'array-contains', alternateUser);
+    .where('participants', 'array-contains', currentUser || alternateUser);
 
   const snapshots = await convo.get();
-  snapshots.forEach(function (document) {
+  snapshots.forEach((document) => {
     const prom = document.ref.collection('MESSAGES').get();
     docPromises.push(prom);
   });
@@ -47,7 +54,7 @@ async function displayChat(currentUser, alternateUser) {
       data.push(doc.data());
     });
   }
-  // eslint-disable-next-line no-console
-  console.debug(data);
   return data;
 }
+
+export default {sendMessage, displayChat};
