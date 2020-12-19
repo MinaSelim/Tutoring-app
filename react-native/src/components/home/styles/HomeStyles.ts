@@ -25,7 +25,7 @@ export default StyleSheet.create({
     top: 30,
     fontSize: 30,
     fontWeight: 'bold',
-    width: '75%',
+    width: '80%',
     alignSelf: 'center',
   },
   middleSection: {

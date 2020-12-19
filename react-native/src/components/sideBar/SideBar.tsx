@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import {Text} from '@ui-kitten/components';
 import React from 'react';
 
-const SideBar = () => {
+const SideBar = (): JSX.Element => {
   return (
     <View>
       <Text>SideBar: Coming Soon!</Text>

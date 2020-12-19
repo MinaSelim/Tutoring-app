@@ -18,7 +18,7 @@ const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
       <View style={styles.upperSection}>
         <Button
           style={styles.tabButton}
-          onPress={() => props.navigation.navigate('SideBar')}
+          onPress={(): boolean => props.navigation.navigate('SideBar')}
           appearance="ghost"
           accessoryLeft={SideMenuIcon}
         />
@@ -30,12 +30,14 @@ const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
         </Text>
         <Button
           style={[styles.button, {top: 25}]}
-          onPress={() => props.navigation.navigate('TutorSearch')}>
+          onPress={(): boolean => props.navigation.navigate('TutorSearch')}>
           Find a Tutor
         </Button>
         <Button
           style={[styles.button, {top: 30}]}
-          onPress={() => props.navigation.navigate('StudyGroupSearch')}>
+          onPress={(): boolean =>
+            props.navigation.navigate('StudyGroupSearch')
+          }>
           Find a Study Group
         </Button>
         <UniversityImage />
@@ -43,7 +45,7 @@ const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
       <View style={styles.lowerSection}>
         <Button
           style={[styles.button, styles.myChats]}
-          onPress={() => props.navigation.navigate('MyChats')}
+          onPress={(): boolean => props.navigation.navigate('MyChats')}
           status="basic"
           accessoryRight={MessageIcon}>
           My Chats

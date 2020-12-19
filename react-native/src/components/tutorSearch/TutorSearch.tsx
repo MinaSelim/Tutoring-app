@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import {Text} from '@ui-kitten/components';
 import React from 'react';
 
-const TutorSearch = () => {
+const TutorSearch = (): JSX.Element => {
   return (
     <View>
       <Text>Tutor search: Coming Soon!</Text>

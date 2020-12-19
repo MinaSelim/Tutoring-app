@@ -103,7 +103,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
     // TODO: Redirect to Google sign-in
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <View style={{flex: 1, alignItems: 'stretch'}}>
         <ImageBackground
@@ -214,7 +214,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
           }}>
           <TouchableOpacity
             style={styles.nextButton}
-            onPress={() => {
+            onPress={(): void => {
               this.isInputValid()
                 ? this.props.navigation.navigate('SignUpUserType', {
                     firstName: this.state.first_name,
@@ -233,7 +233,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.signInWithGoogleButton}
-            onPress={() => this.signInWithGoogle()}>
+            onPress={(): void => this.signInWithGoogle()}>
             <Image
               source={require('../../../assets/images/icons/googleIcon.png')}
               style={styles.googleIcon}

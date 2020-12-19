@@ -92,7 +92,7 @@ class SignIn extends Component<INavigation, IState> {
     // TODO: Redirect to Google Sign In
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <View style={styles.component}>
         <ImageBackground
@@ -164,7 +164,7 @@ class SignIn extends Component<INavigation, IState> {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.signInButton}
-              onPress={() => {
+              onPress={(): void => {
                 this.signIn();
               }}>
               <Text style={styles.signInText}> Sign In </Text>
@@ -176,13 +176,13 @@ class SignIn extends Component<INavigation, IState> {
 
             <TouchableOpacity
               style={styles.forgotPasswordButton}
-              onPress={() => this.forgotPassword()}>
+              onPress={(): void => this.forgotPassword()}>
               <Text style={styles.forgotPasswordText}>Forgot password?</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.createAnAccountButton}
-              onPress={() => {
+              onPress={(): void => {
                 this.props.navigation.navigate('SignUpCredentials');
               }}>
               <Text style={styles.createAccountText}> Create an account </Text>
@@ -190,7 +190,7 @@ class SignIn extends Component<INavigation, IState> {
 
             <TouchableOpacity
               style={styles.signInWithGoogleButton}
-              onPress={() => this.signInWithGoogle()}>
+              onPress={(): void => this.signInWithGoogle()}>
               <Image
                 source={require('../../assets/images/icons/googleIcon.png')}
                 style={styles.googleIcon}

@@ -3,12 +3,12 @@ import 'react-native-gesture-handler';
 import {Text} from '@ui-kitten/components';
 import React from 'react';
 
-const MyChats = (props) => {
+const MyChats = (props): JSX.Element => {
   return (
     <View>
       <TouchableOpacity
         style={{position: 'absolute'}}
-        onPress={() => props.navigation.goBack()}>
+        onPress={(): boolean => props.navigation.goBack()}>
         <Image
           source={require('../../assets/images/icons/backBtn.png')}
           // style={styles.goBackButton}

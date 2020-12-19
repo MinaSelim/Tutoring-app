@@ -16,7 +16,7 @@ import theme from './custom-theme.json'; // <-- Import app theme
 import RouteStack from './routeStack';
 
 class App extends Component {
-  render() {
+  render(): JSX.Element {
     return (
       <Provider store={Store}>
         <IconRegistry icons={EvaIconsPack} />

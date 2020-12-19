@@ -103,7 +103,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
     Alert.alert('Please select a campus first.');
   };
 
-  render() {
+  render(): JSX.Element {
     const {route} = this.props;
     const {firstName, lastName, email, phone, password} = route.params;
     return (
@@ -114,7 +114,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
         />
         <TouchableOpacity
           style={{position: 'absolute', top: 10}}
-          onPress={() => this.props.navigation.goBack()}>
+          onPress={(): boolean => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
@@ -145,7 +145,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
             <Text style={styles.universityText}>{this.state.university}</Text>
             <View>
               <SearchableDropdown
-                onItemSelect={(item) => {
+                onItemSelect={(item): void => {
                   let campus = JSON.stringify(item.name);
                   campus = JSON.parse(
                     campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
@@ -171,7 +171,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
           </View>
           <TouchableOpacity
             style={styles.finishButton}
-            onPress={() => {
+            onPress={(): void => {
               this.finish(firstName, lastName, email, phone, password);
             }}>
             <Text style={styles.finishText}> Finish </Text>

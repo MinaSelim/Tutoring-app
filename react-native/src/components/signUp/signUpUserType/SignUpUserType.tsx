@@ -69,7 +69,7 @@ class SignUpUserType extends Component<IProps> {
     }
   };
 
-  render() {
+  render(): JSX.Element {
     const {route} = this.props;
     const {firstName, lastName, email, phone, password} = route.params;
     return (
@@ -80,7 +80,7 @@ class SignUpUserType extends Component<IProps> {
         />
         <TouchableOpacity
           style={{position: 'absolute'}}
-          onPress={() => this.props.navigation.goBack()}>
+          onPress={(): boolean => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
@@ -97,7 +97,7 @@ class SignUpUserType extends Component<IProps> {
           <Text style={styles.iAmText}>I am a</Text>
           <TouchableOpacity
             style={styles.student}
-            onPress={() => {
+            onPress={(): void => {
               this.props.navigation.navigate('SignUpSelectCampus', {
                 firstName,
                 lastName,
@@ -110,7 +110,7 @@ class SignUpUserType extends Component<IProps> {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.tutor}
-            onPress={() => {
+            onPress={(): void => {
               this.handleTutor(firstName, lastName, email, phone, password);
             }}>
             <Text style={styles.buttonText}> Tutor </Text>
