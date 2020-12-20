@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from 'react';
 import {Layout, Text, Button} from '@ui-kitten/components';
 import BackButton from './BackButton';

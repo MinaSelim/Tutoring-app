@@ -1,7 +1,5 @@
-/* eslint-disable */
-
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import {Text, ListItem} from '@ui-kitten/components';
 import styles from './styles/ChatItemStyles';
 import ProfilePicture from './ProfilePicture';
@@ -13,13 +11,13 @@ const ChatItem = ({item}) => (
     <View style={styles.textSection}>
       <View style={styles.header}>
         <Text>{item.name}</Text>
-        <Text
-          style={styles.classNumber}>
-          {item.classNumber}
-        </Text>
+        <Text style={styles.classNumber}>{item.classNumber}</Text>
       </View>
       <Text
-        style={[styles.classNumber, {color: item.newMessage ? 'black' : '#A3A3A3'}]}>
+        style={[
+          styles.classNumber,
+          {color: item.newMessage ? 'black' : '#A3A3A3'},
+        ]}>
         {item.lastMessage}
       </Text>
     </View>

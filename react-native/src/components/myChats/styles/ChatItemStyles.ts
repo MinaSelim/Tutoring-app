@@ -1,25 +1,23 @@
-/* eslint-disable */
-
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  listItem:{
-    flexDirection: 'row', 
-    width: '100%'
+  listItem: {
+    flexDirection: 'row',
+    width: '100%',
   },
-  textSection:{
-    left: 10
+  textSection: {
+    left: 10,
   },
-  header:{
-    flexDirection: 'row'  
+  header: {
+    flexDirection: 'row',
   },
-  classNumber:{
+  classNumber: {
     color: '#A3A3A3',
     left: 8,
     fontSize: 14,
     alignSelf: 'center',
   },
-  lastMessage:{
-    fontSize: 14, 
-  }
+  lastMessage: {
+    fontSize: 14,
+  },
 });

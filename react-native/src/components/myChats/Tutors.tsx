@@ -1,8 +1,6 @@
-/* eslint-disable */
-
 import React from 'react';
 import {List, Layout} from '@ui-kitten/components';
-import styles from '../myChats/styles/MyChatStyles';
+import styles from './styles/MyChatStyles';
 import MockupTutorData from './mockData/MockupTutorData';
 import ChatItem from './ChatItem';
 

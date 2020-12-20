@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const mockupStudyGroupData = [
   {
     name: 'midterm-study-group',

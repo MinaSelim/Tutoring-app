@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from 'react';
 import {Layout, List} from '@ui-kitten/components';
 import styles from './styles/MyChatStyles';

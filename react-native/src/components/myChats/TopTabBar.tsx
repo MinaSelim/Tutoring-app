@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from 'react';
 import {TabBar, Tab} from '@ui-kitten/components';
 

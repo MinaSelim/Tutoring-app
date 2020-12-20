@@ -1,9 +1,5 @@
-/* eslint-disable */
-
 import React from 'react';
-import {
-  Avatar
-} from '@ui-kitten/components';
+import {Avatar} from '@ui-kitten/components';
 import styles from './styles/MyChatStyles';
 
 const UnreadHint = (props) => (

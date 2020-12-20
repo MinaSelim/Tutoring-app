@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const mockupTutorData = [
   {
     name: 'Mark',
