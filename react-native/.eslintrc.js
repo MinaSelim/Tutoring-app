@@ -11,6 +11,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': ['error'],
     'no-unused-expressions': ['error', {allowTernary: true}],
     'react/jsx-closing-bracket-location': 'off',
+    'react/prop-types': ['error', {ignore: ['navigation']}],
     'react/jsx-one-expression-per-line': 'off',
     'global-require': 'off',
     'react/destructuring-assignment': 'off',

@@ -1,25 +1,31 @@
-/* eslint-disable */
-
-export const campuses = [
+const campuses = [
   {
     name: 'Concordia University',
-  },
-  {
-    name: 'École de technologie supérieure',
-  },
-  {
-    name: 'HEC Montréal',
   },
   {
     name: 'McGill University',
   },
   {
-    name: 'Polytechnique Montréal',
+    name: "Bishop's University",
   },
   {
-    name: 'Université de Montréal',
+    name: 'Dawson College',
+  },
+  {
+    name: 'HEC Montréal',
+  },
+  {
+    name: 'John Abbott College',
+  },
+  {
+    name: 'Université de Montréal (UDeM)',
   },
   {
     name: 'Université du Québec à Montréal (UQAM)',
   },
+  {
+    name: 'Vanier College',
+  },
 ];
+
+export default campuses;

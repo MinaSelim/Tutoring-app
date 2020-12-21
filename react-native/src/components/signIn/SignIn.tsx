@@ -15,15 +15,15 @@ import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from '../../api/authentication/IAuth';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
-import INavigation from '../../model/navigation/INavigation';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
-
-interface IProps extends INavigation {}
+import store from '../store';
+import actions from '../../utils/Actions';
 
 interface IState extends IUserLogin, ISignInPage {}
 
 // This component corresponds to the sign in page
-class SignIn extends Component<IProps, IState> {
+class SignIn extends Component<INavigation, IState> {
   constructor(props) {
     super(props);
 
@@ -53,10 +53,10 @@ class SignIn extends Component<IProps, IState> {
   };
 
   // Send the user's input to the back-end
-  signIn = async (): Promise<boolean> => {
+  signIn = async (): Promise<void> => {
     if (!this.state.email.includes('@') || this.state.password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
-      return false;
+      return;
     }
     let auth: IAuth;
     if (true) {
@@ -65,13 +65,23 @@ class SignIn extends Component<IProps, IState> {
     } else {
       auth = new TutorAuth();
     }
+    let user = null;
     try {
-      const user = await auth.signInWithEmailAndPassword(this.state);
+      user = await auth.signInWithEmailAndPassword(this.state);
+      store.dispatch({
+        type: actions.userInfo,
+        payload: {
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          avatar: user.avatar,
+          phone: user.phone,
+        },
+      });
+      this.props.navigation.navigate('Home');
     } catch (error) {
-      Alert.alert(`Something went wrong signing in.\n${error}`);
-      return false;
+      Alert.alert(`${error}`);
     }
-    return true;
   };
 
   forgotPassword = (): void => {
@@ -82,7 +92,7 @@ class SignIn extends Component<IProps, IState> {
     // TODO: Redirect to Google Sign In
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <View style={styles.component}>
         <ImageBackground
@@ -154,10 +164,8 @@ class SignIn extends Component<IProps, IState> {
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.signInButton}
-              onPress={() => {
-                if (this.signIn()) {
-                  this.props.navigation.navigate('');
-                }
+              onPress={(): void => {
+                this.signIn();
               }}>
               <Text style={styles.signInText}> Sign In </Text>
               <Image
@@ -168,13 +176,13 @@ class SignIn extends Component<IProps, IState> {
 
             <TouchableOpacity
               style={styles.forgotPasswordButton}
-              onPress={() => this.forgotPassword()}>
+              onPress={(): void => this.forgotPassword()}>
               <Text style={styles.forgotPasswordText}>Forgot password?</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.createAnAccountButton}
-              onPress={() => {
+              onPress={(): void => {
                 this.props.navigation.navigate('SignUpCredentials');
               }}>
               <Text style={styles.createAccountText}> Create an account </Text>
@@ -182,7 +190,7 @@ class SignIn extends Component<IProps, IState> {
 
             <TouchableOpacity
               style={styles.signInWithGoogleButton}
-              onPress={() => this.signInWithGoogle()}>
+              onPress={(): void => this.signInWithGoogle()}>
               <Image
                 source={require('../../assets/images/icons/googleIcon.png')}
                 style={styles.googleIcon}

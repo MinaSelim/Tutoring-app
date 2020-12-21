@@ -9,20 +9,19 @@ import {
 } from 'react-native';
 import styles from './styles/SignUpUserTypeStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/INavigation';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
-
-import ISignUpUserTypePage from '../../../model/signInSignUp/ISignUpUserTypePage';
+import IAuth from '../../../api/authentication/IAuth';
+import store from '../../store';
+import actions from '../../../utils/Actions';
 
 interface IProps extends INavigation {
   route: any;
 }
 
-interface IState extends ISignUpUserTypePage {}
-
 // This component corresponds to the second sign up page
-class SignUpUserType extends Component<IProps, IState> {
+class SignUpUserType extends Component<IProps> {
   constructor(props) {
     super(props);
     this.handleTutor = this.handleTutor.bind(this);
@@ -35,7 +34,7 @@ class SignUpUserType extends Component<IProps, IState> {
     email,
     phone,
     password,
-  ): Promise<boolean> => {
+  ): Promise<void> => {
     const tutorAuth = new TutorAuth();
     const tutor: ITutor = {
       first_name: firstName,
@@ -49,12 +48,28 @@ class SignUpUserType extends Component<IProps, IState> {
       await tutorAuth.registerWithEmailAndPassword({email, password}, tutor);
     } catch (error) {
       Alert.alert(`Something went wrong signing up as a tutor.\n${error}`);
-      return false;
+      return;
     }
-    return true;
+    const auth: IAuth = new TutorAuth();
+    try {
+      const user = await auth.signInWithEmailAndPassword({email, password});
+      store.dispatch({
+        type: actions.userInfo,
+        payload: {
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          avatar: user.avatar,
+          phone: user.phone,
+        },
+      });
+      this.props.navigation.navigate('Home');
+    } catch (error) {
+      Alert.alert(`${error}`);
+    }
   };
 
-  render() {
+  render(): JSX.Element {
     const {route} = this.props;
     const {firstName, lastName, email, phone, password} = route.params;
     return (
@@ -65,7 +80,7 @@ class SignUpUserType extends Component<IProps, IState> {
         />
         <TouchableOpacity
           style={{position: 'absolute'}}
-          onPress={() => this.props.navigation.goBack()}>
+          onPress={(): boolean => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
@@ -82,7 +97,7 @@ class SignUpUserType extends Component<IProps, IState> {
           <Text style={styles.iAmText}>I am a</Text>
           <TouchableOpacity
             style={styles.student}
-            onPress={() => {
+            onPress={(): void => {
               this.props.navigation.navigate('SignUpSelectCampus', {
                 firstName,
                 lastName,
@@ -95,12 +110,8 @@ class SignUpUserType extends Component<IProps, IState> {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.tutor}
-            onPress={() => {
-              if (
-                this.handleTutor(firstName, lastName, email, phone, password)
-              ) {
-                this.props.navigation.navigate(''); // TODO Redirect to Home page
-              }
+            onPress={(): void => {
+              this.handleTutor(firstName, lastName, email, phone, password);
             }}>
             <Text style={styles.buttonText}> Tutor </Text>
           </TouchableOpacity>

@@ -10,20 +10,21 @@ import {
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import styles from './styles/SignUpSelectCampusStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/INavigation';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
-import {campuses} from './campuses';
+import campuses from './campuses';
+import IAuth from '../../../api/authentication/IAuth';
+import store from '../../store';
+import actions from '../../../utils/Actions';
 
 interface IProps extends INavigation {
   route: any;
 }
 
-interface IState extends ISignUpSelectCampusPage {}
-
 // This component corresponds to the third sign up page
-class SignUpSelectCampus extends Component<IProps, IState> {
+class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
   constructor(props) {
     super(props);
 
@@ -58,7 +59,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
     email,
     phone,
     password,
-  ): Promise<boolean> => {
+  ): Promise<void> => {
     if (this.state.university !== 'Find your campus') {
       const studentAuth = new StudentAuth();
       const studentInfo: IStudent = {
@@ -77,15 +78,32 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         );
       } catch (error) {
         Alert.alert(`Something went wrong signing up as a student.\n${error}`);
-        return false;
+        return;
       }
-      return true;
+      const auth: IAuth = new StudentAuth();
+      try {
+        const user = await auth.signInWithEmailAndPassword({email, password});
+        store.dispatch({
+          type: actions.userInfo,
+          payload: {
+            email: user.email,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            avatar: user.avatar,
+            phone: user.phone,
+          },
+        });
+      } catch (error) {
+        Alert.alert(`${error}`);
+        return;
+      }
+      this.props.navigation.navigate('Home');
+      return;
     }
     Alert.alert('Please select a campus first.');
-    return false;
   };
 
-  render() {
+  render(): JSX.Element {
     const {route} = this.props;
     const {firstName, lastName, email, phone, password} = route.params;
     return (
@@ -96,7 +114,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
         />
         <TouchableOpacity
           style={{position: 'absolute', top: 10}}
-          onPress={() => this.props.navigation.goBack()}>
+          onPress={(): boolean => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}
@@ -127,7 +145,7 @@ class SignUpSelectCampus extends Component<IProps, IState> {
             <Text style={styles.universityText}>{this.state.university}</Text>
             <View>
               <SearchableDropdown
-                onItemSelect={(item) => {
+                onItemSelect={(item): void => {
                   let campus = JSON.stringify(item.name);
                   campus = JSON.parse(
                     campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
@@ -153,10 +171,8 @@ class SignUpSelectCampus extends Component<IProps, IState> {
           </View>
           <TouchableOpacity
             style={styles.finishButton}
-            onPress={() => {
-              if (this.finish(firstName, lastName, email, phone, password)) {
-                this.props.navigation.navigate(''); // TODO Redirect to Home page
-              }
+            onPress={(): void => {
+              this.finish(firstName, lastName, email, phone, password);
             }}>
             <Text style={styles.finishText}> Finish </Text>
           </TouchableOpacity>
