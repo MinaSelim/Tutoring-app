@@ -1,32 +1,34 @@
 import {Alert} from 'react-native';
 import firebase from '../authentication/Fire';
 
-function getChat(currentUser, alternateUser) {
+async function getChat(
+  currentUser: String,
+  alternateUser: String,
+): Promise<Object> {
   const chatRef = firebase
     .firestore()
     .collection('CHATROOMS')
     .where('participants', 'array-contains', currentUser || alternateUser);
   let data = {};
 
-  return chatRef
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((documentSnapshot) => {
-        data = documentSnapshot.data();
-      });
-      return data;
-    })
-    .catch((err) => {
-      Alert.alert(`Error getting documents: ${err}`);
+  try {
+    const querySnapshot = await chatRef.get();
+    querySnapshot.forEach((documentSnapshot) => {
+      data = documentSnapshot.data();
     });
+    return data;
+  } catch (err) {
+    Alert.alert(`Error getting documents: ${err}`);
+  }
+  return data;
 }
 
 function generateChat(
   chatRef: firebase.firestore.Query<firebase.firestore.DocumentData>,
-  currentUser,
-  alternateUser,
-  roomName,
-) {
+  currentUser: String,
+  alternateUser: String,
+  roomName: String,
+): void {
   if (chatRef === undefined || Object.keys(chatRef).length < 1) {
     firebase
       .firestore()
@@ -51,7 +53,11 @@ function generateChat(
   }
 }
 
-function createChatroom(currentUser, alternateUser, roomName) {
+function createChatroom(
+  currentUser: String,
+  alternateUser: String,
+  roomName: String,
+): void {
   getChat(
     currentUser,
     alternateUser,
@@ -60,7 +66,7 @@ function createChatroom(currentUser, alternateUser, roomName) {
   );
 }
 
-function deleteChatroom(currentUser, alternateUser): void {
+function deleteChatroom(currentUser: any, alternateUser: any): void {
   const convo = firebase
     .firestore()
     .collection('CHATROOMS')
@@ -81,7 +87,11 @@ function deleteChatroom(currentUser, alternateUser): void {
   });
 }
 
-async function displayUserChats(currentUser) {
+async function displayUserChats(
+  currentUser: String,
+): Promise<
+  firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[]
+> {
   const data = [];
   const chatRoomsRef = firebase
     .firestore()

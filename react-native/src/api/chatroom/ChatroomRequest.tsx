@@ -1,6 +1,6 @@
 import firebase from '../authentication/Fire';
 
-function sendMessage(currentUser, alternateUser, message) {
+function sendMessage(currentUser, alternateUser, message): void {
   const convo = firebase
     .firestore()
     .collection('CHATROOMS')
@@ -30,7 +30,12 @@ function sendMessage(currentUser, alternateUser, message) {
   });
 }
 
-async function displayChat(currentUser, alternateUser) {
+async function displayChat(
+  currentUser,
+  alternateUser,
+): Promise<
+  firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[]
+> {
   const data = [];
   const docPromises: Promise<
     firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
