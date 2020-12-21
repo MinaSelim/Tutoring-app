@@ -65,6 +65,9 @@
           "strength": {
             "medium": {
               "default": false
+            },
+            "dark": {
+              "default": false
             }
           }
         }
@@ -72,8 +75,13 @@
       "appearances": {
         "default": {
           "variantGroups": {
-            "medium": {
-              "backgroundColor": "background-basic-color-4"
+            "strength": {
+              "medium": {
+                "backgroundColor": "color-basic-400"
+              },
+              "dark": {
+                "backgroundColor": "color-basic-500"
+              }
             }
           }
         }
