@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -22,77 +22,65 @@ import actions from '../../utils/Actions';
 
 interface IState extends IUserLogin, ISignInPage {}
 
-// This component corresponds to the sign in page
-class SignIn extends Component<INavigation, IState> {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      email: '',
-      password: '',
-      passwordHidden: true,
-    };
 
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.signIn = this.signIn.bind(this);
-    this.forgotPassword = this.forgotPassword.bind(this);
-    this.signInWithGoogle = this.signInWithGoogle.bind(this);
+// Send the user's input to the back-end
+const signIn = async (): Promise<void> => {
+  if (!email.includes('@') || password.length < 8) {
+    Alert.alert('Please fill the required information before proceeding.');
+    return;
   }
+  let auth: IAuth;
+  if (true) {
+    // TODO add for tutor
+    auth = new StudentAuth();
+  } else {
+    auth = new TutorAuth();
+  }
+  let user = null;
+  try {
+    user = await auth.signInWithEmailAndPassword(state);
+    store.dispatch({
+      type: actions.userInfo,
+      payload: {
+        email: user.email,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        avatar: user.avatar,
+        phone: user.phone,
+      },
+    });
+    props.navigation.navigate('Home');
+  } catch (error) {
+    Alert.alert(`${error}`);
+  }
+};
 
-  handleEmail = (text): void => {
-    this.setState({email: text});
-  };
+const forgotPassword = (): void => {
+  // TODO: Redirect to forgot password page
+};
 
-  handlePassword = (text): void => {
-    this.setState({password: text});
-  };
+const signInWithGoogle = (): void => {
+  // TODO: Redirect to Google Sign In
+};
 
-  changePasswordVisibility = (): void => {
-    this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
-  };
+const SignIn: React.FunctionComponent<INavigation> = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isPasswordHidden, setPasswordHidden] = useState(true);
 
-  // Send the user's input to the back-end
-  signIn = async (): Promise<void> => {
-    if (!this.state.email.includes('@') || this.state.password.length < 8) {
-      Alert.alert('Please fill the required information before proceeding.');
-      return;
-    }
-    let auth: IAuth;
-    if (true) {
-      // TODO add for tutor
-      auth = new StudentAuth();
-    } else {
-      auth = new TutorAuth();
-    }
-    let user = null;
-    try {
-      user = await auth.signInWithEmailAndPassword(this.state);
-      store.dispatch({
-        type: actions.userInfo,
-        payload: {
-          email: user.email,
-          firstName: user.first_name,
-          lastName: user.last_name,
-          avatar: user.avatar,
-          phone: user.phone,
-        },
-      });
-      this.props.navigation.navigate('Home');
-    } catch (error) {
-      Alert.alert(`${error}`);
-    }
-  };
+	const handleEmail = (text): void => {
+		useEffect(() => setEmail(text))
+	};
+	  
+	const handlePassword = (text): void => {
+		useEffect(() => setPassword(text))
+	};
+	  
+	const changePasswordVisibility = (): void => {
+		useEffect(() => setPasswordHidden(!isPasswordHidden))
+	};
 
-  forgotPassword = (): void => {
-    // TODO: Redirect to forgot password page
-  };
-
-  signInWithGoogle = (): void => {
-    // TODO: Redirect to Google Sign In
-  };
-
-  render(): JSX.Element {
     return (
       <View style={styles.component}>
         <ImageBackground
@@ -126,7 +114,7 @@ class SignIn extends Component<INavigation, IState> {
                 placeholder="email"
                 placeholderTextColor={colors.appSilver}
                 autoCapitalize="none"
-                onChangeText={this.handleEmail}
+                onChangeText={(e) => handleEmail(e)}
               />
             </View>
 
@@ -141,17 +129,17 @@ class SignIn extends Component<INavigation, IState> {
                 style={styles.input}
                 underlineColorAndroid="transparent"
                 placeholder="password"
-                secureTextEntry={this.state.passwordHidden}
+                secureTextEntry={isPasswordHidden}
                 placeholderTextColor={colors.appSilver}
                 autoCapitalize="none"
-                onChangeText={this.handlePassword}
+                onChangeText={(e) => handlePassword(e)}
               />
               <TouchableOpacity
                 style={styles.eyeButton}
-                onPress={this.changePasswordVisibility}>
+                onPress={changePasswordVisibility}>
                 <Image
                   source={
-                    this.state.passwordHidden
+                    isPasswordHidden
                       ? require('../../assets/images/icons/eyeClosed.png')
                       : require('../../assets/images/icons/eyeOpened.png')
                   }
@@ -165,7 +153,7 @@ class SignIn extends Component<INavigation, IState> {
             <TouchableOpacity
               style={styles.signInButton}
               onPress={(): void => {
-                this.signIn();
+                signIn();
               }}>
               <Text style={styles.signInText}> Sign In </Text>
               <Image
@@ -176,7 +164,7 @@ class SignIn extends Component<INavigation, IState> {
 
             <TouchableOpacity
               style={styles.forgotPasswordButton}
-              onPress={(): void => this.forgotPassword()}>
+              onPress={(): void => forgotPassword()}>
               <Text style={styles.forgotPasswordText}>Forgot password?</Text>
             </TouchableOpacity>
 
