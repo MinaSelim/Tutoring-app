@@ -1,7 +1,7 @@
 import {PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import {assert} from 'chai';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
-import Database from '../../src/database/database';
+import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions'
 import Dynamo from '../../src/database/dynamo';
 import IStudent from '../../src/models/IStudent';
 /**
@@ -12,10 +12,10 @@ import IStudent from '../../src/models/IStudent';
 
 // Use this to practice with local instance
 describe('Local dynamo test', () => {
-   let db: Database;
+   let studentdb: studentDatabaseFunctions;
 
    beforeEach(() => {
-      db = new Database();
+      studentdb = new studentDatabaseFunctions();
    });
 
    it.skip('Should initiate all tables in db config file', () => {
@@ -64,11 +64,11 @@ describe('Local dynamo test', () => {
 
       return DatabaseConfig.createTable(params)
          .then(() => {
-            return db.addStudentInUserCollection(student);
+            return studentdb.addStudentInUserCollection(student);
          })
          .then((data: PutItemOutput) => {
             console.log(data);
-            return db.getStudentByFirebaseId('string');
+            return studentdb.getStudentByFirebaseId('string');
          })
          .then((res: IStudent) => {
             assert.equal(res.email, student.email);
