@@ -3,12 +3,7 @@ import sinon from 'sinon';
 import tutorDatabaseFunctions from '../../src/database/tutorDatabaseFunctions';
 import databaseUtils from '../../src/database/databaseUtils';
 import {AWSError} from 'aws-sdk';
-import {
-   GetItemInput,
-   GetItemOutput,
-   PutItemInput,
-   PutItemOutput,
-} from 'aws-sdk/clients/dynamodb';
+import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import ITutor from '../../src/models/ITutor';
 import {assert} from 'chai';
 import Dynamo from '../../src/database/dynamo';
@@ -71,7 +66,7 @@ describe('Tutor Database Functions Test', () => {
       dynamo = Dynamo.getInstance();
       sandbox = sinon.createSandbox();
       dbUtils = DatabaseUtils.getInstance();
-      tutordb = new tutorDatabaseFunctions()
+      tutordb = new tutorDatabaseFunctions();
    });
 
    afterEach(() => {

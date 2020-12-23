@@ -2,7 +2,7 @@ import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import IStudent from '../../models/IStudent';
 // import Database from '../../database/database';
-import studentDatabaseFunctions from '../../database/studentDatabaseFunctions'
+import studentDatabaseFunctions from '../../database/studentDatabaseFunctions';
 
 /**
  * The service that manages student authenthication
@@ -12,7 +12,6 @@ export default class StudentAuthManager {
    // private database: Database;
    private database: studentDatabaseFunctions;
 
-
    /**
     * @param firebase_auth this parameter should be only passed in testing injections, otherwise, use default
     */
@@ -20,8 +19,6 @@ export default class StudentAuthManager {
       this.firebase_auth = firebase_auth;
       // this.database = new Database();
       this.database = new studentDatabaseFunctions();
-
-      
    }
 
    /**

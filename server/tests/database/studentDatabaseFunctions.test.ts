@@ -3,12 +3,7 @@ import sinon from 'sinon';
 import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
 import databaseUtils from '../../src/database/databaseUtils';
 import {AWSError} from 'aws-sdk';
-import {
-   GetItemInput,
-   GetItemOutput,
-   PutItemInput,
-   PutItemOutput,
-} from 'aws-sdk/clients/dynamodb';
+import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import IStudent from '../../src/models/IStudent';
 import {assert} from 'chai';
 import Dynamo from '../../src/database/dynamo';

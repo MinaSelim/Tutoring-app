@@ -1,7 +1,7 @@
 import {PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import {assert} from 'chai';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
-import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions'
+import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
 import Dynamo from '../../src/database/dynamo';
 import IStudent from '../../src/models/IStudent';
 /**

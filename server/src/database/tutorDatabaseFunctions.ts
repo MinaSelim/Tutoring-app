@@ -103,5 +103,5 @@ export default class Database {
             return Promise.resolve(tutor);
          },
       );
-   }; 
+   };
 }
