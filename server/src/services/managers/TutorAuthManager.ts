@@ -1,21 +1,23 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import ITutor from '../../models/ITutor';
-import Database from '../../database/database';
+// import Database from '../../database/database';
+import tutorDatabaseFunctions from '../../database/tutorDatabaseFunctions'
 
 /**
  * The service that manages tutor authenthication
  */
 export default class TutorAuthManager {
    private firebase_auth: firebase.auth.Auth;
-   private database: Database;
+   private tutorDatabaseFunctions: tutorDatabaseFunctions;
 
    /**
     * @param firebase_auth this parameter should be only passed in testing injections, otherwise, use default
     */
    constructor(firebase_auth = FirebaseAuth.getInstance()) {
       this.firebase_auth = firebase_auth;
-      this.database = new Database();
+      // this.database = new Database();
+      this.tutorDatabaseFunctions = new tutorDatabaseFunctions();
    }
 
    /**
@@ -23,7 +25,7 @@ export default class TutorAuthManager {
     * @param tutor The tutor to add to the database
     */
    public registerTutor = async (tutor: ITutor): Promise<void> => {
-      await this.database.addTutorInUserCollection(tutor);
+      await this.tutorDatabaseFunctions.addTutorInUserCollection(tutor);
    };
 
    /**
@@ -32,7 +34,7 @@ export default class TutorAuthManager {
     */
    public loginTutor = async (token: string): Promise<ITutor> => {
       const decodedToken = await this.firebase_auth.verifyIdToken(token);
-      const tutor: ITutor = await this.database.getTutorByFirebaseId(decodedToken.uid);
+      const tutor: ITutor = await this.tutorDatabaseFunctions.getTutorByFirebaseId(decodedToken.uid);
       return tutor;
    };
 }
