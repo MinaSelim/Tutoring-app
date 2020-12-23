@@ -1,12 +1,21 @@
 {
+  "strict": {
+    "border-radius": 12
+  },
   "components": {
     "Button": {
       "meta": {},
       "appearances": {
         "filled": {
-          "mapping": {},
           "variantGroups": {
             "size": {
+              "small": {
+                "paddingHorizontal": 4,
+                "paddingVertical": 4,
+                "textMarginHorizontal": 8,
+                "textFontSize": 16,
+                "textFontWeight": "500"
+              },
               "large": {
                 "borderRadius": 12
               }
@@ -85,6 +94,17 @@
             }
           }
         }
+      }
+    },
+    "TopNavigation": {
+      "meta": {},
+      "appearances": {
+        "default":{
+          "mapping":{
+            "minHeight": 66
+          }
+        }
+
       }
     }
   }

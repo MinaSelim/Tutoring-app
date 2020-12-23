@@ -37,6 +37,7 @@ export const chatStyles = StyleSheet.create({
     justifyContent: 'center',
     fontWeight: 'bold',
     marginLeft: 10,
+    paddingBottom: 3,
   },
 
   chatText: {
