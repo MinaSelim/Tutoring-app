@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout, Text} from '@ui-kitten/components';
 import styles from './styles/MyChatStyles';
 import ChatHeader from './ChatHeader';
-import ChatMenu from './MyChats';
+import ChatMenu from './ChatMenu';
 
 const MyChats = () => {
   return (

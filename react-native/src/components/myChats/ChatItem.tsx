@@ -15,7 +15,7 @@ const ChatItem = ({item}) => (
       </View>
       <Text
         style={[
-          styles.classNumber,
+          styles.lastMessage,
           {color: item.newMessage ? 'black' : '#A3A3A3'},
         ]}>
         {item.lastMessage}

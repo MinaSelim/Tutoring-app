@@ -9,7 +9,7 @@ const ChatHeader = () => (
       style={{alignSelf: 'center', top: 5, fontSize: 20, fontWeight: 'bold'}}>
       My Chats
     </Text>
-    <Text style={{alignSelf: 'center', right: 30, top: 5}}>(Button)</Text>
+    <Text style={{opacity:0}}>Placeholder</Text>
   </Layout>
 );
 
