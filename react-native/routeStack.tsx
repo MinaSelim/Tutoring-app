@@ -10,6 +10,7 @@ import SideBar from './src/components/sideBar/SideBar';
 import MyChats from './src/components/myChats/MyChats';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
+import ChatUI from './src/components/ChatUI/ChatUI';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ class RouteStack extends Component {
           <Stack.Screen name="MyChats" component={MyChats} />
           <Stack.Screen name="TutorSearch" component={TutorSearch} />
           <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
+          <Stack.Screen name="ChatUI" component={ChatUI} />
         </Stack.Navigator>
       </NavigationContainer>
     );
