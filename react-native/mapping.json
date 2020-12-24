@@ -99,12 +99,11 @@
     "TopNavigation": {
       "meta": {},
       "appearances": {
-        "default":{
-          "mapping":{
+        "default": {
+          "mapping": {
             "minHeight": 66
           }
         }
-
       }
     }
   }
