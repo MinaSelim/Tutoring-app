@@ -13,10 +13,12 @@ import ChatInput from './ChatInput';
 // This is the main front end for the chat, it calls messageRow for the layout of every single message view
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
-const ChatUI = () => {
+const ChatUI = (): JSX.Element => {
   const styles = useStyleSheet(chatStyles);
 
-  const renderMessage = ({item}) => <MessageRow key={item.id} {...item} />;
+  const renderMessage = ({item}): JSX.Element => (
+    <MessageRow key={item.id} {...item} />
+  );
 
   return (
     <Layout style={styles.container}>

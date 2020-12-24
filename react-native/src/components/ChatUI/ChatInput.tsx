@@ -2,10 +2,12 @@ import React from 'react';
 import {Button, Icon, Layout, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
 
-const PaperPlaneIcon = (props) => <Icon {...props} name="paper-plane" />;
+const PaperPlaneIcon = (props): JSX.Element => (
+  <Icon {...props} name="paper-plane" />
+);
 const sendMessage = (): void => {};
 
-const ChatInput = () => {
+const ChatInput = (): JSX.Element => {
   return (
     <Layout>
       <Divider strength="medium" />

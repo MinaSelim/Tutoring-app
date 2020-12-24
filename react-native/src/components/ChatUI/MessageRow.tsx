@@ -19,7 +19,7 @@ const monthNames = [
   'Dec',
 ];
 
-export default function MesageRow(props: IMessage) {
+const MesageRow = (props: IMessage): JSX.Element => {
   return (
     <View style={chatStyles.messageContainer}>
       <View>
@@ -47,4 +47,5 @@ export default function MesageRow(props: IMessage) {
       </View>
     </View>
   );
-}
+};
+export default MesageRow;
