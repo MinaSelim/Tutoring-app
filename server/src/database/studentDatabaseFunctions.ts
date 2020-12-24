@@ -3,7 +3,7 @@ import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from './databaseUtils';
 
-export default class studentDatabaseFunctions {
+export default class StudentDatabaseFunctions {
    private dbUtils: DatabaseUtils = DatabaseUtils.getInstance();
 
    /**

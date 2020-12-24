@@ -1,11 +1,9 @@
-// TODO: refactor db into tables for users, students, and tutors
-
 import ITutor from '../models/ITutor';
 import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from './databaseUtils';
 
-export default class Database {
+export default class TutorDatabaseFunctions {
    private dbutils: DatabaseUtils = DatabaseUtils.getInstance();
 
    /**
