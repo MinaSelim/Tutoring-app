@@ -16,14 +16,14 @@ import ChatInput from './ChatInput';
 const ChatUI = () => {
   const styles = useStyleSheet(chatStyles);
 
-  const renderMessage = ({item}) => <MessageRow key={item.key} {...item} />;
+  const renderMessage = ({item}) => <MessageRow key={item.id} {...item} />;
 
   return (
     <Layout style={styles.container}>
       <Header />
 
       <FlatList<IMessage>
-        keyExtractor={(item) => item.key}
+        keyExtractor={(item) => item.id}
         renderItem={renderMessage}
         data={DATA}
         inverted

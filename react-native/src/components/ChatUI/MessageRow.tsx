@@ -29,14 +29,18 @@ export default function MesageRow(props: IMessage) {
         </Text>
         <Divider />
         <View style={{flexDirection: 'row'}}>
-          <Avatar size="medium" style={{margin: 10}} source={props.profile} />
+          <Avatar
+            size="medium"
+            style={{margin: 10}}
+            source={props.profileImage}
+          />
           <View
             style={{
               width: 0,
               flexGrow: 1,
               flex: 1,
             }}>
-            <Text style={chatStyles.memberName}>{`${props.userName}`}</Text>
+            <Text style={chatStyles.memberName}>{`${props.sender}`}</Text>
             <Text style={chatStyles.chatText}>{props.content}</Text>
           </View>
         </View>
