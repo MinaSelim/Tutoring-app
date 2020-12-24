@@ -1,15 +1,16 @@
 import firebase from '../authentication/Fire';
+import constants from '../constants';
 
 function sendMessage(currentUser, alternateUser, message): void {
   const convo = firebase
     .firestore()
-    .collection('CHATROOMS')
+    .collection(constants.chatroomCollection)
     .where('participants', 'array-contains', currentUser || alternateUser);
 
   if (message.length > 0) {
     convo.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        doc.ref.collection('MESSAGES').add({
+        doc.ref.collection(constants.messageCollection).add({
           content: message,
           createdAt: new Date().getTime(),
           sender: currentUser,
@@ -30,25 +31,25 @@ function sendMessage(currentUser, alternateUser, message): void {
   });
 }
 
-async function displayChat(
+async function getAllMessages(
   currentUser,
   alternateUser,
 ): Promise<
   firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[]
 > {
-  const data = [];
+  const chatMessages = [];
   const docPromises: Promise<
     firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
   >[] = [];
 
   const convo = firebase
     .firestore()
-    .collection('CHATROOMS')
+    .collection(constants.chatroomCollection)
     .where('participants', 'array-contains', currentUser || alternateUser);
 
   const snapshots = await convo.get();
   snapshots.forEach((document) => {
-    const prom = document.ref.collection('MESSAGES').get();
+    const prom = document.ref.collection(constants.messageCollection).get();
     docPromises.push(prom);
   });
 
@@ -56,10 +57,10 @@ async function displayChat(
   for (let i = 0; i < docsResolvedPromises.length; i += 1) {
     const docs = docsResolvedPromises[i];
     docs.forEach((doc) => {
-      data.push(doc.data());
+      chatMessages.push(doc.data());
     });
   }
-  return data;
+  return chatMessages;
 }
 
-export default {sendMessage, displayChat};
+export default {sendMessage, getAllMessages};
