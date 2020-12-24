@@ -4,10 +4,14 @@ import styles from './styles/MyChatStyles';
 import ChatHeader from './ChatHeader';
 import ChatMenu from './ChatMenu';
 
-const MyChats = (): JSX.Element => {
+const MyChats = (props): JSX.Element => {
   return (
     <Layout style={styles.mainFrame}>
-      <ChatHeader />
+      <ChatHeader
+        navigation={props.navigation}
+        navigate={props.navigate}
+        goBack={props.goBack}
+      />
       <ChatMenu />
       <Text style={styles.footer}> go.study </Text>
     </Layout>
