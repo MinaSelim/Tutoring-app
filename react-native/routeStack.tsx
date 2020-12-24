@@ -20,7 +20,7 @@ class RouteStack extends Component {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName="Home">
+          initialRouteName="SignIn">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen
             name="SignUpCredentials"
