@@ -6,6 +6,8 @@ export default class DatabaseUtils {
    private dynamo: AWS.DynamoDB = Dynamo.getInstance();
    private static instance: DatabaseUtils;
 
+   private constructor() {};
+
    public static getInstance(): DatabaseUtils {
       if (!DatabaseUtils.instance) {
          DatabaseUtils.instance = new DatabaseUtils();
