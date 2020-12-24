@@ -1,10 +1,10 @@
 import React from 'react';
 import {TabBar, Tab} from '@ui-kitten/components';
 
-const TopTabBar = ({navigation, state}) => (
+const TopTabBar = ({navigation, state}): JSX.Element => (
   <TabBar
     selectedIndex={state.index}
-    onSelect={(index) => navigation.navigate(state.routeNames[index])}>
+    onSelect={(index): boolean => navigation.navigate(state.routeNames[index])}>
     <Tab title="Tutors" />
     <Tab title="Study Groups" />
   </TabBar>

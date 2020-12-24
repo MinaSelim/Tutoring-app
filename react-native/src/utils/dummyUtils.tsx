@@ -8,7 +8,7 @@ class DummyUtils extends Component {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <View>
         <Text>Hello World!</Text>

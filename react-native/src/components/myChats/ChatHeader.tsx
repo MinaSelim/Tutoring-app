@@ -1,15 +1,13 @@
 import React from 'react';
 import {Layout, Text, Button} from '@ui-kitten/components';
 import BackButton from './BackButton';
+import styles from './styles/MyChatStyles';
 
-const ChatHeader = () => (
-  <Layout style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+const ChatHeader = (): JSX.Element => (
+  <Layout style={styles.ChatHeader}>
     <Button appearance="ghost" accessoryLeft={BackButton} />
-    <Text
-      style={{alignSelf: 'center', top: 5, fontSize: 20, fontWeight: 'bold'}}>
-      My Chats
-    </Text>
-    <Text style={{opacity:0}}>Placeholder</Text>
+    <Text style={styles.title}>My Chats</Text>
+    <Text style={styles.placeholder}>Placeholder</Text>
   </Layout>
 );
 

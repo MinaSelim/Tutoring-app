@@ -35,4 +35,17 @@ export default StyleSheet.create({
     left: 3,
     top: 5,
   },
+  ChatHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  title: {
+    alignSelf: 'center',
+    top: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  placeholder: {
+    opacity: 0,
+  },
 });

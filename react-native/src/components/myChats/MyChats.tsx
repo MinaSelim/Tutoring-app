@@ -4,7 +4,7 @@ import styles from './styles/MyChatStyles';
 import ChatHeader from './ChatHeader';
 import ChatMenu from './ChatMenu';
 
-const MyChats = () => {
+const MyChats = (): JSX.Element => {
   return (
     <Layout style={styles.mainFrame}>
       <ChatHeader />

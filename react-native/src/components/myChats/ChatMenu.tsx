@@ -6,8 +6,8 @@ import StudyGroups from './StudyGroups';
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
-const ChatMenu = () => (
-  <Navigator tabBar={(props) => <TopTabBar {...props} />}>
+const ChatMenu = (): JSX.Element => (
+  <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
     <Screen name="Tutors" component={Tutors} />
     <Screen name="StudyGroups" component={StudyGroups} />
   </Navigator>

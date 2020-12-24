@@ -4,7 +4,7 @@ import styles from './styles/MyChatStyles';
 import MockupTutorData from './mockData/MockupTutorData';
 import ChatItem from './ChatItem';
 
-const Tutors = () => (
+const Tutors = (): JSX.Element => (
   <Layout>
     <List
       style={styles.listContainer}

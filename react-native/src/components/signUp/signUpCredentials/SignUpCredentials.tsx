@@ -112,7 +112,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
         />
         <TouchableOpacity
           style={{position: 'absolute'}}
-          onPress={(): void => this.props.navigation.goBack()}>
+          onPress={(): boolean => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}

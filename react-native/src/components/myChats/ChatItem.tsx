@@ -1,11 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Text, ListItem} from '@ui-kitten/components';
+import PropTypes from 'prop-types';
 import styles from './styles/ChatItemStyles';
 import ProfilePicture from './ProfilePicture';
 import UnreadHint from './UnreadHint';
 
-const ChatItem = ({item}) => (
+const ChatItem = ({item}): JSX.Element => (
   <ListItem style={styles.listItem}>
     <ProfilePicture />
     <View style={styles.textSection}>
