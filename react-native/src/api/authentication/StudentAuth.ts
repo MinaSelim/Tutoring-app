@@ -1,9 +1,11 @@
 import {auth} from 'firebase';
+import axios from 'react-native-axios';
 import {SERVER_LINK} from 'react-native-dotenv-milkywire';
+import {REGISTER_AUTH_STUDENT, LOGIN_AUTH_STUDENT} from '../../constants/paths';
 import fire from './Fire';
-import IUserLogin from '../../model/signInSignUp/IUserLogin';
+import IUserLogin from '../../models/signInSignUp/IUserLogin';
 import IAuth from './IAuth';
-import IStudent from '../../model/common/IStudent';
+import IStudent from '../../models/common/IStudent';
 
 /**
  * this class provides api abstraction for firebase
@@ -44,14 +46,16 @@ export default class StudentAuth implements IAuth {
         loginInfo.password,
       );
       student.firebase_uid = result.user.uid;
-      const response = await fetch(`${SERVER_LINK}/auth/student/register`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-type': 'application/json',
+      const response = await axios.post(
+        `${SERVER_LINK + REGISTER_AUTH_STUDENT}`,
+        student,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-type': 'application/json',
+          },
         },
-        body: JSON.stringify(student),
-      });
+      );
       return response;
     } catch (error) {
       console.log(error);
@@ -62,11 +66,11 @@ export default class StudentAuth implements IAuth {
   /**
    * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
    */
-  private signInWithServer = async () => {
+  private signInWithServer = async (): Promise<IStudent> => {
     const user = this.firebaseAuth.currentUser;
     const token = user && (await user.getIdToken());
 
-    const response = await fetch(`${SERVER_LINK}/auth/student/login`, {
+    const response = await fetch(`${SERVER_LINK + LOGIN_AUTH_STUDENT}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

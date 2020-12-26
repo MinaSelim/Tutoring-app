@@ -25,6 +25,7 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-axios": "^0.17.1",
     "react-native-dotenv-milkywire": "^0.3.0",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-keychain": "^6.2.0",

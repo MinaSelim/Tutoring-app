@@ -11,8 +11,8 @@ import {
 import {colors} from '../../../styles/appColors';
 import styles from './styles/SignUpCredentialsStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
-import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';
+import INavigation from '../../../models/navigation/NavigationInjectedPropsConfigured';
+import ISignUpCredentialsPage from '../../../models/signInSignUp/ISignUpCredentialsPage';
 
 interface IState extends ISignUpCredentialsPage {}
 
@@ -112,7 +112,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
         />
         <TouchableOpacity
           style={{position: 'absolute'}}
-          onPress={() => this.props.navigation.goBack()}>
+          onPress={(): boolean => this.props.navigation.goBack()}>
           <Image
             source={require('../../../assets/images/icons/backBtn.png')}
             style={styles.goBackButton}

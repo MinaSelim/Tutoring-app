@@ -1,15 +1,15 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
-import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
-import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
-import SignIn from './src/components/signIn/SignIn';
-import HomeUI from './src/components/home/Home';
-import SideBar from './src/components/sideBar/SideBar';
-import MyChats from './src/components/myChats/MyChats';
-import TutorSearch from './src/components/tutorSearch/TutorSearch';
-import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
+import SignUpCredentials from '../pages/signUp/signUpCredentials/SignUpCredentials';
+import SignUpUserType from '../pages/signUp/signUpUserType/SignUpUserType';
+import SignUpSelectCampus from '../pages/signUp/signUpSelectCampus/SignUpSelectCampus';
+import SignIn from '../pages/signIn/SignIn';
+import HomeUI from '../pages/home/Home';
+import SideBar from '../components/sideBar/SideBar';
+import MyChats from '../components/myChats/MyChats';
+import TutorSearch from '../pages/tutorSearch/TutorSearch';
+import StudyGroupSearch from '../pages/studyGroupSearch/StudyGroupSearch';
 
 const Stack = createStackNavigator();
 

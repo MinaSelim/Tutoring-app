@@ -14,9 +14,7 @@ import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
-import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
-import store from '../store';
-import actions from '../../utils/Actions';
+import INavigation from '../../models/navigation/NavigationInjectedPropsConfigured';
 
 const SignIn: React.FunctionComponent<INavigation> = ({
   navigation,
@@ -46,33 +44,21 @@ const SignIn: React.FunctionComponent<INavigation> = ({
     // TODO: Redirect to Google Sign In
   };
 
-  // Send the user's input to the back-end
   const signIn = async (): Promise<void> => {
     if (!email.includes('@') || password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
       return;
     }
-    let auth: IAuth;
-    if (true) {
-      // TODO add for tutor
-      auth = new StudentAuth();
-    } else {
-      auth = new TutorAuth();
-    }
-    let user = null;
+    // TODO Distinguish between student and tutor auth
+    const auth: IAuth = new StudentAuth();
+    // } else {
+    // auth = new TutorAuth();
+    // }
+    // const user = null;
     try {
       const userLoginInfo = {email, password};
-      user = await auth.signInWithEmailAndPassword(userLoginInfo);
-      store.dispatch({
-        type: actions.userInfo,
-        payload: {
-          email: user.email,
-          firstName: user.first_name,
-          lastName: user.last_name,
-          avatar: user.avatar,
-          phone: user.phone,
-        },
-      });
+      await auth.signInWithEmailAndPassword(userLoginInfo);
+
       navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);

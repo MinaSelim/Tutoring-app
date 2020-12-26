@@ -10,13 +10,12 @@ import {
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import styles from './styles/SignUpSelectCampusStyles';
 import 'react-native-gesture-handler';
-import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
-import IStudent from '../../../model/common/IStudent';
+import INavigation from '../../../models/navigation/NavigationInjectedPropsConfigured';
+import IStudent from '../../../models/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
-import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
+import ISignUpSelectCampusPage from '../../../models/signInSignUp/ISignUpSelectCampusPage';
 import campuses from './campuses';
 import IAuth from '../../../api/authentication/IAuth';
-import store from '../../store';
 import actions from '../../../utils/Actions';
 
 interface IProps extends INavigation {
@@ -83,16 +82,16 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
       const auth: IAuth = new StudentAuth();
       try {
         const user = await auth.signInWithEmailAndPassword({email, password});
-        store.dispatch({
-          type: actions.userInfo,
-          payload: {
-            email: user.email,
-            firstName: user.first_name,
-            lastName: user.last_name,
-            avatar: user.avatar,
-            phone: user.phone,
-          },
-        });
+        // store.dispatch({
+        //   type: actions.userInfo,
+        //   payload: {
+        //     email: user.email,
+        //     firstName: user.first_name,
+        //     lastName: user.last_name,
+        //     avatar: user.avatar,
+        //     phone: user.phone,
+        //   },
+        // });
       } catch (error) {
         Alert.alert(`${error}`);
         return;
