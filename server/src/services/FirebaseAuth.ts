@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import firebase from 'firebase-admin';
 
 /**

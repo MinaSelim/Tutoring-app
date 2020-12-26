@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-constructor */
 import AWS from 'aws-sdk';
 import * as config from '../config/DatabaseConfigInfo.json';
 
