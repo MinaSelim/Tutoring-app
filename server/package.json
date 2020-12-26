@@ -10,7 +10,8 @@
       "test": "mocha -r ts-node/register './tests/**/*.test.ts'",
       "lint": "prettier --check . && eslint --cache . --ext .ts,.tsx,./src",
       "lint-fix": "prettier --write . && eslint . --ext .ts,.tsx,./src --cache --fix",
-      "coverage": "nyc npm run test"
+	  "coverage": "nyc npm run test",
+	  "prepush": "npm run lint && npm run test"
    },
    "author": "",
    "license": "ISC",
