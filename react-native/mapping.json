@@ -105,6 +105,28 @@
           }
         }
       }
+    },
+    "Layout": {
+      "meta": {
+        "variantGroups": {
+          "level": {
+            "primary": {
+              "default": false
+            }
+          }
+        }
+      },
+      "appearances": {
+        "default": {
+          "variantGroups": {
+            "level": {
+              "primary": {
+                "backgroundColor": "color-primary-500"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
