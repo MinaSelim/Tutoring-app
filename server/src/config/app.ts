@@ -16,10 +16,10 @@ export default class App {
     * Constructs the class
     */
    constructor() {
-      this.app = express();
-      this.config();
-      this.rootRoutes = new RouteRoot();
-      this.rootRoutes.route(this.app);
+    //   this.app = express();
+    //   this.config();
+    //   this.rootRoutes = new RouteRoot();
+    //   this.rootRoutes.route(this.app);
    }
 
    /**
