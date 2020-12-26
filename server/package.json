@@ -63,7 +63,8 @@
    "lint-staged": {
       "*.{ts,ts,/src}": [
          "eslint --cache --fix",
-         "prettier --write"
+         "prettier --write",
+         "mocha -r ts-node/register './tests/**/*.test.ts'"
       ]
    },
    "nyc": {
