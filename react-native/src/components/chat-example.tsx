@@ -72,22 +72,26 @@ export default class ChatConfiguration extends Component<any, any> {
         />
         <TouchableOpacity
           style={styles.button}
-          // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-          onPress={() =>
-            chatModifier.createOneonOneChatroom(
-              this.state.currentUser,
-              this.state.tutorUser,
-              this.state.roomName,
-            )
-          // eslint-disable-next-line react/jsx-curly-newline
+          onPress={
+            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+            () =>
+              chatModifier.createOneonOneChatroom(
+                this.state.currentUser,
+                this.state.tutorUser,
+                this.state.roomName,
+              )
+            // eslint-disable-next-line react/jsx-curly-newline
           }>
           <Text style={styles.buttonText}>Create chat room</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-          onPress={() => chatModifier.deleteChatroom(this.state.currentUser,[this.state.currentUser,this.state.tutorUser], 
-            'rfh6NKFQchLsY5Br8yZ1'
+          onPress={() =>
+            chatModifier.deleteChatroom(
+              this.state.currentUser,
+              [this.state.currentUser, this.state.tutorUser],
+              'rfh6NKFQchLsY5Br8yZ1',
             )}>
           <Text style={styles.buttonText}>Delete chat room</Text>
         </TouchableOpacity>
@@ -113,7 +117,7 @@ export default class ChatConfiguration extends Component<any, any> {
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
           onPress={() =>
             chatroomRequest.getAllMessages(
-              'rfh6NKFQchLsY5Br8yZ1'
+              'rfh6NKFQchLsY5Br8yZ1',
               // eslint-disable-next-line prettier/prettier
             )}>
           <Text style={styles.buttonText}>Display user messages</Text>
