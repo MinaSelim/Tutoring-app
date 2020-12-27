@@ -35,7 +35,7 @@ export default StyleSheet.create({
     left: 3,
     top: 5,
   },
-  ChatHeader: {
+  ChatListHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

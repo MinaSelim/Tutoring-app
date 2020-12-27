@@ -1,13 +1,13 @@
 import React from 'react';
 import {Layout, Text} from '@ui-kitten/components';
 import styles from './styles/MyChatStyles';
-import ChatHeader from './ChatHeader';
+import ChatListHeader from './ChatListHeader';
 import ChatMenu from './ChatMenu';
 
 const MyChats = (props): JSX.Element => {
   return (
     <Layout style={styles.mainFrame}>
-      <ChatHeader
+      <ChatListHeader
         navigation={props.navigation}
         navigate={props.navigate}
         goBack={props.goBack}

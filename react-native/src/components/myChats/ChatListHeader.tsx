@@ -4,9 +4,9 @@ import BackButton from './BackButton';
 import styles from './styles/MyChatStyles';
 import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
-const ChatHeader: React.FC<NavigationInjectedPropsConfigured> = (props) => {
+const ChatListHeader: React.FC<NavigationInjectedPropsConfigured> = (props) => {
   return (
-    <Layout style={styles.ChatHeader}>
+    <Layout style={styles.ChatListHeader}>
       <Button
         appearance="ghost"
         onPress={(): boolean => props.navigation.goBack()}
@@ -18,4 +18,4 @@ const ChatHeader: React.FC<NavigationInjectedPropsConfigured> = (props) => {
   );
 };
 
-export default ChatHeader;
+export default ChatListHeader;
