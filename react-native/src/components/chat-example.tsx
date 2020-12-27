@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
 // import firestore from '@react-native-firebase/firestore';
 import {User} from 'firebase';
-import React, {useState, Component} from 'react';
+import React, {Component} from 'react';
 import {
   View,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
