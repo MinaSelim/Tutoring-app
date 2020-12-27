@@ -80,7 +80,6 @@ export default class ChatConfiguration extends Component<any, any> {
                 this.state.tutorUser,
                 this.state.roomName,
               )
-            // eslint-disable-next-line react/jsx-curly-newline
           }>
           <Text style={styles.buttonText}>Create chat room</Text>
         </TouchableOpacity>
@@ -108,18 +107,14 @@ export default class ChatConfiguration extends Component<any, any> {
             chatroomRequest.sendMessage(
               this.state.currentUser,
               'rfh6NKFQchLsY5Br8yZ1',
-              this.state.Message,
-            )}>
+              this.state.Message)}>
           <Text style={styles.buttonText}>Send message</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
           onPress={() =>
-            chatroomRequest.getAllMessages(
-              'rfh6NKFQchLsY5Br8yZ1',
-              // eslint-disable-next-line prettier/prettier
-            )}>
+            chatroomRequest.getAllMessages('rfh6NKFQchLsY5Br8yZ1')}>
           <Text style={styles.buttonText}>Display user messages</Text>
         </TouchableOpacity>
       </View>
