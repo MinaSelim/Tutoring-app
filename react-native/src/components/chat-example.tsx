@@ -1,13 +1,7 @@
-/* eslint-disable prettier/prettier */
 // import firestore from '@react-native-firebase/firestore';
 import {User} from 'firebase';
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import chatModifier from '../api/chatroom/ChatModifier';
 import chatroomRequest from '../api/chatroom/ChatroomRequest';
 
@@ -90,7 +84,8 @@ export default class ChatConfiguration extends Component<any, any> {
               this.state.currentUser,
               [this.state.currentUser, this.state.tutorUser],
               'rfh6NKFQchLsY5Br8yZ1',
-            )}>
+            )
+          }>
           <Text style={styles.buttonText}>Delete chat room</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -106,14 +101,17 @@ export default class ChatConfiguration extends Component<any, any> {
             chatroomRequest.sendMessage(
               this.state.currentUser,
               'rfh6NKFQchLsY5Br8yZ1',
-              this.state.Message)}>
+              this.state.Message,
+            )
+          }>
           <Text style={styles.buttonText}>Send message</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
           onPress={() =>
-            chatroomRequest.getAllMessages('rfh6NKFQchLsY5Br8yZ1')}>
+            chatroomRequest.getAllMessages('rfh6NKFQchLsY5Br8yZ1')
+          }>
           <Text style={styles.buttonText}>Display user messages</Text>
         </TouchableOpacity>
       </View>
