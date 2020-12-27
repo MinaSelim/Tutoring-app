@@ -2,69 +2,44 @@ import {Alert} from 'react-native';
 import firebase from '../authentication/Fire';
 import constants from '../constants';
 
-const {FieldValue} = require('firebase-admin').firestore;
-
 // to do: change function name to give more info
 async function getChat(
-  currentUserToken: String,
-  otherUsersTokens: Array<String>,
-): Promise<
-  firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[]
-> {
+  currentUser: String,
+  otherUser: String,
+): Promise<Object> {
   const chatRef = firebase
     .firestore()
-    .collection(constants.chatroomCollection)
-    .where(
-      constants.participantsArray,
-      'array-contains',
-      currentUserToken ||
-        otherUsersTokens.forEach(function (userTokens) {
-          userTokens.toString();
-        }),
-    );
+    .collection('CHATROOMS')
+    .where('participants', 'array-contains', currentUser || otherUser);
   let data = {};
-  const chatrooms = [];
 
   try {
     const querySnapshot = await chatRef.get();
     querySnapshot.forEach((documentSnapshot) => {
       data = documentSnapshot.data();
-      chatrooms[documentSnapshot.id].push(data);
     });
-    return chatrooms;
+    return data;
   } catch (err) {
     Alert.alert(`Error getting documents: ${err}`);
   }
-  return chatrooms;
+  return data;
 }
 
 function generateChat(
   chatRef: firebase.firestore.QueryDocumentSnapshot<
     firebase.firestore.DocumentData
   >[],
-  currentUserToken: String,
+  currentUserToken: string,
   otherUsersTokens: Array<String>,
-  roomName: String,
+  roomName: string,
 ): void {
-  const Users = otherUsersTokens.push(currentUserToken);
-  let chatAlreadyCreated = false;
-  chatRef.forEach(function (documentRef) {
-    if (documentRef.data().get('participants') === 2) {
-      chatAlreadyCreated = true;
-    }
-  });
-
-  if (
-    chatRef === undefined ||
-    !chatAlreadyCreated ||
-    otherUsersTokens.length > 1
-  ) {
+  if (chatRef === undefined || Object.keys(chatRef).length < 1) {
     firebase
       .firestore()
       .collection(constants.chatroomCollection)
       .add({
         name: roomName,
-        participants: Users,
+        participants: otherUsersTokens,
         latestMessage: {
           content: `You have joined the room ${roomName}.`,
           createdAt: new Date().getTime(),
@@ -82,26 +57,40 @@ function generateChat(
   }
 }
 
-function createChatroom(
-  currentUserToken: String,
-  otherUsersTokens: Array<String>,
-  roomName: String,
+function createOneonOneChatroom(
+  currentUserToken: string,
+  participantsToken: string,
+  roomName: string,
 ): void {
   getChat(
     currentUserToken,
-    otherUsersTokens,
+    participantsToken,
   ).then(
     (
       res: firebase.firestore.QueryDocumentSnapshot<
         firebase.firestore.DocumentData
       >[],
-    ) => generateChat(res, currentUserToken, otherUsersTokens, roomName),
+    ) =>
+      generateChat(
+        res,
+        currentUserToken,
+        [currentUserToken, participantsToken],
+        roomName,
+      ),
   );
+}
+
+function createGroupChatroom(
+  currentUserToken: string,
+  participantsToken: Array<String>,
+  roomName: string,
+): void {
+  generateChat(undefined, currentUserToken, participantsToken, roomName);
 }
 
 function deleteChatroom(
   currentUserToken: string,
-  chatParticipantTokens: Array<String>,
+  participantsToken: Array<string>,
   chatroomID: string,
 ): void {
   const convo = firebase
@@ -109,9 +98,14 @@ function deleteChatroom(
     .collection(constants.chatroomCollection)
     .doc(chatroomID);
 
-  if (chatParticipantTokens.length > 1) {
+  if (participantsToken.length > 1) {
+    for (let i = 0; i < participantsToken.length; i += 1) {
+      if (participantsToken[i] === currentUserToken) {
+        participantsToken.splice(i, 1);
+      }
+    }
     convo.update({
-      participants: FieldValue.arrayRemove(currentUserToken),
+      participants: participantsToken,
     });
   } else {
     convo.delete();
@@ -131,10 +125,16 @@ async function displayUserChats(
 
   await chatRoomsRef.get().then((s) => {
     s.forEach((documentSnapshot) => {
-      chatrooms[documentSnapshot.id].push(documentSnapshot.data());
+      chatrooms.push({id: documentSnapshot.id, value: documentSnapshot.data()});
     });
   });
+  console.log(chatrooms);
   return chatrooms;
 }
 
-export default {displayUserChats, deleteChatroom, createChatroom};
+export default {
+  displayUserChats,
+  deleteChatroom,
+  createGroupChatroom,
+  createOneonOneChatroom,
+};
