@@ -4,6 +4,16 @@ import {TutorAuthRoutes} from '../routes/auth/TutorAuthRoutes';
 import RouteComposite from '../routes/RouteComposite';
 import IRouteComponent from '../routes/IRouteComponent';
 
+//Declaration merging for the session objects in student and tutor route
+declare module "express-session" {
+	interface Session {
+		firebase_uid: string;
+		isLoggedIn: boolean;
+		isLoggedInAsStudent: boolean;
+		isLoggedInAsTutor: boolean;
+	}
+}
+
 export default class RouteRoot implements IRouteComponent {
    /**
     * The routes that the component needs to apply
