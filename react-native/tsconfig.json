@@ -15,7 +15,14 @@
       "preserveConstEnums": true,
       "sourceMap": true, //Might be false for dev environment
       "resolveJsonModule": true,
-      "baseUrl": "src"
+      "baseUrl": "src",
+      "noUnusedLocals": true /* Report errors on unused locals. */,
+      "noUnusedParameters": true /* Report errors on unused parameters. */,
+      "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+      "skipLibCheck": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
     },
     "exclude": [
       "react-native/node_modules",
