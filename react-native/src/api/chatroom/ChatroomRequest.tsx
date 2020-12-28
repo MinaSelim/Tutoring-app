@@ -1,7 +1,13 @@
 import firebase from '../authentication/Fire';
 import constants from '../constants';
 
-function sendMessage(currentUser, chatroomID, message): void {
+/**
+ * Creates a new message within the firestore DB
+ * @param currentUserToken The firebase UID of the current logged in user
+ * @param chatroomID The unique chatroom identifier
+ * @param message the message to be sent
+ */
+function sendMessage(currentUserToken, chatroomID, message): void {
   if (message !== undefined || message !== null) {
     firebase
       .firestore()
@@ -11,7 +17,7 @@ function sendMessage(currentUser, chatroomID, message): void {
       .add({
         content: message,
         createdAt: new Date().getTime(),
-        sender: currentUser,
+        sender: currentUserToken,
       });
 
     firebase
@@ -27,6 +33,10 @@ function sendMessage(currentUser, chatroomID, message): void {
   }
 }
 
+/**
+ * Get all of the messages for a specefic chat
+ * @param chatroomID The unique chatroom identifier who messages will be displayed
+ */
 async function getAllMessages(
   chatroomID,
 ): Promise<
