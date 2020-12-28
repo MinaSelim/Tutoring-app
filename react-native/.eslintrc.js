@@ -6,10 +6,8 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': [
-      'error',
-      {extensions: ['.ts']},
-    ],
+    // disable the rule for all files
+    '@typescript-eslint/explicit-function-return-type': 'off',
     'react/jsx-props-no-spreading': 'warn',
     'no-unused-expressions': ['error', {allowTernary: true}],
     'react/jsx-closing-bracket-location': 'off',
@@ -34,4 +32,13 @@ module.exports = {
       typescript: {},
     },
   },
+  overrides: [
+    {
+      // enable the rule specifically for TypeScript files
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': ['error'],
+      },
+    },
+  ],
 };
