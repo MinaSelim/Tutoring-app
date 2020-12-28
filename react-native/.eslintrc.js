@@ -2,13 +2,11 @@ module.exports = {
   root: true,
   extends: [
     '@react-native-community',
-    'airbnb',
-    'airbnb/hooks',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/explicit-function-return-type': ['error'],
     'react/jsx-props-no-spreading': 'warn',
     'no-unused-expressions': ['error', {allowTernary: true}],
     'react/jsx-closing-bracket-location': 'off',
@@ -25,16 +23,6 @@ module.exports = {
     'func-names': ['warn', 'always'], // for better debugging (name func. expressions so they are not reported as "anonymous function" in stack trace)
     'no-process-exit': 'off',
     'class-methods-use-this': 'off',
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
   },
 
   reportUnusedDisableDirectives: true,
