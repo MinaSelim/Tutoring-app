@@ -62,7 +62,7 @@ export default class TutorAuth implements IAuth {
   /**
    * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
    */
-  private signInWithServer = async () => {
+  private signInWithServer = async (): Promise<any> => {
     const user = this.firebaseAuth.currentUser;
     const token = user && (await user.getIdToken());
 
