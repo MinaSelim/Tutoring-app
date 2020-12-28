@@ -19,7 +19,7 @@ module.exports = {
    overrides: [
       {
          files: ['dist/**/*.js', 'dist/*.js'],
-         excludedFiles: '*.test.js',
+         excludedFiles: '*.test.js, package-lock.json, yarn.lock',
          rules: {
             quotes: ['error', 'single'],
          },
