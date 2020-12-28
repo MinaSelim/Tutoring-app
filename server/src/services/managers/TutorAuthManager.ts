@@ -1,7 +1,6 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import ITutor from '../../models/ITutor';
-// import Database from '../../database/database';
 import tutorDatabaseFunctions from '../../database/tutorDatabaseFunctions';
 
 /**

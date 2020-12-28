@@ -4,7 +4,11 @@ import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from './databaseUtils';
 
 export default class TutorDatabaseFunctions {
-   private dbutils: DatabaseUtils = DatabaseUtils.getInstance();
+   private dbutils: DatabaseUtils;
+
+   constructor() {
+      this.dbutils = DatabaseUtils.getInstance();
+   }
 
    /**
     * Adds a tutor to the database

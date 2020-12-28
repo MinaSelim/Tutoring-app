@@ -4,7 +4,11 @@ import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from './databaseUtils';
 
 export default class StudentDatabaseFunctions {
-   private dbUtils: DatabaseUtils = DatabaseUtils.getInstance();
+   private dbUtils: DatabaseUtils;
+
+   constructor() {
+      this.dbUtils = DatabaseUtils.getInstance()
+   }
 
    /**
     * Adds a student to the database
