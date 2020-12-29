@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const chatStyles = StyleSheet.create({
+  avatar: {
+    margin: 10,
+  },
   onlineStatus: {
     width: 10,
     height: 10,
@@ -52,6 +55,10 @@ export const chatStyles = StyleSheet.create({
     marginVertical: 5,
   },
 
+  bookButtonText: {
+    fontSize: 40,
+  },
+
   chatTitle: {
     paddingTop: 37,
     fontSize: 18,
@@ -76,6 +83,18 @@ export const chatStyles = StyleSheet.create({
   messageInput: {
     flex: 1,
     marginHorizontal: 8,
+  },
+
+  headerContainer: {
+    height: 'auto',
+    borderBottomColor: '#949494',
+    borderBottomWidth: 0.5,
+  },
+
+  messageContentContainer: {
+    width: 0,
+    flexGrow: 1,
+    flex: 1,
   },
 });
 export default chatStyles;

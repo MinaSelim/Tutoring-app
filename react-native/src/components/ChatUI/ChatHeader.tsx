@@ -17,7 +17,7 @@ const renderRightActions = (): JSX.Element => (
   <>
     <Button size="small" style={chatStyles.bookButton}>
       {(evaProps) => (
-        <Text style={{fontSize: 40}} {...evaProps}>
+        <Text style={chatStyles.bookButtonText} {...evaProps}>
           Book
         </Text>
       )}
@@ -38,13 +38,7 @@ const renderBackAction = (): JSX.Element => (
 
 const Header = (): JSX.Element => {
   return (
-    <Layout
-      style={{
-        height: 'auto',
-        borderBottomColor: '#949494',
-        borderBottomWidth: 0.5,
-      }}
-      level="1">
+    <Layout style={chatStyles.headerContainer} level="1">
       <TopNavigation
         alignment="center"
         title={renderTitle}

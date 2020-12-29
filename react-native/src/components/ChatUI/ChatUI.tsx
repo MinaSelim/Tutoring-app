@@ -3,11 +3,10 @@ import {FlatList} from 'react-native';
 import 'react-native-gesture-handler';
 import {useStyleSheet, Layout} from '@ui-kitten/components';
 import {chatStyles} from './styles/chatStyles';
-
 import MessageRow from './MessageRow';
 import IMessage from '../../model/IMessage';
 import DATA from './DATA';
-import Header from './Header';
+import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 
 // This is the main front end for the chat, it calls messageRow for the layout of every single message view
@@ -22,7 +21,7 @@ const ChatUI = (): JSX.Element => {
 
   return (
     <Layout style={styles.container}>
-      <Header />
+      <ChatHeader />
 
       <FlatList<IMessage>
         keyExtractor={(item) => item.id}
