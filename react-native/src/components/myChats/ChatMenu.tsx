@@ -1,8 +1,11 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import TopTabBar from './TopTabBar';
 import ChatTab from './ChatTab';
-import MockupStudyGroupChatsData from './mockData/MockupStudyGroupChatsData';
+import MockupStudyGroupChatsData from './mockData/MockUpStudyGroupChatsData';
 import MockupOneOnOneChatsData from './mockData/MockupOneOnOneChatsData';
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
