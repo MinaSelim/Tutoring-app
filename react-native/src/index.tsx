@@ -9,7 +9,11 @@ import theme from '../custom-theme.json'; // <-- Import app theme
 import RouteStack from './routing/routeStack';
 
 class App extends Component {
+<<<<<<< Updated upstream
   render(): JSX.Element {
+=======
+  render() {
+>>>>>>> Stashed changes
     return (
       <View>
         <IconRegistry icons={EvaIconsPack} />
