@@ -137,7 +137,7 @@ describe('Student Database Functions Test', () => {
       sandbox.stub(dynamo, 'putItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'putItem');
 
-      return studentdb.addStudentInUserCollection(student).then((res) => {
+      return studentdb.addUserToDatabase(student).then((res) => {
          assert(spy.calledOnce);
          assert(spy.calledWith(params));
          assert.equal(res.ConsumedCapacity.CapacityUnits, putItemResponseGood.ConsumedCapacity.CapacityUnits);
@@ -188,7 +188,7 @@ describe('Student Database Functions Test', () => {
       sandbox.stub(dynamo, 'putItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'putItem');
 
-      return studentdb.addStudentInUserCollection(studentNoStripe).then((res) => {
+      return studentdb.addUserToDatabase(studentNoStripe).then((res) => {
          assert(spy.calledOnce);
          assert(spy.calledWith(params));
          assert.equal(res.ConsumedCapacity.CapacityUnits, putItemResponseGood.ConsumedCapacity.CapacityUnits);
@@ -239,7 +239,7 @@ describe('Student Database Functions Test', () => {
       sandbox.stub(dynamo, 'putItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'putItem');
 
-      return studentdb.addStudentInUserCollection(studentNoValid).then((res) => {
+      return studentdb.addUserToDatabase(studentNoValid).then((res) => {
          assert(spy.calledOnce);
          assert(spy.calledWith(params));
          assert.equal(res.ConsumedCapacity.CapacityUnits, putItemResponseGood.ConsumedCapacity.CapacityUnits);
@@ -290,7 +290,7 @@ describe('Student Database Functions Test', () => {
       sandbox.stub(dynamo, 'putItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'putItem');
       return studentdb
-         .addStudentInUserCollection(student)
+         .addUserToDatabase(student)
          .then(() => {
             assert.fail('Should not succeed');
          })

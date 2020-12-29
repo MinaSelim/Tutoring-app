@@ -23,7 +23,7 @@ export default class StudentAuthManager {
     * @param student The student to add to the database
     */
    public registerStudent = async (student: IStudent): Promise<void> => {
-      await this.database.addStudentInUserCollection(student);
+      await this.database.addUserToDatabase(student);
    };
 
    /**

@@ -117,7 +117,7 @@ describe('Tutor Database Functions Test', () => {
       sandbox.stub(dynamo, 'putItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'putItem');
 
-      return tutordb.addTutorInUserCollection(tutor).then((res) => {
+      return tutordb.addUserToDatabase(tutor).then((res) => {
          assert(spy.calledOnce);
          assert(spy.calledWith(params));
          assert.equal(res.ConsumedCapacity.CapacityUnits, putItemResponseGood.ConsumedCapacity.CapacityUnits);
@@ -168,7 +168,7 @@ describe('Tutor Database Functions Test', () => {
       sandbox.stub(dynamo, 'putItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'putItem');
       return tutordb
-         .addTutorInUserCollection(tutor)
+         .addUserToDatabase(tutor)
          .then(() => {
             assert.fail('Should not succeed');
          })

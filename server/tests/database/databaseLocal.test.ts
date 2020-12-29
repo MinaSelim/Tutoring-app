@@ -64,7 +64,7 @@ describe('Local dynamo test', () => {
 
       return DatabaseConfig.createTable(params)
          .then(() => {
-            return studentdb.addStudentInUserCollection(student);
+            return studentdb.addUserToDatabase(student);
          })
          .then((data: PutItemOutput) => {
             console.log(data);

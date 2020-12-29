@@ -23,7 +23,7 @@ export default class TutorAuthManager {
     * @param tutor The tutor to add to the database
     */
    public registerTutor = async (tutor: ITutor): Promise<void> => {
-      await this.tutorDatabaseFunctions.addTutorInUserCollection(tutor);
+      await this.tutorDatabaseFunctions.addUserToDatabase(tutor);
    };
 
    /**

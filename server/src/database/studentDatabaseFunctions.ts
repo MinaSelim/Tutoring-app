@@ -1,74 +1,22 @@
 import IStudent from '../models/IStudent';
 import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import * as config from '../config/DatabaseConfigInfo.json';
-import DatabaseUtils from './databaseUtils';
+import UserDatabaseFunctions from '../database/userDatabaseFunctions';
+import IUser from 'src/models/IUser';
 
-export default class StudentDatabaseFunctions {
-   private dbUtils: DatabaseUtils;
+export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
 
-   constructor() {
-      this.dbUtils = DatabaseUtils.getInstance()
-   }
-
-   /**
-    * Adds a student to the database
-    * @param student Student to add
-    * @returns A promise.
-    */
-   public addStudentInUserCollection = (student: IStudent): Promise<PutItemOutput> => {
-      // Create deep copy to modify without affecting input student
-      const tempUser = {...student};
-
-      if (!student.is_validated) {
-         tempUser.is_validated = false;
-      }
-
-      if (!student.stripe_customer_id) {
-         tempUser.stripe_customer_id = '';
-      }
-
-      if (!student.profileImage) {
-         tempUser.profileImage = '';
-      }
-
-      if (!student.phone) {
-         tempUser.phone = '';
-      }
-
-      const params: PutItemInput = {
-         Item: {
-            first_name: {
-               S: tempUser.first_name,
-            },
-            last_name: {
-               S: tempUser.last_name,
-            },
-            email: {
-               S: tempUser.email,
-            },
-            stripe_customer_id: {
-               S: tempUser.stripe_customer_id,
-            },
-            is_validated: {
-               BOOL: tempUser.is_validated,
-            },
-            firebase_uid: {
-               S: tempUser.firebase_uid,
-            },
-            campus: {
-               S: tempUser.campus,
-            },
-            profileImage: {
-               S: tempUser.profileImage,
-            },
-            phone: {
-               S: tempUser.phone,
-            },
-         },
-         ReturnConsumedCapacity: 'TOTAL',
-         TableName: config.tableNames.USER,
+   protected fillSpecificUserData = (user: IUser): IUser => {
+      const student:IStudent = user as IStudent;
+      return student;
+   };
+   
+   protected addSpecificUserParams = (user: IUser, params: PutItemInput): PutItemInput => {
+      const student:IStudent = user as IStudent;
+      params.Item.campus = {
+         S: student.campus
       };
-      return this.dbUtils.putItem(params);
+      return params;
    };
 
    /**
@@ -85,7 +33,7 @@ export default class StudentDatabaseFunctions {
          },
          TableName: config.tableNames.USER,
       };
-      return this.dbUtils.getItem(params).then(
+      return this.databaseUtils.getItem(params).then(
          (data: GetItemOutput): Promise<IStudent> => {
             const student: IStudent = {
                email: data.Item.email.S,
