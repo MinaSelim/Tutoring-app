@@ -2,8 +2,9 @@
 import {User} from 'firebase';
 import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import chatModifier from '../api/chatroom/ChatModifier';
-import chatroomRequest from '../api/chatroom/ChatroomRequest';
+import chatHandler from '../api/chatroom/chatHandler';
+import groupChatroom from '../api/chatroom/groupChatroom';
+import directChatroom from '../api/chatroom/directChatroom';
 
 import styles from '../styles/stylesChat';
 import firebase from '../api/authentication/Fire';
@@ -68,10 +69,15 @@ export default class ChatConfiguration extends Component<any, any> {
           onPress={
             // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
             () =>
-              chatModifier.createOneonOneChatroom(
+              groupChatroom.createGroupChatroom(
                 this.state.currentUser,
-                this.state.tutorUser,
+                [
+                  this.state.currentUser,
+                  this.state.tutorUser,
+                  '3A9zPYU126OtCHVYqtETBvh7xQr2',
+                ],
                 this.state.roomName,
+                'MATH202',
               )
           }>
           <Text style={styles.buttonText}>Create chat room</Text>
@@ -80,10 +86,14 @@ export default class ChatConfiguration extends Component<any, any> {
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
           onPress={() =>
-            chatModifier.deleteChatroom(
+            groupChatroom.deleteChatroom(
               this.state.currentUser,
-              [this.state.currentUser, this.state.tutorUser],
-              'rfh6NKFQchLsY5Br8yZ1',
+              [
+                this.state.currentUser,
+                this.state.tutorUser,
+                '3A9zPYU126OtCHVYqtETBvh7xQr2',
+              ],
+              '3ILGb4uTptDLWxLW14FJ',
             )
           }>
           <Text style={styles.buttonText}>Delete chat room</Text>
@@ -91,16 +101,25 @@ export default class ChatConfiguration extends Component<any, any> {
         <TouchableOpacity
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-          onPress={() => chatModifier.displayUserChats(this.state.currentUser)}>
+          onPress={() => {
+            console.log(
+              'Result final: ',
+              directChatroom.displayUserChatrooms(
+                this.state.currentUser,
+                'group',
+                ['oOi8cPpnQ7J9ZrKZU36F'],
+              ),
+            );
+          }}>
           <Text style={styles.buttonText}>Display chat rooms in console</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
           onPress={() =>
-            chatroomRequest.sendMessage(
+            groupChatroom.sendMessage(
               this.state.currentUser,
-              'rfh6NKFQchLsY5Br8yZ1',
+              'BTD3sJ3N6aw196jNfC2I',
               this.state.Message,
             )
           }>
@@ -109,10 +128,19 @@ export default class ChatConfiguration extends Component<any, any> {
         <TouchableOpacity
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-          onPress={() =>
-            chatroomRequest.getAllMessages('rfh6NKFQchLsY5Br8yZ1')
-          }>
+          onPress={() => groupChatroom.getAllMessages('BTD3sJ3N6aw196jNfC2I')}>
           <Text style={styles.buttonText}>Display user messages</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+          onPress={() =>
+            chatHandler.viewedChat(
+              'BTD3sJ3N6aw196jNfC2I',
+              this.state.currentUser,
+            )
+          }>
+          <Text style={styles.buttonText}>Current User Views Message</Text>
         </TouchableOpacity>
       </View>
     );
