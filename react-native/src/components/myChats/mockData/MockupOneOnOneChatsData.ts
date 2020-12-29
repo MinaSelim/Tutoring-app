@@ -1,4 +1,4 @@
-const mockupTutorData = [
+const mockupOneOnOneChatsData = [
   {
     name: 'Mark',
     lastMessage: 'You: this homework is really...',
@@ -37,4 +37,4 @@ const mockupTutorData = [
   },
 ];
 
-export default mockupTutorData;
+export default mockupOneOnOneChatsData;

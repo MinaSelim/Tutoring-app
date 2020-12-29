@@ -1,17 +1,16 @@
 import React from 'react';
 import {List, Layout} from '@ui-kitten/components';
 import styles from './styles/MyChatStyles';
-import MockupTutorData from './mockData/MockupTutorData';
 import ChatItem from './ChatItem';
 
-const Tutors = (): JSX.Element => (
+const ChatTab = (props): JSX.Element => (
   <Layout>
     <List
       style={styles.listContainer}
-      data={MockupTutorData}
+      data={props.source}
       renderItem={ChatItem}
     />
   </Layout>
 );
 
-export default Tutors;
+export default ChatTab;

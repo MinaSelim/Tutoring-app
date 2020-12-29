@@ -1,3 +1,5 @@
+// TODO extract component to use it across pages
+
 import React from 'react';
 import {Icon} from '@ui-kitten/components';
 import styles from './styles/MyChatStyles';

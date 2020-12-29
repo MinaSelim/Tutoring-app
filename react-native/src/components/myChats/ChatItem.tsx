@@ -1,7 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Text, ListItem} from '@ui-kitten/components';
-import PropTypes from 'prop-types';
+import {Text, ListItem, Layout} from '@ui-kitten/components';
 import styles from './styles/ChatItemStyles';
 import ProfilePicture from './ProfilePicture';
 import UnreadHint from './UnreadHint';
@@ -9,11 +7,11 @@ import UnreadHint from './UnreadHint';
 const ChatItem = ({item}): JSX.Element => (
   <ListItem style={styles.listItem}>
     <ProfilePicture />
-    <View style={styles.textSection}>
-      <View style={styles.header}>
+    <Layout style={styles.textSection}>
+      <Layout style={styles.header}>
         <Text>{item.name}</Text>
         <Text style={styles.classNumber}>{item.classNumber}</Text>
-      </View>
+      </Layout>
       <Text
         style={[
           styles.lastMessage,
@@ -21,7 +19,7 @@ const ChatItem = ({item}): JSX.Element => (
         ]}>
         {item.lastMessage}
       </Text>
-    </View>
+    </Layout>
     <UnreadHint newMessage={item.newMessage} />
   </ListItem>
 );

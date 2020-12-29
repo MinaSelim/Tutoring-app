@@ -1,4 +1,4 @@
-const MockupStudyGroupData = [
+const MockupStudyGroupChatsData = [
   {
     name: 'midterm-study-group',
     lastMessage: 'Brandon: this homework is really...',
@@ -37,4 +37,4 @@ const MockupStudyGroupData = [
   },
 ];
 
-export default MockupStudyGroupData;
+export default MockupStudyGroupChatsData;

@@ -7,7 +7,7 @@ import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignU
 import SignIn from './src/components/signIn/SignIn';
 import HomeUI from './src/components/home/Home';
 import SideBar from './src/components/sideBar/SideBar';
-import MyChats from './src/components/myChats/MyChats';
+import MyChats from './src/components/myChats';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
 import ChatUI from './src/components/ChatUI/ChatUI';
