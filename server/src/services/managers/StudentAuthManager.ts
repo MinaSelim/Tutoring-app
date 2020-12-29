@@ -1,7 +1,6 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import IStudent from '../../models/IStudent';
-// import Database from '../../database/database';
 import studentDatabaseFunctions from '../../database/studentDatabaseFunctions';
 
 /**
@@ -9,7 +8,6 @@ import studentDatabaseFunctions from '../../database/studentDatabaseFunctions';
  */
 export default class StudentAuthManager {
    private firebase_auth: firebase.auth.Auth;
-   // private database: Database;
    private database: studentDatabaseFunctions;
 
    /**
@@ -17,7 +15,6 @@ export default class StudentAuthManager {
     */
    constructor(firebase_auth = FirebaseAuth.getInstance()) {
       this.firebase_auth = firebase_auth;
-      // this.database = new Database();
       this.database = new studentDatabaseFunctions();
    }
 

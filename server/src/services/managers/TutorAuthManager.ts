@@ -15,7 +15,6 @@ export default class TutorAuthManager {
     */
    constructor(firebase_auth = FirebaseAuth.getInstance()) {
       this.firebase_auth = firebase_auth;
-      // this.database = new Database();
       this.tutorDatabaseFunctions = new tutorDatabaseFunctions();
    }
 
