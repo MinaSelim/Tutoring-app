@@ -35,6 +35,7 @@ export class TutorAuthRoutes implements IRouteComponent {
             req.session.firebase_uid = user.firebase_uid;
             req.session.isLoggedIn = true;
             req.session.isLoggedInAsTutor = true;
+            res.status(200);
             res.send(user);
          } catch (error) {
             res.status(500);
