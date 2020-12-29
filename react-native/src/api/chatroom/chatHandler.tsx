@@ -11,7 +11,6 @@ export default class chatHandler {
    * @param chatroomIds is the group of rooms that the active user is a part ofS
    */
   public static displayUserChatrooms = async (
-    currentUserToken: string,
     chatType: string,
     chatroomIds: Array<string>,
   ): Promise<Chatroom[]> => {
@@ -61,7 +60,7 @@ export default class chatHandler {
     participantsToken: Array<string>,
     chatroomID: string,
   ): void => {
-    const convo = firebase
+    const convo: firebase.firestore.DocumentReference<firebase.firestore.DocumentData> = firebase
       .firestore()
       .collection(constants.chatroomCollection)
       .doc(chatroomID);
@@ -124,7 +123,7 @@ export default class chatHandler {
     chatroomID: string,
   ): Promise<Message[]> => {
     const chatMessages = [];
-    const convo = firebase
+    const convo: firebase.firestore.CollectionReference<firebase.firestore.DocumentData> = firebase
       .firestore()
       .collection(constants.chatroomCollection)
       .doc(chatroomID)

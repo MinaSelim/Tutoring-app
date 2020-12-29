@@ -54,7 +54,7 @@ export default class chatHelper {
     chatType: string,
   ): void => {
     if (chatRef === undefined || Object.keys(chatRef).length < 1) {
-      const viewedChat = {};
+      const viewedChat: Array<string> = [];
       participantsToken.forEach((userID) => {
         viewedChat[userID] = 'false';
       });
