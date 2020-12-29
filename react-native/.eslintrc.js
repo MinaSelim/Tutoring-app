@@ -8,7 +8,6 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    'react/jsx-curly-newline': 'off',
     '@typescript-eslint/explicit-function-return-type': 'warn',
     'react/jsx-props-no-spreading': 'warn',
     'no-unused-expressions': ['error', {allowTernary: true}],
