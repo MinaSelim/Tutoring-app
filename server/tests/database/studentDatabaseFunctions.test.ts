@@ -320,7 +320,8 @@ describe('Student Database Functions Test', () => {
 
       sandbox.stub(dynamo, 'getItem').returns(output);
       const spy = sandbox.spy(dbUtils, 'getItem');
-      return studentdb.getStudentByFirebaseId(student.firebase_uid).then((res) => {
+      return studentdb.getUserByFirebaseId(student.firebase_uid).then((resAsUser) => {
+         const res: IStudent = resAsUser as IStudent;
          assert(spy.calledOnce);
          assert(spy.calledWith(params));
          assert.equal(res.email, student.email);
@@ -355,7 +356,7 @@ describe('Student Database Functions Test', () => {
       const spy = sandbox.spy(dbUtils, 'getItem');
 
       return studentdb
-         .getStudentByFirebaseId('1')
+         .getUserByFirebaseId('1')
          .then(() => {
             assert.fail('should not get user');
          })

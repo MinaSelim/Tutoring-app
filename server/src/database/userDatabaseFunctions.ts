@@ -1,4 +1,4 @@
-import { PutItemInput, PutItemOutput } from 'aws-sdk/clients/dynamodb';
+import { GetItemInput, GetItemOutput, PutItemInput, PutItemOutput } from 'aws-sdk/clients/dynamodb';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from '../database/databaseUtils';
 import IUser from '../models/IUser';
@@ -77,4 +77,37 @@ export default abstract class UserDatabaseFunctions {
         params = this.addSpecificUserParams(tempUser, params);
         return this.databaseUtils.putItem(params);
     }
+
+
+    public getUserByFirebaseId = async (id: string): Promise<IUser> => {
+        const params: GetItemInput = {
+            Key: {
+               firebase_uid: {
+                  S: id,
+               },
+            },
+            TableName: config.tableNames.USER,
+         };
+         const data: GetItemOutput = await this.databaseUtils.getItem(params);
+
+         let user: IUser = this.createGenericUser(data);
+         user = this.addSpecificUserProperties(user, data);
+         return user;
+
+    }
+
+    private createGenericUser = (data: GetItemOutput): IUser => {
+        return {
+            email: data.Item.email.S,
+            is_validated: data.Item.is_validated.BOOL,
+            firebase_uid: data.Item.firebase_uid.S,
+            stripe_customer_id: data.Item.stripe_customer_id.S,
+            first_name: data.Item.first_name.S,
+            last_name: data.Item.last_name.S,
+            profileImage: data.Item.profileImage.S,
+            phone: data.Item.phone.S,
+        };
+    }
+
+    protected abstract addSpecificUserProperties(user: IUser, data: GetItemOutput): IUser;
 }

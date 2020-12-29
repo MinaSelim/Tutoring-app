@@ -4,6 +4,7 @@ import DatabaseConfig from '../../src/config/DatabaseConfig';
 import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
 import Dynamo from '../../src/database/dynamo';
 import IStudent from '../../src/models/IStudent';
+import IUser from '../../src/models/IUser';
 /**
  * Run this code to make sure you have a properly working local database before
  * testing any other online code. It will create the USER table if it doesn't already
@@ -68,9 +69,10 @@ describe('Local dynamo test', () => {
          })
          .then((data: PutItemOutput) => {
             console.log(data);
-            return studentdb.getStudentByFirebaseId('string');
+            return studentdb.getUserByFirebaseId('string');
          })
-         .then((res: IStudent) => {
+         .then((resAsUser: IUser) => {
+            const res = resAsUser as IStudent;
             assert.equal(res.email, student.email);
             assert.equal(res.is_validated, student.is_validated);
             assert.equal(res.firebase_uid, student.firebase_uid);
