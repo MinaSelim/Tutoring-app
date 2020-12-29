@@ -32,7 +32,7 @@ export default class StudentAuthManager {
     */
    public loginStudent = async (token: string): Promise<IStudent> => {
       const decodedToken = await this.firebase_auth.verifyIdToken(token);
-      const student: IStudent = await this.database.getUserByFirebaseId(decodedToken.uid) as IStudent;
+      const student: IStudent = (await this.database.getUserByFirebaseId(decodedToken.uid)) as IStudent;
       return student;
    };
 }
