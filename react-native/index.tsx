@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-native/no-inline-styles */
-import {AppRegistry} from 'react-native';
+import {AppRegistry, View, Text} from 'react-native';
 import React from 'react';
 import {Component} from 'react';
 import 'react-native-gesture-handler';
@@ -22,7 +22,7 @@ class App extends Component {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
           {...eva}
-          customMapping={{...eva.mapping, mapping}}
+          customMapping={mapping}
           theme={{...eva.light, ...theme}}>
           <RouteStack />
         </ApplicationProvider>

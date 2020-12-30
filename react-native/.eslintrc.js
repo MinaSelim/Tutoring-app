@@ -8,7 +8,8 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': ['error'],
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    'react/jsx-props-no-spreading': 'warn',
     'no-unused-expressions': ['error', {allowTernary: true}],
     'react/jsx-closing-bracket-location': 'off',
     'react/prop-types': ['error', {ignore: ['navigation']}],

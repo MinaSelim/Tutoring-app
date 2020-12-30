@@ -1,16 +1,107 @@
 {
+  "strict": {
+    "border-radius": 12
+  },
   "components": {
     "Button": {
       "meta": {},
       "appearances": {
         "filled": {
-          "mapping": {},
           "variantGroups": {
             "size": {
+              "small": {
+                "paddingHorizontal": 4,
+                "paddingVertical": 4,
+                "textMarginHorizontal": 8,
+                "textFontSize": 16,
+                "textFontWeight": "500"
+              },
               "large": {
                 "borderRadius": 12
               }
             }
+          }
+        }
+      }
+    },
+    "Input": {
+      "meta": {
+        "variantGroups": {
+          "status": {
+            "ghost": {
+              "default": false
+            }
+          }
+        }
+      },
+      "appearances": {
+        "default": {
+          "variantGroups": {
+            "status": {
+              "ghost": {
+                "borderColor": "transparent",
+                "backgroundColor": "transparent",
+                "state": {
+                  "focused": {
+                    "borderColor": "transparent",
+                    "backgroundColor": "transparent",
+                    "iconTintColor": "text-primary-color"
+                  },
+                  "hover": {
+                    "borderColor": "transparent",
+                    "backgroundColor": "transparent"
+                  },
+                  "disabled": {
+                    "borderColor": "transparent",
+                    "backgroundColor": "transparent",
+                    "textColor": "text-disabled-color",
+                    "labelColor": "text-disabled-color",
+                    "captionColor": "text-disabled-color",
+                    "placeholderColor": "text-disabled-color",
+                    "iconTintColor": "text-disabled-color",
+                    "captionIconTintColor": "text-disabled-color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Divider": {
+      "meta": {
+        "variantGroups": {
+          "strength": {
+            "medium": {
+              "default": false
+            },
+            "dark": {
+              "default": false
+            }
+          }
+        }
+      },
+      "appearances": {
+        "default": {
+          "variantGroups": {
+            "strength": {
+              "medium": {
+                "backgroundColor": "color-basic-400"
+              },
+              "dark": {
+                "backgroundColor": "color-basic-500"
+              }
+            }
+          }
+        }
+      }
+    },
+    "TopNavigation": {
+      "meta": {},
+      "appearances": {
+        "default": {
+          "mapping": {
+            "minHeight": 66
           }
         }
       }
