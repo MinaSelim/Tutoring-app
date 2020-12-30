@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 export default interface IUser {
-  id: string;
-  isConnected: boolean;
+  id?: string;
+  isConnected?: boolean;
   authToken?: string;
   first_name: string;
   last_name: string;

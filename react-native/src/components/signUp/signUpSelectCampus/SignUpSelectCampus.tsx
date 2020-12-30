@@ -82,6 +82,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
       const auth: IAuth = new StudentAuth();
       try {
         const user = await auth.signInWithEmailAndPassword({email, password});
+        // TODO Set the authenticated user
       } catch (error) {
         Alert.alert(`${error}`);
         return;
