@@ -1,7 +1,13 @@
 /* eslint-disable camelcase */
 export default interface IUser {
+  id: string;
+  isConnected: boolean;
+  authToken?: string;
   first_name: string;
   last_name: string;
+  fullName?: string; // Optional for now, may need to be manadatory depending on futur use
+  profileImageUrl?: string;
+  unseenMessagesCount?: number;
   email: string;
   phone?: string;
   avatar?: string;

@@ -5,6 +5,13 @@ import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
+import StudentAuth from '../../api/authentication/StudentAuth';
+import TutorAuth from '../../api/authentication/TutorAuth';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import ISignInPage from '../../model/signInSignUp/ISignInPage';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import IUser from '../../model/common/IUser';
+import {persistAuthUser} from '../../utils/localstorage/localstorage';
 
 import {Text} from '@ui-kitten/components';
 
@@ -43,6 +50,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         password,
       });
       navigation.navigate('HomeUI');
+      persistAuthUser(user);
     } catch (error) {
       Alert.alert(`${error}`);
     }
