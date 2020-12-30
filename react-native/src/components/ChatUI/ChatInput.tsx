@@ -1,4 +1,5 @@
 import React from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import {Button, Icon, Layout, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
 
@@ -9,7 +10,8 @@ const sendMessage = (): void => {};
 
 const ChatInput = (): JSX.Element => {
   return (
-    <Layout>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Divider strength="medium" />
       <Input
         status="ghost"
@@ -24,7 +26,7 @@ const ChatInput = (): JSX.Element => {
         accessoryRight={PaperPlaneIcon}
         onPress={sendMessage}
       />
-    </Layout>
+    </KeyboardAvoidingView>
   );
 };
 export default ChatInput;
