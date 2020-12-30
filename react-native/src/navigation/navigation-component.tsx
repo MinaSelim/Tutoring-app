@@ -4,7 +4,7 @@ import ChatUI from '../components/ChatUI/ChatUI';
 
 const {Navigator, Screen} = createStackNavigator();
 
-export const HomeNavigator = () => (
+export const HomeNavigator = (): JSX.Element => (
   <Navigator headerMode="none">
     <Screen name="ChatUI" component={ChatUI} />
   </Navigator>

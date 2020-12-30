@@ -15,7 +15,7 @@ import ChatUI from './src/components/ChatUI/ChatUI';
 const Stack = createStackNavigator();
 
 class RouteStack extends Component {
-  render(): JSX.Element {
+  render(): React.ReactNode {
     return (
       <NavigationContainer>
         <Stack.Navigator

@@ -15,13 +15,13 @@ const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
 
 const renderRightActions = (): JSX.Element => (
   <>
-    <Button size="small" style={chatStyles.bookButton}>
-      {(evaProps) => (
+    {/* <Button size="small" style={chatStyles.bookButton}>
+      {(evaProps): void => (
         <Text style={chatStyles.bookButtonText} {...evaProps}>
           Book
         </Text>
       )}
-    </Button>
+    </Button> */}
   </>
 );
 
