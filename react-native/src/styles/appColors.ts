@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 export const colors = {
   appBeige: '#FCEED9',
   appBlack: 'black',

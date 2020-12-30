@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
   Button,
@@ -14,15 +13,13 @@ import chatStyles from './styles/chatStyles';
 const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
 
 const renderRightActions = (): JSX.Element => (
-  <>
-    <Button size="small" style={chatStyles.bookButton}>
-      {(evaProps) => (
-        <Text style={chatStyles.bookButtonText} {...evaProps}>
-          Book
-        </Text>
-      )}
-    </Button>
-  </>
+  <Button size="small" style={chatStyles.bookButton}>
+    {(evaProps): JSX.Element => (
+      <Text style={chatStyles.bookButtonText} {...evaProps}>
+        Book
+      </Text>
+    )}
+  </Button>
 );
 
 const renderTitle = (): JSX.Element => (

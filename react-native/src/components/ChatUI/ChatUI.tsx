@@ -24,7 +24,7 @@ const ChatUI = (): JSX.Element => {
       <ChatHeader />
 
       <FlatList<IMessage>
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item): string => item.id}
         renderItem={renderMessage}
         data={DATA}
         inverted
