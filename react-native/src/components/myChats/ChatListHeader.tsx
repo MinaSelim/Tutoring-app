@@ -1,17 +1,12 @@
 import React from 'react';
-import {Layout, Text, Button} from '@ui-kitten/components';
+import {Layout, Text} from '@ui-kitten/components';
 import BackButton from './BackButton';
 import styles from './styles/MyChatStyles';
-import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
-const ChatListHeader: React.FC<NavigationInjectedPropsConfigured> = (props) => {
+const ChatListHeader = (props): JSX.Element => {
   return (
     <Layout style={styles.ChatListHeader}>
-      <Button
-        appearance="ghost"
-        onPress={(): boolean => props.navigation.goBack()}
-        accessoryLeft={BackButton}
-      />
+      <BackButton {...props} />
       <Text style={styles.title}>My Chats</Text>
       <Text style={styles.placeholder}>Placeholder</Text>
     </Layout>

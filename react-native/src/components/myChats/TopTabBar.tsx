@@ -5,8 +5,8 @@ const TopTabBar = ({navigation, state}): JSX.Element => (
   <TabBar
     selectedIndex={state.index}
     onSelect={(index): boolean => navigation.navigate(state.routeNames[index])}>
-    <Tab title="Tutors" />
-    <Tab title="Study Groups" />
+    <Tab title="One-On-One" />
+    <Tab title="Group Chats" />
   </TabBar>
 );
 
