@@ -15,7 +15,6 @@ import theme from './custom-theme.json'; // <-- Import app theme
 import RouteStack from './routeStack';
 import {getPersistedAuthUser} from './src/utils/localstorage/localstorage';
 import 'react-native-gesture-handler';
-// Model Imports
 import IUser from './src/model/common/IUser';
 
 class App extends Component {
@@ -28,7 +27,6 @@ const App: React.FunctionComponent = () => {
   const [authUser, setAuthUser] = useState<IUser | null>(
     getPersistedAuthUser(),
   );
-  // TODO remove redux provider
       <AppAuthContext.Provider value={{authUser, setAuthUser}}>
   return (
         <IconRegistry icons={EvaIconsPack} />
@@ -44,3 +42,7 @@ const App: React.FunctionComponent = () => {
 };
 
 AppRegistry.registerComponent('GoStudy', () => App);
+// 1. Clear watchman watches: watchman watch-del-all
+//  2. Delete node_modules: rm -rf node_modules and run yarn install
+//  3. Reset Metro's cache: yarn start --reset-cache
+//  4. Remove the cache: rm -rf /tmp/metro-*]

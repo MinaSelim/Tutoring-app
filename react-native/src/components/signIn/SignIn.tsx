@@ -11,7 +11,6 @@ import INavigation from '../../model/navigation/NavigationInjectedPropsConfigure
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import IUser from '../../model/common/IUser';
-import {persistAuthUser} from '../../utils/localstorage/localstorage';
 
 import {Text} from '@ui-kitten/components';
 
