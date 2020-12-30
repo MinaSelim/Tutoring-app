@@ -102,14 +102,9 @@ export default class ChatConfiguration extends Component<any, any> {
           style={styles.button}
           // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
           onPress={() => {
-            console.log(
-              'Result final: ',
-              directChatroom.displayUserChatrooms(
-                this.state.currentUser,
-                'group',
-                ['oOi8cPpnQ7J9ZrKZU36F'],
-              ),
-            );
+            directChatroom.displayUserChatrooms('group', [
+              'oOi8cPpnQ7J9ZrKZU36F',
+            ]);
           }}>
           <Text style={styles.buttonText}>Display chat rooms in console</Text>
         </TouchableOpacity>
