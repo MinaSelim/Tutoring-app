@@ -5,6 +5,6 @@ export default interface IChat {
   roomName: string;
   associatedClass: string;
   chatType: string;
-  viewedChat: Array<string>; 
-  latestMessage: Array<string>; 
+  viewedChat: object; // TODO temporary
+  latestMessage: object; // TODO temporary
 }

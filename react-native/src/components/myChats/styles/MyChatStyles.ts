@@ -11,12 +11,11 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     position: 'absolute',
-    bottom: 10,
+    bottom: 1,
   },
   listContainer: {
     backgroundColor: 'white',
     height: '100%',
-    top: 20,
   },
   unreadHint: {
     height: 14,
