@@ -3,12 +3,15 @@ import firebase from '../authentication/Fire';
 import constants from './chatConstants';
 
 export default class chatHelper {
+  // eslint-disable-next-line no-empty-function
+  constructor() {}
+
   /**
    * Gets the chatroom data related to two specific users
    * @param currentUser The firebase UID of the current logged in user
    * @param otherUser The firebase UID of the user they want to chat with
    */
-  public static getOneOnOneChat = async (
+  public getOneOnOneChat = async (
     currentUser: String,
     otherUser: String,
   ): Promise<firebase.firestore.DocumentData> => {
@@ -43,7 +46,7 @@ export default class chatHelper {
    * @param roomName The name of the chatroom
    * @param chatType Either group or null, defines the type of chatroom type
    */
-  public static generateChat = (
+  public generateChat = (
     chatRef: firebase.firestore.QueryDocumentSnapshot<
       firebase.firestore.DocumentData
     >[],
@@ -84,5 +87,18 @@ export default class chatHelper {
     } else {
       Alert.alert('There is already a chat between the provided users');
     }
+  };
+
+  /**
+   * Changes the current user's viewed message status to true
+   * @param chatroomID The unique chatroom identifier
+   * @param currentUserToken The firebase UID of the current logged in user
+   */
+  public viewedChat = (chatroomID: string, currentUserToken: string): void => {
+    firebase
+      .firestore()
+      .collection(constants.chatroomCollection)
+      .doc(chatroomID)
+      .update({[`viewedChat.${currentUserToken}`]: 'true'});
   };
 }

@@ -2,15 +2,16 @@ import constants from './chatConstants';
 import firebase from '../authentication/Fire';
 import Chatroom from './components/Chat';
 import Message from './components/Message';
+import chatHelper from './chatHelper';
 
-export default class chatHandler {
+export default class genericChatroom {
   /**
    * Displays the chatroom information that the current logged in user is a participant of
    * @param currentUserToken The firebase UID of the current logged in user
    * @param chatType is the type of chatrooms that is being requested
    * @param chatroomIds is the group of rooms that the active user is a part ofS
    */
-  public static displayUserChatrooms = async (
+  public displayUserChatrooms = async (
     chatType: string,
     chatroomIds: Array<string>,
   ): Promise<Chatroom[]> => {
@@ -55,7 +56,7 @@ export default class chatHandler {
    * @param participantsToken An array of users firebase UID's
    * @param chatroomID The unique chatroom identifier
    */
-  public static deleteChatroom = (
+  public deleteChatroom = (
     currentUserToken: string,
     participantsToken: Array<string>,
     chatroomID: string,
@@ -85,7 +86,7 @@ export default class chatHandler {
    * @param chatroomID The unique chatroom identifier
    * @param message the message to be sent
    */
-  public static sendMessage = (
+  public sendMessage = (
     currentUserToken: string,
     chatroomID: string,
     message: string,
@@ -118,11 +119,16 @@ export default class chatHandler {
   /**
    * Get all of the messages for a specefic chat
    * @param chatroomID The unique chatroom identifier who messages will be displayed
+   * @param currentUserToken The firebase UID of the current logged in user
    */
   public static getAllMessages = async (
     chatroomID: string,
+    currentUserToken: string,
   ): Promise<Message[]> => {
     const chatMessages = [];
+    // eslint-disable-next-line new-cap
+    const chatroomHelper = new chatHelper();
+    chatroomHelper.viewedChat(chatroomID, currentUserToken);
     const convo: firebase.firestore.CollectionReference<firebase.firestore.DocumentData> = firebase
       .firestore()
       .collection(constants.chatroomCollection)
@@ -148,21 +154,5 @@ export default class chatHandler {
       messages.push(message);
     });
     return messages;
-  };
-
-  /**
-   * Changes the current user's viewed message status to true
-   * @param chatroomID The unique chatroom identifier
-   * @param currentUserToken The firebase UID of the current logged in user
-   */
-  public static viewedChat = (
-    chatroomID: string,
-    currentUserToken: string,
-  ): void => {
-    firebase
-      .firestore()
-      .collection(constants.chatroomCollection)
-      .doc(chatroomID)
-      .update({[`viewedChat.${currentUserToken}`]: 'true'});
   };
 }

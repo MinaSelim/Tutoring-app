@@ -1,8 +1,8 @@
-import chatHandler from './chatHandler';
+import genericChatroom from './genericChatroom';
 import chatHelper from './chatHelper';
 import constants from './chatConstants';
 
-export default class groupChatroom extends chatHandler {
+export default class groupChatroom extends genericChatroom {
   /**
    * Creates a groupchat with multiple users (more than 2)
    * @param currentUserToken The firebase UID of the current logged in user
@@ -15,7 +15,9 @@ export default class groupChatroom extends chatHandler {
     roomName: string,
     associatedClass: string,
   ): void => {
-    chatHelper.generateChat(
+    // eslint-disable-next-line new-cap
+    const chatroomHelper: chatHelper = new chatHelper();
+    chatroomHelper.generateChat(
       undefined,
       currentUserToken,
       participantsToken,
