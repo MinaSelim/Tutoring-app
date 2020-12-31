@@ -5,16 +5,17 @@ import styles from './styles/ChatItemStyles';
 import ProfilePicture from './ProfilePicture';
 import UnreadHint from './UnreadHint';
 
-const ChatItem: React.FC<IChatItem> = ({item: chat}): JSX.Element => (
+const ChatItem: React.FC<IChatItem> = (props): JSX.Element => (
   <ListItem
     style={styles.listItem}
-    // add onPress={(): boolean => props.navigation.navigate('ChatUI', {chatID: chat.id})}
-  >
+    onPress={(): boolean =>
+      props.navigation.navigate('ChatUI', {chatID: props.item.id})
+    }>
     <ProfilePicture />
     <Layout style={styles.textSection}>
       <Layout style={styles.header}>
-        <Text>{chat.roomName}</Text>
-        <Text style={styles.classNumber}>{chat.associatedClass}</Text>
+        <Text>{props.item.roomName}</Text>
+        <Text style={styles.classNumber}>{props.item.associatedClass}</Text>
       </Layout>
       <Text
         style={[
@@ -24,7 +25,7 @@ const ChatItem: React.FC<IChatItem> = ({item: chat}): JSX.Element => (
         ]}>
         {
           /* eslint-disable-next-line */
-          chat.latestMessage['content']
+          props.item.latestMessage['content']
         }
       </Text>
     </Layout>

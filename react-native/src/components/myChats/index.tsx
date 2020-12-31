@@ -12,7 +12,11 @@ const MyChats = (props): JSX.Element => {
         navigate={props.navigate}
         goBack={props.goBack}
       />
-      <ChatMenu />
+      <ChatMenu
+        navigation={props.navigation}
+        navigate={props.navigate}
+        goBack={props.goBack}
+      />
       <Text style={styles.footer}> go.study </Text>
     </Layout>
   );

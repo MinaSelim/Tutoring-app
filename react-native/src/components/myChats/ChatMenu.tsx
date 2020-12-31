@@ -7,18 +7,35 @@ import TopTabBar from './TopTabBar';
 import ChatTab from './ChatTab';
 import MockupStudyGroupChatsData from './mockData/MockUpStudyGroupChatsData';
 import MockupOneOnOneChatsData from './mockData/MockupOneOnOneChatsData';
+import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
-const ChatMenu = (): JSX.Element => (
+const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = (
+  props,
+): JSX.Element => (
   <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
     <Screen
       name="One-on-one"
-      children={() => <ChatTab source={MockupOneOnOneChatsData} />}
+      children={() => (
+        <ChatTab
+          navigation={props.navigation}
+          navigate={props.navigate}
+          goBack={props.goBack}
+          source={MockupOneOnOneChatsData}
+        />
+      )}
     />
     <Screen
       name="Group chats"
-      children={() => <ChatTab source={MockupStudyGroupChatsData} />}
+      children={() => (
+        <ChatTab
+          navigation={props.navigation}
+          navigate={props.navigate}
+          goBack={props.goBack}
+          source={MockupStudyGroupChatsData}
+        />
+      )}
     />
   </Navigator>
 );

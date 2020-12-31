@@ -9,7 +9,14 @@ const ChatTab: React.FC<IChatTab> = (props): JSX.Element => (
     <List
       style={styles.listContainer}
       data={props.source}
-      renderItem={ChatItem}
+      renderItem={(item): JSX.Element => (
+        <ChatItem
+          {...item}
+          navigation={props.navigation}
+          navigate={props.navigate}
+          goBack={props.goBack}
+        />
+      )}
     />
   </Layout>
 );

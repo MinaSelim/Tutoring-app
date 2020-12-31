@@ -22,7 +22,7 @@ export default class StudentAuth implements IAuth {
    */
   public signInWithEmailAndPassword = async (
     loginInfo: IUserLogin,
-  ): Promise<IStudent> => {
+  ): Promise<IUser> => {
     await this.firebaseAuth.signInWithEmailAndPassword(
       loginInfo.email,
       loginInfo.password,
