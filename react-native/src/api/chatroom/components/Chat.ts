@@ -1,11 +1,12 @@
 import IChat from './IChat';
+import Message from './IMessage';
 
 export default class Chat implements IChat {
   id: string;
 
   participants: string[];
 
-  createdAt: Date;
+  createdAt: number;
 
   roomName: string;
 
@@ -13,7 +14,7 @@ export default class Chat implements IChat {
 
   chatType: string;
 
-  viewedChat: string[];
+  viewedChat: Object;
 
   latestMessage: string[];
 

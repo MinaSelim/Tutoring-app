@@ -12,7 +12,7 @@ export default class chatHelper {
    * @param otherUser The firebase UID of the user they want to chat with
    */
   public getOneOnOneChat = async (
-    currentUser: String,
+    currentUser: string,
     otherUser: String,
   ): Promise<firebase.firestore.DocumentData> => {
     const chatRef: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
@@ -42,7 +42,7 @@ export default class chatHelper {
    * If a one on one chat already exists between the same two users, do not create a new chatroom
    * @param chatRef Specific chatroom reference
    * @param currentUserToken The firebase UID of the current logged in user
-   * @param otherUsersTokens An array of users firebase UID's
+   * @param participantsTokens An array of users firebase UID's for a given chat room
    * @param roomName The name of the chatroom
    * @param chatType Either group or null, defines the type of chatroom type
    */
@@ -51,15 +51,21 @@ export default class chatHelper {
       firebase.firestore.DocumentData
     >[],
     currentUserToken: string,
-    participantsToken: Array<string>,
+    participantsTokens: Array<string>,
     roomName: string,
     associatedClass: string,
     chatType: string,
-  ): void => {
+  ): number => {
     if (chatRef === undefined || Object.keys(chatRef).length < 1) {
-      const viewedChat: Array<string> = [];
-      participantsToken.forEach((userID) => {
-        viewedChat[userID] = 'false';
+      const viewedChat: Object = {};
+      const viewedMsg: boolean = true;
+      const notViewedMsg: boolean = false;
+      participantsTokens.forEach((userId) => {
+        if (userId === currentUserToken) {
+          viewedChat[userId] = viewedMsg;
+        } else {
+          viewedChat[userId] = notViewedMsg;
+        }
       });
 
       firebase
@@ -69,12 +75,13 @@ export default class chatHelper {
           name: roomName,
           createdAt: new Date().getTime(),
           associatedClass,
-          participants: participantsToken,
+          participants: participantsTokens,
           viewedChat,
           chatType,
           latestMessage: {
             content: `You have joined the room ${roomName}.`,
-            createdAt: new Date().getTime(),
+            sender: currentUserToken,
+            createdAt: new Date().getTime().toString(),
           },
         })
         .then((docRef) => {
@@ -84,9 +91,10 @@ export default class chatHelper {
             sender: currentUserToken,
           });
         });
-    } else {
-      Alert.alert('There is already a chat between the provided users');
+      return constants.successfulResult;
     }
+    Alert.alert('There is already a chat between the provided users');
+    return constants.errorCodeChatAlreadyCreated;
   };
 
   /**
@@ -95,10 +103,11 @@ export default class chatHelper {
    * @param currentUserToken The firebase UID of the current logged in user
    */
   public viewedChat = (chatroomID: string, currentUserToken: string): void => {
+    const viewedMsg: boolean = true;
     firebase
       .firestore()
       .collection(constants.chatroomCollection)
       .doc(chatroomID)
-      .update({[`viewedChat.${currentUserToken}`]: 'true'});
+      .update({[`viewedChat.${currentUserToken}`]: viewedMsg});
   };
 }

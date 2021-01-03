@@ -1,37 +1,40 @@
-import genericChatroom from './genericChatroom';
+import GenericChat from './GenericChat';
 import chatHelper from './chatHelper';
 import constants from './chatConstants';
 
-export default class directChatroom extends genericChatroom {
+export default class DirectMessageChat extends GenericChat {
   /**
    * Creates a groupchat with multiple users (more than 2)
    * @param currentUserToken The firebase UID of the current logged in user
-   * @param participantsToken An array of users firebase UID's
+   * @param participantsTokens An array of users firebase UID's
    * @param roomName The name of the chatroom
    */
   public createChatroom = (
     currentUserToken: string,
-    participantsToken: string,
+    participantsTokens: string,
     roomName: string,
-  ): void => {
+  ): number => {
     // eslint-disable-next-line new-cap
     const chatroomHelper: chatHelper = new chatHelper();
+    let creationResult: number = constants.errorValueNotSet;
     chatroomHelper
-      .getOneOnOneChat(currentUserToken, participantsToken)
+      .getOneOnOneChat(currentUserToken, participantsTokens)
       .then(
         (
           res: firebase.firestore.QueryDocumentSnapshot<
             firebase.firestore.DocumentData
           >[],
-        ) =>
-          chatroomHelper.generateChat(
+        ) => {
+          creationResult = chatroomHelper.generateChat(
             res,
             currentUserToken,
-            [currentUserToken, participantsToken],
+            [currentUserToken, participantsTokens],
             roomName,
             null,
             constants.directChatString,
-          ),
+          );
+        },
       );
+    return creationResult;
   };
 }

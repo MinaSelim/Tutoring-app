@@ -4,10 +4,9 @@ import Chatroom from './components/Chat';
 import Message from './components/Message';
 import chatHelper from './chatHelper';
 
-export default class genericChatroom {
+export default class GenericChat {
   /**
    * Displays the chatroom information that the current logged in user is a participant of
-   * @param currentUserToken The firebase UID of the current logged in user
    * @param chatType is the type of chatrooms that is being requested
    * @param chatroomIds is the group of rooms that the active user is a part ofS
    */
@@ -110,7 +109,8 @@ export default class genericChatroom {
         .update({
           latestMessage: {
             content: message,
-            createdAt: new Date().getTime(),
+            sender: currentUserToken,
+            createdAt: new Date().getTime().toString(),
           },
         });
     }
@@ -121,7 +121,7 @@ export default class genericChatroom {
    * @param chatroomID The unique chatroom identifier who messages will be displayed
    * @param currentUserToken The firebase UID of the current logged in user
    */
-  public static getAllMessages = async (
+  public getAllMessages = async (
     chatroomID: string,
     currentUserToken: string,
   ): Promise<Message[]> => {
