@@ -1,8 +1,8 @@
 import React from 'react';
 import {Layout, Text} from '@ui-kitten/components';
-import styles from './styles/MyChatStyles';
-import ChatListHeader from './ChatListHeader';
-import ChatMenu from './ChatMenu';
+import styles from '../../components/myChats/styles/MyChatStyles';
+import ChatListHeader from '../../components/myChats/ChatListHeader';
+import ChatMenu from '../../components/myChats/ChatMenu';
 
 const MyChats = (props): JSX.Element => {
   return (

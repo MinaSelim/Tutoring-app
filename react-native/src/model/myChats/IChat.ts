@@ -1,10 +1,10 @@
 export default interface IChat {
   id: string;
   participants: Array<string>;
-  createdAt: Date;
+  createdAt: number;
   roomName: string;
   associatedClass: string;
   chatType: string;
-  viewedChat: object; // TODO temporary
-  latestMessage: object; // TODO temporary
+  viewedChat: Array<string>;
+  latestMessage: Array<string>;
 }
