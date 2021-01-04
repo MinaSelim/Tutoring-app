@@ -1,9 +1,10 @@
 import {PutItemOutput} from 'aws-sdk/clients/dynamodb';
 import {assert} from 'chai';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
-import Database from '../../src/database/database';
+import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
 import Dynamo from '../../src/database/dynamo';
 import IStudent from '../../src/models/IStudent';
+import IUser from '../../src/models/IUser';
 /**
  * Run this code to make sure you have a properly working local database before
  * testing any other online code. It will create the USER table if it doesn't already
@@ -12,10 +13,10 @@ import IStudent from '../../src/models/IStudent';
 
 // Use this to practice with local instance
 describe('Local dynamo test', () => {
-   let db: Database;
+   let studentdb: studentDatabaseFunctions;
 
    beforeEach(() => {
-      db = new Database();
+      studentdb = new studentDatabaseFunctions();
    });
 
    it.skip('Should initiate all tables in db config file', () => {
@@ -64,13 +65,14 @@ describe('Local dynamo test', () => {
 
       return DatabaseConfig.createTable(params)
          .then(() => {
-            return db.addStudentInUserCollection(student);
+            return studentdb.addUserToDatabase(student);
          })
          .then((data: PutItemOutput) => {
             console.log(data);
-            return db.getStudentByFirebaseId('string');
+            return studentdb.getUserByFirebaseId('string');
          })
-         .then((res: IStudent) => {
+         .then((resAsUser: IUser) => {
+            const res = resAsUser as IStudent;
             assert.equal(res.email, student.email);
             assert.equal(res.is_validated, student.is_validated);
             assert.equal(res.firebase_uid, student.firebase_uid);

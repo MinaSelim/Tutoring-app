@@ -1,21 +1,21 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import IStudent from '../../models/IStudent';
-import Database from '../../database/database';
+import studentDatabaseFunctions from '../../database/studentDatabaseFunctions';
 
 /**
  * The service that manages student authenthication
  */
 export default class StudentAuthManager {
    private firebase_auth: firebase.auth.Auth;
-   private database: Database;
+   private database: studentDatabaseFunctions;
 
    /**
     * @param firebase_auth this parameter should be only passed in testing injections, otherwise, use default
     */
    constructor(firebase_auth = FirebaseAuth.getInstance()) {
       this.firebase_auth = firebase_auth;
-      this.database = new Database();
+      this.database = new studentDatabaseFunctions();
    }
 
    /**
@@ -23,7 +23,7 @@ export default class StudentAuthManager {
     * @param student The student to add to the database
     */
    public registerStudent = async (student: IStudent): Promise<void> => {
-      await this.database.addStudentInUserCollection(student);
+      await this.database.addUserToDatabase(student);
    };
 
    /**
@@ -32,7 +32,7 @@ export default class StudentAuthManager {
     */
    public loginStudent = async (token: string): Promise<IStudent> => {
       const decodedToken = await this.firebase_auth.verifyIdToken(token);
-      const student: IStudent = await this.database.getStudentByFirebaseId(decodedToken.uid);
+      const student: IStudent = (await this.database.getUserByFirebaseId(decodedToken.uid)) as IStudent;
       return student;
    };
 }
