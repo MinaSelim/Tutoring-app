@@ -13,8 +13,6 @@ import INavigation from '../../../model/navigation/NavigationInjectedPropsConfig
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import IAuth from '../../../api/authentication/IAuth';
-import store from '../../store';
-import actions from '../../../utils/Actions';
 
 interface IProps extends INavigation {
   route: any;
@@ -53,16 +51,6 @@ class SignUpUserType extends Component<IProps> {
     const auth: IAuth = new TutorAuth();
     try {
       const user = await auth.signInWithEmailAndPassword({email, password});
-      store.dispatch({
-        type: actions.userInfo,
-        payload: {
-          email: user.email,
-          firstName: user.first_name,
-          lastName: user.last_name,
-          avatar: user.avatar,
-          phone: user.phone,
-        },
-      });
       this.props.navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);
