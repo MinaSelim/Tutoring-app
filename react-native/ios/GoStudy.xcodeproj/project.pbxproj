@@ -17,11 +17,19 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* GoStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GoStudyTests.m */; };
-		443130E421FB6E7F593C1A2B /* libPods-GoStudy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70E3D7CD437DD9C3C5AB727 /* libPods-GoStudy.a */; };
-		5DC4C3D06A97D5D33DA62DFD /* libPods-GoStudy-GoStudyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DCEA64A0FFDC065FAFBA793 /* libPods-GoStudy-GoStudyTests.a */; };
-		5FB27FBE9973BE204A66C838 /* libPods-GoStudy-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A0E08E89B8DF2548E8D22A0 /* libPods-GoStudy-tvOS.a */; };
-		6052407AC3D07C45FC6AD6D9 /* libPods-GoStudy-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3653D0345F8436CF045607EF /* libPods-GoStudy-tvOSTests.a */; };
+		5EE1F7E7DE717E266A947BC9 /* libPods-GoStudy-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB14F359D6557555C071B1C7 /* libPods-GoStudy-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		C3CC400625A3CB7E00CD8F85 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400125A3CB7E00CD8F85 /* Quicksand-Light.ttf */; };
+		C3CC400725A3CB7E00CD8F85 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */; };
+		C3CC400825A3CB7F00CD8F85 /* Quicksand-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */; };
+		C3CC400925A3CB7F00CD8F85 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400425A3CB7E00CD8F85 /* Quicksand-Bold.ttf */; };
+		C3CC400A25A3CB7F00CD8F85 /* Quicksand-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */; };
+		C3CC400B25A3CC4500CD8F85 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400425A3CB7E00CD8F85 /* Quicksand-Bold.ttf */; };
+		C3CC400C25A3CC4500CD8F85 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400125A3CB7E00CD8F85 /* Quicksand-Light.ttf */; };
+		C3CC400D25A3CC4500CD8F85 /* Quicksand-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */; };
+		C3CC400E25A3CC4500CD8F85 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */; };
+		C3CC400F25A3CC4500CD8F85 /* Quicksand-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */; };
+		C6C7AFE5488FE880355DE77E /* libPods-GoStudy-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D42D7268AC322796066C3507 /* libPods-GoStudy-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,12 +66,18 @@
 		2D02E4901E0B4A5D006451C7 /* GoStudy-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GoStudy-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		425C2CAC454FA29B2431A32F /* Pods-GoStudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy/Pods-GoStudy.debug.xcconfig"; sourceTree = "<group>"; };
 		694BFB8A1ABC53D71ACC2760 /* libPods-GoStudy-GoStudyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy-GoStudyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7034F7ECD2E1E3B960C854C1 /* Pods-GoStudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy.release.xcconfig"; path = "Target Support Files/Pods-GoStudy/Pods-GoStudy.release.xcconfig"; sourceTree = "<group>"; };
 		757CFF1BD9320A814D47EF55 /* Pods-GoStudy-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOS.release.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOS/Pods-GoStudy-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7ACB7B05A53F81C03C553039 /* Pods-GoStudy-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOSTests/Pods-GoStudy-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GoStudy/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		968A57F648D153BA3F93C47E /* Pods-GoStudy-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOS/Pods-GoStudy-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AC38F71B89AC81DC2C2B96C9 /* libPods-GoStudy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3FEB89D946BB105B0497AA /* Pods-GoStudy-GoStudyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-GoStudyTests.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy-GoStudyTests/Pods-GoStudy-GoStudyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C3CC400125A3CB7E00CD8F85 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Light.ttf"; path = "../src/assets/fonts/Quicksand-Light.ttf"; sourceTree = "<group>"; };
+		C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "../src/assets/fonts/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
+		C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-SemiBold.ttf"; path = "../src/assets/fonts/Quicksand-SemiBold.ttf"; sourceTree = "<group>"; };
+		C3CC400425A3CB7E00CD8F85 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Bold.ttf"; path = "../src/assets/fonts/Quicksand-Bold.ttf"; sourceTree = "<group>"; };
+		C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Medium.ttf"; path = "../src/assets/fonts/Quicksand-Medium.ttf"; sourceTree = "<group>"; };
 		CB14F359D6557555C071B1C7 /* libPods-GoStudy-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42D7268AC322796066C3507 /* libPods-GoStudy-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -91,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D653FA7012AB91C5EDA964BE /* libPods-GoStudy-tvOS.a in Frameworks */,
+				5EE1F7E7DE717E266A947BC9 /* libPods-GoStudy-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F0C877D85D52E389D59EC3 /* libPods-GoStudy-tvOSTests.a in Frameworks */,
+				C6C7AFE5488FE880355DE77E /* libPods-GoStudy-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,13 +168,13 @@
 			isa = PBXGroup;
 			children = (
 				425C2CAC454FA29B2431A32F /* Pods-GoStudy.debug.xcconfig */,
-				F6F961F044A2BFD4AB38E119 /* Pods-GoStudy.release.xcconfig */,
 				BA3FEB89D946BB105B0497AA /* Pods-GoStudy-GoStudyTests.debug.xcconfig */,
 				23C152DC74DC15596BF5829B /* Pods-GoStudy-GoStudyTests.release.xcconfig */,
 				968A57F648D153BA3F93C47E /* Pods-GoStudy-tvOS.debug.xcconfig */,
 				757CFF1BD9320A814D47EF55 /* Pods-GoStudy-tvOS.release.xcconfig */,
 				7ACB7B05A53F81C03C553039 /* Pods-GoStudy-tvOSTests.debug.xcconfig */,
 				0A9B37A578803B0DF7EC6149 /* Pods-GoStudy-tvOSTests.release.xcconfig */,
+				7034F7ECD2E1E3B960C854C1 /* Pods-GoStudy.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -175,12 +189,16 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C3CC400425A3CB7E00CD8F85 /* Quicksand-Bold.ttf */,
+				C3CC400125A3CB7E00CD8F85 /* Quicksand-Light.ttf */,
+				C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */,
+				C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */,
+				C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */,
 				13B07FAE1A68108700A75B9A /* GoStudy */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* GoStudyTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				E56A91D8CAD6495381364F00 /* Resources */,
 				66BAF1061FD280286BE69F7B /* Pods */,
 			);
 			indentWidth = 2;
@@ -252,7 +270,7 @@
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
-				2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */,
+				2D02E4CB1E0B4B27006451C7 /* [CP] Check Pods Manifest.lock */,
 			);
 			buildRules = (
 			);
@@ -335,6 +353,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3CC400625A3CB7E00CD8F85 /* Quicksand-Light.ttf in Resources */,
+				C3CC400725A3CB7E00CD8F85 /* Quicksand-Regular.ttf in Resources */,
+				C3CC400825A3CB7F00CD8F85 /* Quicksand-SemiBold.ttf in Resources */,
+				C3CC400925A3CB7F00CD8F85 /* Quicksand-Bold.ttf in Resources */,
+				C3CC400A25A3CB7F00CD8F85 /* Quicksand-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,8 +365,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3CC400F25A3CC4500CD8F85 /* Quicksand-SemiBold.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				C3CC400E25A3CC4500CD8F85 /* Quicksand-Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				C3CC400B25A3CC4500CD8F85 /* Quicksand-Bold.ttf in Resources */,
+				C3CC400C25A3CC4500CD8F85 /* Quicksand-Light.ttf in Resources */,
+				C3CC400D25A3CC4500CD8F85 /* Quicksand-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +425,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoStudy/Pods-GoStudy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+		2D02E4CB1E0B4B27006451C7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -685,7 +713,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6F961F044A2BFD4AB38E119 /* Pods-GoStudy.release.xcconfig */;
+			baseConfigurationReference = 7034F7ECD2E1E3B960C854C1 /* Pods-GoStudy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
