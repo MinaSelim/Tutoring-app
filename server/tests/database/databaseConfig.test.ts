@@ -62,7 +62,7 @@ describe('Database Config Test', () => {
          TableName: 'Test',
       };
 
-      const outputCreateTable = ({
+      const outputCreateTable: AWS.Request<CreateTableOutput, AWSError> = ({
          promise() {
             return Promise.resolve(createTableResponseGood);
          },

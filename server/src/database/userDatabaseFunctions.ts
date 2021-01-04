@@ -73,7 +73,7 @@ export default abstract class UserDatabaseFunctions {
    public addUserToDatabase = (user: IUser): Promise<PutItemOutput> => {
       let tempUser: IUser = this.fillEmptyGenericUserData(user);
       tempUser = this.fillSpecificUserData(tempUser);
-      let params = this.createGenericUserParams(tempUser);
+      let params: PutItemInput = this.createGenericUserParams(tempUser);
       params = this.addSpecificUserParams(tempUser, params);
       return this.databaseUtils.putItem(params);
    };
