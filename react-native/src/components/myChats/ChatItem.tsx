@@ -23,10 +23,7 @@ const ChatItem: React.FC<IChatItem> = (props): JSX.Element => (
           // replace condition with item.viewedChat[user.firebaseID]
           {color: false ? 'black' : '#A3A3A3'},
         ]}>
-        {
-          /* eslint-disable-next-line */
-          props.item.latestMessage['content']
-        }
+        {props.item.latestMessage.content}
       </Text>
     </Layout>
     <UnreadHint
