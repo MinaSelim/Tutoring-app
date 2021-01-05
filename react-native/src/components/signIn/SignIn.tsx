@@ -17,8 +17,6 @@ import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
-import store from '../store';
-import actions from '../../utils/Actions';
 
 interface IState extends IUserLogin, ISignInPage {}
 
@@ -65,19 +63,9 @@ class SignIn extends Component<INavigation, IState> {
     } else {
       auth = new TutorAuth();
     }
-    let user = null;
+    let user = {};
     try {
       user = await auth.signInWithEmailAndPassword(this.state);
-      store.dispatch({
-        type: actions.userInfo,
-        payload: {
-          email: user.email,
-          firstName: user.first_name,
-          lastName: user.last_name,
-          avatar: user.avatar,
-          phone: user.phone,
-        },
-      });
       this.props.navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);

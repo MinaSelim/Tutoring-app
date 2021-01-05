@@ -16,8 +16,6 @@ import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
 import campuses from './campuses';
 import IAuth from '../../../api/authentication/IAuth';
-import store from '../../store';
-import actions from '../../../utils/Actions';
 
 interface IProps extends INavigation {
   route: any;
@@ -83,16 +81,6 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
       const auth: IAuth = new StudentAuth();
       try {
         const user = await auth.signInWithEmailAndPassword({email, password});
-        store.dispatch({
-          type: actions.userInfo,
-          payload: {
-            email: user.email,
-            firstName: user.first_name,
-            lastName: user.last_name,
-            avatar: user.avatar,
-            phone: user.phone,
-          },
-        });
       } catch (error) {
         Alert.alert(`${error}`);
         return;
