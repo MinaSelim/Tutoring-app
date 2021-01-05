@@ -3,7 +3,7 @@ import {Layout, Text} from '@ui-kitten/components';
 import BackButton from './BackButton';
 import styles from './styles/MyChatStyles';
 
-const ChatListHeader = (props): JSX.Element => {
+const PageHeader = (props): JSX.Element => {
   return (
     <Layout style={styles.ChatListHeader}>
       <BackButton {...props} />
@@ -13,4 +13,4 @@ const ChatListHeader = (props): JSX.Element => {
   );
 };
 
-export default ChatListHeader;
+export default PageHeader;

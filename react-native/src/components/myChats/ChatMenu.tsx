@@ -1,6 +1,3 @@
-/* eslint-disable react/no-children-prop */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import TopTabBar from './TopTabBar';
@@ -17,7 +14,7 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = (
   <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
     <Screen
       name="One-on-one"
-      children={() => (
+      children={(): JSX.Element => (
         <ChatTab
           navigation={props.navigation}
           navigate={props.navigate}
@@ -28,7 +25,7 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = (
     />
     <Screen
       name="Group chats"
-      children={() => (
+      children={(): JSX.Element => (
         <ChatTab
           navigation={props.navigation}
           navigate={props.navigate}
