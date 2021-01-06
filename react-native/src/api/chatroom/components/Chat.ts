@@ -1,5 +1,4 @@
 import IChat from './IChat';
-import Message from './IMessage';
 
 export default class Chat implements IChat {
   id: string;

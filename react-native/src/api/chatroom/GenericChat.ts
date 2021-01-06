@@ -4,6 +4,10 @@ import Chatroom from './components/Chat';
 import Message from './components/Message';
 import chatHelper from './chatHelper';
 
+interface chatMessages {
+  id: string;
+  value: firebase.firestore.DocumentData;
+}
 export default class GenericChat {
   /**
    * Displays the chatroom information that the current logged in user is a participant of
@@ -125,7 +129,7 @@ export default class GenericChat {
     chatroomID: string,
     currentUserToken: string,
   ): Promise<Message[]> => {
-    const chatMessages = [];
+    const chatMessages: Array<chatMessages> = [];
     // eslint-disable-next-line new-cap
     const chatroomHelper = new chatHelper();
     chatroomHelper.viewedChat(chatroomID, currentUserToken);

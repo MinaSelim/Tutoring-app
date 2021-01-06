@@ -1,6 +1,3 @@
-import Message from './Message';
-import ViewedChat from './ViewedChat';
-
 export default interface IChat {
   id: string;
   participants: Array<string>;

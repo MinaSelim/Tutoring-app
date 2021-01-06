@@ -17,24 +17,19 @@ export default class DirectMessageChat extends GenericChat {
     // eslint-disable-next-line new-cap
     const chatroomHelper: chatHelper = new chatHelper();
     let creationResult: number = constants.errorValueNotSet;
+
     chatroomHelper
       .getOneOnOneChat(currentUserToken, participantsTokens)
-      .then(
-        (
-          res: firebase.firestore.QueryDocumentSnapshot<
-            firebase.firestore.DocumentData
-          >[],
-        ) => {
-          creationResult = chatroomHelper.generateChat(
-            res,
-            currentUserToken,
-            [currentUserToken, participantsTokens],
-            roomName,
-            null,
-            constants.directChatString,
-          );
-        },
-      );
+      .then((res: firebase.firestore.DocumentData) => {
+        creationResult = chatroomHelper.generateChat(
+          res,
+          currentUserToken,
+          [currentUserToken, participantsTokens],
+          roomName,
+          constants.directChatString,
+          constants.directChatString,
+        );
+      });
     return creationResult;
   };
 }

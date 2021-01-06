@@ -3,7 +3,7 @@ import firebase from '../authentication/Fire';
 import constants from './chatConstants';
 
 export default class chatHelper {
-  // eslint-disable-next-line no-empty-function
+  // eslint-disable-next-line no-useless-constructor
   constructor() {}
 
   /**
@@ -23,14 +23,13 @@ export default class chatHelper {
         'array-contains',
         currentUser || otherUser,
       );
-    let userChatroomData: firebase.firestore.DocumentData = null;
+    let userChatroomData: firebase.firestore.DocumentData = {};
 
     try {
       const querySnapshot = await chatRef.get();
       querySnapshot.forEach((documentSnapshot) => {
         userChatroomData = documentSnapshot.data();
       });
-      return userChatroomData;
     } catch (err) {
       Alert.alert(`Error getting documents: ${err}`);
     }
@@ -47,16 +46,14 @@ export default class chatHelper {
    * @param chatType Either group or null, defines the type of chatroom type
    */
   public generateChat = (
-    chatRef: firebase.firestore.QueryDocumentSnapshot<
-      firebase.firestore.DocumentData
-    >[],
+    chatRef: firebase.firestore.DocumentData,
     currentUserToken: string,
     participantsTokens: Array<string>,
     roomName: string,
     associatedClass: string,
     chatType: string,
   ): number => {
-    if (chatRef === undefined || Object.keys(chatRef).length < 1) {
+    if (Object.keys(chatRef).length === 0) {
       const viewedChat: Object = {};
       const viewedMsg: boolean = true;
       const notViewedMsg: boolean = false;
