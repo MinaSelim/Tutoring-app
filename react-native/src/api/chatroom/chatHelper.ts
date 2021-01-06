@@ -13,7 +13,7 @@ export default class chatHelper {
    */
   public getOneOnOneChat = async (
     currentUser: string,
-    otherUser: String,
+    otherUser: string,
   ): Promise<firebase.firestore.DocumentData> => {
     const chatRef: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
       .firestore()
