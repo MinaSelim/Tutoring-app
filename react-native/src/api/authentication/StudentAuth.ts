@@ -4,7 +4,6 @@ import fire from './Fire';
 import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from './IAuth';
 import IStudent from '../../model/common/IStudent';
-import IUser from 'model/common/IUser';
 
 /**
  * this class provides api abstraction for firebase
@@ -63,7 +62,7 @@ export default class StudentAuth implements IAuth {
   /**
    * this method communicates with the backend, sending an auth token to the server so it could authenthicate the user
    */
-  private signInWithServer = async (): Promise<IUser> => {
+  private signInWithServer = async (): Promise<IStudent> => {
     const user = this.firebaseAuth.currentUser;
     const token = user && (await user.getIdToken());
 
