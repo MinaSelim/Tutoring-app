@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
   termsButton: {
     alignSelf: 'center',
   },
-  terms:{
+  terms: {
     flex: 1,
     justifyContent: 'flex-end',
     marginBottom: 8,
-  }
+  },
 });
 export default styles;

@@ -25,71 +25,75 @@ const EmptyIcon = (props) => (
 const SideBar = (): JSX.Element => {
   return (
     <Layout level="primary" style={styles.container}>
-      <Layout level="primary" style={styles.userTitleContainer}>
-        <Text style={styles.text}>User Name</Text>
-        <Avatar
-          size="giant"
-          source={require('./avatar_placeholder.png')}
-          style={styles.avatar}
-        />
-      </Layout>
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        status="control"
-        accessoryLeft={PersonIcon}
-        size="giant">
-        Profile
-      </Button>
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        status="control"
-        accessoryLeft={CalendarIcon}
-        size="giant">
-        My Sessions
-      </Button>
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        status="control"
-        accessoryLeft={CreditCardIcon}
-        size="giant">
-        Payment Options
-      </Button>
-      <Divider style={styles.divider} />
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        status="control"
-        accessoryLeft={HistoryIcon}
-        size="giant">
-        Account History
-      </Button>
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        status="control"
-        accessoryLeft={CampusIcon}
-        size="giant">
-        Select Campus
-      </Button>
-      <Divider style={styles.divider} />
-      <Button
-        style={styles.button}
-        appearance="ghost"
-        status="control"
-        accessoryLeft={EmptyIcon}
-        size="giant">
-        Sign out
-      </Button>
-      <Button
-        style={styles.termsButton}
-        appearance="ghost"
-        status="control"
-        size="medium">
-        Terms and Conditions
-      </Button>
+      <View>
+        <Layout level="primary" style={styles.userTitleContainer}>
+          <Text style={styles.text}>User Name</Text>
+          <Avatar
+            size="giant"
+            source={require('./avatar_placeholder.png')}
+            style={styles.avatar}
+          />
+        </Layout>
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={PersonIcon}
+          size="giant">
+          Profile
+        </Button>
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={CalendarIcon}
+          size="giant">
+          My Sessions
+        </Button>
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={CreditCardIcon}
+          size="giant">
+          Payment Options
+        </Button>
+        <Divider style={styles.divider} />
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={HistoryIcon}
+          size="giant">
+          Account History
+        </Button>
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={CampusIcon}
+          size="giant">
+          Select Campus
+        </Button>
+        <Divider style={styles.divider} />
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={EmptyIcon}
+          size="giant">
+          Sign out
+        </Button>
+      </View>
+      <View style={styles.terms}>
+        <Button
+          style={styles.termsButton}
+          appearance="ghost"
+          status="control"
+          size="medium">
+          Terms and Conditions
+        </Button>
+      </View>
     </Layout>
   );
 };
