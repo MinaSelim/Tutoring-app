@@ -52,6 +52,7 @@ project.xcworkspace
 /ReactAndroid/gradle/
 /ReactAndroid/gradlew
 /ReactAndroid/gradlew.bat
+/gradle.properties
 
 # Buck
 .buckd
@@ -82,6 +83,7 @@ node_modules
 .nvm
 /bots/node_modules/
 package-lock.json
+yarn.lock
 
 # OS X
 .DS_Store
