@@ -18,8 +18,20 @@ const CalendarIcon = (props) => <Icon {...props} name="calendar-outline" />;
 const CreditCardIcon = (props) => <Icon {...props} name="credit-card" />;
 const HistoryIcon = (props) => <Icon {...props} name="archive-outline" />;
 const CampusIcon = (props) => <Icon {...props} name="home-outline" />;
+const BookIcon = (props) => <Icon {...props} name="book-outline" />;
 const EmptyIcon = (props) => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
+);
+
+const tutorCalendar = () => (
+  <Button
+    style={styles.button}
+    appearance="ghost"
+    status="control"
+    accessoryLeft={CalendarIcon}
+    size="giant">
+    My Calendar
+  </Button>
 );
 
 const SideBar = (): JSX.Element => {
@@ -46,10 +58,11 @@ const SideBar = (): JSX.Element => {
           style={styles.button}
           appearance="ghost"
           status="control"
-          accessoryLeft={CalendarIcon}
+          accessoryLeft={BookIcon}
           size="giant">
           My Sessions
         </Button>
+        {/* conditional button: if userObject session is "tutor" display tutorCalendar*/}
         <Button
           style={styles.button}
           appearance="ghost"
