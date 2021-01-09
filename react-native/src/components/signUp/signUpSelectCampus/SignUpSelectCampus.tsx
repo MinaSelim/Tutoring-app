@@ -111,7 +111,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
         <View
           style={{
             flex: 1,
-            marginBottom: 50,
+            marginBottom: 10,
             marginLeft: 25,
             marginRight: 25,
             justifyContent: 'space-between',
@@ -157,15 +157,17 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
               />
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.finishButton}
-            onPress={(): void => {
-              this.finish(firstName, lastName, email, phone, password);
-            }}>
-            <Text style={styles.finishText}> Finish </Text>
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              style={styles.finishButton}
+              onPress={(): void => {
+                this.finish(firstName, lastName, email, phone, password);
+              }}>
+              <Text style={styles.finishText}> Finish </Text>
+            </TouchableOpacity>
+            <Text style={styles.footer}> go.study </Text>
+          </View>
         </View>
-        <Text style={styles.footer}> go.study </Text>
       </View>
     );
   }

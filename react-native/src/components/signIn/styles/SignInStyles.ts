@@ -10,6 +10,7 @@ export default StyleSheet.create({
   background: {
     width: '100%',
     height: '100%',
+    position: 'absolute',
   },
   logo: {
     alignSelf: 'flex-end',

@@ -91,10 +91,10 @@ class SignIn extends Component<INavigation, IState> {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={{flex: 1}}>
           <View style={styles.component}>
-            {/* <ImageBackground
-            source={require('../../assets/images/icons/signInBackground.png')}
-            style={styles.background}
-          /> */}
+            <ImageBackground
+              source={require('../../assets/images/icons/signInBackground.png')}
+              style={styles.background}
+            />
             <View style={styles.logo}>
               <Image
                 source={require('../../assets/images/icons/logo.png')}
