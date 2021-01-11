@@ -1,10 +1,12 @@
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
-import {AWSError} from 'aws-sdk';
-import {CreateTableInput, CreateTableOutput} from 'aws-sdk/clients/dynamodb';
-import {assert} from 'chai';
+import { AWSError } from 'aws-sdk';
+import { CreateTableInput, CreateTableOutput } from 'aws-sdk/clients/dynamodb';
+import { assert } from 'chai';
 import Dynamo from '../../src/database/dynamo';
+import { AnySoaRecord } from 'dns';
+import hasOwnProperty from '../helper';
 
 describe('Database Config Test', () => {
    let sandbox: Sinon.SinonSandbox;
@@ -19,6 +21,21 @@ describe('Database Config Test', () => {
    const error: AWSError = {
       code: 'badRequest',
       message: 'bad request',
+      retryable: false,
+      statusCode: 1,
+      time: new Date(),
+      name: '',
+      hostname: '',
+      region: '',
+      retryDelay: 1,
+      requestId: '',
+      extendedRequestId: '',
+      cfId: '',
+   };
+
+   const errorTableExists: AWSError = {
+      code: 'ResourceInUseException',
+      message: 'ResourceInUseException',
       retryable: false,
       statusCode: 1,
       time: new Date(),
@@ -74,7 +91,7 @@ describe('Database Config Test', () => {
       });
    });
 
-   it('Should not create table that already exists', () => {
+   it('Should not create table if aws error', () => {
       const params: CreateTableInput = {
          AttributeDefinitions: [
             {
@@ -113,7 +130,49 @@ describe('Database Config Test', () => {
          });
    });
 
+   it('Should not create table that already exists', () => {
+      const params: CreateTableInput = {
+         AttributeDefinitions: [
+            {
+               AttributeName: 'test',
+               AttributeType: 'S',
+            },
+         ],
+         KeySchema: [
+            {
+               AttributeName: 'test',
+               KeyType: 'HASH',
+            },
+         ],
+         ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
+         },
+         TableName: 'Test',
+      };
+
+      const outputCreateTable = ({
+         promise() {
+            return Promise.reject(errorTableExists);
+         },
+      } as unknown) as AWS.Request<CreateTableOutput, AWSError>;
+
+      const spy = sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
+
+
+      return DatabaseConfig.createTable(params)
+         .then((out: CreateTableOutput | AWSError) => {
+            assert(spy.calledOnce);
+            // Check we are of correct type before infering a property exists
+            if (typeof out === 'object' && hasOwnProperty(out, 'TableDescription')) {
+               assert.isEmpty(out['TableDescription']);
+            } else {
+               assert.fail('Should have table description property in reponse')
+            }
+         });
+   });
+
+
    // todo database failed to connect
 
-   // todo database table create already exists
 });
