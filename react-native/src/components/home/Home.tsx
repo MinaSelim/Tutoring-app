@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable react/jsx-curly-newline */
 import React from 'react';
 import {View} from 'react-native';
 import 'react-native-gesture-handler';
@@ -15,17 +13,7 @@ const HomeUI: React.FC<any> = (props) => {
   const styles = useStyleSheet(homeStyles);
   const name = 'temporaryName';
   // TODO get name from proper state management
-  const state = {
-    menuToggled: null,
-  };
-
-  const toggleMenu = () => {
-    props.setState((prevState) => {
-      return {menuToggled: !prevState.menuToggled};
-    });
-  };
   const theme = useTheme();
-
   return (
     <SafeAreaView
       style={[styles.safeArea, {backgroundColor: theme['color-basic-100']}]}>

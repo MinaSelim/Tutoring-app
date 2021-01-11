@@ -8,7 +8,6 @@ import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import mapping from './mapping.json';
 import theme from './custom-theme.json'; // <-- Import app theme
 import RouteStack from './routeStack';
-import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
 class App extends Component {
   render(): JSX.Element {

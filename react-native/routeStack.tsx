@@ -1,4 +1,3 @@
-import {createStackNavigator} from '@react-navigation/stack';
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
