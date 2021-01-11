@@ -1,20 +1,22 @@
 import {StyleSheet} from 'react-native';
 
 export const profileStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   modal: {
-    width: '95%',
-    height: '100%',
+    flex: 1,
+    width: '98%',
+    alignSelf: 'flex-end',
     backgroundColor: 'white',
+    marginTop: '3%',
     borderRadius: 18,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
-    marginLeft: '2.5%',
+    justifyContent: 'space-between',
   },
-  backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  background: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
   },
   ProfileHeader: {
     flexDirection: 'row',
@@ -38,11 +40,9 @@ export const profileStyles = StyleSheet.create({
   profilePicture: {
     borderColor: 'black',
     borderWidth: 1,
-    width: 88,
-    height: 88,
-    marginLeft: '5%',
-    marginBottom: 40,
-    marginTop: 10,
+    width: 90,
+    height: 90,
+    marginLeft: '8%',
   },
   inputBox: {
     marginBottom: 15,
@@ -58,14 +58,23 @@ export const profileStyles = StyleSheet.create({
     height: 20,
   },
   text: {
-    //fontSize: 18,
     color: '#363636',
     opacity: 0.6,
     marginBottom: 5,
   },
   infoArea: {
-    marginLeft: '5%',
-    marginRight: '5%',
+    marginLeft: '8%',
+    marginRight: '8%',
+    marginBottom: 30,
+  },
+  termsAndConditionsBox: {
+    marginLeft: '8%',
+  },
+  id: {
+    color: '#363636',
+    opacity: 0.6,
+    marginTop: 25,
+    marginBottom: 3,
   },
 });
 

@@ -36,7 +36,7 @@ const InfoArea = (): JSX.Element => {
       />
       <Text style={styles.text}>Password</Text>
       <Button style={styles.passwordButton}>change password</Button>
-      <Text>ID</Text>
+      <Text style={styles.id}>ID</Text>
       {/* TODO put real id */}
       <Text>123456789</Text>
     </Layout>
