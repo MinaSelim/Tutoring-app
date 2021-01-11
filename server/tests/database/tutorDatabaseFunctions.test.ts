@@ -244,4 +244,10 @@ describe('Tutor Database Functions Test', () => {
             assert.equal(err, error);
          });
    });
+
+   // todo tutor no campus
+
+   // todo tutor no profile
+
+   // todo tutor no phone
 });

@@ -112,4 +112,8 @@ describe('Database Config Test', () => {
             assert.equal(err, error);
          });
    });
+
+   // todo database failed to connect
+
+   // todo database table create already exists
 });
