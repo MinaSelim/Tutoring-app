@@ -5,7 +5,6 @@ import { AWSError } from 'aws-sdk';
 import { CreateTableInput, CreateTableOutput } from 'aws-sdk/clients/dynamodb';
 import { assert } from 'chai';
 import Dynamo from '../../src/database/dynamo';
-import { AnySoaRecord } from 'dns';
 import hasOwnProperty from '../helper';
 
 describe('Database Config Test', () => {
@@ -172,7 +171,19 @@ describe('Database Config Test', () => {
          });
    });
 
+   it('Should gracefully fail to init database', () => {
+      const outputCreateTable = ({
+         promise() {
+            return Promise.reject(error);
+         },
+      } as unknown) as AWS.Request<CreateTableOutput, AWSError>;
 
-   // todo database failed to connect
+      const spy = sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
+
+      return DatabaseConfig.init()
+         .then(() => {
+            assert(spy.called);
+         })
+   });
 
 });

@@ -35,7 +35,9 @@ export default class DatabaseConfig {
          tablePromises.push(DatabaseConfig.createTable(params));
       }
       // WARNING - Creates tables in parallel
-      return Promise.all(tablePromises).catch((err: AWSError) => {
+      return Promise.all(tablePromises)
+      // resolves gracefully upon error
+      .catch((err: AWSError) => {
          console.error('Initializing of tables failed.\n', err);
          return Promise.resolve();
       });
