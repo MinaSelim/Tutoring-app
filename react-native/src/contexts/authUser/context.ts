@@ -1,5 +1,8 @@
 import {createContext} from 'react';
-import {getPersistedAuthUser} from '../../utils/localstorage/localstorage';
+import {
+  getPersistedAuthUser,
+  persistAuthUser,
+} from '../../utils/localstorage/localstorage';
 import IUser from '../../model/common/IUser';
 
 interface AppContextInterface {
@@ -9,8 +12,8 @@ interface AppContextInterface {
 
 const context: AppContextInterface = {
   authUser: getPersistedAuthUser(),
-  setAuthUser: () => {
-    console.log('Able to set an authnticated user with this ...');
+  setAuthUser: (user: IUser | null) => {
+    persistAuthUser(user);
   },
 };
 

@@ -45,10 +45,11 @@ export default class StudentAuth implements IAuth {
         loginInfo.password,
       );
       student.firebase_uid = result.user.uid;
+      console.log('server link:', SERVER_LINK);
       const response = await fetch(`${SERVER_LINK}/auth/student/register`, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
+          Accept: 'application/rjson',
           'Content-type': 'application/json',
         },
         body: JSON.stringify(student),

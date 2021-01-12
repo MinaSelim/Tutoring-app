@@ -1,4 +1,6 @@
 import React from 'react';
+/* eslint-disable react/jsx-curly-newline */
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import 'react-native-gesture-handler';
 import {Text, Button, useStyleSheet} from '@ui-kitten/components';
@@ -8,12 +10,21 @@ import MessageIcon from './MessageIcon';
 import UniversityImage from './UniversityImage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '@ui-kitten/components';
+import useAuthUser from '../../hooks/authUser';
+import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
 const HomeUI: React.FC<any> = ({navigation}) => {
+const AUTH_USER_KEY = 'auth_user';
+const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
   const styles = useStyleSheet(homeStyles);
-  const name = 'temporaryName';
+
   // TODO get name from proper state management
   const theme = useTheme();
+  const [user, setAuthUser] = useAuthUser();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => setUserName(user!.first_name), [user]);
+
   return (
     <SafeAreaView
       style={[styles.safeArea, {backgroundColor: theme['color-basic-100']}]}>
@@ -53,6 +64,15 @@ const HomeUI: React.FC<any> = ({navigation}) => {
           </Button>
           <Text style={styles.footer}> go.study </Text>
         </View>
+    <View style={styles.background}>
+      <View style={styles.upperSection}>
+        <Button
+          style={styles.tabButton}
+          onPress={(): boolean => props.navigation.navigate('SideBar')}
+          appearance="ghost"
+          accessoryLeft={SideMenuIcon}
+        />
+        <Text style={styles.helloMessage}>Hey {userName},</Text>
       </View>
     </SafeAreaView>
   );

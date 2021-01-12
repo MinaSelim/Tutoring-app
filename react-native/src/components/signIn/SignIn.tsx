@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
 import {View, TouchableOpacity, TextInput, Image, Alert} from 'react-native';
 import {NavigationInjectedProps} from 'react-navigation';
+import React, {useState} from 'react';
 import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
@@ -11,8 +11,7 @@ import INavigation from '../../model/navigation/NavigationInjectedPropsConfigure
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import IUser from '../../model/common/IUser';
-import {persistAuthUser} from '../../utils/localstorage/localstorage';
-import useAuthUser from 'hooks/authUser';
+import useAuthUser from '../../hooks/authUser';
 
 import {Text} from '@ui-kitten/components';
 

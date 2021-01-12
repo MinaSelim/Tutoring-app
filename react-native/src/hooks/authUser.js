@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import appAuthUserContext from '../contexts/authUser/context';
-// import IUser from '../model/common/IUser';
+import IUser from '../model/common/IUser';
 
 //type AuthUserHook = [IUser | null, (user: IUser | null) => void];
 
