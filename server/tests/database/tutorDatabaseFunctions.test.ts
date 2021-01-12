@@ -124,7 +124,7 @@ describe('Tutor Database Functions Test', () => {
       });
    });
 
-   it.only('Should fail to add bad tutor', () => {
+   it('Should fail to add bad tutor', () => {
       const params: PutItemInput = {
          Item: {
             first_name: {
