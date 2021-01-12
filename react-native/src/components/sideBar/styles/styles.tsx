@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFFFFF',
     fontWeight: 'bold',
-    marginRight: 20,
+    marginRight: '8%',
   },
   userTitleContainer: {
-    paddingTop: '60%',
+    paddingTop: '40%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 27,
+    paddingBottom: '6%',
   },
   avatar: {
     width: 66,
