@@ -12,7 +12,7 @@ export const persistAuthUser = (user: IUser | null): void => {
 };
 
 export const getPersistedAuthUser = (): IUser | null => {
-  let user: IUser = null;
+  let user = null;
   AsyncStorage.getItem(AUTH_USER_KEY).then((stringifiedUserstring) => {
     if (stringifiedUserstring) {
       try {

@@ -5,7 +5,7 @@ import React from 'react';
 import {Component} from 'react';
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {Provider} from 'react-redux';
+import 'react-native-gesture-handler';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
@@ -27,17 +27,17 @@ const App: React.FunctionComponent = () => {
   const [authUser, setAuthUser] = useState<IUser | null>(
     getPersistedAuthUser(),
   );
-      <AppAuthContext.Provider value={{authUser, setAuthUser}}>
+
   return (
-        <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider
-          {...eva}
-          customMapping={mapping}
-          theme={{...eva.light, ...theme}}>
-          <RouteStack />
-        </ApplicationProvider>
-      </AppAuthContext.Provider>
-    </Provider>
+    <AppAuthContext.Provider value={{authUser, setAuthUser}}>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider
+        {...eva}
+        customMapping={mapping}
+        theme={{...eva.light, ...theme}}>
+        <RouteStack />
+      </ApplicationProvider>
+    </AppAuthContext.Provider>
   );
 };
 

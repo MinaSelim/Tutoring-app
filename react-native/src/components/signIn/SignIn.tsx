@@ -12,6 +12,7 @@ import ISignInPage from '../../model/signInSignUp/ISignInPage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import IUser from '../../model/common/IUser';
 import {persistAuthUser} from '../../utils/localstorage/localstorage';
+import useAuthUser from 'hooks/authUser';
 
 import {Text} from '@ui-kitten/components';
 
@@ -39,7 +40,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
   // }
 
   const signIn = async (): Promise<void> => {
-    if (!this.state.email.includes('@') || this.state.password.length < 8) {
+    if (!email.includes('@') || password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
       return;
     }
@@ -54,6 +55,9 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
     } catch (error) {
       Alert.alert(`${error}`);
     }
+  };
+  const forgotPassword = (): void => {
+    // TODO: Redirect to forgot password page
   };
 
   const forgotPassword = (): void => {
