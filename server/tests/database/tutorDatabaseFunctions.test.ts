@@ -124,7 +124,7 @@ describe('Tutor Database Functions Test', () => {
       });
    });
 
-   it('Should fail to add bad tutor', () => {
+   it.only('Should fail to add bad tutor', () => {
       const params: PutItemInput = {
          Item: {
             first_name: {
@@ -173,7 +173,6 @@ describe('Tutor Database Functions Test', () => {
             assert.fail('Should not succeed');
          })
          .catch((err) => {
-            // TODO fix this test
             assert(spy.calledOnce);
             assert(spy.calledWith(params));
             assert.equal(err, error);

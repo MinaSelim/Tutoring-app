@@ -295,7 +295,6 @@ describe('Student Database Functions Test', () => {
             assert.fail('Should not succeed');
          })
          .catch((err) => {
-            // TODO fix this test
             assert(spy.calledOnce);
             assert(spy.calledWith(params));
             assert.equal(err, error);
