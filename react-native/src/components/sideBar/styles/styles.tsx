@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   userTitleContainer: {
-    paddingTop: 120,
+    paddingTop: '60%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
