@@ -1,9 +1,9 @@
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
-import { AWSError } from 'aws-sdk';
-import { CreateTableInput, CreateTableOutput } from 'aws-sdk/clients/dynamodb';
-import { assert } from 'chai';
+import {AWSError} from 'aws-sdk';
+import {CreateTableInput, CreateTableOutput} from 'aws-sdk/clients/dynamodb';
+import {assert} from 'chai';
 import Dynamo from '../../src/database/dynamo';
 import hasOwnProperty from '../helper';
 
@@ -158,17 +158,15 @@ describe('Database Config Test', () => {
 
       const spy = sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
 
-
-      return DatabaseConfig.createTable(params)
-         .then((out: CreateTableOutput | AWSError) => {
-            assert(spy.calledOnce);
-            // Check we are of correct type before infering a property exists
-            if (typeof out === 'object' && hasOwnProperty(out, 'TableDescription')) {
-               assert.isEmpty(out['TableDescription']);
-            } else {
-               assert.fail('Should have table description property in reponse')
-            }
-         });
+      return DatabaseConfig.createTable(params).then((out: CreateTableOutput | AWSError) => {
+         assert(spy.calledOnce);
+         // Check we are of correct type before infering a property exists
+         if (typeof out === 'object' && hasOwnProperty(out, 'TableDescription')) {
+            assert.isEmpty(out['TableDescription']);
+         } else {
+            assert.fail('Should have table description property in reponse');
+         }
+      });
    });
 
    it('Should gracefully fail to init database', () => {
@@ -180,10 +178,8 @@ describe('Database Config Test', () => {
 
       const spy = sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
 
-      return DatabaseConfig.init()
-         .then(() => {
-            assert(spy.called);
-         })
+      return DatabaseConfig.init().then(() => {
+         assert(spy.called);
+      });
    });
-
 });
