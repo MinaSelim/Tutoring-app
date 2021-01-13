@@ -1,9 +1,9 @@
 import Sinon from 'sinon';
 import sinon from 'sinon';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
-import {AWSError} from 'aws-sdk';
-import {CreateTableInput, CreateTableOutput} from 'aws-sdk/clients/dynamodb';
-import {assert} from 'chai';
+import { AWSError } from 'aws-sdk';
+import { CreateTableInput, CreateTableOutput } from 'aws-sdk/clients/dynamodb';
+import { assert } from 'chai';
 import Dynamo from '../../src/database/dynamo';
 import hasOwnProperty from '../helper';
 
@@ -85,8 +85,14 @@ describe('Database Config Test', () => {
       } as unknown) as AWS.Request<CreateTableOutput, AWSError>;
 
       sandbox.stub(dynamo, 'createTable').returns(outputCreateTable);
-      return DatabaseConfig.createTable(params).then((res: CreateTableOutput) => {
-         assert.equal(res.TableDescription.TableName, createTableResponseGood.TableDescription.TableName);
+      return DatabaseConfig.createTable(params).then((res: CreateTableOutput | AWSError) => {
+
+         if (typeof res === 'object' && hasOwnProperty(res, 'TableDescription') &&
+            typeof res.TableDescription === 'object' && hasOwnProperty(res.TableDescription, 'TableName')) {
+            assert.equal(res.TableDescription.TableName, createTableResponseGood.TableDescription.TableName);
+         } else {
+            assert.fail('Response object should have table description property')
+         }
       });
    });
 

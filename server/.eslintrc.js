@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
    parser: '@typescript-eslint/parser',
    parserOptions: {
@@ -19,7 +20,7 @@ module.exports = {
    overrides: [
       {
          files: ['dist/**/*.js', 'dist/*.js'],
-         excludedFiles: '*.test.js, package-lock.json, yarn.lock',
+         excludedFiles: '*.test.js, package-lock.json, yarn.lock, .eslintrc.js',
          rules: {
             quotes: ['error', 'single'],
          },
