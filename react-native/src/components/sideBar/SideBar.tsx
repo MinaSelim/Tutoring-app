@@ -62,7 +62,6 @@ const SideBar = (): JSX.Element => {
           size="giant">
           My Sessions
         </Button>
-        {/* conditional button: if userObject session is "tutor" display tutorCalendar*/}
         <Button
           style={styles.button}
           appearance="ghost"

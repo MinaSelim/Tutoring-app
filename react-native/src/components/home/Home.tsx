@@ -9,7 +9,7 @@ import UniversityImage from './UniversityImage';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '@ui-kitten/components';
 
-const HomeUI: React.FC<any> = (props) => {
+const HomeUI: React.FC<any> = ({navigation}) => {
   const styles = useStyleSheet(homeStyles);
   const name = 'temporaryName';
   // TODO get name from proper state management
@@ -21,7 +21,7 @@ const HomeUI: React.FC<any> = (props) => {
         <View style={styles.upperSection}>
           <Button
             style={styles.tabButton}
-            onPress={(): void => props.navigation.toggleDrawer()}
+            onPress={(): void => navigation.toggleDrawer()}
             appearance="ghost"
             accessoryLeft={SideMenuIcon}
           />
@@ -33,14 +33,12 @@ const HomeUI: React.FC<any> = (props) => {
           </Text>
           <Button
             style={[styles.button, {top: 25}]}
-            onPress={(): boolean => props.navigation.navigate('TutorSearch')}>
+            onPress={(): boolean => navigation.navigate('TutorSearch')}>
             Find a Tutor
           </Button>
           <Button
             style={[styles.button, {top: 30}]}
-            onPress={(): boolean =>
-              props.navigation.navigate('StudyGroupSearch')
-            }>
+            onPress={(): boolean => navigation.navigate('StudyGroupSearch')}>
             Find a Study Group
           </Button>
           <UniversityImage />
@@ -48,7 +46,7 @@ const HomeUI: React.FC<any> = (props) => {
         <View style={styles.lowerSection}>
           <Button
             style={[styles.button, styles.myChats]}
-            onPress={(): boolean => props.navigation.navigate('MyChats')}
+            onPress={(): boolean => navigation.navigate('MyChats')}
             status="basic"
             accessoryRight={MessageIcon}>
             My Chats
