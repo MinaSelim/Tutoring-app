@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable react/jsx-props-no-spreading */
 import {View} from 'react-native';
 import 'react-native-gesture-handler';
 import {
@@ -13,13 +11,25 @@ import {
 import React from 'react';
 import styles from './styles/styles';
 
-const PersonIcon = (props) => <Icon {...props} name="person-outline" />;
-const CalendarIcon = (props) => <Icon {...props} name="calendar-outline" />;
-const CreditCardIcon = (props) => <Icon {...props} name="credit-card" />;
-const HistoryIcon = (props) => <Icon {...props} name="archive-outline" />;
-const CampusIcon = (props) => <Icon {...props} name="home-outline" />;
-const BookIcon = (props) => <Icon {...props} name="book-outline" />;
-const EmptyIcon = (props) => (
+const PersonIcon = (props): JSX.Element => (
+  <Icon {...props} name="person-outline" />
+);
+const CalendarIcon = (props): JSX.Element => (
+  <Icon {...props} name="calendar-outline" />
+);
+const CreditCardIcon = (props): JSX.Element => (
+  <Icon {...props} name="credit-card" />
+);
+const HistoryIcon = (props): JSX.Element => (
+  <Icon {...props} name="archive-outline" />
+);
+const CampusIcon = (props): JSX.Element => (
+  <Icon {...props} name="home-outline" />
+);
+const BookIcon = (props): JSX.Element => (
+  <Icon {...props} name="book-outline" />
+);
+const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
 
@@ -62,6 +72,7 @@ const SideBar = (): JSX.Element => {
           size="giant">
           My Sessions
         </Button>
+        {/* conditional button: if userObject session is "tutor" display tutorCalendar*/}
         <Button
           style={styles.button}
           appearance="ghost"
