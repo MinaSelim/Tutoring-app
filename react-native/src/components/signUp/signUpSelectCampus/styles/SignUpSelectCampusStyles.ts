@@ -15,6 +15,8 @@ export default StyleSheet.create({
   finishButton: {
     backgroundColor: colors.appOrange,
     margin: 5,
+    marginBottom: 20,
+    marginTop: 30,
     height: 50,
     width: '95%',
     borderRadius: 10,
@@ -41,7 +43,7 @@ export default StyleSheet.create({
     fontSize: 20,
     fontFamily: fonts.quickSandSemiBold,
     marginLeft: 20,
-    marginTop: 70,
+    marginTop: 50,
   },
   universityText: {
     alignSelf: 'center',
@@ -58,9 +60,6 @@ export default StyleSheet.create({
     color: colors.appLightGrey,
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
-    position: 'absolute',
-    bottom: 10,
   },
   image: {
     width: '100%',

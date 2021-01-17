@@ -5,23 +5,21 @@ import {fonts} from '../../../styles/appFonts';
 export default StyleSheet.create({
   component: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   background: {
     width: '100%',
     height: '100%',
+    position: 'absolute',
   },
   logo: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
+    alignSelf: 'flex-end',
     height: 75,
     width: 200,
     marginTop: 10,
     marginRight: 10,
   },
   container: {
-    position: 'absolute',
-    bottom: 0,
     alignItems: 'stretch',
     width: '100%',
   },
@@ -135,5 +133,8 @@ export default StyleSheet.create({
     height: 22,
     position: 'absolute',
     left: 25,
+  },
+  safeArea: {
+    flex: 1,
   },
 });

@@ -7,6 +7,9 @@ import {
   Image,
   ImageBackground,
   Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
 } from 'react-native';
 import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
@@ -17,6 +20,7 @@ import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface IState extends IUserLogin, ISignInPage {}
 
@@ -82,115 +86,137 @@ class SignIn extends Component<INavigation, IState> {
 
   render(): JSX.Element {
     return (
-      <View style={styles.component}>
-        <ImageBackground
-          source={require('../../assets/images/icons/signInBackground.png')}
-          style={styles.background}
-        />
-
-        <View style={styles.logo}>
-          <Image
-            source={require('../../assets/images/icons/logo.png')}
-            style={styles.title}
-          />
-        </View>
-
-        <View style={styles.container}>
-          <View style={{marginBottom: 40, width: '85%'}}>
-            <Text style={styles.welcome}>Welcome!</Text>
-
-            <Text style={styles.signInToContinue}>Sign in to continue</Text>
-
-            <View style={{flexDirection: 'row', margin: 15, marginLeft: 30}}>
-              <View style={styles.iconBox}>
+      <ImageBackground
+        source={require('../../assets/images/icons/signInBackground.png')}
+        style={styles.background}>
+        <SafeAreaView style={[styles.safeArea]}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}>
+            <View style={styles.component}>
+              <View style={styles.logo}>
                 <Image
-                  source={require('../../assets/images/icons/user.png')}
-                  style={styles.icon}
+                  source={require('../../assets/images/icons/logo.png')}
+                  style={styles.title}
                 />
               </View>
-              <TextInput
-                style={styles.input}
-                underlineColorAndroid="transparent"
-                placeholder="email"
-                placeholderTextColor={colors.appSilver}
-                autoCapitalize="none"
-                onChangeText={this.handleEmail}
-              />
-            </View>
+              <View style={styles.container}>
+                <ScrollView>
+                  <View style={{marginBottom: 40, width: '85%'}}>
+                    <Text style={styles.welcome}>Welcome!</Text>
 
-            <View style={{flexDirection: 'row', margin: 15, marginLeft: 30}}>
-              <View style={styles.iconBox}>
-                <Image
-                  source={require('../../assets/images/icons/lock.png')}
-                  style={styles.icon}
-                />
+                    <Text style={styles.signInToContinue}>
+                      Sign in to continue
+                    </Text>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        margin: 15,
+                        marginLeft: 30,
+                      }}>
+                      <View style={styles.iconBox}>
+                        <Image
+                          source={require('../../assets/images/icons/user.png')}
+                          style={styles.icon}
+                        />
+                      </View>
+                      <TextInput
+                        style={styles.input}
+                        underlineColorAndroid="transparent"
+                        placeholder="email"
+                        placeholderTextColor={colors.appSilver}
+                        autoCapitalize="none"
+                        onChangeText={this.handleEmail}
+                      />
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        margin: 15,
+                        marginLeft: 30,
+                      }}>
+                      <View style={styles.iconBox}>
+                        <Image
+                          source={require('../../assets/images/icons/lock.png')}
+                          style={styles.icon}
+                        />
+                      </View>
+                      <TextInput
+                        style={styles.input}
+                        underlineColorAndroid="transparent"
+                        placeholder="password"
+                        secureTextEntry={this.state.passwordHidden}
+                        placeholderTextColor={colors.appSilver}
+                        autoCapitalize="none"
+                        onChangeText={this.handlePassword}
+                      />
+                      <TouchableOpacity
+                        style={styles.eyeButton}
+                        onPress={this.changePasswordVisibility}>
+                        <Image
+                          source={
+                            this.state.passwordHidden
+                              ? require('../../assets/images/icons/eyeClosed.png')
+                              : require('../../assets/images/icons/eyeOpened.png')
+                          }
+                          style={styles.eyeIcon}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={{alignItems: 'center'}}>
+                    <TouchableOpacity
+                      style={styles.signInButton}
+                      onPress={(): void => {
+                        this.signIn();
+                      }}>
+                      <Text style={styles.signInText}> Sign In </Text>
+                      <Image
+                        source={require('../../assets/images/icons/nextArrow.png')}
+                        style={styles.nextArrow}
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.forgotPasswordButton}
+                      onPress={(): void => this.forgotPassword()}>
+                      <Text style={styles.forgotPasswordText}>
+                        Forgot password?
+                      </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.createAnAccountButton}
+                      onPress={(): void => {
+                        this.props.navigation.navigate('SignUpCredentials');
+                      }}>
+                      <Text style={styles.createAccountText}>
+                        {' '}
+                        Create an account{' '}
+                      </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.signInWithGoogleButton}
+                      onPress={(): void => this.signInWithGoogle()}>
+                      <Image
+                        source={require('../../assets/images/icons/googleIcon.png')}
+                        style={styles.googleIcon}
+                      />
+                      <Text style={styles.signInWithGoogleText}>
+                        {' '}
+                        Sign in with Google{' '}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </ScrollView>
               </View>
-              <TextInput
-                style={styles.input}
-                underlineColorAndroid="transparent"
-                placeholder="password"
-                secureTextEntry={this.state.passwordHidden}
-                placeholderTextColor={colors.appSilver}
-                autoCapitalize="none"
-                onChangeText={this.handlePassword}
-              />
-              <TouchableOpacity
-                style={styles.eyeButton}
-                onPress={this.changePasswordVisibility}>
-                <Image
-                  source={
-                    this.state.passwordHidden
-                      ? require('../../assets/images/icons/eyeClosed.png')
-                      : require('../../assets/images/icons/eyeOpened.png')
-                  }
-                  style={styles.eyeIcon}
-                />
-              </TouchableOpacity>
             </View>
-          </View>
-
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity
-              style={styles.signInButton}
-              onPress={(): void => {
-                this.signIn();
-              }}>
-              <Text style={styles.signInText}> Sign In </Text>
-              <Image
-                source={require('../../assets/images/icons/nextArrow.png')}
-                style={styles.nextArrow}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.forgotPasswordButton}
-              onPress={(): void => this.forgotPassword()}>
-              <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.createAnAccountButton}
-              onPress={(): void => {
-                this.props.navigation.navigate('SignUpCredentials');
-              }}>
-              <Text style={styles.createAccountText}> Create an account </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.signInWithGoogleButton}
-              onPress={(): void => this.signInWithGoogle()}>
-              <Image
-                source={require('../../assets/images/icons/googleIcon.png')}
-                style={styles.googleIcon}
-              />
-              <Text style={styles.signInWithGoogleText}>
-                {' '}
-                Sign in with Google{' '}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
+      </ImageBackground>
     );
   }
 }

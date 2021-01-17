@@ -16,6 +16,7 @@ import StudentAuth from '../../../api/authentication/StudentAuth';
 import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
 import campuses from './campuses';
 import IAuth from '../../../api/authentication/IAuth';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface IProps extends INavigation {
   route: any;
@@ -95,78 +96,86 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
     const {route} = this.props;
     const {firstName, lastName, email, phone, password} = route.params;
     return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ImageBackground
-          source={require('../../../assets/images/icons/signUpBackground.png')}
-          style={styles.backgroundImage}
-        />
-        <TouchableOpacity
-          style={{position: 'absolute', top: 10}}
-          onPress={(): boolean => this.props.navigation.goBack()}>
-          <Image
-            source={require('../../../assets/images/icons/backBtn.png')}
-            style={styles.goBackButton}
-          />
-        </TouchableOpacity>
-        <View
-          style={{
-            flex: 1,
-            marginBottom: 50,
-            marginLeft: 25,
-            marginRight: 25,
-            justifyContent: 'space-between',
-          }}>
-          <Text style={styles.selectYourCampus}>Select your campus</Text>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              height: 200,
-              marginBottom: 100,
-            }}>
-            <Image
-              source={require('../../../assets/images/icons/university.png')}
-              style={[
-                {alignSelf: 'center'},
-                this.isUniversitySelected() ? {opacity: 1} : {opacity: 0.25},
-              ]}
-            />
-            <Text style={styles.universityText}>{this.state.university}</Text>
-            <View>
-              <SearchableDropdown
-                onItemSelect={(item): void => {
-                  let campus = JSON.stringify(item.name);
-                  campus = JSON.parse(
-                    campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
-                  );
-                  this.setState({university: campus});
-                }}
-                containerStyle={{padding: 5}}
-                itemStyle={styles.listText}
-                itemTextStyle={{color: '#222'}}
-                itemsContainerStyle={{maxHeight: 150}}
-                items={campuses}
-                resetValue={false}
-                textInputProps={{
-                  placeholder: 'Search your campus...',
-                  underlineColorAndroid: 'transparent',
-                  style: styles.inputBox,
-                }}
-                listProps={{
-                  nestedScrollEnabled: true,
-                }}
+      <ImageBackground
+        source={require('../../../assets/images/icons/signUpBackground.png')}
+        style={styles.backgroundImage}>
+        <SafeAreaView style={{flex: 1, alignItems: 'stretch'}}>
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <TouchableOpacity
+              style={{position: 'absolute', top: 10}}
+              onPress={(): boolean => this.props.navigation.goBack()}>
+              <Image
+                source={require('../../../assets/images/icons/backBtn.png')}
+                style={styles.goBackButton}
               />
+            </TouchableOpacity>
+            <View
+              style={{
+                flex: 1,
+                marginBottom: 10,
+                marginLeft: 25,
+                marginRight: 25,
+                justifyContent: 'space-between',
+              }}>
+              <Text style={styles.selectYourCampus}>Select your campus</Text>
+              <View
+                style={{
+                  justifyContent: 'space-between',
+                  height: 200,
+                  marginBottom: 100,
+                }}>
+                <Image
+                  source={require('../../../assets/images/icons/university.png')}
+                  style={[
+                    {alignSelf: 'center'},
+                    this.isUniversitySelected()
+                      ? {opacity: 1}
+                      : {opacity: 0.25},
+                  ]}
+                />
+                <Text style={styles.universityText}>
+                  {this.state.university}
+                </Text>
+                <View>
+                  <SearchableDropdown
+                    onItemSelect={(item): void => {
+                      let campus = JSON.stringify(item.name);
+                      campus = JSON.parse(
+                        campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
+                      );
+                      this.setState({university: campus});
+                    }}
+                    containerStyle={{padding: 5}}
+                    itemStyle={styles.listText}
+                    itemTextStyle={{color: '#222'}}
+                    itemsContainerStyle={{maxHeight: 150}}
+                    items={campuses}
+                    resetValue={false}
+                    textInputProps={{
+                      placeholder: 'Search your campus...',
+                      underlineColorAndroid: 'transparent',
+                      style: styles.inputBox,
+                    }}
+                    listProps={{
+                      nestedScrollEnabled: true,
+                    }}
+                  />
+                </View>
+              </View>
+              <View>
+                <TouchableOpacity
+                  style={styles.finishButton}
+                  onPress={(): void => {
+                    this.finish(firstName, lastName, email, phone, password);
+                  }}>
+                  <Text style={styles.finishText}> Finish </Text>
+                </TouchableOpacity>
+                <Text style={styles.footer}> go.study </Text>
+              </View>
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.finishButton}
-            onPress={(): void => {
-              this.finish(firstName, lastName, email, phone, password);
-            }}>
-            <Text style={styles.finishText}> Finish </Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.footer}> go.study </Text>
-      </View>
+        </SafeAreaView>
+      </ImageBackground>
     );
   }
 }
