@@ -13,7 +13,7 @@ const MesageRow = (props: IMessage): JSX.Element => {
     <View style={chatStyles.messageContainer}>
       <View>
         <Text style={chatStyles.date}>
-          {moment.unix(props.createdAt).format('MMM Do')}
+          {moment.unix(props.createdAt / 1000).format('MMM Do')}
         </Text>
         <Divider />
         <View style={{flexDirection: 'row'}}>
