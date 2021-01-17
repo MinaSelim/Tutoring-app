@@ -26,7 +26,7 @@ const Chat = (): JSX.Element => {
       '3KOm7aBd9VynpYsuHD0u',
       'YUZSCMSLtdbmJaXIUs3QnUURm572',
     );
-    setMessage(messages);
+    setMessages(messages);
   }, []);
 
   const styles = useStyleSheet(chatStyles);
