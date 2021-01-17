@@ -173,7 +173,6 @@ describe('Tutor Database Functions Test', () => {
             assert.fail('Should not succeed');
          })
          .catch((err) => {
-            // todo fix this test
             assert(spy.calledOnce);
             assert(spy.calledWith(params));
             assert.equal(err, error);
@@ -243,5 +242,63 @@ describe('Tutor Database Functions Test', () => {
             assert(spy.calledWith(params));
             assert.equal(err, error);
          });
+   });
+
+   it('Should add tutor to db with missing params', () => {
+      const tutorMissingParams: ITutor = {
+         first_name: 'string',
+         last_name: 'string',
+         email: 'string',
+         firebase_uid: 'string',
+      };
+
+      const params: PutItemInput = {
+         Item: {
+            first_name: {
+               S: tutorMissingParams.first_name,
+            },
+            last_name: {
+               S: tutorMissingParams.last_name,
+            },
+            email: {
+               S: tutorMissingParams.email,
+            },
+            firebase_uid: {
+               S: tutorMissingParams.firebase_uid,
+            },
+            stripe_customer_id: {
+               S: '',
+            },
+            is_validated: {
+               BOOL: false,
+            },
+            profileImage: {
+               S: '',
+            },
+            campuses: {
+               S: '',
+            },
+            phone: {
+               S: '',
+            },
+         },
+         ReturnConsumedCapacity: 'TOTAL',
+         TableName: 'User',
+      };
+
+      const output = ({
+         promise() {
+            return Promise.resolve(putItemResponseGood);
+         },
+      } as unknown) as AWS.Request<PutItemOutput, AWSError>;
+
+      sandbox.stub(dynamo, 'putItem').returns(output);
+      const spy = sandbox.spy(dbUtils, 'putItem');
+
+      return tutordb.addUserToDatabase(tutorMissingParams).then((res) => {
+         assert(spy.calledOnce);
+         assert(spy.calledWith(params));
+         assert.equal(res.ConsumedCapacity.CapacityUnits, putItemResponseGood.ConsumedCapacity.CapacityUnits);
+      });
    });
 });

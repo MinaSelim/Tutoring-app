@@ -6,3 +6,5 @@ tsconfig.json
 app.json
 .watchmanconfig
 .huskyrc.js
+.vscode
+.nyc_output

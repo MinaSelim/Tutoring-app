@@ -295,7 +295,6 @@ describe('Student Database Functions Test', () => {
             assert.fail('Should not succeed');
          })
          .catch((err) => {
-            // todo fix this test
             assert(spy.calledOnce);
             assert(spy.calledWith(params));
             assert.equal(err, error);
@@ -365,5 +364,64 @@ describe('Student Database Functions Test', () => {
             assert(spy.calledWith(params));
             assert.equal(err, error);
          });
+   });
+
+   it('Should add student to db with missing params', () => {
+      const studentMissingParams: IStudent = {
+         first_name: 'string',
+         last_name: 'string',
+         email: 'string',
+         firebase_uid: 'string',
+         campus: 'string',
+      };
+
+      const params: PutItemInput = {
+         Item: {
+            first_name: {
+               S: studentMissingParams.first_name,
+            },
+            last_name: {
+               S: studentMissingParams.last_name,
+            },
+            email: {
+               S: studentMissingParams.email,
+            },
+            firebase_uid: {
+               S: studentMissingParams.firebase_uid,
+            },
+            campus: {
+               S: 'string',
+            },
+            stripe_customer_id: {
+               S: '',
+            },
+            is_validated: {
+               BOOL: false,
+            },
+            profileImage: {
+               S: '',
+            },
+            phone: {
+               S: '',
+            },
+         },
+         ReturnConsumedCapacity: 'TOTAL',
+         TableName: 'User',
+      };
+
+      const output = ({
+         promise() {
+            return Promise.resolve(putItemResponseGood);
+         },
+      } as unknown) as AWS.Request<PutItemOutput, AWSError>;
+
+      sandbox.stub(dynamo, 'putItem').returns(output);
+      const spy = sandbox.spy(dbUtils, 'putItem');
+
+      return studentdb.addUserToDatabase(studentMissingParams).then((res) => {
+         assert(spy.calledOnce);
+         assert(spy.calledWith(params));
+         assert.equal(res.ConsumedCapacity.CapacityUnits, putItemResponseGood.ConsumedCapacity.CapacityUnits);
+      });
    });
 });
