@@ -20,12 +20,12 @@ const chat = new GenericChat();
 //   });
 
 const Chat = (): JSX.Element => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   useEffect(() => {
     chat
       .getAllMessages('3KOm7aBd9VynpYsuHD0u', 'YUZSCMSLtdbmJaXIUs3QnUURm572')
       .then((res) => {
-        console.log(res);
+        setMessages(res);
       });
   }, []);
 
