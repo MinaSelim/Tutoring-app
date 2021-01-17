@@ -8,11 +8,11 @@ import {
 } from '@ui-kitten/components';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import chatStyles from './styles/chatStyles';
-import ChatBook from './ChatBook';
+import BookButton from '../widgets/BookButton';
 
 const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
 
-const renderRightActions = (): JSX.Element => <ChatBook />;
+const renderRightActions = (): JSX.Element => <BookButton />;
 
 const renderTitle = (): JSX.Element => (
   <TouchableOpacity>
