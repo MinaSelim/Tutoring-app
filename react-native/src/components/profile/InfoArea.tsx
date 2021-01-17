@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Text, Layout, Button} from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 import styles from './styles/ProfileStyles';
-import {TextInput} from 'react-native';
+import {TextInput, TouchableOpacity, ScrollView} from 'react-native';
 
 const InfoArea = (): JSX.Element => {
   //TODO get user data
@@ -12,7 +12,7 @@ const InfoArea = (): JSX.Element => {
   const [email, setEmail] = React.useState('test@gmail.com');
 
   return (
-    <Layout style={styles.infoArea}>
+    <ScrollView contentContainerStyle={styles.infoArea}>
       <Text style={styles.text}>First name</Text>
       <TextInput
         placeholder={firstName}
@@ -35,11 +35,23 @@ const InfoArea = (): JSX.Element => {
         onChangeText={(nextValue): void => setEmail(nextValue)}
       />
       <Text style={styles.text}>Password</Text>
-      <Button style={styles.passwordButton}>change password</Button>
-      <Text style={styles.id}>ID</Text>
+      <TouchableOpacity style={styles.passwordButton}>
+        <Text style={styles.passwordButtonText}>change password</Text>
+      </TouchableOpacity>
+      <Text style={styles.text}>Description</Text>
+      <TextInput
+        placeholder="Describe yourself..."
+        multiline={true}
+        textAlignVertical="top"
+        maxLength={500}
+        scrollEnabled={true}
+        style={styles.descriptionBox}
+        //onEndEditing
+      />
+      <Text style={styles.text}>ID</Text>
       {/* TODO put real id */}
       <Text>123456789</Text>
-    </Layout>
+    </ScrollView>
   );
 };
 

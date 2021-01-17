@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../../styles/appColors';
 
 export const profileStyles = StyleSheet.create({
   modal: {
@@ -6,7 +7,7 @@ export const profileStyles = StyleSheet.create({
     width: '98%',
     alignSelf: 'flex-end',
     backgroundColor: 'white',
-    marginTop: '3%',
+    marginTop: '2%',
     borderRadius: 18,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
@@ -40,22 +41,40 @@ export const profileStyles = StyleSheet.create({
   profilePicture: {
     borderColor: 'black',
     borderWidth: 1,
-    width: 90,
-    height: 90,
+    width: 88,
+    height: 88,
     marginLeft: '8%',
   },
   inputBox: {
     marginBottom: 15,
-    height: 40,
+    height: 30,
     fontSize: 16,
     color: '#363636',
     backgroundColor: '#F7F7F7',
-    padding: 10,
+    padding: 5,
+    paddingTop: -20,
+    paddingBottom: -20,
     borderRadius: 10,
+  },
+  descriptionBox: {
+    height: 100,
+    fontSize: 16,
+    color: '#363636',
+    backgroundColor: '#F7F7F7',
+    borderRadius: 10,
+    marginBottom: 15,
   },
   passwordButton: {
     width: '60%',
-    height: 20,
+    height: 27,
+    marginBottom: 15,
+    backgroundColor: colors.appOrange,
+    borderRadius: 10,
+    justifyContent: 'center',
+  },
+  passwordButtonText: {
+    color: 'white',
+    alignSelf: 'center',
   },
   text: {
     color: '#363636',
@@ -65,16 +84,12 @@ export const profileStyles = StyleSheet.create({
   infoArea: {
     marginLeft: '8%',
     marginRight: '8%',
-    marginBottom: 30,
+    marginTop: 20,
   },
-  termsAndConditionsBox: {
+  termsAndConditionsButton: {
     marginLeft: '8%',
-  },
-  id: {
-    color: '#363636',
-    opacity: 0.6,
-    marginTop: 25,
-    marginBottom: 3,
+    marginBottom: 2,
+    marginTop: 2,
   },
 });
 

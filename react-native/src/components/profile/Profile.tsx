@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import {Text, Button, Icon, Avatar} from '@ui-kitten/components';
-import {View, TouchableOpacity, Modal, SafeAreaView} from 'react-native';
+import {View, TouchableOpacity, Modal} from 'react-native';
 import React, {useState} from 'react';
 import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
@@ -13,22 +13,11 @@ const Profile = (): JSX.Element => {
       <Icon fill="#363636" name="close-outline" style={styles.closeButton} />
     );
   };
-
   return (
     <View>
-      <Button onPress={(): void => setProfileVisibility(true)}>
-        TOGGLE MODAL
-      </Button>
-
+      <Button onPress={(): void => setProfileVisibility(true)}>Profile</Button>
       <Modal visible={isProfileVisible} transparent={true} animationType="fade">
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-          }}
-        />
+        <View style={styles.background} />
         <View style={styles.modal}>
           <View>
             <View style={styles.ProfileHeader}>
@@ -47,15 +36,11 @@ const Profile = (): JSX.Element => {
               source={require('../../assets/images/icons/user.png')}
             />
           </View>
-
           <InfoArea />
-
-          <View style={styles.termsAndConditionsBox}>
-            <TouchableOpacity>
-              {/* TODO Add link for terms and conditions */}
-              <Text style={styles.text}>Terms & Conditions</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.termsAndConditionsButton}>
+            {/* TODO Add link for terms and conditions */}
+            <Text style={styles.text}>Terms & Conditions</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>
