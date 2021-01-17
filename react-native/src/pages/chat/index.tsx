@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, PushNotificationIOS} from 'react-native';
 import 'react-native-gesture-handler';
 import {useStyleSheet, Layout} from '@ui-kitten/components';
 import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
@@ -13,20 +13,20 @@ import GenericChat from '../../api/chatroom/GenericChat';
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
 const chat = new GenericChat();
-chat
-  .getAllMessages('3KOm7aBd9VynpYsuHD0u', 'YUZSCMSLtdbmJaXIUs3QnUURm572')
-  .then((res) => {
-    console.log(res);
-  });
+// chat
+//   .getAllMessages('3KOm7aBd9VynpYsuHD0u', 'YUZSCMSLtdbmJaXIUs3QnUURm572')
+//   .then((res) => {
+//     console.log(res);
+//   });
 
 const Chat = (): JSX.Element => {
   const [messages, setMessages] = useState([]);
   useEffect(() => {
-    const messages = chat.getAllMessages(
-      '3KOm7aBd9VynpYsuHD0u',
-      'YUZSCMSLtdbmJaXIUs3QnUURm572',
-    );
-    setMessages(messages);
+    chat
+      .getAllMessages('3KOm7aBd9VynpYsuHD0u', 'YUZSCMSLtdbmJaXIUs3QnUURm572')
+      .then((res) => {
+        console.log(res);
+      });
   }, []);
 
   const styles = useStyleSheet(chatStyles);
