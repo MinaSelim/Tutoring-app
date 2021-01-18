@@ -7,8 +7,12 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
       const tutor: ITutor = user as ITutor;
 
-      if (!tutor.campuses) {
-         tutor.campuses = '';
+      if (!tutor.tutor_info.campuses) {
+         tutor.tutor_info.campuses = [];
+      }
+
+      if (!tutor.tutor_info.chatrooms) {
+         tutor.tutor_info.chatrooms = []
       }
 
       return tutor;
@@ -16,15 +20,29 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
    protected addSpecificUserParams = (user: IUser, params: PutItemInput): PutItemInput => {
       const tutor: ITutor = user as ITutor;
-      params.Item.campuses = {
-         S: tutor.campuses,
+
+      params.Item.tutor_info = {
+         M: {
+            campus: {
+               SS: tutor.tutor_info.campuses,
+            },
+            chatrooms: {
+               SS: tutor.tutor_info.chatrooms
+            }
+         }
       };
+
       return params;
    };
 
    protected addSpecificUserProperties = (user: IUser, data: GetItemOutput): IUser => {
       const tutor: ITutor = user as ITutor;
-      tutor.campuses = data.Item.campuses.S;
+
+      tutor.tutor_info = {
+         campuses: data.Item.tutor_info.M.campus.SS,
+         chatrooms: data.Item.tutor_info.M.chatrooms.SS,
+      }
+      
       return tutor;
    };
 }
