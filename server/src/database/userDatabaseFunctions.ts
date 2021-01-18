@@ -10,6 +10,15 @@ export default abstract class UserDatabaseFunctions {
       this.databaseUtils = DatabaseUtils.getInstance();
    }
 
+   public addUserToDatabase = (user: IUser): Promise<PutItemOutput> => {
+      let tempUser: IUser = this.fillEmptyGenericUserData(user);
+      tempUser = this.fillSpecificUserData(tempUser);
+      let params: PutItemInput = this.createGenericUserParams(tempUser);
+      params = this.addSpecificUserParams(tempUser, params);
+      return this.databaseUtils.putItem(params);
+   };
+
+   // fills optional generic user values to avoid nulls
    private fillEmptyGenericUserData(user: IUser): IUser {
       const tempUser = {...user};
 
@@ -32,6 +41,7 @@ export default abstract class UserDatabaseFunctions {
       return tempUser;
    }
 
+   // fills specific user type values (like tutor campuses) to avoid nulls 
    protected abstract fillSpecificUserData(tempUser: IUser): IUser;
 
    private createGenericUserParams = (user: IUser): PutItemInput => {
@@ -69,14 +79,6 @@ export default abstract class UserDatabaseFunctions {
    };
 
    protected abstract addSpecificUserParams(tempUser: IUser, params: PutItemInput): PutItemInput;
-
-   public addUserToDatabase = (user: IUser): Promise<PutItemOutput> => {
-      let tempUser: IUser = this.fillEmptyGenericUserData(user);
-      tempUser = this.fillSpecificUserData(tempUser);
-      let params: PutItemInput = this.createGenericUserParams(tempUser);
-      params = this.addSpecificUserParams(tempUser, params);
-      return this.databaseUtils.putItem(params);
-   };
 
    public getUserByFirebaseId = async (id: string): Promise<IUser> => {
       const params: GetItemInput = {
