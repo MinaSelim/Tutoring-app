@@ -13,11 +13,6 @@ import GenericChat from '../../api/chatroom/GenericChat';
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
 const chat = new GenericChat();
-// chat
-//   .getAllMessages('3KOm7aBd9VynpYsuHD0u', 'YUZSCMSLtdbmJaXIUs3QnUURm572')
-//   .then((res) => {
-//     console.log(res);
-//   });
 
 const Chat = (): JSX.Element => {
   const [messages, setMessages] = useState<IMessage[]>([]);

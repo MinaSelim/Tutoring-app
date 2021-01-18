@@ -133,12 +133,12 @@ export default class GenericChat {
     // eslint-disable-next-line new-cap
     const chatroomHelper = new chatHelper();
     chatroomHelper.viewedChat(chatroomID, currentUserToken);
-    const convo: firebase.firestore.CollectionReference<firebase.firestore.DocumentData> = firebase
+    const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
       .firestore()
       .collection(constants.chatroomCollection)
       .doc(chatroomID)
-      .collection(constants.messageCollection);
-
+      .collection(constants.messageCollection)
+      .orderBy('createdAt', 'desc');
     await convo.get().then((messageRef) => {
       messageRef.forEach((documentSnapshot) => {
         chatMessages.push({

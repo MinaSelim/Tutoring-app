@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ChatUI from '../components/chat/ChatUI';
+import ChatUI from '../pages/chat';
 
 const {Navigator, Screen} = createStackNavigator();
 
