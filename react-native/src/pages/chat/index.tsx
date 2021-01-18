@@ -12,17 +12,23 @@ import GenericChat from '../../api/chatroom/GenericChat';
 // This is the main front end for the chat, it calls messageRow for the layout of every single message view
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
-const chat = new GenericChat();
+const chatAPI: GenericChat = new GenericChat();
+//TO DO: get these values with DYNAMO DB User model
+const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
+const chatID: string = '3KOm7aBd9VynpYsuHD0u';
 
 const Chat = (): JSX.Element => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   useEffect(() => {
-    chat
-      .getAllMessages('3KOm7aBd9VynpYsuHD0u', 'YUZSCMSLtdbmJaXIUs3QnUURm572')
-      .then((res) => {
-        setMessages(res);
-      });
+    chatAPI.getAllMessages(chatID, userID).then((res) => {
+      setMessages(res);
+    });
   }, []);
+
+  function updateView(newMessages): void {
+    messages.push(newMessages);
+    setMessages(messages);
+  }
 
   const styles = useStyleSheet(chatStyles);
 

@@ -94,7 +94,7 @@ export default class GenericChat {
     chatroomID: string,
     message: string,
   ): void => {
-    if (message !== undefined || message !== null) {
+    if (message !== undefined && message !== null && message !== '') {
       firebase
         .firestore()
         .collection(constants.chatroomCollection)

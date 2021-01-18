@@ -9,19 +9,19 @@ import {Keyboard} from 'react-native';
 import firebase from 'firebase';
 import GenericChat from '../../api/chatroom/GenericChat';
 
+const chatAPI: GenericChat = new GenericChat();
+//TO DO: get these values with DYNAMO DB User model
+const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
+const chatID: string = '3KOm7aBd9VynpYsuHD0u';
+
 const PaperPlaneIcon = (props): JSX.Element => (
   <Icon {...props} name="paper-plane" />
 );
-const chat1 = new GenericChat();
 const ChatInput = (): JSX.Element => {
   const [entityText, setEntityText] = useState('');
   const sendMessage = () => {
     if (entityText && entityText.length > 0) {
-      chat1.sendMessage(
-        'YUZSCMSLtdbmJaXIUs3QnUURm572',
-        '3KOm7aBd9VynpYsuHD0u',
-        entityText,
-      );
+      chatAPI.sendMessage(userID, chatID, entityText);
     }
   };
 
@@ -29,6 +29,7 @@ const ChatInput = (): JSX.Element => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Divider strength="medium" />
+
       <Input
         status="ghost"
         style={chatStyles.input}
