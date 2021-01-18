@@ -23,6 +23,7 @@ export const profileStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 18,
+    height: 50,
   },
   title: {
     alignSelf: 'center',
@@ -46,7 +47,7 @@ export const profileStyles = StyleSheet.create({
     marginLeft: '8%',
   },
   inputBox: {
-    marginBottom: 15,
+    marginBottom: 8,
     height: 30,
     fontSize: 16,
     color: '#363636',
@@ -62,12 +63,12 @@ export const profileStyles = StyleSheet.create({
     color: '#363636',
     backgroundColor: '#F7F7F7',
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 8,
   },
   passwordButton: {
     width: '60%',
     height: 27,
-    marginBottom: 15,
+    marginBottom: 8,
     backgroundColor: colors.appOrange,
     borderRadius: 10,
     justifyContent: 'center',
@@ -79,7 +80,7 @@ export const profileStyles = StyleSheet.create({
   text: {
     color: '#363636',
     opacity: 0.6,
-    marginBottom: 5,
+    marginBottom: 3,
   },
   infoArea: {
     marginLeft: '8%',
