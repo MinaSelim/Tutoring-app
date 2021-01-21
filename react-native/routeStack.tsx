@@ -1,4 +1,3 @@
-import {createStackNavigator} from '@react-navigation/stack';
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
@@ -11,34 +10,36 @@ import MyChats from './src/pages/myChats';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
 import ChatUI from './src/components/ChatUI/ChatUI';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+function DrawerNavigator(): JSX.Element {
+  return (
+    <Drawer.Navigator
+      drawerContent={SideBar}
+      initialRouteName="SignIn"
+      drawerType="slide">
+      <Drawer.Screen name="SignIn" component={SignIn} />
+      <Drawer.Screen name="SignUpCredentials" component={SignUpCredentials} />
+      <Drawer.Screen name="SignUpUserType" component={SignUpUserType} />
+      <Drawer.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
+      <Drawer.Screen name="HomeUI" component={HomeUI} />
+      <Drawer.Screen name="MyChats" component={MyChats} />
+      <Drawer.Screen name="TutorSearch" component={TutorSearch} />
+      <Drawer.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
+      <Drawer.Screen name="ChatUI" component={ChatUI} />
+    </Drawer.Navigator>
+  );
+}
 
 class RouteStack extends Component {
   render(): React.ReactNode {
     return (
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{headerShown: false}}
-          initialRouteName="SignIn">
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen
-            name="SignUpCredentials"
-            component={SignUpCredentials}
-          />
-          <Stack.Screen name="SignUpUserType" component={SignUpUserType} />
-          <Stack.Screen
-            name="SignUpSelectCampus"
-            component={SignUpSelectCampus}
-          />
-          <Stack.Screen name="Home" component={HomeUI} />
-          <Stack.Screen name="SideBar" component={SideBar} />
-          <Stack.Screen name="MyChats" component={MyChats} />
-          <Stack.Screen name="TutorSearch" component={TutorSearch} />
-          <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
-          <Stack.Screen name="ChatUI" component={ChatUI} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <>
+        <NavigationContainer>
+          <DrawerNavigator />
+        </NavigationContainer>
+      </>
     );
   }
 }
