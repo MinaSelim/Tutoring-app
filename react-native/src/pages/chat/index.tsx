@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import firebase from '../../api/authentication/Fire';
 import {FlatList, PushNotificationIOS} from 'react-native';
 import 'react-native-gesture-handler';
-import {useStyleSheet, Layout} from '@ui-kitten/components';
+import {useStyleSheet, Layout, Input} from '@ui-kitten/components';
 import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
 import MessageRow from '../../components/ChatUI/MessageRow';
 import IMessage from '../../model/IMessage';
@@ -52,7 +52,11 @@ const Chat = (): JSX.Element => {
   const styles = useStyleSheet(chatStyles);
   //TODO: Make it scroll when opening input box
   const flatListRef = useRef<null | FlatList<IMessage>>(null);
-  flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
+
+  function scrollToBottom(): void {
+    console.log('scroll to bottom is called');
+    flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
+  }
   return (
     <Layout style={styles.container}>
       <ChatHeader />
@@ -65,7 +69,7 @@ const Chat = (): JSX.Element => {
         ref={flatListRef}
         inverted
       />
-      <ChatInput />
+      <ChatInput onFocus={scrollToBottom} onPress={scrollToBottom} />
     </Layout>
   );
 };
