@@ -43,6 +43,9 @@ const Chat = (): JSX.Element => {
   );
 
   const styles = useStyleSheet(chatStyles);
+  //TODO: Make it scroll when opening input box
+  const flatListRef = useRef<FlatList<IMessage>>();
+  flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
   return (
     <Layout style={styles.container}>
       <ChatHeader />
@@ -50,6 +53,7 @@ const Chat = (): JSX.Element => {
         keyExtractor={(item): string => item.id}
         renderItem={renderMessage}
         data={newMsgs}
+        ref={flatListRef}
         inverted
       />
       <ChatInput />
