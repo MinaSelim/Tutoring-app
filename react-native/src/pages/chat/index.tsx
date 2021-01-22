@@ -51,7 +51,7 @@ const Chat = (): JSX.Element => {
 
   const styles = useStyleSheet(chatStyles);
   //TODO: Make it scroll when opening input box
-  const flatListRef = useRef<FlatList<IMessage>>();
+  const flatListRef = useRef<null | FlatList<IMessage>>(null);
   flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
   return (
     <Layout style={styles.container}>
@@ -62,6 +62,7 @@ const Chat = (): JSX.Element => {
         data={newMsgs}
         onEndReachedThreshold={0.5}
         onEndReached={incrementMsgLimit}
+        ref={flatListRef}
         inverted
       />
       <ChatInput />
