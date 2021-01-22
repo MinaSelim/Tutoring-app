@@ -22,7 +22,12 @@ const ChatInput = (): JSX.Element => {
   const sendMessage = () => {
     if (entityText && entityText.length > 0) {
       chatAPI.sendMessage(userID, chatID, entityText);
+      clearTextInput();
     }
+  };
+
+  const clearTextInput = () => {
+    setEntityText('');
   };
 
   return (
