@@ -22,12 +22,14 @@ const chatID: string = '3KOm7aBd9VynpYsuHD0u';
 let newMsgs: Message[];
 
 const Chat = (): JSX.Element => {
+  const [msgCount, setMsgCount] = useState(25);
   const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
     .firestore()
     .collection('CHATROOMS')
     .doc(chatID)
     .collection('MESSAGES')
-    .orderBy('createdAt', 'desc');
+    .orderBy('createdAt', 'desc')
+    .limit(msgCount);
 
   const [messages] = useCollectionData(convo, {
     idField: 'id',
@@ -35,6 +37,11 @@ const Chat = (): JSX.Element => {
 
   if (messages !== undefined) {
     newMsgs = ChatMessages(messages);
+  }
+
+  function incrementMsgLimit(): void {
+    setMsgCount(msgCount + 25);
+    console.log('msg count', msgCount);
   }
 
   console.log(messages);
@@ -53,7 +60,8 @@ const Chat = (): JSX.Element => {
         keyExtractor={(item): string => item.id}
         renderItem={renderMessage}
         data={newMsgs}
-        ref={flatListRef}
+        onEndReachedThreshold={0.5}
+        onEndReached={incrementMsgLimit}
         inverted
       />
       <ChatInput />
