@@ -4,10 +4,13 @@ import {View, TouchableOpacity, Modal} from 'react-native';
 import React, {useState} from 'react';
 import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
+import buttonStyles from '../sideBar/styles/styles';
 
 const Profile = (): JSX.Element => {
   const [isProfileVisible, setProfileVisibility] = useState(false);
-
+  const PersonIcon = (props): JSX.Element => (
+    <Icon {...props} name="person-outline" />
+  );
   const CloseButtonIcon = (): JSX.Element => {
     return (
       <Icon fill="#363636" name="close-outline" style={styles.closeButton} />
@@ -15,7 +18,15 @@ const Profile = (): JSX.Element => {
   };
   return (
     <View>
-      <Button onPress={(): void => setProfileVisibility(true)}>Profile</Button>
+      <Button
+        onPress={(): void => setProfileVisibility(true)}
+        style={buttonStyles.button}
+        appearance="ghost"
+        status="control"
+        accessoryLeft={PersonIcon}
+        size="giant">
+        Profile
+      </Button>
       <Modal visible={isProfileVisible} transparent={true} animationType="fade">
         <View style={styles.background} />
         <View style={styles.modal}>
