@@ -38,7 +38,7 @@ const loadMessages = (
     .limit(messageAmount);
 };
 
-const handleOnEndReached = (amount: number) => {
+const handleOnEndReached = (amount: number): void => {
   console.log('UPDATING THE SCROLL ...');
 };
 
