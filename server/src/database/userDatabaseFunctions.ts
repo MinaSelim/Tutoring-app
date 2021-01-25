@@ -1,4 +1,4 @@
-import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
+import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from '../database/databaseUtils';
 import IUser from '../models/IUser';
@@ -110,4 +110,33 @@ export default abstract class UserDatabaseFunctions {
    };
 
    protected abstract addSpecificUserProperties(user: IUser, data: GetItemOutput): IUser;
+
+   public updateUser = (user: IUser): Promise<UpdateItemOutput> => {
+      console.log('in update user')
+
+      const tempUser: IUser = {...user};
+      console.log('spread user')
+
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER, // change to config
+         Key: {
+            firebase_uid: {
+               S: tempUser.firebase_uid
+            }
+         },
+         UpdateExpression: "SET first_name = :fname, last_name = :lname",
+         ExpressionAttributeValues: {
+            ":fname": {
+               S: tempUser.first_name
+            },
+            ":lname": {
+               S: tempUser.last_name
+            }
+         },
+         ReturnValues: "ALL_NEW"
+      }
+
+      console.log('created params', params)
+      return this.databaseUtils.updateItem(params);
+   };
 }
