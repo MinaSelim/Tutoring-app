@@ -1,5 +1,5 @@
 import ITutor from '../models/ITutor';
-import {GetItemOutput, PutItemInput} from 'aws-sdk/clients/dynamodb';
+import {GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 
@@ -45,4 +45,15 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       
       return tutor;
    };
+
+   // update template methods 
+   protected addSpecificUserUpdateParams = (user: IUser, params: UpdateItemInput): UpdateItemInput => {
+      return params;
+   };
+
+   protected mapSpecificUpdateAttributes = (user: IUser, returnData: UpdateItemOutput): IUser => {
+      return user;
+   };
+
+
 }
