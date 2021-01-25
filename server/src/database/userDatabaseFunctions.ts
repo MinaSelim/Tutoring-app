@@ -111,11 +111,8 @@ export default abstract class UserDatabaseFunctions {
 
    protected abstract addSpecificUserProperties(user: IUser, data: GetItemOutput): IUser;
 
-   public updateUser = (user: IUser): Promise<UpdateItemOutput> => {
-      console.log('in update user')
-
+   public updateUser = async (user: IUser): Promise<IUser> => {
       const tempUser: IUser = {...user};
-      console.log('spread user')
 
       const params: UpdateItemInput = {
          TableName: config.tableNames.USER, // change to config
@@ -136,7 +133,18 @@ export default abstract class UserDatabaseFunctions {
          ReturnValues: "ALL_NEW"
       }
 
-      console.log('created params', params)
-      return this.databaseUtils.updateItem(params);
+      const returnData: UpdateItemOutput = await this.databaseUtils.updateItem(params);
+      const updatedUser: IUser = {
+         email: returnData.Attributes.email.S,
+         is_validated: returnData.Attributes.is_validated.BOOL,
+         firebase_uid: returnData.Attributes.firebase_uid.S,
+         stripe_customer_id: returnData.Attributes.stripe_customer_id.S,
+         first_name: returnData.Attributes.first_name.S,
+         last_name: returnData.Attributes.last_name.S,
+         profileImage: returnData.Attributes.profileImage.S,
+         phone: returnData.Attributes.phone.S,
+      }
+
+      return updatedUser;
    };
 }
