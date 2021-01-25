@@ -19,7 +19,6 @@ export class StudentProfileRoutes implements IRouteComponent {
         app.post('/profile/student/update', async (req: Request, res: Response) => {
             try {
                 const student: IStudent = await this.studentProfileManager.updateInfo(req.body);
-                console.log('updated info', student)
                 res.status(200);
                 res.send(student);
             } catch (error) {
