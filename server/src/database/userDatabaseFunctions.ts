@@ -123,7 +123,7 @@ export default abstract class UserDatabaseFunctions {
       }
 
       const params: UpdateItemInput = {
-         TableName: config.tableNames.USER, // change to config
+         TableName: config.tableNames.USER,
          Key: {
             firebase_uid: {
                S: tempUser.firebase_uid
@@ -161,53 +161,4 @@ export default abstract class UserDatabaseFunctions {
 
       return updatedUser;
    };
-
-   // public updateUser = async (user: IUser): Promise<IUser> => {
-   //    let params: UpdateItemInput = this.createGenericUpdateParams(user);
-   //    params = this.addSpecificUserUpdateParams(user, params);
-   //    const returnData: UpdateItemOutput = await this.databaseUtils.updateItem(params);
-   //    let updatedUser: IUser = this.mapGenericUpdateAttributes(returnData);
-   //    updatedUser = this.mapSpecificUpdateAttributes(updatedUser, returnData);
-   //    return updatedUser;
-   // }
-
-   // private createGenericUpdateParams = (user: IUser): UpdateItemInput => {
-   //    const params: UpdateItemInput = {
-   //       TableName: config.tableNames.USER, // change to config
-   //       Key: {
-   //          firebase_uid: {
-   //             S: user.firebase_uid
-   //          }
-   //       },
-   //       UpdateExpression: "SET first_name = :fn, last_name = :ln",
-   //       ExpressionAttributeValues: {
-   //          ":fn": {
-   //             S: user.first_name
-   //          },
-   //          ":ln": {
-   //             S: user.last_name
-   //          }
-   //       },
-   //       ReturnValues: "ALL_NEW"
-   //    };
-   //    return params;
-   // };
-
-   // protected abstract addSpecificUserUpdateParams(user: IUser, params: UpdateItemInput): UpdateItemInput;
-
-   // private mapGenericUpdateAttributes = (returnData: UpdateItemOutput): IUser => {
-   //    const updatedUser: IUser = {
-   //       firebase_uid: returnData.Attributes.firebase_uid.S,
-   //       first_name: returnData.Attributes.first_name.S,
-   //       last_name: returnData.Attributes.last_name.S,
-   //       email: returnData.Attributes.email.S,
-   //       is_validated: returnData.Attributes.is_validated.BOOL,
-   //       stripe_customer_id: returnData.Attributes.stripe_customer_id.S,
-   //       profileImage: returnData.Attributes.profileImage.S,
-   //       phone: returnData.Attributes.phone.S, 
-   //    };
-   //    return updatedUser;
-   // };
-
-   // protected abstract mapSpecificUpdateAttributes(user: IUser, returnData: UpdateItemOutput): IUser;
 }

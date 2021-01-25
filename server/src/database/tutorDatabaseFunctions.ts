@@ -45,15 +45,4 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       
       return tutor;
    };
-
-   // update template methods 
-   protected addSpecificUserUpdateParams = (user: IUser, params: UpdateItemInput): UpdateItemInput => {
-      return params;
-   };
-
-   protected mapSpecificUpdateAttributes = (user: IUser, returnData: UpdateItemOutput): IUser => {
-      return user;
-   };
-
-
 }

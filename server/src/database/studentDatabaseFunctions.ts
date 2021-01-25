@@ -46,28 +46,4 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       
       return student;
    };
-
-   protected addSpecificUserUpdateParams = (user: IUser, params: UpdateItemInput): UpdateItemInput => {
-      const student: IStudent = user as IStudent;
-      
-      params.UpdateExpression = params.UpdateExpression.concat(", student_info.campus = :ca, student_info.chatrooms = :ch");
-      params.ExpressionAttributeValues[':ca'] = {S: student.student_info.campus};
-      params.ExpressionAttributeValues[':ch'] = {SS: student.student_info.chatrooms};
-
-      console.log(params);
-      return params;
-   }
-
-   protected mapSpecificUpdateAttributes = (user: IUser, returnData: UpdateItemOutput): IUser => {
-      const student: IStudent = user as IStudent;
-
-      student.student_info = {
-         campus: returnData.Attributes.student_info.M.campus.S,
-         chatrooms: returnData.Attributes.student_info.M.chatrooms.SS,
-      }
-      
-      return student;
-   };
-
-
 }
