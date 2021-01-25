@@ -10,6 +10,7 @@ export default class StudentProfileManager {
 
     public updateInfo = async (student: IStudent): Promise<IStudent> => {
         const updatedStudent: IStudent = (await this.studentDatabaseFunctions.updateUser(student)) as IStudent;
+        updatedStudent.student_info = student.student_info; // alternatively send only generic info and have front end keep student info
         return updatedStudent; 
     }
 }
