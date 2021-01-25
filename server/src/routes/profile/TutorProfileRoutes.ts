@@ -3,7 +3,7 @@ import IRouteComponent from '../IRouteComponent';
 import TutorProfileManager from '../../services/managers/TutorProfileManager';
 import ITutor from 'src/models/ITutor';
 
-export class StudentProfileRoutes implements IRouteComponent {
+export class TutorProfileRoutes implements IRouteComponent {
     private tutorProfileManager: TutorProfileManager;
 
     constructor() {
