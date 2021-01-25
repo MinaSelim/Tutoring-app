@@ -23,6 +23,7 @@ import Message from '../../api/chatroom/components/Message';
 // /const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
 const chatID: string = '3KOm7aBd9VynpYsuHD0u';
 let chatMessages: Message[];
+let initialLoad = true;
 
 const loadMessages = (
   messageAmount,
@@ -44,7 +45,7 @@ const handleOnEndReached = (amount: number): void => {
 
 const Chat = (): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
-  const SCROLL_MESSAGE_AMOUNT = 25;
+  const SCROLL_MESSAGE_AMOUNT = 10;
   const OFFSET = 0;
 
   const [recentMessage, setRecentMessage] = useState<IMessage>({
@@ -54,13 +55,18 @@ const Chat = (): JSX.Element => {
     sender: '',
   });
 
-  const [
-    messages,
-    isLoadingAllMesages = true,
-    AllMesagesLoadError,
-  ] = useCollectionDataOnce(loadMessages(SCROLL_MESSAGE_AMOUNT, OFFSET), {
-    idField: 'id',
-  });
+  function GetMessages(): any {
+    console.log('on end reached');
+    const [
+      messages,
+      isLoadingAllMesages = true,
+      AllMesagesLoadError,
+    ] = useCollectionDataOnce(loadMessages(SCROLL_MESSAGE_AMOUNT, OFFSET), {
+      idField: 'id',
+    });
+    return messages;
+  }
+  const messages = GetMessages();
 
   const [
     newestMessage,
@@ -71,19 +77,39 @@ const Chat = (): JSX.Element => {
   });
 
   if (messages !== undefined && newestMessage !== undefined) {
-    const loadedMesssages: IMessage[] = ChatMessages(messages);
+    const loadedMessages: IMessage[] = ChatMessages(messages);
     const newestMsg: IMessage[] = ChatMessages(newestMessage);
-    if (loadedMesssages[0].id === newestMsg[0].id) {
-      chatMessages = [...(chatMessages || []), ...loadedMesssages];
+    //initial load of chatroom: get latest 25 messages
+    if (initialLoad) {
+      console.log('if');
+      chatMessages = [...loadedMessages];
+      initialLoad = false;
+    }
+    //user is requesting previous messages but no new messages have been recieved
+    else if (
+      loadedMessages[0].id === newestMsg[0].id &&
+      !(loadedMessages[0].id === chatMessages[0].id)
+    ) {
+      chatMessages = [...(chatMessages || []), ...loadedMessages];
+      console.log('else-if', chatMessages);
+    }
+    //a new message has been received but there are no previous messages to load
+    else if (loadedMessages[0].id === chatMessages[0].id) {
+      chatMessages.unshift(...newestMsg);
+    }
+    //receiving a new message and requesting previous messages
+    else if (
+      !(loadedMessages[0].id === newestMsg[0].id) &&
+      !(loadedMessages[0].id === chatMessages[0].id)
+    ) {
+      console.log('last-else-if');
+      chatMessages = [...newestMsg, ...(chatMessages || []), ...loadedMessages];
     } else {
-      chatMessages = [
-        ...newestMsg,
-        ...(chatMessages || []),
-        ...loadedMesssages,
-      ];
+      console.log('U DUN GOOFED');
     }
   }
-
+  console.log('load variable', initialLoad);
+  console.log(messages);
   const renderMessage = ({item}): JSX.Element => (
     <MessageRow key={item.id} {...item} />
   );
@@ -105,7 +131,7 @@ const Chat = (): JSX.Element => {
           renderItem={renderMessage}
           data={chatMessages}
           onEndReachedThreshold={0.5}
-          onEndReached={null}
+          onEndReached={GetMessages}
           ref={flatListRef}
           inverted
         />
