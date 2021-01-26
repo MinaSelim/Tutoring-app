@@ -9,7 +9,7 @@ const InfoArea = (): JSX.Element => {
 
   const [firstName, setFirstName] = React.useState('Alex');
   const [lastName, setLastName] = React.useState('Rodrigez');
-  const [email, setEmail] = React.useState('test@gmail.com');
+  const [phoneNumber, setPhoneNumber] = React.useState('(514) 334-1440');
 
   return (
     <ScrollView contentContainerStyle={styles.infoArea}>
@@ -27,16 +27,16 @@ const InfoArea = (): JSX.Element => {
         value={lastName}
         onChangeText={(nextValue): void => setLastName(nextValue)}
       />
-      <Text style={styles.text}>Email</Text>
+      <Text style={styles.text}>Phone Number</Text>
       <TextInput
-        placeholder={email}
+        placeholder={phoneNumber}
         style={styles.inputBox}
-        value={email}
-        onChangeText={(nextValue): void => setEmail(nextValue)}
+        value={phoneNumber}
+        onChangeText={(nextValue): void => setPhoneNumber(nextValue)}
       />
       <Text style={styles.text}>Password</Text>
       <TouchableOpacity style={styles.passwordButton}>
-        <Text style={styles.passwordButtonText}>change password</Text>
+        <Text style={styles.buttonText}>change password</Text>
       </TouchableOpacity>
       <Text style={styles.text}>Description</Text>
       <TextInput

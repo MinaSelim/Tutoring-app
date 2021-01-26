@@ -31,8 +31,11 @@ export const profileStyles = StyleSheet.create({
     color: '#363636',
     fontWeight: 'bold',
   },
-  placeholder: {
-    opacity: 0,
+  saveButton: {
+    alignSelf: 'center',
+    height: 35,
+    justifyContent: 'center',
+    marginRight: '8%',
   },
   closeButton: {
     alignSelf: 'center',
@@ -73,7 +76,7 @@ export const profileStyles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
   },
-  passwordButtonText: {
+  buttonText: {
     color: 'white',
     alignSelf: 'center',
   },

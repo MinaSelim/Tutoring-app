@@ -1,10 +1,11 @@
 import 'react-native-gesture-handler';
 import {Text, Button, Icon, Avatar} from '@ui-kitten/components';
-import {View, TouchableOpacity, Modal} from 'react-native';
+import {View, TouchableOpacity, Modal, Alert} from 'react-native';
 import React, {useState} from 'react';
 import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
 import buttonStyles from '../sideBar/styles/styles';
+import ProfileUpdate from '../../api/profile/ProfileUpdate';
 
 const Profile = (): JSX.Element => {
   const [isProfileVisible, setProfileVisibility] = useState(false);
@@ -15,6 +16,14 @@ const Profile = (): JSX.Element => {
     return (
       <Icon fill="#363636" name="close-outline" style={styles.closeButton} />
     );
+  };
+  const updateUser = async (): Promise<void> => {
+    try {
+      //ProfileUpdate.updateUserInfo();
+      setProfileVisibility(false);
+    } catch (error) {
+      Alert.alert(`${error}`);
+    }
   };
   return (
     <View>
@@ -38,14 +47,20 @@ const Profile = (): JSX.Element => {
                 onPress={(): void => setProfileVisibility(false)}
               />
               <Text style={styles.title}>Profile</Text>
-              <Text style={styles.placeholder}>Placeholder</Text>
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={(): Promise<void> => updateUser()}>
+                <Text style={styles.title}>Save</Text>
+              </TouchableOpacity>
             </View>
-            <Avatar
-              shape="round"
-              size="large"
-              style={styles.profilePicture}
-              source={require('../../assets/images/icons/user.png')}
-            />
+            <TouchableOpacity>
+              <Avatar
+                shape="round"
+                size="large"
+                style={styles.profilePicture}
+                source={require('../../assets/images/icons/user.png')}
+              />
+            </TouchableOpacity>
           </View>
           <InfoArea />
           <TouchableOpacity style={styles.termsAndConditionsButton}>
