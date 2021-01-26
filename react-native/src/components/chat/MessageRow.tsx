@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import {Avatar, Divider} from '@ui-kitten/components';
+import {Avatar, Divider, Text} from '@ui-kitten/components';
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import moment from 'moment';
 
 import IMessage from '../../model/IMessage';
@@ -23,7 +23,13 @@ const MesageRow = (props: IMessage): JSX.Element => {
             source={require('../../assets/icons/profile2.png')}
           />
           <View style={chatStyles.messageContentContainer}>
-            <Text style={chatStyles.memberName}>{`${props.sender}`}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={chatStyles.memberName}>{`${props.sender}`}</Text>
+              <Text appearance="hint">{`\t${moment
+                .unix(props.createdAt / 1000)
+                .format('LT')}`}</Text>
+            </View>
+
             <Text style={chatStyles.chatText}>{props.content}</Text>
           </View>
         </View>
