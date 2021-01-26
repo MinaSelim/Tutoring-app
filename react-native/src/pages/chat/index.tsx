@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useMemo} from 'react';
+import React, {useEffect, useState, useRef, useMemo, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
 import {FlatList, PushNotificationIOS} from 'react-native';
 import 'react-native-gesture-handler';
@@ -18,11 +18,10 @@ import Message from '../../api/chatroom/components/Message';
 // This is the main front end for the chat, it calls messageRow for the layout of every single message view
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
-//const chatAPI: GenericChat = new GenericChat();
+const chatAPI: GenericChat = new GenericChat();
 //TO DO: get these values with DYNAMO DB User model
-// /const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
+const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
 const chatID: string = '3KOm7aBd9VynpYsuHD0u';
-let chatMessages: Message[];
 let initialLoad = true;
 
 const loadMessages = (
@@ -39,14 +38,11 @@ const loadMessages = (
     .limit(messageAmount);
 };
 
-const handleOnEndReached = (amount: number): void => {
-  console.log('UPDATING THE SCROLL ...');
-};
-
 const Chat = (): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
   const SCROLL_MESSAGE_AMOUNT = 10;
   const OFFSET = 0;
+  const [chatMessages, setChatMessages] = useState<Message[]>([]);
 
   const [recentMessage, setRecentMessage] = useState<IMessage>({
     id: '',
@@ -55,18 +51,39 @@ const Chat = (): JSX.Element => {
     sender: '',
   });
 
-  function GetMessages(): any {
-    console.log('on end reached');
-    const [
-      messages,
-      isLoadingAllMesages = true,
-      AllMesagesLoadError,
-    ] = useCollectionDataOnce(loadMessages(SCROLL_MESSAGE_AMOUNT, OFFSET), {
-      idField: 'id',
-    });
-    return messages;
-  }
-  const messages = GetMessages();
+  const handleOnEndReached = (): void => {
+    console.log('UPDATING THE SCROLL ...');
+  };
+
+  const GetMessages = useCallback(async () => {
+    // console.log('on end reached');
+    // const [
+    //   messages,
+    //   isLoadingAllMesages = true,
+    //   AllMesagesLoadError,
+    // ] = useCollectionDataOnce(loadMessages(SCROLL_MESSAGE_AMOUNT, OFFSET), {
+    //   idField: 'id',
+    // });
+    // return messages;
+    const tempMessages: Message[] = await chatAPI.loadMessages(
+      chatID,
+      userID,
+      OFFSET,
+      SCROLL_MESSAGE_AMOUNT,
+    );
+    setChatMessages([...(chatMessages || []), ...tempMessages]);
+    console.log(tempMessages);
+    // .then((res) => {
+    //   let messages = ChatMessages(res);
+    //   chatMessages = [...(chatMessages || []), ...messages];
+    //   console.log('chatmessages', chatMessages);
+    //   return chatMessages;
+    // });
+  }, [chatMessages]);
+
+  useEffect(() => {
+    GetMessages();
+  }, [GetMessages]);
 
   const [
     newestMessage,
@@ -76,40 +93,38 @@ const Chat = (): JSX.Element => {
     idField: 'id',
   });
 
-  if (messages !== undefined && newestMessage !== undefined) {
-    const loadedMessages: IMessage[] = ChatMessages(messages);
-    const newestMsg: IMessage[] = ChatMessages(newestMessage);
-    //initial load of chatroom: get latest 25 messages
-    if (initialLoad) {
-      console.log('if');
-      chatMessages = [...loadedMessages];
-      initialLoad = false;
-    }
-    //user is requesting previous messages but no new messages have been recieved
-    else if (
-      loadedMessages[0].id === newestMsg[0].id &&
-      !(loadedMessages[0].id === chatMessages[0].id)
-    ) {
-      chatMessages = [...(chatMessages || []), ...loadedMessages];
-      console.log('else-if', chatMessages);
-    }
-    //a new message has been received but there are no previous messages to load
-    else if (loadedMessages[0].id === chatMessages[0].id) {
-      chatMessages.unshift(...newestMsg);
-    }
-    //receiving a new message and requesting previous messages
-    else if (
-      !(loadedMessages[0].id === newestMsg[0].id) &&
-      !(loadedMessages[0].id === chatMessages[0].id)
-    ) {
-      console.log('last-else-if');
-      chatMessages = [...newestMsg, ...(chatMessages || []), ...loadedMessages];
-    } else {
-      console.log('U DUN GOOFED');
-    }
-  }
-  console.log('load variable', initialLoad);
-  console.log(messages);
+  // if (messages !== undefined && newestMessage !== undefined) {
+  //   const loadedMessages: IMessage[] = ChatMessages(messages);
+  //   const newestMsg: IMessage[] = ChatMessages(newestMessage);
+  //   //initial load of chatroom: get latest 25 messages
+  //   if (initialLoad) {
+  //     console.log('if');
+  //     chatMessages = [...loadedMessages];
+  //     initialLoad = false;
+  //   }
+  //   //user is requesting previous messages but no new messages have been recieved
+  //   else if (
+  //     loadedMessages[0].id === newestMsg[0].id &&
+  //     !(loadedMessages[0].id === chatMessages[0].id)
+  //   ) {
+  //     chatMessages = [...(chatMessages || []), ...loadedMessages];
+  //     console.log('else-if', chatMessages);
+  //   }
+  //   //a new message has been received but there are no previous messages to load
+  //   else if (loadedMessages[0].id === chatMessages[0].id) {
+  //     chatMessages.unshift(...newestMsg);
+  //   }
+  //   //receiving a new message and requesting previous messages
+  //   else if (
+  //     !(loadedMessages[0].id === newestMsg[0].id) &&
+  //     !(loadedMessages[0].id === chatMessages[0].id)
+  //   ) {
+  //     console.log('last-else-if');
+  //     chatMessages = [...newestMsg, ...(chatMessages || []), ...loadedMessages];
+  //   } else {
+  //     console.log('U DUN GOOFED');
+  //   }
+  // }
   const renderMessage = ({item}): JSX.Element => (
     <MessageRow key={item.id} {...item} />
   );
@@ -131,7 +146,7 @@ const Chat = (): JSX.Element => {
           renderItem={renderMessage}
           data={chatMessages}
           onEndReachedThreshold={0.5}
-          onEndReached={GetMessages}
+          onEndReached={null}
           ref={flatListRef}
           inverted
         />
@@ -142,7 +157,6 @@ const Chat = (): JSX.Element => {
 };
 
 function ChatMessages(messages): Message[] {
-  //console.log('chatMsg', messages);
   const currentMessages: Message[] = messages.map(
     (msg: firebase.firestore.DocumentData) =>
       new Message(msg.id, msg.content, msg.sender, msg.createdAt),
