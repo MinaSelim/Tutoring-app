@@ -159,4 +159,47 @@ export default class GenericChat {
     });
     return messages;
   };
+  /**
+   * Get all of the messages for a specefic chat
+   * @param chatroomID The unique chatroom identifier who messages will be displayed
+   * @param currentUserToken The firebase UID of the current logged in user
+   */
+  public loadMessages = async (
+    chatroomID: string,
+    currentUserToken: string,
+    offset: number,
+    messageAmount: number,
+  ): Promise<Message[]> => {
+    const chatMessages: Array<chatMessages> = [];
+    // eslint-disable-next-line new-cap
+    const chatroomHelper = new chatHelper();
+    chatroomHelper.viewedChat(chatroomID, currentUserToken);
+    const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
+      .firestore()
+      .collection(constants.chatroomCollection)
+      .doc(chatroomID)
+      .collection(constants.messageCollection)
+      .orderBy('createdAt', 'desc')
+      .startAfter(offset)
+      .limit(messageAmount);
+    await convo.get().then((messageRef) => {
+      messageRef.forEach((documentSnapshot) => {
+        chatMessages.push({
+          id: documentSnapshot.id,
+          value: documentSnapshot.data(),
+        });
+      });
+    });
+    const messages: Message[] = [];
+    chatMessages.forEach((messageRef) => {
+      const message = new Message(
+        messageRef.id,
+        messageRef.value.content,
+        messageRef.value.sender,
+        messageRef.value.createdAt,
+      );
+      messages.push(message);
+    });
+    return messages;
+  };
 }

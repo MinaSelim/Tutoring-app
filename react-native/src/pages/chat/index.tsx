@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useMemo, useCallback} from 'react';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
 import {FlatList, PushNotificationIOS} from 'react-native';
 import 'react-native-gesture-handler';
@@ -41,9 +41,9 @@ const loadMessages = (
 const Chat = (): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
   const SCROLL_MESSAGE_AMOUNT = 10;
-  const OFFSET = 0;
+  const initialLoad = true;
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
-
+  const [offset, setOffset] = useState(new Date().getTime());
   const [recentMessage, setRecentMessage] = useState<IMessage>({
     id: '',
     content: '',
@@ -52,10 +52,13 @@ const Chat = (): JSX.Element => {
   });
 
   const handleOnEndReached = (): void => {
-    console.log('UPDATING THE SCROLL ...');
+    let chatLength = chatMessages.length;
+    let chatCreatedAt = chatMessages[chatLength - 1].createdAt;
+    setOffset(chatCreatedAt);
+    console.log('UPDATING THE SCROLL ... ' + offset);
   };
 
-  const GetMessages = useCallback(async () => {
+  const GetMessages = useCallback<() => Promise<Message[]>>(async () => {
     // console.log('on end reached');
     // const [
     //   messages,
@@ -68,22 +71,27 @@ const Chat = (): JSX.Element => {
     const tempMessages: Message[] = await chatAPI.loadMessages(
       chatID,
       userID,
-      OFFSET,
+      offset,
       SCROLL_MESSAGE_AMOUNT,
     );
-    setChatMessages([...(chatMessages || []), ...tempMessages]);
     console.log(tempMessages);
+    return tempMessages;
     // .then((res) => {
     //   let messages = ChatMessages(res);
     //   chatMessages = [...(chatMessages || []), ...messages];
     //   console.log('chatmessages', chatMessages);
     //   return chatMessages;
     // });
-  }, [chatMessages]);
+  }, [offset]);
 
   useEffect(() => {
-    GetMessages();
-  }, [GetMessages]);
+    let tempMessages;
+    GetMessages().then((res) => {
+      tempMessages = res;
+      setChatMessages([...(chatMessages || []), ...tempMessages]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offset]);
 
   const [
     newestMessage,
@@ -93,38 +101,13 @@ const Chat = (): JSX.Element => {
     idField: 'id',
   });
 
-  // if (messages !== undefined && newestMessage !== undefined) {
-  //   const loadedMessages: IMessage[] = ChatMessages(messages);
-  //   const newestMsg: IMessage[] = ChatMessages(newestMessage);
-  //   //initial load of chatroom: get latest 25 messages
-  //   if (initialLoad) {
-  //     console.log('if');
-  //     chatMessages = [...loadedMessages];
-  //     initialLoad = false;
-  //   }
-  //   //user is requesting previous messages but no new messages have been recieved
-  //   else if (
-  //     loadedMessages[0].id === newestMsg[0].id &&
-  //     !(loadedMessages[0].id === chatMessages[0].id)
-  //   ) {
-  //     chatMessages = [...(chatMessages || []), ...loadedMessages];
-  //     console.log('else-if', chatMessages);
-  //   }
-  //   //a new message has been received but there are no previous messages to load
-  //   else if (loadedMessages[0].id === chatMessages[0].id) {
-  //     chatMessages.unshift(...newestMsg);
-  //   }
-  //   //receiving a new message and requesting previous messages
-  //   else if (
-  //     !(loadedMessages[0].id === newestMsg[0].id) &&
-  //     !(loadedMessages[0].id === chatMessages[0].id)
-  //   ) {
-  //     console.log('last-else-if');
-  //     chatMessages = [...newestMsg, ...(chatMessages || []), ...loadedMessages];
-  //   } else {
-  //     console.log('U DUN GOOFED');
-  //   }
-  // }
+  if (newestMessage !== undefined && chatMessages[0] !== undefined) {
+    const newestMsg: IMessage[] = ChatMessages(newestMessage);
+    //a new message has been received but there are no previous messages to load
+    if (chatMessages[0].id !== newestMsg[0].id)
+      chatMessages.unshift(...newestMsg);
+  }
+
   const renderMessage = ({item}): JSX.Element => (
     <MessageRow key={item.id} {...item} />
   );
@@ -146,7 +129,7 @@ const Chat = (): JSX.Element => {
           renderItem={renderMessage}
           data={chatMessages}
           onEndReachedThreshold={0.5}
-          onEndReached={null}
+          onEndReached={handleOnEndReached}
           ref={flatListRef}
           inverted
         />
