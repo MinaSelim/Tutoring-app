@@ -49,7 +49,7 @@ export default class StudentAuth implements IAuth {
       const response = await fetch(`${SERVER_LINK}/auth/student/register`, {
         method: 'POST',
         headers: {
-          Accept: 'application/rjson',
+          Accept: 'application/json',
           'Content-type': 'application/json',
         },
         body: JSON.stringify(student),
