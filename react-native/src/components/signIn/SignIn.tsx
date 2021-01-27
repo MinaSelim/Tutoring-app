@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   TouchableOpacity,
   TextInput,
   Image,
@@ -21,6 +20,8 @@ import TutorAuth from '../../api/authentication/TutorAuth';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignInPage from '../../model/signInSignUp/ISignInPage';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text} from '@ui-kitten/components';
+import ToggleBarStudentTutor from './ToggleUserType';
 
 interface IState extends IUserLogin, ISignInPage {}
 
@@ -92,7 +93,7 @@ class SignIn extends Component<INavigation, IState> {
         <SafeAreaView style={[styles.safeArea]}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{flex: 1}}>
+            style={styles.keyboardAvoidingView}>
             <View style={styles.component}>
               <View style={styles.logo}>
                 <Image
@@ -100,21 +101,12 @@ class SignIn extends Component<INavigation, IState> {
                   style={styles.title}
                 />
               </View>
+
               <View style={styles.container}>
                 <ScrollView>
-                  <View style={{marginBottom: 40, width: '85%'}}>
-                    <Text style={styles.welcome}>Welcome!</Text>
-
-                    <Text style={styles.signInToContinue}>
-                      Sign in to continue
-                    </Text>
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        margin: 15,
-                        marginLeft: 30,
-                      }}>
+                  <ToggleBarStudentTutor />
+                  <View style={styles.inputView}>
+                    <View style={styles.userInputView}>
                       <View style={styles.iconBox}>
                         <Image
                           source={require('../../assets/images/icons/user.png')}
@@ -131,12 +123,7 @@ class SignIn extends Component<INavigation, IState> {
                       />
                     </View>
 
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        margin: 15,
-                        marginLeft: 30,
-                      }}>
+                    <View style={styles.userInputView}>
                       <View style={styles.iconBox}>
                         <Image
                           source={require('../../assets/images/icons/lock.png')}
@@ -166,13 +153,16 @@ class SignIn extends Component<INavigation, IState> {
                       </TouchableOpacity>
                     </View>
                   </View>
-                  <View style={{alignItems: 'center'}}>
+                  <View style={styles.signInButtonView}>
                     <TouchableOpacity
                       style={styles.signInButton}
                       onPress={(): void => {
                         this.signIn();
                       }}>
-                      <Text style={styles.signInText}> Sign In </Text>
+                      <Text style={styles.signInText} category="label">
+                        {' '}
+                        Sign In{' '}
+                      </Text>
                       <Image
                         source={require('../../assets/images/icons/nextArrow.png')}
                         style={styles.nextArrow}
@@ -182,7 +172,7 @@ class SignIn extends Component<INavigation, IState> {
                     <TouchableOpacity
                       style={styles.forgotPasswordButton}
                       onPress={(): void => this.forgotPassword()}>
-                      <Text style={styles.forgotPasswordText}>
+                      <Text style={styles.forgotPasswordText} category="label">
                         Forgot password?
                       </Text>
                     </TouchableOpacity>
@@ -192,7 +182,7 @@ class SignIn extends Component<INavigation, IState> {
                       onPress={(): void => {
                         this.props.navigation.navigate('SignUpCredentials');
                       }}>
-                      <Text style={styles.createAccountText}>
+                      <Text style={styles.createAccountText} category="label">
                         {' '}
                         Create an account{' '}
                       </Text>
@@ -205,7 +195,9 @@ class SignIn extends Component<INavigation, IState> {
                         source={require('../../assets/images/icons/googleIcon.png')}
                         style={styles.googleIcon}
                       />
-                      <Text style={styles.signInWithGoogleText}>
+                      <Text
+                        style={styles.signInWithGoogleText}
+                        category="label">
                         {' '}
                         Sign in with Google{' '}
                       </Text>

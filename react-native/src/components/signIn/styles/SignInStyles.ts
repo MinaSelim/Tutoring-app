@@ -32,6 +32,7 @@ export default StyleSheet.create({
     marginBottom: 18,
     marginLeft: 20,
     fontFamily: fonts.quickSandBold,
+    marginTop: '15%',
   },
   icon: {
     width: '60%',
@@ -51,6 +52,15 @@ export default StyleSheet.create({
     marginBottom: 28,
     marginLeft: 20,
   },
+  signInUserType: {
+    fontSize: 20,
+    fontFamily: fonts.quickSandRegular,
+    marginBottom: 28,
+  },
+  inputView: {
+    marginBottom: 40,
+    width: '85%',
+  },
   input: {
     height: 40,
     borderColor: colors.appOrange,
@@ -61,6 +71,7 @@ export default StyleSheet.create({
     fontSize: 18,
     color: colors.appBlack,
   },
+  userInputView: {flexDirection: 'row', margin: 15, marginLeft: 30},
   eyeButton: {
     right: 35,
     top: 5,
@@ -79,6 +90,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   signInText: {
+    fontSize: 14,
     color: colors.appWhite,
     fontFamily: fonts.quickSandBold,
   },
@@ -110,6 +122,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   createAccountText: {
+    fontSize: 14,
     color: colors.appOrange,
     fontFamily: fonts.quickSandBold,
   },
@@ -125,6 +138,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   signInWithGoogleText: {
+    fontSize: 14,
     color: colors.appSilver,
     fontFamily: fonts.quickSandBold,
   },
@@ -135,6 +149,18 @@ export default StyleSheet.create({
     left: 25,
   },
   safeArea: {
+    flex: 1,
+  },
+  topTab: {
+    backgroundColor: 'rgba(52, 52, 52, 0.0)',
+  },
+  signInAsAView: {
+    flexDirection: 'row',
+  },
+  signInButtonView: {
+    alignItems: 'center',
+  },
+  keyboardAvoidingView: {
     flex: 1,
   },
 });
