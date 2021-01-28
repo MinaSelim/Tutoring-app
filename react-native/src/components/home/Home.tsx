@@ -7,24 +7,21 @@ import SideMenuIcon from './SideMenuIcon';
 import MessageIcon from './MessageIcon';
 import UniversityImage from './UniversityImage';
 import useAuthUser from '../../hooks/authUser';
-import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '@ui-kitten/components';
-import useAuthUser from '../../hooks/authUser';
-import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 
-const AUTH_USER_KEY = 'auth_user';
-
-const HomeUI: React.FC<any> = ({navigation}) => {
-const AUTH_USER_KEY = 'auth_user';
-const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
+const HomeUI: React.FC<INavigation> = ({
+  navigation,
+  toggleDrawer,
+}: INavigation) => {
   const styles = useStyleSheet(homeStyles);
   const theme = useTheme();
-  const [user, setAuthUser] = useAuthUser();
+  const user = useAuthUser()[0];
   const [userName, setUserName] = useState('');
 
   useEffect(() => setUserName(user!.first_name), [user]);
-  
+
   return (
     <SafeAreaView
       style={[styles.safeArea, {backgroundColor: theme['color-basic-100']}]}>
@@ -64,15 +61,6 @@ const HomeUI: React.FC<NavigationInjectedPropsConfigured> = (props) => {
           </Button>
           <Text style={styles.footer}> go.study </Text>
         </View>
-    <View style={styles.background}>
-      <View style={styles.upperSection}>
-        <Button
-          style={styles.tabButton}
-          onPress={(): boolean => props.navigation.navigate('SideBar')}
-          appearance="ghost"
-          accessoryLeft={SideMenuIcon}
-        />
-        <Text style={styles.helloMessage}>Hey {userName},</Text>
       </View>
     </SafeAreaView>
   );

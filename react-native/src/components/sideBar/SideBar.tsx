@@ -1,4 +1,5 @@
 import {View} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   Text,
@@ -8,8 +9,9 @@ import {
   Icon,
   Divider,
 } from '@ui-kitten/components';
-import React from 'react';
 import styles from './styles/styles';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import useAuthUser from '../../hooks/authUser';
 
 const PersonIcon = (props): JSX.Element => (
   <Icon {...props} name="person-outline" />
@@ -44,7 +46,18 @@ const tutorCalendar = (): JSX.Element => (
   </Button>
 );
 
-const SideBar = (): JSX.Element => {
+const SideBar: React.FC<INavigation> = ({
+  navigation,
+}: INavigation): JSX.Element => {
+  const [user, setAuthUser] = useAuthUser();
+  const [userName, setUserName] = useState('');
+  useEffect(() => setUserName(user!.first_name), [user]);
+
+  const handleSignOut = (): void => {
+    setAuthUser(null);
+    navigation.navigate('SignIn');
+  };
+
   return (
     <Layout level="primary" style={styles.container}>
       <View>
@@ -104,7 +117,8 @@ const SideBar = (): JSX.Element => {
           appearance="ghost"
           status="control"
           accessoryLeft={EmptyIcon}
-          size="giant">
+          size="giant"
+          onPress={(): void => handleSignOut()}>
           Sign out
         </Button>
       </View>

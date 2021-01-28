@@ -23,7 +23,7 @@ function DrawerNavigator(): JSX.Element {
       <Drawer.Screen name="SignUpCredentials" component={SignUpCredentials} />
       <Drawer.Screen name="SignUpUserType" component={SignUpUserType} />
       <Drawer.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
-      <Drawer.Screen name="HomeUI" component={HomeUI} />
+      <Drawer.Screen name="Home" component={HomeUI} />
       <Drawer.Screen name="MyChats" component={MyChats} />
       <Drawer.Screen name="TutorSearch" component={TutorSearch} />
       <Drawer.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
