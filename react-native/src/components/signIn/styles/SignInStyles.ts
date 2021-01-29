@@ -163,4 +163,7 @@ export default StyleSheet.create({
   keyboardAvoidingView: {
     flex: 1,
   },
+  signInContent: {
+    backgroundColor: 'rgba(52, 52, 52, 1.0)',
+  },
 });
