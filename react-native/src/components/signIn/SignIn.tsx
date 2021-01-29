@@ -62,7 +62,10 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         Welcome!
       </Text>
       <View style={styles.signInAsAView}>
-        <Text style={styles.signInToContinue}>Sign in as a {userType}</Text>
+        <Text style={styles.signInToContinue}>Sign in as a </Text>
+        <Text style={styles.signInUserType} category="s1">
+          {userType}
+        </Text>
       </View>
       <View style={styles.inputView}>
         <View style={styles.userInputView}>
