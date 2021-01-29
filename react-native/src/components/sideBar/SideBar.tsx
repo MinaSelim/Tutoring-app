@@ -33,7 +33,7 @@ const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
 
-const tutorCalendar = () => (
+const tutorCalendar = (): JSX.Element => (
   <Button
     style={styles.button}
     appearance="ghost"

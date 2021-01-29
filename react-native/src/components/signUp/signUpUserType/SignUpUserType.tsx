@@ -13,7 +13,7 @@ import INavigation from '../../../model/navigation/NavigationInjectedPropsConfig
 import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import IAuth from '../../../api/authentication/IAuth';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface IProps extends INavigation {
   route: any;
