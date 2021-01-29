@@ -42,7 +42,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         email,
         password,
       });
-      navigation.navigate('Home');
+      navigation.navigate('HomeUI');
     } catch (error) {
       Alert.alert(`${error}`);
     }

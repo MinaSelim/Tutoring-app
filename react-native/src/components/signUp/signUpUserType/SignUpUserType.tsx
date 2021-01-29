@@ -52,7 +52,7 @@ class SignUpUserType extends Component<IProps> {
     const auth: IAuth = new TutorAuth();
     try {
       const user = await auth.signInWithEmailAndPassword({email, password});
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('HomeUI');
     } catch (error) {
       Alert.alert(`${error}`);
     }
