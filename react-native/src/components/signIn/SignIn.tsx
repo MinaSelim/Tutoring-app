@@ -81,7 +81,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
             placeholder="email"
             placeholderTextColor={colors.appSilver}
             autoCapitalize="none"
-            onChangeText={(text): void => setPassword(text)}
+            onChangeText={(text): void => setEmail(text)}
           />
         </View>
 
