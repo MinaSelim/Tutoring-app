@@ -86,7 +86,7 @@ class SignUpSelectCampus extends Component<IProps, ISignUpSelectCampusPage> {
         Alert.alert(`${error}`);
         return;
       }
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('HomeUI');
       return;
     }
     Alert.alert('Please select a campus first.');

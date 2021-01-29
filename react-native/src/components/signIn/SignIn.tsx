@@ -1,223 +1,169 @@
-import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  ImageBackground,
-  Alert,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, TouchableOpacity, TextInput, Image, Alert} from 'react-native';
+import {NavigationInjectedProps} from 'react-navigation';
 import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
-import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from '../../api/authentication/IAuth';
-import StudentAuth from '../../api/authentication/StudentAuth';
-import TutorAuth from '../../api/authentication/TutorAuth';
-import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
-import ISignInPage from '../../model/signInSignUp/ISignInPage';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
-interface IState extends IUserLogin, ISignInPage {}
+import {Text} from '@ui-kitten/components';
+
+interface ISignIn extends NavigationInjectedProps {
+  userType: string;
+  userAuth: IAuth;
+}
 
 // This component corresponds to the sign in page
-class SignIn extends Component<INavigation, IState> {
-  constructor(props) {
-    super(props);
+const SignIn: React.FunctionComponent<ISignIn> = ({
+  navigation,
+  userType,
+  userAuth,
+}: ISignIn) => {
+  // Hooks
+  // const [user, setAuthUser] = useAuthUser();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPasswordHidden, setPasswordHidden] = useState(true);
 
-    this.state = {
-      email: '',
-      password: '',
-      passwordHidden: true,
-    };
+  //Send user to homepage if they are still in localstorage i.e signedIn
+  //TODO We should have access and refresh tokens
+  // useEffect(() => {
+  //   if (user != null) navigation.navigate('Home');
+  // }
 
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.signIn = this.signIn.bind(this);
-    this.forgotPassword = this.forgotPassword.bind(this);
-    this.signInWithGoogle = this.signInWithGoogle.bind(this);
-  }
-
-  handleEmail = (text): void => {
-    this.setState({email: text});
-  };
-
-  handlePassword = (text): void => {
-    this.setState({password: text});
-  };
-
-  changePasswordVisibility = (): void => {
-    this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
-  };
-
-  // Send the user's input to the back-end
-  signIn = async (): Promise<void> => {
-    if (!this.state.email.includes('@') || this.state.password.length < 8) {
+  const signIn = async (): Promise<void> => {
+    if (!email.includes('@') || password.length < 8) {
       Alert.alert('Please fill the required information before proceeding.');
       return;
     }
-    let auth: IAuth;
-    if (true) {
-      // TODO add for tutor
-      auth = new StudentAuth();
-    } else {
-      auth = new TutorAuth();
-    }
-    let user = {};
+
     try {
-      user = await auth.signInWithEmailAndPassword(this.state);
-      this.props.navigation.navigate('Home');
+      const user = await userAuth.signInWithEmailAndPassword({
+        email,
+        password,
+      });
+      navigation.navigate('HomeUI');
     } catch (error) {
       Alert.alert(`${error}`);
     }
   };
 
-  forgotPassword = (): void => {
+  const forgotPassword = (): void => {
     // TODO: Redirect to forgot password page
   };
 
-  signInWithGoogle = (): void => {
+  const signInWithGoogle = (): void => {
     // TODO: Redirect to Google Sign In
   };
 
-  render(): JSX.Element {
-    return (
-      <ImageBackground
-        source={require('../../assets/images/icons/signInBackground.png')}
-        style={styles.background}>
-        <SafeAreaView style={[styles.safeArea]}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{flex: 1}}>
-            <View style={styles.component}>
-              <View style={styles.logo}>
-                <Image
-                  source={require('../../assets/images/icons/logo.png')}
-                  style={styles.title}
-                />
-              </View>
-              <View style={styles.container}>
-                <ScrollView>
-                  <View style={{marginBottom: 40, width: '85%'}}>
-                    <Text style={styles.welcome}>Welcome!</Text>
+  return (
+    <>
+      <Text style={styles.welcome} category="h4">
+        Welcome!
+      </Text>
+      <View style={styles.signInAsAView}>
+        <Text style={styles.signInToContinue}>Sign in as a </Text>
+        <Text style={styles.signInUserType} category="s1">
+          {userType}
+        </Text>
+      </View>
+      <View style={styles.inputView}>
+        <View style={styles.userInputView}>
+          <View style={styles.iconBox}>
+            <Image
+              source={require('../../assets/images/icons/user.png')}
+              style={styles.icon}
+            />
+          </View>
+          <TextInput
+            style={styles.input}
+            underlineColorAndroid="transparent"
+            placeholder="email"
+            placeholderTextColor={colors.appSilver}
+            autoCapitalize="none"
+            onChangeText={(text): void => setEmail(text)}
+          />
+        </View>
 
-                    <Text style={styles.signInToContinue}>
-                      Sign in to continue
-                    </Text>
+        <View style={styles.userInputView}>
+          <View style={styles.iconBox}>
+            <Image
+              source={require('../../assets/images/icons/lock.png')}
+              style={styles.icon}
+            />
+          </View>
+          <TextInput
+            style={styles.input}
+            underlineColorAndroid="transparent"
+            placeholder="password"
+            secureTextEntry={isPasswordHidden}
+            placeholderTextColor={colors.appSilver}
+            autoCapitalize="none"
+            onChangeText={(text): void => setPassword(text)}
+          />
+          <TouchableOpacity
+            style={styles.eyeButton}
+            onPress={(): void => setPasswordHidden(!isPasswordHidden)}>
+            <Image
+              source={
+                isPasswordHidden
+                  ? require('../../assets/images/icons/eyeClosed.png')
+                  : require('../../assets/images/icons/eyeOpened.png')
+              }
+              style={styles.eyeIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.signInButtonView}>
+        <TouchableOpacity
+          style={styles.signInButton}
+          onPress={(): void => {
+            signIn();
+          }}>
+          <Text style={styles.signInText} category="label">
+            {' '}
+            Sign In{' '}
+          </Text>
+          <Image
+            source={require('../../assets/images/icons/nextArrow.png')}
+            style={styles.nextArrow}
+          />
+        </TouchableOpacity>
 
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        margin: 15,
-                        marginLeft: 30,
-                      }}>
-                      <View style={styles.iconBox}>
-                        <Image
-                          source={require('../../assets/images/icons/user.png')}
-                          style={styles.icon}
-                        />
-                      </View>
-                      <TextInput
-                        style={styles.input}
-                        underlineColorAndroid="transparent"
-                        placeholder="email"
-                        placeholderTextColor={colors.appSilver}
-                        autoCapitalize="none"
-                        onChangeText={this.handleEmail}
-                      />
-                    </View>
+        <TouchableOpacity
+          style={styles.forgotPasswordButton}
+          onPress={(): void => forgotPassword()}>
+          <Text style={styles.forgotPasswordText} category="label">
+            Forgot password?
+          </Text>
+        </TouchableOpacity>
 
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        margin: 15,
-                        marginLeft: 30,
-                      }}>
-                      <View style={styles.iconBox}>
-                        <Image
-                          source={require('../../assets/images/icons/lock.png')}
-                          style={styles.icon}
-                        />
-                      </View>
-                      <TextInput
-                        style={styles.input}
-                        underlineColorAndroid="transparent"
-                        placeholder="password"
-                        secureTextEntry={this.state.passwordHidden}
-                        placeholderTextColor={colors.appSilver}
-                        autoCapitalize="none"
-                        onChangeText={this.handlePassword}
-                      />
-                      <TouchableOpacity
-                        style={styles.eyeButton}
-                        onPress={this.changePasswordVisibility}>
-                        <Image
-                          source={
-                            this.state.passwordHidden
-                              ? require('../../assets/images/icons/eyeClosed.png')
-                              : require('../../assets/images/icons/eyeOpened.png')
-                          }
-                          style={styles.eyeIcon}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={{alignItems: 'center'}}>
-                    <TouchableOpacity
-                      style={styles.signInButton}
-                      onPress={(): void => {
-                        this.signIn();
-                      }}>
-                      <Text style={styles.signInText}> Sign In </Text>
-                      <Image
-                        source={require('../../assets/images/icons/nextArrow.png')}
-                        style={styles.nextArrow}
-                      />
-                    </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.createAnAccountButton}
+          onPress={(): void => {
+            navigation.navigate('SignUpCredentials');
+          }}>
+          <Text style={styles.createAccountText} category="label">
+            {' '}
+            Create an account{' '}
+          </Text>
+        </TouchableOpacity>
 
-                    <TouchableOpacity
-                      style={styles.forgotPasswordButton}
-                      onPress={(): void => this.forgotPassword()}>
-                      <Text style={styles.forgotPasswordText}>
-                        Forgot password?
-                      </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={styles.createAnAccountButton}
-                      onPress={(): void => {
-                        this.props.navigation.navigate('SignUpCredentials');
-                      }}>
-                      <Text style={styles.createAccountText}>
-                        {' '}
-                        Create an account{' '}
-                      </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={styles.signInWithGoogleButton}
-                      onPress={(): void => this.signInWithGoogle()}>
-                      <Image
-                        source={require('../../assets/images/icons/googleIcon.png')}
-                        style={styles.googleIcon}
-                      />
-                      <Text style={styles.signInWithGoogleText}>
-                        {' '}
-                        Sign in with Google{' '}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </ScrollView>
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-      </ImageBackground>
-    );
-  }
-}
+        <TouchableOpacity
+          style={styles.signInWithGoogleButton}
+          onPress={(): void => signInWithGoogle()}>
+          <Image
+            source={require('../../assets/images/icons/googleIcon.png')}
+            style={styles.googleIcon}
+          />
+          <Text style={styles.signInWithGoogleText} category="label">
+            {' '}
+            Sign in with Google{' '}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </>
+  );
+};
 export default SignIn;
