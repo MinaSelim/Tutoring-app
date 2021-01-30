@@ -1,20 +1,31 @@
 /* eslint-disable react/no-unescaped-entities */
 import {Avatar, Divider, Text} from '@ui-kitten/components';
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import moment from 'moment';
 
 import IMessage from '../../model/IMessage';
 import {chatStyles} from './styles/chatStyles';
 import 'moment-timezone';
-
+let currentDay = '';
+let newDay = false;
+let first = true;
 const MesageRow = (props: IMessage): JSX.Element => {
+  const rowDate = moment.unix(props.createdAt / 1000).format('MMM Do');
+  if (first) {
+    newDay = false;
+    first = false;
+    currentDay = rowDate;
+  } else if (rowDate !== currentDay) {
+    currentDay = rowDate;
+    newDay = true;
+  } else {
+    newDay = false;
+  }
+
   return (
     <View style={chatStyles.messageContainer}>
       <View>
-        <Text style={chatStyles.date}>
-          {moment.unix(props.createdAt / 1000).format('MMM Do')}
-        </Text>
         <Divider />
         <View style={{flexDirection: 'row'}}>
           <Avatar
@@ -33,6 +44,14 @@ const MesageRow = (props: IMessage): JSX.Element => {
             <Text style={chatStyles.chatText}>{props.content}</Text>
           </View>
         </View>
+        {newDay && (
+          <Text style={chatStyles.date}>
+            {moment
+              .unix(props.createdAt / 1000)
+              .add(1, 'day')
+              .format('MMM Do')}
+          </Text>
+        )}
       </View>
     </View>
   );
