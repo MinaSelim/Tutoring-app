@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
-import {FlatList, SectionList, Text, View} from 'react-native';
+import {FlatList} from 'react-native';
 import 'react-native-gesture-handler';
 import {useStyleSheet, Layout} from '@ui-kitten/components';
 import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
@@ -19,6 +19,8 @@ const chatAPI: GenericChat = new GenericChat();
 //TO DO: get these values with DYNAMO DB User model
 const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
 const chatID: string = '3KOm7aBd9VynpYsuHD0u';
+let currentDay = '';
+let newDay = false;
 let initialLoad = true;
 
 const loadMessages = (
@@ -85,9 +87,20 @@ const Chat = (): JSX.Element => {
   }
   console.log('initialLoad', initialLoad);
 
-  const renderMessage = ({item}): JSX.Element => (
-    <MessageRow key={item.id} {...item} />
-  );
+  const renderMessage = ({item, index}): JSX.Element => {
+    const ROWDATE = moment.unix(item.createdAt / 1000).format('MMM Do');
+    if (index === 0) {
+      currentDay = ROWDATE;
+      newDay = false;
+    } else if (ROWDATE !== currentDay) {
+      currentDay = ROWDATE;
+      newDay = true;
+    } else {
+      newDay = false;
+    }
+
+    return <MessageRow key={item.id} message={item} newDay={newDay} />;
+  };
 
   const styles = useStyleSheet(chatStyles);
   const flatListRef = useRef<null | FlatList<IMessage>>(null);

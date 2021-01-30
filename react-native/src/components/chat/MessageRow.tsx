@@ -7,22 +7,14 @@ import moment from 'moment';
 import IMessage from '../../model/IMessage';
 import {chatStyles} from './styles/chatStyles';
 import 'moment-timezone';
-let currentDay = '';
-let newDay = false;
-let first = true;
-const MesageRow = (props: IMessage): JSX.Element => {
-  const rowDate = moment.unix(props.createdAt / 1000).format('MMM Do');
-  if (first) {
-    newDay = false;
-    first = false;
-    currentDay = rowDate;
-  } else if (rowDate !== currentDay) {
-    currentDay = rowDate;
-    newDay = true;
-  } else {
-    newDay = false;
-  }
-
+interface IMessagerow {
+  message: IMessage;
+  newDay: boolean;
+}
+const MesageRow: React.FunctionComponent<IMessagerow> = ({
+  message,
+  newDay,
+}: IMessagerow): JSX.Element => {
   return (
     <View style={chatStyles.messageContainer}>
       <View>
@@ -35,19 +27,19 @@ const MesageRow = (props: IMessage): JSX.Element => {
           />
           <View style={chatStyles.messageContentContainer}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={chatStyles.memberName}>{`${props.sender}`}</Text>
+              <Text style={chatStyles.memberName}>{`${message.sender}`}</Text>
               <Text appearance="hint">{`\t${moment
-                .unix(props.createdAt / 1000)
+                .unix(message.createdAt / 1000)
                 .format('LT')}`}</Text>
             </View>
 
-            <Text style={chatStyles.chatText}>{props.content}</Text>
+            <Text style={chatStyles.chatText}>{message.content}</Text>
           </View>
         </View>
         {newDay && (
           <Text style={chatStyles.date}>
             {moment
-              .unix(props.createdAt / 1000)
+              .unix(message.createdAt / 1000)
               .add(1, 'day')
               .format('MMM Do')}
           </Text>
