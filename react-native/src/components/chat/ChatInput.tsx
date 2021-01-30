@@ -5,8 +5,6 @@ import {KeyboardAvoidingView, Platform} from 'react-native';
 import {Button, Icon, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
 import chat from '../../pages/chat';
-import {Keyboard} from 'react-native';
-import firebase from 'firebase';
 import GenericChat from '../../api/chatroom/GenericChat';
 
 const chatAPI: GenericChat = new GenericChat();

@@ -160,9 +160,12 @@ export default class GenericChat {
     return messages;
   };
   /**
-   * Get all of the messages for a specefic chat
+   * Load specific messages based on the below parameters.
+   * Mainly used on initial load of chatroom and when loading older messages.
    * @param chatroomID The unique chatroom identifier who messages will be displayed
    * @param currentUserToken The firebase UID of the current logged in user
+   * @param offset the last message ID displayed in the chatroom
+   * @param messageAmount How many messages we want to return from the query
    */
   public loadMessages = async (
     chatroomID: string,
