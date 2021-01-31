@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useRef, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import 'react-native-gesture-handler';
-import {useStyleSheet, Layout} from '@ui-kitten/components';
+import {useStyleSheet, Layout, Text, StyleService} from '@ui-kitten/components';
 import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
 import MessageRow from '../../components/ChatUI/MessageRow';
 import IMessage from '../../model/IMessage';
@@ -80,6 +80,14 @@ const Chat = (): JSX.Element => {
     console.log('initialLoad', initialLoad);
   }
 
+  const renderWelcome = (): JSX.Element => {
+    return (
+      <Text appearance="hint" style={chatStyles.welcomeMessage}>
+        This is the start of your direct message history with Jessie Allen.
+      </Text>
+    );
+  };
+
   const renderMessage = ({item, index}): JSX.Element => {
     const ROWDATE = moment.unix(item.createdAt / 1000).format('MMM Do');
     if (index === 0) {
@@ -118,6 +126,7 @@ const Chat = (): JSX.Element => {
       {!initialLoad && (
         <>
           <ChatHeader />
+
           <FlatList<any>
             keyExtractor={(item): string => item}
             renderItem={renderMessage}
@@ -126,6 +135,7 @@ const Chat = (): JSX.Element => {
             onEndReached={handleOnEndReached}
             ref={flatListRef}
             inverted
+            ListFooterComponent={renderWelcome}
           />
 
           <ChatInput onFocus={scrollToBottom} />
