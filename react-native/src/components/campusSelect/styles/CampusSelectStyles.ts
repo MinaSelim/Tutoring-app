@@ -5,14 +5,15 @@ import {fonts} from '../../../styles/appFonts';
 export const campusSelectStyles = StyleSheet.create({
   modal: {
     flex: 1,
-    width: '98%',
-    alignSelf: 'flex-end',
-    backgroundColor: 'white',
     marginTop: '2%',
+    marginLeft: '2%',
+    justifyContent: 'space-between',
+  },
+  modalImage: {
     borderRadius: 18,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
-    justifyContent: 'space-between',
+    alignSelf: 'flex-end',
   },
   background: {
     backgroundColor: 'rgba(0,0,0,0.3)',
@@ -28,20 +29,19 @@ export const campusSelectStyles = StyleSheet.create({
   },
   title: {
     alignSelf: 'center',
-    fontSize: 20,
-    color: '#363636',
-    fontWeight: 'bold',
-  },
-  saveButton: {
-    alignSelf: 'center',
-    height: 35,
-    justifyContent: 'center',
-    marginRight: '8%',
+    fontSize: 22,
+    fontFamily: fonts.quickSandSemiBold,
   },
   closeButton: {
     alignSelf: 'center',
     width: 50,
     height: 40,
+  },
+  selectYourCampus: {
+    fontSize: 16,
+    fontFamily: fonts.quickSandSemiBold,
+    marginLeft: 25,
+    marginTop: 10,
   },
   inputBox: {
     borderColor: colors.appOrange,
@@ -52,11 +52,17 @@ export const campusSelectStyles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: fonts.quickSandRegular,
   },
-  finishButton: {
+  saveButton: {
     backgroundColor: colors.appOrange,
-    margin: 5,
-    marginBottom: 20,
-    marginTop: 30,
+    height: 50,
+    width: '95%',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  cancelButton: {
+    opacity: 0,
     height: 50,
     width: '95%',
     borderRadius: 10,
@@ -68,33 +74,20 @@ export const campusSelectStyles = StyleSheet.create({
     color: colors.appWhite,
     fontFamily: fonts.quickSandBold,
   },
-  goBackButton: {
-    width: 35,
-    height: 25,
-    left: 10,
-    top: 3,
-  },
-  selectYourCampus: {
-    fontSize: 20,
-    fontFamily: fonts.quickSandSemiBold,
-    marginLeft: 20,
-    marginTop: 50,
+  cancelText: {
+    color: colors.appDarkGrey,
+    fontFamily: fonts.quickSandBold,
   },
   universityText: {
     alignSelf: 'center',
     fontSize: 22,
+    margin: 5,
     fontFamily: fonts.quickSandRegular,
   },
   listText: {
     fontFamily: fonts.quickSandSemiBold,
     padding: 10,
     marginTop: 2,
-  },
-  footer: {
-    alignSelf: 'center',
-    color: colors.appLightGrey,
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   image: {
     width: '100%',
@@ -105,6 +98,15 @@ export const campusSelectStyles = StyleSheet.create({
     width: 20,
     height: 20,
   },
+  placeholder: {
+    opacity: 0,
+    marginRight: '8%',
+  },
+  middleArea: {
+    marginLeft: 25,
+    marginRight: 25,
+  },
+  bottomArea: {marginBottom: 40, marginLeft: 25, marginRight: 25},
 });
 
 export default campusSelectStyles;

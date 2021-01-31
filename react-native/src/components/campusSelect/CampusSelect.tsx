@@ -1,12 +1,21 @@
 import 'react-native-gesture-handler';
 import {Text, Button, Icon} from '@ui-kitten/components';
-import {View, TouchableOpacity, Modal, Alert, Image} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Modal,
+  Alert,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles/CampusSelectStyles';
 import buttonStyles from '../sideBar/styles/styles';
 import campuses from './../../assets/mockData/campuses';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import 'react-native-gesture-handler';
+import {colors} from '../../styles/appColors';
+import background from '../../assets/images/icons/signUpBackground.png';
 
 const CampusSelect = (): JSX.Element => {
   const [isCampusSelectVisible, setCampusSelectVisibility] = useState(false);
@@ -43,7 +52,10 @@ const CampusSelect = (): JSX.Element => {
         transparent={true}
         animationType="fade">
         <View style={styles.background} />
-        <View style={styles.modal}>
+        <ImageBackground
+          source={background}
+          imageStyle={styles.modalImage}
+          style={styles.modal}>
           <View>
             <View style={styles.campusSelectHeader}>
               <Button
@@ -51,75 +63,63 @@ const CampusSelect = (): JSX.Element => {
                 accessoryLeft={CloseButtonIcon}
                 onPress={(): void => setCampusSelectVisibility(false)}
               />
-              <TouchableOpacity
-                style={styles.saveButton}
-                onPress={(): Promise<void> => updateCampus()}>
-                <Text style={styles.title}>Save</Text>
-              </TouchableOpacity>
+              <Text style={styles.title}>Campus</Text>
+              <Text style={styles.placeholder}>empty</Text>
             </View>
-            <Text style={styles.title}>Find Your Campus</Text>
-            <View
-              style={{
-                flex: 1,
-                marginBottom: 10,
-                marginLeft: 25,
-                marginRight: 25,
-                justifyContent: 'space-between',
-              }}>
-              <Text style={styles.selectYourCampus}>Select your campus</Text>
-              <View
-                style={{
-                  justifyContent: 'space-between',
-                  height: 200,
-                  marginBottom: 100,
-                }}>
-                <Image
-                  source={require('../../assets/images/icons/university.png')}
-                  style={[
-                    {alignSelf: 'center'},
-                    selectedCampus.length > 0 ? {opacity: 1} : {opacity: 0.25},
-                  ]}
-                />
-                <Text style={styles.universityText}>{selectedCampus}</Text>
-                <View>
-                  <SearchableDropdown
-                    onItemSelect={(item): void => {
-                      let campuses: string[] = [];
-                      let campus = JSON.stringify(item.name);
-                      campus = JSON.parse(
-                        campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
-                      );
-                      campuses.push(campus);
-                      setSelectedCampus(campuses);
-                    }}
-                    containerStyle={{padding: 5}}
-                    itemStyle={styles.listText}
-                    itemTextStyle={{color: '#222'}}
-                    itemsContainerStyle={{maxHeight: 150}}
-                    items={campuses}
-                    resetValue={false}
-                    textInputProps={{
-                      placeholder: 'Search your campus...',
-                      underlineColorAndroid: 'transparent',
-                      style: styles.inputBox,
-                    }}
-                    listProps={{
-                      nestedScrollEnabled: true,
-                    }}
-                  />
-                </View>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={styles.finishButton}
-                  onPress={(): Promise<void> => updateCampus()}>
-                  <Text style={styles.finishText}> Finish </Text>
-                </TouchableOpacity>
-                <Text style={styles.footer}> go.study </Text>
-              </View>
+            <Text style={styles.selectYourCampus}>Select your campus</Text>
+          </View>
+          <View style={styles.middleArea}>
+            <Image
+              source={require('../../assets/images/icons/university.png')}
+              style={[
+                {alignSelf: 'center'},
+                selectedCampus.length > 0
+                  ? {tintColor: colors.appOrange}
+                  : {tintColor: '#D8D8D8'},
+              ]}
+            />
+            <Text style={styles.universityText}>{selectedCampus}</Text>
+            <View style={{height: 250}}>
+              <SearchableDropdown
+                onItemSelect={(item): void => {
+                  let selectedCampuses: string[] = [];
+                  let campus = JSON.stringify(item.name);
+                  campus = JSON.parse(
+                    campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
+                  );
+                  selectedCampuses.push(campus);
+                  setSelectedCampus(selectedCampuses);
+                }}
+                containerStyle={{padding: 5}}
+                itemStyle={styles.listText}
+                itemTextStyle={{color: '#222'}}
+                itemsContainerStyle={{maxHeight: 200}}
+                items={campuses}
+                resetValue={false}
+                textInputProps={{
+                  placeholder: 'Search your campus...',
+                  underlineColorAndroid: 'transparent',
+                  style: styles.inputBox,
+                }}
+                listProps={{
+                  nestedScrollEnabled: true,
+                }}
+              />
             </View>
           </View>
-        </View>
+          <View style={styles.bottomArea}>
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={(): Promise<void> => updateCampus()}>
+              <Text style={styles.finishText}> Save </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={(): Promise<void> => updateCampus()}>
+              <Text style={styles.cancelText}> Cancel </Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
       </Modal>
     </View>
   );
