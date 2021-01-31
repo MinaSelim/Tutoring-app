@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
 import {FlatList, View} from 'react-native';
 import 'react-native-gesture-handler';
-import {useStyleSheet, Layout, Text, StyleService} from '@ui-kitten/components';
+import {useStyleSheet, Layout, Text, Divider} from '@ui-kitten/components';
 import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
 import MessageRow from '../../components/ChatUI/MessageRow';
 import IMessage from '../../model/IMessage';
@@ -71,13 +71,18 @@ const Chat = (): JSX.Element => {
   }, [offset]);
 
   function appendMessage(): void {
-    if (newestMessage !== undefined && chatMessages[0] !== undefined) {
+    console.log('newest msg', newestMessage);
+    console.log('chat msg[0]', chatMessages[0]);
+    if (chatMessages[0] === undefined && newestMessage !== undefined) {
+      const newestMsg: IMessage[] = ChatMessages(newestMessage);
+      chatMessages.unshift(...newestMsg);
+    } else if (newestMessage !== undefined && chatMessages[0] !== undefined) {
       const newestMsg: IMessage[] = ChatMessages(newestMessage);
       //execute if a new message has been received
-      if (chatMessages[0].id !== newestMsg[0].id)
+      if (chatMessages[0].id !== newestMsg[0].id) {
         chatMessages.unshift(...newestMsg);
+      }
     }
-    console.log('initialLoad', initialLoad);
   }
 
   const renderWelcome = (): JSX.Element => {
@@ -105,9 +110,12 @@ const Chat = (): JSX.Element => {
     return (
       <View>
         {isFirstMessage && (
-          <Text style={chatStyles.date}>
-            {moment.unix(item.createdAt / 1000).format('MMM Do')}
-          </Text>
+          <>
+            <Text style={chatStyles.date}>
+              {moment.unix(item.createdAt / 1000).format('MMM Do')}
+            </Text>
+            <Divider />
+          </>
         )}
         <MessageRow key={item.id} message={item} newDay={newDay} />
       </View>

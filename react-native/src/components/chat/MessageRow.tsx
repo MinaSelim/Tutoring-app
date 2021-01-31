@@ -37,12 +37,15 @@ const MesageRow: React.FunctionComponent<IMessagerow> = ({
           </View>
         </View>
         {newDay && (
-          <Text style={chatStyles.date}>
-            {moment
-              .unix(message.createdAt / 1000)
-              .add(1, 'day')
-              .format('MMM Do')}
-          </Text>
+          <>
+            <Text style={chatStyles.date}>
+              {moment
+                .unix(message.createdAt / 1000)
+                .add(1, 'day')
+                .format('MMM Do')}
+            </Text>
+            <Divider />
+          </>
         )}
       </View>
     </View>
