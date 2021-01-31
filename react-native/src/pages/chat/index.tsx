@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
-import {FlatList} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import 'react-native-gesture-handler';
 import {useStyleSheet, Layout} from '@ui-kitten/components';
 import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
@@ -22,44 +22,15 @@ const chatID: string = '3KOm7aBd9VynpYsuHD0u';
 let currentDay = '';
 let newDay = false;
 let initialLoad = true;
-
-const loadMessages = (
-  messageAmount,
-  offset,
-): firebase.firestore.Query<firebase.firestore.DocumentData> => {
-  return firebase
-    .firestore()
-    .collection('CHATROOMS')
-    .doc(chatID)
-    .collection('MESSAGES')
-    .orderBy('createdAt', 'desc')
-    .startAt([offset])
-    .limit(messageAmount);
-};
+let isFirstMessage = false;
 
 const Chat = (): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
   const SCROLL_MESSAGE_AMOUNT = 10;
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [offset, setOffset] = useState(new Date().getTime());
-
-  const handleOnEndReached = (): void => {
-    let chatLength = chatMessages.length;
-    let chatCreatedAt = chatMessages[chatLength - 1].createdAt;
-    setOffset(chatCreatedAt);
-    console.log('UPDATING THE SCROLL ... ' + offset);
-  };
-
-  const GetMessages = useCallback<() => Promise<Message[]>>(async () => {
-    const tempMessages: Message[] = await chatAPI.loadMessages(
-      chatID,
-      userID,
-      offset,
-      SCROLL_MESSAGE_AMOUNT,
-    );
-    console.log(tempMessages);
-    return tempMessages;
-  }, [offset]);
+  const styles = useStyleSheet(chatStyles);
+  const flatListRef = useRef<null | FlatList<IMessage>>(null);
 
   useEffect(() => {
     let tempMessages;
@@ -79,13 +50,35 @@ const Chat = (): JSX.Element => {
     idField: 'id',
   });
 
-  if (newestMessage !== undefined && chatMessages[0] !== undefined) {
-    const newestMsg: IMessage[] = ChatMessages(newestMessage);
-    //execute if a new message has been received
-    if (chatMessages[0].id !== newestMsg[0].id)
-      chatMessages.unshift(...newestMsg);
+  const handleOnEndReached = (): void => {
+    let chatLength = chatMessages.length;
+    if (chatLength > 24) {
+      let chatCreatedAt = chatMessages[chatLength - 1].createdAt;
+      setOffset(chatCreatedAt);
+      console.log('UPDATING THE SCROLL ... ' + offset);
+    }
+  };
+
+  const GetMessages = useCallback<() => Promise<Message[]>>(async () => {
+    const tempMessages: Message[] = await chatAPI.loadMessages(
+      chatID,
+      userID,
+      offset,
+      SCROLL_MESSAGE_AMOUNT,
+    );
+    console.log(tempMessages);
+    return tempMessages;
+  }, [offset]);
+
+  function appendMessage(): void {
+    if (newestMessage !== undefined && chatMessages[0] !== undefined) {
+      const newestMsg: IMessage[] = ChatMessages(newestMessage);
+      //execute if a new message has been received
+      if (chatMessages[0].id !== newestMsg[0].id)
+        chatMessages.unshift(...newestMsg);
+    }
+    console.log('initialLoad', initialLoad);
   }
-  console.log('initialLoad', initialLoad);
 
   const renderMessage = ({item, index}): JSX.Element => {
     const ROWDATE = moment.unix(item.createdAt / 1000).format('MMM Do');
@@ -98,17 +91,28 @@ const Chat = (): JSX.Element => {
     } else {
       newDay = false;
     }
+    isFirstMessage = false;
+    if (index === chatMessages.length - 1) isFirstMessage = true;
 
-    return <MessageRow key={item.id} message={item} newDay={newDay} />;
+    return (
+      <View>
+        {isFirstMessage && (
+          <Text style={chatStyles.date}>
+            {moment.unix(item.createdAt / 1000).format('MMM Do')}
+          </Text>
+        )}
+        <MessageRow key={item.id} message={item} newDay={newDay} />
+      </View>
+    );
   };
-
-  const styles = useStyleSheet(chatStyles);
-  const flatListRef = useRef<null | FlatList<IMessage>>(null);
 
   function scrollToBottom(): void {
     console.log('scroll to bottom is called');
     flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
   }
+
+  appendMessage();
+
   return (
     <Layout style={styles.container}>
       {!initialLoad && (
@@ -131,6 +135,20 @@ const Chat = (): JSX.Element => {
   );
 };
 
+const loadMessages = (
+  messageAmount,
+  offset,
+): firebase.firestore.Query<firebase.firestore.DocumentData> => {
+  return firebase
+    .firestore()
+    .collection('CHATROOMS')
+    .doc(chatID)
+    .collection('MESSAGES')
+    .orderBy('createdAt', 'desc')
+    .startAt([offset])
+    .limit(messageAmount);
+};
+
 function ChatMessages(messages): Message[] {
   const currentMessages: Message[] = messages.map(
     (msg: firebase.firestore.DocumentData) =>
@@ -138,4 +156,5 @@ function ChatMessages(messages): Message[] {
   );
   return currentMessages;
 }
+
 export default Chat;
