@@ -1,4 +1,11 @@
-import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
+import {
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   PutItemOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from '../database/databaseUtils';
 import IUser from '../models/IUser';
@@ -41,7 +48,7 @@ export default abstract class UserDatabaseFunctions {
       return tempUser;
    }
 
-   // fills specific user type values (like tutor campuses) to avoid nulls 
+   // fills specific user type values (like tutor campuses) to avoid nulls
    protected abstract fillSpecificUserData(tempUser: IUser): IUser;
 
    private createGenericUserParams = (user: IUser): PutItemInput => {
@@ -126,26 +133,26 @@ export default abstract class UserDatabaseFunctions {
          TableName: config.tableNames.USER,
          Key: {
             firebase_uid: {
-               S: tempUser.firebase_uid
-            }
+               S: tempUser.firebase_uid,
+            },
          },
-         UpdateExpression: "SET first_name = :fn, last_name = :ln, profileImage = :pi, phone = :ph",
+         UpdateExpression: 'SET first_name = :fn, last_name = :ln, profileImage = :pi, phone = :ph',
          ExpressionAttributeValues: {
-            ":fn": {
-               S: tempUser.first_name
+            ':fn': {
+               S: tempUser.first_name,
             },
-            ":ln": {
-               S: tempUser.last_name
+            ':ln': {
+               S: tempUser.last_name,
             },
-            ":pi": {
-               S: tempUser.profileImage
+            ':pi': {
+               S: tempUser.profileImage,
             },
-            ":ph": {
-               S: tempUser.phone
-            }
+            ':ph': {
+               S: tempUser.phone,
+            },
          },
-         ReturnValues: "ALL_NEW"
-      }
+         ReturnValues: 'ALL_NEW',
+      };
 
       const returnData: UpdateItemOutput = await this.databaseUtils.updateItem(params);
       const updatedUser: IUser = {
@@ -157,7 +164,7 @@ export default abstract class UserDatabaseFunctions {
          last_name: returnData.Attributes.last_name.S,
          profileImage: returnData.Attributes.profileImage.S,
          phone: returnData.Attributes.phone.S,
-      }
+      };
 
       return updatedUser;
    };

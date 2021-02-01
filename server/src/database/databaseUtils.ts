@@ -1,4 +1,11 @@
-import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
+import {
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   PutItemOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import {AWSError} from 'aws-sdk';
 import Dynamo from './dynamo';
 

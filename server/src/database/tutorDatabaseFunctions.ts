@@ -12,7 +12,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       }
 
       if (!tutor.tutor_info.chatrooms) {
-         tutor.tutor_info.chatrooms = []
+         tutor.tutor_info.chatrooms = [];
       }
 
       return tutor;
@@ -27,9 +27,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                SS: tutor.tutor_info.campuses,
             },
             chatrooms: {
-               SS: tutor.tutor_info.chatrooms
-            }
-         }
+               SS: tutor.tutor_info.chatrooms,
+            },
+         },
       };
 
       return params;
@@ -41,8 +41,8 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       tutor.tutor_info = {
          campuses: data.Item.tutor_info.M.campus.SS,
          chatrooms: data.Item.tutor_info.M.chatrooms.SS,
-      }
-      
+      };
+
       return tutor;
    };
 }
