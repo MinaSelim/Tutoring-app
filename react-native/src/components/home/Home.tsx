@@ -33,6 +33,7 @@ const HomeUI: React.FC<any> = ({navigation}) => {
           </Text>
           <Button
             style={[styles.button, {top: 25}]}
+            //TODO: based on user type, change this button for your tutoring calendar
             onPress={(): boolean => navigation.navigate('TutorSearch')}>
             Find a Tutor
           </Button>

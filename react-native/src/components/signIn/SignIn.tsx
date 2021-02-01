@@ -5,13 +5,18 @@ import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
-
-import {Text} from '@ui-kitten/components';
+import {Text, Button, Icon} from '@ui-kitten/components';
 
 interface ISignIn extends NavigationInjectedProps {
   userType: string;
   userAuth: IAuth;
 }
+
+const ArrowIcon = (): JSX.Element => {
+  return (
+    <Icon fill="white" name="arrow-forward-outline" style={styles.arrowIcon} />
+  );
+};
 
 // This component corresponds to the sign in page
 const SignIn: React.FunctionComponent<ISignIn> = ({
@@ -116,20 +121,14 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         </View>
       </View>
       <View style={styles.signInButtonView}>
-        <TouchableOpacity
+        <Button
           style={styles.signInButton}
           onPress={(): void => {
             signIn();
-          }}>
-          <Text style={styles.signInText} category="label">
-            {' '}
-            Sign In{' '}
-          </Text>
-          <Image
-            source={require('../../assets/images/icons/nextArrow.png')}
-            style={styles.nextArrow}
-          />
-        </TouchableOpacity>
+          }}
+          accessoryRight={ArrowIcon}>
+          Sign In
+        </Button>
 
         <TouchableOpacity
           style={styles.forgotPasswordButton}

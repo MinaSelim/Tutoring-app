@@ -89,16 +89,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  signInText: {
-    fontSize: 14,
-    color: colors.appWhite,
-    fontFamily: fonts.quickSandBold,
-  },
-  nextArrow: {
-    width: 20,
-    height: 12,
-    marginLeft: 5,
-  },
   forgotPasswordButton: {
     margin: 5,
     height: 25,
@@ -166,4 +156,5 @@ export default StyleSheet.create({
   signInContent: {
     backgroundColor: 'rgba(52, 52, 52, 1.0)',
   },
+  arrowIcon: {width: 40, height: 30, color: 'white', marginLeft: -10},
 });
