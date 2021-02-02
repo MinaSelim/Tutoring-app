@@ -43,15 +43,6 @@ export const campusSelectStyles = StyleSheet.create({
     marginLeft: 25,
     marginTop: 10,
   },
-  inputBox: {
-    borderColor: colors.appOrange,
-    borderWidth: 2,
-    borderRadius: 9,
-    width: '100%',
-    height: 40,
-    alignSelf: 'center',
-    fontFamily: fonts.quickSandRegular,
-  },
   saveButton: {
     backgroundColor: colors.appOrange,
     height: 50,
@@ -62,7 +53,6 @@ export const campusSelectStyles = StyleSheet.create({
     alignSelf: 'center',
   },
   cancelButton: {
-    opacity: 0,
     height: 50,
     width: '95%',
     borderRadius: 10,
@@ -84,11 +74,6 @@ export const campusSelectStyles = StyleSheet.create({
     margin: 5,
     fontFamily: fonts.quickSandRegular,
   },
-  listText: {
-    fontFamily: fonts.quickSandSemiBold,
-    padding: 10,
-    marginTop: 2,
-  },
   image: {
     width: '100%',
     height: '100%',
@@ -106,7 +91,7 @@ export const campusSelectStyles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 25,
   },
-  bottomArea: {marginBottom: 40, marginLeft: 25, marginRight: 25},
+  bottomArea: {marginBottom: 15, marginLeft: 25, marginRight: 25},
 });
 
 export default campusSelectStyles;

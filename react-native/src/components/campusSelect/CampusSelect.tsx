@@ -5,21 +5,17 @@ import {
   TouchableOpacity,
   Modal,
   Alert,
-  Image,
   ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles/CampusSelectStyles';
 import buttonStyles from '../sideBar/styles/styles';
-import campuses from './../../assets/mockData/campuses';
-import SearchableDropdown from 'react-native-searchable-dropdown';
 import 'react-native-gesture-handler';
-import {colors} from '../../styles/appColors';
 import background from '../../assets/images/icons/signUpBackground.png';
+import TutorCampusSearch from './TutorCampusSearch';
 
 const CampusSelect = (): JSX.Element => {
   const [isCampusSelectVisible, setCampusSelectVisibility] = useState(false);
-  const [selectedCampus, setSelectedCampus] = useState<string[]>([]);
   const CampusIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
   );
@@ -68,45 +64,7 @@ const CampusSelect = (): JSX.Element => {
             </View>
             <Text style={styles.selectYourCampus}>Select your campus</Text>
           </View>
-          <View style={styles.middleArea}>
-            <Image
-              source={require('../../assets/images/icons/university.png')}
-              style={[
-                {alignSelf: 'center'},
-                selectedCampus.length > 0
-                  ? {tintColor: colors.appOrange}
-                  : {tintColor: '#D8D8D8'},
-              ]}
-            />
-            <Text style={styles.universityText}>{selectedCampus}</Text>
-            <View style={{height: 250}}>
-              <SearchableDropdown
-                onItemSelect={(item): void => {
-                  let selectedCampuses: string[] = [];
-                  let campus = JSON.stringify(item.name);
-                  campus = JSON.parse(
-                    campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
-                  );
-                  selectedCampuses.push(campus);
-                  setSelectedCampus(selectedCampuses);
-                }}
-                containerStyle={{padding: 5}}
-                itemStyle={styles.listText}
-                itemTextStyle={{color: '#222'}}
-                itemsContainerStyle={{maxHeight: 200}}
-                items={campuses}
-                resetValue={false}
-                textInputProps={{
-                  placeholder: 'Search your campus...',
-                  underlineColorAndroid: 'transparent',
-                  style: styles.inputBox,
-                }}
-                listProps={{
-                  nestedScrollEnabled: true,
-                }}
-              />
-            </View>
-          </View>
+          <TutorCampusSearch />
           <View style={styles.bottomArea}>
             <TouchableOpacity
               style={styles.saveButton}

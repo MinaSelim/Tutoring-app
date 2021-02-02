@@ -33,7 +33,7 @@ export default StyleSheet.create({
     height: '100%',
     position: 'absolute',
   },
-  goBackButton: {
+  goBackButtonImage: {
     width: 35,
     height: 25,
     left: 10,
@@ -76,5 +76,29 @@ export default StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
+  },
+  middleArea: {
+    justifyContent: 'space-between',
+    height: 200,
+    marginBottom: 100,
+  },
+  biggerMiddleArea: {
+    flex: 1,
+    marginBottom: 10,
+    marginLeft: 25,
+    marginRight: 25,
+    justifyContent: 'space-between',
+  },
+  goBackButton: {
+    position: 'absolute',
+    top: 10,
+  },
+  safeView: {
+    flex: 1,
+    alignItems: 'stretch',
+  },
+  generalView: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
