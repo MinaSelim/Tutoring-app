@@ -50,6 +50,9 @@ export default class GenericChat {
       );
       chatrooms.push(chatroom);
     });
+    chatrooms.sort(function (x, y) {
+      return +y.latestMessage.createdAt - +x.latestMessage.createdAt;
+    });
     return chatrooms;
   };
 
