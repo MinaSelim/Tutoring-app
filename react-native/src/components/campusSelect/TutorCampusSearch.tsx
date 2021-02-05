@@ -8,9 +8,30 @@ import campuses from './../../assets/mockData/campuses';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import 'react-native-gesture-handler';
 import {colors} from '../../styles/appColors';
+import {Picker} from '@react-native-picker/picker';
 
 const TutorCampusSearch = (): JSX.Element => {
   const [selectedCampuses, setSelectedCampuses] = useState<string[]>([]);
+
+  const SelectedList = (): JSX.Element => {
+    return (
+      <Picker
+        selectedValue={setSelectedCampuses[0]}
+        mode={'dropdown'}
+        style={{height: 50, width: 150}}
+        onValueChange={(item, index): void => {
+          const items = selectedCampuses.filter((sitem) => sitem !== item);
+          setSelectedCampuses(items);
+          console.log(selectedCampuses);
+        }}>
+        {selectedCampuses.map((campus, i) => {
+          return (
+            <Picker.Item key={i} value={campus} label={campus + ' (remove)'} />
+          );
+        })}
+      </Picker>
+    );
+  };
 
   return (
     <View style={styles.middleArea}>
@@ -23,24 +44,23 @@ const TutorCampusSearch = (): JSX.Element => {
             : {tintColor: '#D8D8D8'},
         ]}
       />
-      <Text
-        style={[
-          styles.universityText,
-          selectedCampuses.length > 0 ? {height: 0} : {},
-        ]}>
-        {selectedCampuses.length > 0 ? selectedCampuses : 'Find Your Campus'}
+      <Text style={styles.universityText}>
+        {selectedCampuses.length > 0 ? (
+          <SelectedList />
+        ) : (
+          'Modify your campuses'
+        )}
       </Text>
       <View style={dropdownStyles.dropdownView}>
         <SearchableDropdown
           multi={true}
+          //selectedItems={selectedCampuses}
           onItemSelect={(item): void => {
-            const items = selectedCampuses;
             let campus = JSON.stringify(item.name);
             campus = JSON.parse(
               campus.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'),
             );
-            items.push(campus);
-            setSelectedCampuses(items);
+            setSelectedCampuses((oldList) => [...oldList, campus]);
             console.log(selectedCampuses);
           }}
           containerStyle={dropdownStyles.containerStyle}
