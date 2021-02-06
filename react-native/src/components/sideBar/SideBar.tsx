@@ -1,4 +1,6 @@
 import {View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import DrawerContentComponentProps from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {
   Text,
@@ -8,8 +10,9 @@ import {
   Icon,
   Divider,
 } from '@ui-kitten/components';
-import React from 'react';
 import styles from './styles/styles';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import useAuthUser from '../../hooks/authUser';
 
 const PersonIcon = (props): JSX.Element => (
   <Icon {...props} name="person-outline" />
@@ -44,12 +47,23 @@ const tutorCalendar = (): JSX.Element => (
   </Button>
 );
 
-const SideBar = (): JSX.Element => {
+const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
+  const [user, setAuthUser] = useAuthUser();
+  const [userName, setUserName] = useState('');
+  useEffect(() => {
+    if (user != null) setUserName(user!.first_name);
+  }, [user]);
+
+  const handleSignOut = (): void => {
+    setAuthUser(null);
+    navigation.navigate('SignInMenu');
+  };
+
   return (
     <Layout level="primary" style={styles.container}>
       <View>
         <Layout level="primary" style={styles.userTitleContainer}>
-          <Text style={styles.text}>User Name</Text>
+          <Text style={styles.text}>{userName}</Text>
           <Avatar
             size="giant"
             source={require('./avatar_placeholder.png')}
@@ -104,7 +118,8 @@ const SideBar = (): JSX.Element => {
           appearance="ghost"
           status="control"
           accessoryLeft={EmptyIcon}
-          size="giant">
+          size="giant"
+          onPress={(): void => handleSignOut()}>
           Sign out
         </Button>
       </View>

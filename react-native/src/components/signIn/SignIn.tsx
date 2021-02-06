@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
 import {View, TouchableOpacity, TextInput, Image, Alert} from 'react-native';
 import {NavigationInjectedProps} from 'react-navigation';
+import React, {useState, useEffect} from 'react';
 import styles from './styles/SignInStyles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
+import StudentAuth from '../../api/authentication/StudentAuth';
+import TutorAuth from '../../api/authentication/TutorAuth';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import IUser from '../../model/common/IUser';
+import useAuthUser from '../../hooks/authUser';
+import {persistAuthUser} from '../../utils/localstorage/localstorage';
 
 import {Text} from '@ui-kitten/components';
 
@@ -20,16 +27,16 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
   userAuth,
 }: ISignIn) => {
   // Hooks
-  // const [user, setAuthUser] = useAuthUser();
+  const [user, setAuthUser] = useAuthUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordHidden, setPasswordHidden] = useState(true);
 
   //Send user to homepage if they are still in localstorage i.e signedIn
   //TODO We should have access and refresh tokens
-  // useEffect(() => {
-  //   if (user != null) navigation.navigate('Home');
-  // }
+  useEffect(() => {
+    if (user != null) navigation.navigate('Home');
+  });
 
   const signIn = async (): Promise<void> => {
     if (!email.includes('@') || password.length < 8) {
@@ -42,12 +49,12 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         email,
         password,
       });
-      navigation.navigate('HomeUI');
+      setAuthUser(user);
+      navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);
     }
   };
-
   const forgotPassword = (): void => {
     // TODO: Redirect to forgot password page
   };

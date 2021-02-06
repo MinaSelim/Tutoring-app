@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import 'react-native-gesture-handler';
 import {Text, Button, useStyleSheet} from '@ui-kitten/components';
@@ -6,14 +6,25 @@ import homeStyles from './styles/HomeStyles';
 import SideMenuIcon from './SideMenuIcon';
 import MessageIcon from './MessageIcon';
 import UniversityImage from './UniversityImage';
+import useAuthUser from '../../hooks/authUser';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '@ui-kitten/components';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 
-const HomeUI: React.FC<any> = ({navigation}) => {
+const HomeUI: React.FC<INavigation> = ({
+  navigation,
+  toggleDrawer,
+}: INavigation) => {
   const styles = useStyleSheet(homeStyles);
-  const name = 'temporaryName';
-  // TODO get name from proper state management
   const theme = useTheme();
+  const user = useAuthUser()[0];
+  const [userName, setUserName] = useState('');
+
+  console.log(user);
+  useEffect(() => {
+    if (user != null) setUserName(user!.first_name);
+  }, [user]);
+
   return (
     <SafeAreaView
       style={[styles.safeArea, {backgroundColor: theme['color-basic-100']}]}>
@@ -25,7 +36,7 @@ const HomeUI: React.FC<any> = ({navigation}) => {
             appearance="ghost"
             accessoryLeft={SideMenuIcon}
           />
-          <Text style={styles.helloMessage}>Hey {name},</Text>
+          <Text style={styles.helloMessage}>Hey {userName},</Text>
         </View>
         <View style={styles.middleSection}>
           <Text style={styles.whatAreYouLookinFor}>
