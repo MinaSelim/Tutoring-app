@@ -47,7 +47,7 @@ const tutorCalendar = (): JSX.Element => (
   </Button>
 );
 
-const SideBar: React.FunctionComponent = (props?: any) => {
+const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
   const [user, setAuthUser] = useAuthUser();
   const [userName, setUserName] = useState('');
   useEffect(() => {
@@ -56,7 +56,7 @@ const SideBar: React.FunctionComponent = (props?: any) => {
 
   const handleSignOut = (): void => {
     setAuthUser(null);
-    props.navigation.navigate('SignIn');
+    navigation.navigate('SignInMenu');
   };
 
   return (

@@ -20,7 +20,10 @@ const HomeUI: React.FC<INavigation> = ({
   const user = useAuthUser()[0];
   const [userName, setUserName] = useState('');
 
-  useEffect(() => setUserName(user!.first_name), [user]);
+  console.log(user);
+  useEffect(() => {
+    if (user != null) setUserName(user!.first_name);
+  }, [user]);
 
   return (
     <SafeAreaView

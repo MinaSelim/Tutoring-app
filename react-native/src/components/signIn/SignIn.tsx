@@ -49,8 +49,8 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         email,
         password,
       });
-      navigation.navigate('HomeUI');
-      persistAuthUser(user);
+      setAuthUser(user);
+      navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);
     }

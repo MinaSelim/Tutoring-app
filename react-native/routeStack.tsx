@@ -16,7 +16,7 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator: React.FunctionComponent = () => {
   return (
     <Drawer.Navigator
-      drawerContent={(): React.ReactElement => <SideBar />}
+      drawerContent={(props): React.ReactElement => <SideBar props={props} />}
       initialRouteName="SignInMenu"
       drawerType="slide">
       <Drawer.Screen name="SignInMenu" component={SignInMenu} />
