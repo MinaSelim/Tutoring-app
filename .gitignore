@@ -131,3 +131,4 @@ yarn.lock
 # Android memory profiler files
 *.hprof
 
+/react-native/env.ts

@@ -1,5 +1,5 @@
 import {auth} from 'firebase';
-import {SERVER_LINK} from 'react-native-dotenv-milkywire';
+import env from '../../../env';
 import fire from './Fire';
 import IUserLogin from '../../model/signInSignUp/IUserLogin';
 import IAuth from './IAuth';
@@ -45,7 +45,7 @@ export default class TutorAuth implements IAuth {
         loginInfo.password,
       );
       tutor.firebase_uid = result.user.uid;
-      const response = await fetch(`${SERVER_LINK}/auth/tutor/register`, {
+      const response = await fetch(`${env.SERVER_LINK}/auth/tutor/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -67,7 +67,7 @@ export default class TutorAuth implements IAuth {
     const user = this.firebaseAuth.currentUser;
     const token = user && (await user.getIdToken());
 
-    const response = await fetch(`${SERVER_LINK}/auth/tutor/login`, {
+    const response = await fetch(`${env.SERVER_LINK}/auth/tutor/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
