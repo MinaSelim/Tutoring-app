@@ -1,5 +1,6 @@
 import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
+import DrawerContentComponentProps from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {
   Text,
@@ -46,23 +47,23 @@ const tutorCalendar = (): JSX.Element => (
   </Button>
 );
 
-const SideBar: React.FC<INavigation> = ({
-  navigation,
-}: INavigation): JSX.Element => {
+const SideBar: React.FunctionComponent = (props?: any) => {
   const [user, setAuthUser] = useAuthUser();
   const [userName, setUserName] = useState('');
-  useEffect(() => setUserName(user!.first_name), [user]);
+  useEffect(() => {
+    if (user != null) setUserName(user!.first_name);
+  }, [user]);
 
   const handleSignOut = (): void => {
     setAuthUser(null);
-    navigation.navigate('SignIn');
+    props.navigation.navigate('SignIn');
   };
 
   return (
     <Layout level="primary" style={styles.container}>
       <View>
         <Layout level="primary" style={styles.userTitleContainer}>
-          <Text style={styles.text}>User Name</Text>
+          <Text style={styles.text}>{userName}</Text>
           <Avatar
             size="giant"
             source={require('./avatar_placeholder.png')}
