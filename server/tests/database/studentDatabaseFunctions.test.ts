@@ -25,8 +25,8 @@ describe('Student Database Functions Test', () => {
       phone: 'string',
       student_info: {
          campus: 'string',
-         chatrooms: ['string']
-      }
+         chatrooms: ['string'],
+      },
    };
 
    const studentNoStripe: IStudent = {
@@ -39,8 +39,8 @@ describe('Student Database Functions Test', () => {
       phone: 'string',
       student_info: {
          campus: 'string',
-         chatrooms: ['string']
-      }
+         chatrooms: ['string'],
+      },
    };
 
    const studentNoValid: IStudent = {
@@ -52,8 +52,8 @@ describe('Student Database Functions Test', () => {
       phone: 'string',
       student_info: {
          campus: 'string',
-         chatrooms: ['string']
-      }
+         chatrooms: ['string'],
+      },
    };
 
    const putItemResponseGood: PutItemOutput = {
@@ -70,11 +70,12 @@ describe('Student Database Functions Test', () => {
          stripe_customer_id: {S: student.stripe_customer_id},
          profileImage: {S: student.profileImage},
          phone: {S: student.phone},
-         student_info: {M: {
+         student_info: {
+            M: {
                campus: {S: student.student_info.campus},
-               chatrooms: {SS: student.student_info.chatrooms}
-            }
-         }
+               chatrooms: {SS: student.student_info.chatrooms},
+            },
+         },
       },
       ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
@@ -136,9 +137,9 @@ describe('Student Database Functions Test', () => {
             student_info: {
                M: {
                   campus: {S: student.student_info.campus},
-                  chatrooms: {SS: student.student_info.chatrooms}
-               }
-            }
+                  chatrooms: {SS: student.student_info.chatrooms},
+               },
+            },
          },
          ReturnConsumedCapacity: 'TOTAL',
          TableName: 'User',
@@ -190,9 +191,9 @@ describe('Student Database Functions Test', () => {
             student_info: {
                M: {
                   campus: {S: studentNoStripe.student_info.campus},
-                  chatrooms: {SS: studentNoStripe.student_info.chatrooms}
-               }
-            }
+                  chatrooms: {SS: studentNoStripe.student_info.chatrooms},
+               },
+            },
          },
          ReturnConsumedCapacity: 'TOTAL',
          TableName: 'User',
@@ -244,9 +245,9 @@ describe('Student Database Functions Test', () => {
             student_info: {
                M: {
                   campus: {S: studentNoValid.student_info.campus},
-                  chatrooms: {SS: studentNoValid.student_info.chatrooms}
-               }
-            }
+                  chatrooms: {SS: studentNoValid.student_info.chatrooms},
+               },
+            },
          },
          ReturnConsumedCapacity: 'TOTAL',
          TableName: 'User',
@@ -298,9 +299,9 @@ describe('Student Database Functions Test', () => {
             student_info: {
                M: {
                   campus: {S: student.student_info.campus},
-                  chatrooms: {SS: student.student_info.chatrooms}
-               }
-            }
+                  chatrooms: {SS: student.student_info.chatrooms},
+               },
+            },
          },
          ReturnConsumedCapacity: 'TOTAL',
          TableName: 'User',

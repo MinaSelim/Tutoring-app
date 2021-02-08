@@ -62,8 +62,8 @@ describe('Local dynamo test', () => {
          phone: 'string',
          student_info: {
             campus: 'string',
-            chatrooms: ['string']
-         }
+            chatrooms: ['string'],
+         },
       };
 
       return DatabaseConfig.createTable(params)

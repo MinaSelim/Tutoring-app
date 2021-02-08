@@ -26,8 +26,8 @@ describe('Tutor Database Functions Test', () => {
       phone: 'string',
       tutor_info: {
          campuses: ['string'],
-         chatrooms: ['string']
-      }
+         chatrooms: ['string'],
+      },
    };
 
    const putItemResponseGood: PutItemOutput = {
@@ -44,11 +44,12 @@ describe('Tutor Database Functions Test', () => {
          stripe_customer_id: {S: tutor.stripe_customer_id},
          profileImage: {S: tutor.profileImage},
          phone: {S: tutor.phone},
-         tutor_info: {M: {
-            campus: {SS: tutor.tutor_info.campuses},
-            chatrooms: {SS: tutor.tutor_info.chatrooms}
-         }
-      }
+         tutor_info: {
+            M: {
+               campus: {SS: tutor.tutor_info.campuses},
+               chatrooms: {SS: tutor.tutor_info.chatrooms},
+            },
+         },
       },
       ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
@@ -110,9 +111,9 @@ describe('Tutor Database Functions Test', () => {
             tutor_info: {
                M: {
                   campuses: {SS: tutor.tutor_info.campuses},
-                  chatrooms: {SS: tutor.tutor_info.chatrooms}
-               }
-            }
+                  chatrooms: {SS: tutor.tutor_info.chatrooms},
+               },
+            },
          },
          ReturnConsumedCapacity: 'TOTAL',
          TableName: 'User',
@@ -164,9 +165,9 @@ describe('Tutor Database Functions Test', () => {
             tutor_info: {
                M: {
                   campuses: {SS: tutor.tutor_info.campuses},
-                  chatrooms: {SS: tutor.tutor_info.chatrooms}
-               }
-            }
+                  chatrooms: {SS: tutor.tutor_info.chatrooms},
+               },
+            },
          },
          ReturnConsumedCapacity: 'TOTAL',
          TableName: 'User',
