@@ -2,7 +2,7 @@ import {Application, Request, Response} from 'express';
 import IRouteComponent from '../IRouteComponent';
 import StudentProfileManager from '../../services/managers/StudentProfileManager';
 import IStudent from 'src/models/IStudent';
-import Guards from '../common/Guards'
+import Guards from '../common/Guards';
 
 export class StudentProfileRoutes implements IRouteComponent {
    private studentProfileManager: StudentProfileManager;

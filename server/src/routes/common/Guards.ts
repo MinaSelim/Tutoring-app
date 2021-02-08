@@ -16,9 +16,8 @@ export default class Guards {
     * @param req request
     */
    public static loggedInStudentGuard(req: Request): void {
-       if (req.session.isLoggedInAsStudent == false) {
-           throw 'Student is not logged in';
-       }
+      if (req.session.isLoggedInAsStudent == false) {
+         throw 'Student is not logged in';
+      }
    }
-
 }
