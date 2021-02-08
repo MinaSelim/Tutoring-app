@@ -2,6 +2,7 @@ import {Application, Request, Response} from 'express';
 import IRouteComponent from '../IRouteComponent';
 import TutorProfileManager from '../../services/managers/TutorProfileManager';
 import ITutor from 'src/models/ITutor';
+import Guards from '../common/Guards';
 
 export class TutorProfileRoutes implements IRouteComponent {
    private tutorProfileManager: TutorProfileManager;
@@ -17,6 +18,7 @@ export class TutorProfileRoutes implements IRouteComponent {
    public route(app: Application): void {
       app.post('/profile/tutor/update', async (req: Request, res: Response) => {
          try {
+            Guards.loggedInTutorGuard(req);
             const tutor: ITutor = await this.tutorProfileManager.updateInfo(req.body);
             res.status(200);
             res.send(tutor);
