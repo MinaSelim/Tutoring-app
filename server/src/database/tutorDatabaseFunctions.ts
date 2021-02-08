@@ -23,7 +23,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       params.Item.tutor_info = {
          M: {
-            campus: {
+            campuses: {
                SS: tutor.tutor_info.campuses,
             },
             chatrooms: {
