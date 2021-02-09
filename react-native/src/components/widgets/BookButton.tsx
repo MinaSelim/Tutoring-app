@@ -10,15 +10,14 @@ import {
 
 interface IChatBook {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-  tutor: ITutor;
 }
 
-const BookButton = ({tutor, navigation}: IChatBook): JSX.Element => {
+const BookButton = ({navigation}): JSX.Element => {
   return (
     <Button
       size="small"
       style={chatStyles.bookButton}
-      onPress={(): boolean => navigation.navigate('Profile', tutor)}>
+      onPress={(): boolean => navigation.navigate('Booking')}>
       {(evaProps): JSX.Element => (
         <Text style={chatStyles.bookButtonText} {...evaProps}>
           Book

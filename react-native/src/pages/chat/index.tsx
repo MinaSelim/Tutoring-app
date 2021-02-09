@@ -24,7 +24,7 @@ let newDay = false;
 let initialLoad = true;
 let isFirstMessage = false;
 
-const Chat = (): JSX.Element => {
+const Chat = ({navigation}): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
   const SCROLL_MESSAGE_AMOUNT = 10;
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -128,12 +128,11 @@ const Chat = (): JSX.Element => {
   }
 
   appendMessage();
-
   return (
     <Layout style={styles.container}>
       {!initialLoad && (
         <>
-          <ChatHeader />
+          <ChatHeader navigation={navigation} />
 
           <FlatList<any>
             keyExtractor={(item): string => item}
