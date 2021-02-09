@@ -6,8 +6,10 @@ import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
 import buttonStyles from '../sideBar/styles/styles';
 import ProfileUpdate from '../../api/profile/ProfileUpdate';
+import useAuthUser from '../../hooks/authUser';
 
 const Profile = (): JSX.Element => {
+  const user = useAuthUser()[0];
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
@@ -28,7 +30,13 @@ const Profile = (): JSX.Element => {
   return (
     <View>
       <Button
-        onPress={(): void => setProfileVisibility(true)}
+        onPress={(): void => {
+          if (user == null) {
+            Alert.alert(
+              'There was an problem accessing your user information.',
+            );
+          } else setProfileVisibility(true);
+        }}
         style={buttonStyles.button}
         appearance="ghost"
         status="control"
