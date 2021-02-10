@@ -10,7 +10,7 @@ import GenericChat from '../../api/chatroom/GenericChat';
 const chatAPI: GenericChat = new GenericChat();
 //TO DO: get these values with DYNAMO DB User model
 const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
-const chatID: string = '3KOm7aBd9VynpYsuHD0u';
+const chatID: string = 'Y4dnAR3kpJMzp2EY7iOq';
 
 const PaperPlaneIcon = (props): JSX.Element => (
   <Icon {...props} name="paper-plane" />

@@ -18,11 +18,9 @@ import moment from 'moment';
 const chatAPI: GenericChat = new GenericChat();
 //TO DO: get these values with DYNAMO DB User model
 const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
-const chatID: string = '3KOm7aBd9VynpYsuHD0u';
-let currentDay = '';
+const chatID: string = 'Y4dnAR3kpJMzp2EY7iOq';
 let newDay = false;
 let initialLoad = true;
-let isFirstMessage = false;
 
 const Chat = ({navigation}): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
@@ -55,7 +53,6 @@ const Chat = ({navigation}): JSX.Element => {
     if (chatLength > 24) {
       let chatCreatedAt = chatMessages[chatLength - 1].createdAt;
       setOffset(chatCreatedAt);
-      console.log('UPDATING THE SCROLL ... ' + offset);
     }
   };
 
@@ -66,17 +63,11 @@ const Chat = ({navigation}): JSX.Element => {
       offset,
       SCROLL_MESSAGE_AMOUNT,
     );
-    console.log(tempMessages);
     return tempMessages;
   }, [offset]);
 
   function appendMessage(): void {
-    console.log('newest msg', newestMessage);
-    console.log('chat msg[0]', chatMessages[0]);
-    if (chatMessages[0] === undefined && newestMessage !== undefined) {
-      const newestMsg: IMessage[] = ChatMessages(newestMessage);
-      chatMessages.unshift(...newestMsg);
-    } else if (newestMessage !== undefined && chatMessages[0] !== undefined) {
+    if (newestMessage !== undefined && chatMessages[0] !== undefined) {
       const newestMsg: IMessage[] = ChatMessages(newestMessage);
       //execute if a new message has been received
       if (chatMessages[0].id !== newestMsg[0].id) {
@@ -94,22 +85,24 @@ const Chat = ({navigation}): JSX.Element => {
   };
 
   const renderMessage = ({item, index}): JSX.Element => {
-    const ROWDATE = moment.unix(item.createdAt / 1000).format('MMM Do');
-    if (index === 0) {
-      currentDay = ROWDATE;
-      newDay = false;
-    } else if (ROWDATE !== currentDay) {
-      currentDay = ROWDATE;
+    const ROWDATE = moment.unix(item.createdAt / 1000).format('YYYY-MM-DD');
+    if (index === chatMessages.length - 1) {
+      newDay = true;
+    } else if (
+      moment(ROWDATE).isAfter(
+        moment
+          .unix(chatMessages[index + 1].createdAt / 1000)
+          .format('YYYY-MM-DD'),
+      )
+    ) {
       newDay = true;
     } else {
       newDay = false;
     }
-    isFirstMessage = false;
-    if (index === chatMessages.length - 1) isFirstMessage = true;
 
     return (
       <View>
-        {isFirstMessage && (
+        {newDay && (
           <>
             <Text style={chatStyles.date}>
               {moment.unix(item.createdAt / 1000).format('MMM Do')}
@@ -123,7 +116,6 @@ const Chat = ({navigation}): JSX.Element => {
   };
 
   function scrollToBottom(): void {
-    console.log('scroll to bottom is called');
     flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
   }
 
