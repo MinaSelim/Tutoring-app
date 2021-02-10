@@ -399,7 +399,10 @@ describe('Student Database Functions Test', () => {
          last_name: 'string',
          email: 'string',
          firebase_uid: 'string',
-         campus: 'string',
+         student_info: {
+            campus: 'string',
+            chatrooms: ['string']
+         }
       };
 
       const params: PutItemInput = {
@@ -416,9 +419,6 @@ describe('Student Database Functions Test', () => {
             firebase_uid: {
                S: studentMissingParams.firebase_uid,
             },
-            campus: {
-               S: 'string',
-            },
             stripe_customer_id: {
                S: '',
             },
@@ -430,6 +430,12 @@ describe('Student Database Functions Test', () => {
             },
             phone: {
                S: '',
+            },
+            student_info: {
+               M: {
+                  campus: {S: student.student_info.campus},
+                  chatrooms: {SS: student.student_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',

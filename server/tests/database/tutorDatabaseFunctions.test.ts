@@ -265,6 +265,10 @@ describe('Tutor Database Functions Test', () => {
          last_name: 'string',
          email: 'string',
          firebase_uid: 'string',
+         tutor_info: {
+            campuses: ['string'],
+            chatrooms: ['string'],
+         },
       };
 
       const params: PutItemInput = {
@@ -290,11 +294,14 @@ describe('Tutor Database Functions Test', () => {
             profileImage: {
                S: '',
             },
-            campuses: {
-               S: '',
-            },
             phone: {
                S: '',
+            },
+            tutor_info: {
+               M: {
+                  campuses: {SS: tutor.tutor_info.campuses},
+                  chatrooms: {SS: tutor.tutor_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
