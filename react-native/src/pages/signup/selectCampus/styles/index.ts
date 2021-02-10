@@ -3,15 +3,6 @@ import {colors} from '../../../../styles/appColors';
 import {fonts} from '../../../../styles/appFonts';
 
 export default StyleSheet.create({
-  inputBox: {
-    borderColor: colors.appOrange,
-    borderWidth: 2,
-    borderRadius: 9,
-    width: '100%',
-    height: 40,
-    alignSelf: 'center',
-    fontFamily: fonts.quickSandRegular,
-  },
   finishButton: {
     backgroundColor: colors.appOrange,
     margin: 5,
