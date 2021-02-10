@@ -5,11 +5,15 @@ import React, {useState} from 'react';
 import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
 import buttonStyles from '../sideBar/styles/styles';
-import ProfileUpdate from '../../api/profile/ProfileUpdate';
+import UserUpdate from '../../api/profile/UserUpdate';
 import useAuthUser from '../../hooks/authUser';
+import IUser from '../../model/common/IUser';
 
 const Profile = (): JSX.Element => {
-  const user = useAuthUser()[0];
+  let tempUser:
+    | IUser
+    | ((user: IUser | null) => void)
+    | null = useAuthUser()[0];
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
@@ -21,7 +25,8 @@ const Profile = (): JSX.Element => {
   };
   const updateUser = async (): Promise<void> => {
     try {
-      //ProfileUpdate.updateUserInfo();
+      const user = await UserUpdate.updateUserInfo(tempUser);
+      console.log('response ' + JSON.stringify(user));
       setProfileVisibility(false);
     } catch (error) {
       Alert.alert(`${error}`);
@@ -31,7 +36,7 @@ const Profile = (): JSX.Element => {
     <View>
       <Button
         onPress={(): void => {
-          if (user == null) {
+          if (tempUser == null) {
             Alert.alert(
               'There was an problem accessing your user information.',
             );
@@ -70,7 +75,7 @@ const Profile = (): JSX.Element => {
               />
             </TouchableOpacity>
           </View>
-          <InfoArea />
+          <InfoArea tempUser={tempUser} />
           <TouchableOpacity style={styles.termsAndConditionsButton}>
             {/* TODO Add link for terms and conditions */}
             <Text style={styles.text}>Terms & Conditions</Text>
