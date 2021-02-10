@@ -24,7 +24,7 @@ let initialLoad = true;
 
 const Chat = ({navigation}): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
-  const SCROLL_MESSAGE_AMOUNT = 10;
+  const SCROLL_MESSAGE_AMOUNT = 25;
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [offset, setOffset] = useState(new Date().getTime());
   const styles = useStyleSheet(chatStyles);
@@ -99,7 +99,6 @@ const Chat = ({navigation}): JSX.Element => {
     } else {
       newDay = false;
     }
-
     return (
       <View>
         {newDay && (
@@ -118,7 +117,6 @@ const Chat = ({navigation}): JSX.Element => {
   function scrollToBottom(): void {
     flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
   }
-
   appendMessage();
   return (
     <Layout style={styles.container}>
