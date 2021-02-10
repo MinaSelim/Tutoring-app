@@ -401,8 +401,8 @@ describe('Student Database Functions Test', () => {
          firebase_uid: 'string',
          student_info: {
             campus: 'string',
-            chatrooms: ['string']
-         }
+            chatrooms: ['string'],
+         },
       };
 
       const params: PutItemInput = {
