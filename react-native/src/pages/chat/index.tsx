@@ -110,7 +110,7 @@ const Chat = ({navigation}): JSX.Element => {
             <Divider />
           </>
         )}
-        <MessageRow key={item.id} message={item} newDay={newDay} />
+        <MessageRow key={item.id} message={item} />
       </View>
     );
   };
@@ -127,7 +127,7 @@ const Chat = ({navigation}): JSX.Element => {
           <ChatHeader navigation={navigation} />
 
           <FlatList<any>
-            keyExtractor={(item): string => item}
+            keyExtractor={(item): string => item.id.toString()}
             renderItem={renderMessage}
             data={chatMessages}
             onEndReachedThreshold={0.5}

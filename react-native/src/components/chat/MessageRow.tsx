@@ -9,11 +9,9 @@ import {chatStyles} from './styles/chatStyles';
 import 'moment-timezone';
 interface IMessagerow {
   message: IMessage;
-  newDay: boolean;
 }
 const MesageRow: React.FunctionComponent<IMessagerow> = ({
   message,
-  newDay,
 }: IMessagerow): JSX.Element => {
   return (
     <View style={chatStyles.messageContainer}>
