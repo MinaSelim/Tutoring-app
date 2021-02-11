@@ -8,12 +8,14 @@ import buttonStyles from '../sideBar/styles/styles';
 import UserUpdate from '../../api/profile/UserUpdate';
 import useAuthUser from '../../hooks/authUser';
 import IUser from '../../model/common/IUser';
+import useUserType from '../../hooks/userType';
 
 const Profile = (): JSX.Element => {
   let tempUser:
     | IUser
     | ((user: IUser | null) => void)
     | null = useAuthUser()[0];
+  const userType = useUserType()[0];
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
@@ -25,8 +27,8 @@ const Profile = (): JSX.Element => {
   };
   const updateUser = async (): Promise<void> => {
     try {
-      const user = await UserUpdate.updateUserInfo(tempUser);
-      console.log('response ' + JSON.stringify(user));
+      const user = await UserUpdate.updateUserInfo(tempUser, userType);
+      console.log('response: ' + JSON.stringify(user));
       setProfileVisibility(false);
     } catch (error) {
       Alert.alert(`${error}`);
