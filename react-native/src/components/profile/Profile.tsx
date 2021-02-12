@@ -27,7 +27,10 @@ const Profile = (): JSX.Element => {
   };
   const updateUser = async (): Promise<void> => {
     try {
-      const user = await UserUpdate.updateUserInfo(tempUser, userType);
+      const user = await UserUpdate.updateUserInfo(
+        tempUser,
+        JSON.stringify(userType),
+      );
       console.log('response: ' + JSON.stringify(user));
       setProfileVisibility(false);
     } catch (error) {

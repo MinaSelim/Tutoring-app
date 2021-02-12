@@ -36,7 +36,9 @@ const InfoArea = ({tempUser}): JSX.Element => {
         }}
       />
       <Text style={styles.text}>Password</Text>
-      <TouchableOpacity style={styles.passwordButton}>
+      <TouchableOpacity
+        style={styles.passwordButton}
+        onPress={(): void => Alert.alert('Currently unavailable')}>
         <Text style={styles.buttonText}>change password</Text>
       </TouchableOpacity>
       <Text style={styles.text}>Description</Text>

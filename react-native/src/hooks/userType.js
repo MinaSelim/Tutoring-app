@@ -1,8 +1,8 @@
-import {useContext, createContext} from 'react';
+import {useContext} from 'react';
 import appUserTypeContext from '../contexts/userType/context';
 
 const useUserType = () => {
-  const {userType, setUserType} = useContext(createContext(null));
+  const {userType, setUserType} = useContext(appUserTypeContext);
   return [userType, setUserType];
 };
 
