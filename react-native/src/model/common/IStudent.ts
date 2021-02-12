@@ -1,5 +1,8 @@
 import IUser from './IUser';
 
 export default interface IStudent extends IUser {
-  campus: string;
+  student_info: {
+    campus: string;
+    chatrooms: string[];
+  };
 }

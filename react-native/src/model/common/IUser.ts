@@ -6,7 +6,7 @@ export default interface IUser {
   first_name: string;
   last_name: string;
   fullName?: string; // Optional for now, may need to be manadatory depending on futur use
-  profileImageUrl?: string;
+  profileImage?: string;
   unseenMessagesCount?: number;
   email: string;
   phone?: string;
