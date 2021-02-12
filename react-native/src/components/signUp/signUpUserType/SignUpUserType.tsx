@@ -42,6 +42,10 @@ class SignUpUserType extends Component<IProps> {
       phone,
       avatar: '',
       firebase_uid: '',
+      tutor_info: {
+        campuses: [],
+        chatrooms: [],
+      },
     };
     try {
       await tutorAuth.registerWithEmailAndPassword({email, password}, tutor);
