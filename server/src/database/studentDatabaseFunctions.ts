@@ -9,18 +9,17 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
       const student: IStudent = user as IStudent;
 
-      // catch not working
-      if (!student.student_info.chatrooms) {
-         student.student_info.chatrooms = [];
+      if (student.student_info.chatrooms === undefined || student.student_info.chatrooms.length == 0) {
+         console.log('detected empty list')
+         student.student_info.chatrooms = [''];
       }
-
+      
       return student;
    };
 
    protected addSpecificUserParams = (user: IUser, params: PutItemInput): PutItemInput => {
       const student: IStudent = user as IStudent;
 
-      // fingers crossed
       params.Item.student_info = {
          M: {
             campus: {
