@@ -7,12 +7,12 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
       const tutor: ITutor = user as ITutor;
 
-      if (!tutor.tutor_info.campuses) {
-         tutor.tutor_info.campuses = [];
+      if (tutor.tutor_info.campuses === undefined || tutor.tutor_info.campuses.length == 0) {
+         tutor.tutor_info.campuses = [''];
       }
 
-      if (!tutor.tutor_info.chatrooms) {
-         tutor.tutor_info.chatrooms = [];
+      if (tutor.tutor_info.chatrooms === undefined || tutor.tutor_info.chatrooms.length == 0) {
+         tutor.tutor_info.chatrooms = [''];
       }
 
       return tutor;
