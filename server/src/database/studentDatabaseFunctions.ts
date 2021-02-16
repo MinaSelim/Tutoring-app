@@ -5,13 +5,12 @@ import IUser from 'src/models/IUser';
 import {StudentProfileRoutes} from 'src/routes/profile/StudentProfileRoutes';
 import * as config from '../config/DatabaseConfigInfo.json';
 
-
 export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
       const student: IStudent = user as IStudent;
 
       if (student.student_info.chatrooms === undefined || student.student_info.chatrooms.length == 0) {
-         console.log('detected empty list')
+         console.log('detected empty list');
          student.student_info.chatrooms = [''];
       }
 
@@ -53,7 +52,7 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
                S: id,
             },
          },
-         ProjectionExpression: "student_info.chatrooms",
+         ProjectionExpression: 'student_info.chatrooms',
          TableName: config.tableNames.USER,
       };
 
@@ -73,7 +72,7 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
          ExpressionAttributeValues: {
             ':cr': {
                SS: [chatId],
-            }
+            },
          },
          ReturnValues: 'UPDATED_NEW',
       };
@@ -94,7 +93,7 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
          ExpressionAttributeValues: {
             ':cr': {
                SS: [chatId],
-            }
+            },
          },
          ReturnValues: 'UPDATED_NEW',
       };

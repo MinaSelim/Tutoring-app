@@ -35,7 +35,7 @@ export class StudentProfileRoutes implements IRouteComponent {
          try {
             // Guards.loggedInStudentGuard(req);
             let chatrooms: string[] = await this.studentDatabaseFunctions.getChatrooms(req.body.idToken);
-            chatrooms = chatrooms.filter(n => n);  // removes empty string
+            chatrooms = chatrooms.filter((n) => n); // removes empty string
             res.status(200);
             res.send(chatrooms);
          } catch (error) {
@@ -47,8 +47,11 @@ export class StudentProfileRoutes implements IRouteComponent {
       app.post('/profile/student/addChatroom', async (req: Request, res: Response) => {
          try {
             // Guards.loggedInStudentGuard(req);
-            let chatrooms: string[] = await this.studentDatabaseFunctions.addChatroom(req.body.idToken, req.body.chatId);
-            chatrooms = chatrooms.filter(n => n);  // removes empty string
+            let chatrooms: string[] = await this.studentDatabaseFunctions.addChatroom(
+               req.body.idToken,
+               req.body.chatId,
+            );
+            chatrooms = chatrooms.filter((n) => n); // removes empty string
             res.status(200);
             res.send(chatrooms);
          } catch (error) {
@@ -60,8 +63,11 @@ export class StudentProfileRoutes implements IRouteComponent {
       app.post('/profile/student/removeChatroom', async (req: Request, res: Response) => {
          try {
             // Guards.loggedInStudentGuard(req);
-            let chatrooms: string[] = await this.studentDatabaseFunctions.removeChatroom(req.body.idToken, req.body.chatId);
-            chatrooms = chatrooms.filter(n => n);  // removes empty string
+            let chatrooms: string[] = await this.studentDatabaseFunctions.removeChatroom(
+               req.body.idToken,
+               req.body.chatId,
+            );
+            chatrooms = chatrooms.filter((n) => n); // removes empty string
             res.status(200);
             res.send(chatrooms);
          } catch (error) {
@@ -69,5 +75,5 @@ export class StudentProfileRoutes implements IRouteComponent {
             res.send(error);
          }
       });
-   } 
+   }
 }
