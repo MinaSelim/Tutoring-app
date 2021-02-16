@@ -60,4 +60,25 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       const data: GetItemOutput = await this.databaseUtils.getItem(params);
       return data.Item.student_info.M.chatrooms.SS;
    };
+
+   public addNewChatroom = async (id: string, chatId: string): Promise<string[]> => {
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         UpdateExpression: 'ADD student_info.chatrooms :cr',
+         ExpressionAttributeValues: {
+            ':cr': {
+               SS: [chatId],
+            }
+         },
+         ReturnValues: 'UPDATED_NEW',
+      };
+
+      const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
+      return data.Attributes.student_info.M.chatrooms.SS;
+   };
 }
