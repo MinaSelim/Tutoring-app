@@ -1,9 +1,10 @@
 import IStudent from '../models/IStudent';
-import {GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
+import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import UserDatabaseFunctions from '../database/userDatabaseFunctions';
 import IUser from 'src/models/IUser';
 import {StudentProfileRoutes} from 'src/routes/profile/StudentProfileRoutes';
-import {config} from 'dotenv/types';
+import * as config from '../config/DatabaseConfigInfo.json';
+
 
 export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
@@ -13,7 +14,7 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
          console.log('detected empty list')
          student.student_info.chatrooms = [''];
       }
-      
+
       return student;
    };
 
@@ -43,5 +44,20 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       };
 
       return student;
+   };
+
+   public getChatrooms = async (id: string): Promise<string[]> => {
+      const params: GetItemInput = {
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         ProjectionExpression: "student_info.chatrooms",
+         TableName: config.tableNames.USER,
+      };
+
+      const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      return data.Item.student_info.M.chatrooms.SS;
    };
 }

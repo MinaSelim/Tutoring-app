@@ -3,12 +3,15 @@ import IRouteComponent from '../IRouteComponent';
 import StudentProfileManager from '../../services/managers/StudentProfileManager';
 import IStudent from 'src/models/IStudent';
 import Guards from '../common/Guards';
+import StudentDatabaseFunctions from '../../database/studentDatabaseFunctions';
 
 export class StudentProfileRoutes implements IRouteComponent {
    private studentProfileManager: StudentProfileManager;
+   private studentDatabaseFunctions: StudentDatabaseFunctions;
 
    constructor() {
       this.studentProfileManager = new StudentProfileManager();
+      this.studentDatabaseFunctions = new StudentDatabaseFunctions();
    }
 
    /**
@@ -27,5 +30,17 @@ export class StudentProfileRoutes implements IRouteComponent {
             res.send(error);
          }
       });
-   }
+
+      app.post('/profile/student/getChatrooms', async (req: Request, res: Response) => {
+         try {
+            // Guards.loggedInStudentGuard(req);
+            const chatrooms: string[] = await this.studentDatabaseFunctions.getChatrooms(req.body.idToken);
+            res.status(200);
+            res.send(chatrooms);
+         } catch (error) {
+            res.status(500);
+            res.send(error);
+         }
+      });
+   } 
 }
