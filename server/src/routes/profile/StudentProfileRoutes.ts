@@ -3,15 +3,13 @@ import IRouteComponent from '../IRouteComponent';
 import StudentProfileManager from '../../services/managers/StudentProfileManager';
 import IStudent from 'src/models/IStudent';
 import Guards from '../common/Guards';
-import StudentDatabaseFunctions from '../../database/studentDatabaseFunctions';
+
 
 export class StudentProfileRoutes implements IRouteComponent {
    private studentProfileManager: StudentProfileManager;
-   private studentDatabaseFunctions: StudentDatabaseFunctions;
 
    constructor() {
       this.studentProfileManager = new StudentProfileManager();
-      this.studentDatabaseFunctions = new StudentDatabaseFunctions();
    }
 
    /**
