@@ -1,7 +1,9 @@
 import ITutor from '../models/ITutor';
-import {GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
+import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
+import * as config from '../config/DatabaseConfigInfo.json';
+
 
 export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
@@ -45,4 +47,62 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       return tutor;
    };
+
+   public getChatrooms = async (id: string): Promise<string[]> => {
+      const params: GetItemInput = {
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         ProjectionExpression: 'tutor_info.chatrooms',
+         TableName: config.tableNames.USER,
+      };
+
+      const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      return data.Item.tutor_info.M.chatrooms.SS;
+   };
+
+   public addChatroom = async (id: string, chatId: string): Promise<string[]> => {
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         UpdateExpression: 'ADD tutor_info.chatrooms :cr',
+         ExpressionAttributeValues: {
+            ':cr': {
+               SS: [chatId],
+            },
+         },
+         ReturnValues: 'UPDATED_NEW',
+      };
+
+      const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
+      return data.Attributes.tutor_info.M.chatrooms.SS;
+   };
+
+   public removeChatroom = async (id: string, chatId: string): Promise<string[]> => {
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         UpdateExpression: 'DELETE tutor_info.chatrooms :cr',
+         ExpressionAttributeValues: {
+            ':cr': {
+               SS: [chatId],
+            },
+         },
+         ReturnValues: 'UPDATED_NEW',
+      };
+
+      const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
+      return data.Attributes.tutor_info.M.chatrooms.SS;
+   };
+
 }
