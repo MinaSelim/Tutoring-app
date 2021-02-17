@@ -2,7 +2,6 @@ import IStudent from '../models/IStudent';
 import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import UserDatabaseFunctions from '../database/userDatabaseFunctions';
 import IUser from 'src/models/IUser';
-import {StudentProfileRoutes} from 'src/routes/profile/StudentProfileRoutes';
 import * as config from '../config/DatabaseConfigInfo.json';
 
 export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
@@ -10,7 +9,6 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       const student: IStudent = user as IStudent;
 
       if (student.student_info.chatrooms === undefined || student.student_info.chatrooms.length == 0) {
-         console.log('detected empty list');
          student.student_info.chatrooms = [''];
       }
 

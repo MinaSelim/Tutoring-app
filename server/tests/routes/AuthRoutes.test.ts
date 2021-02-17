@@ -192,20 +192,22 @@ describe('API request calls', () => {
       return server.close();
    });
 
-   it.skip('Should register student', () => {
+   it('Should register student', () => {
       return chai
          .request(server)
          .post('/auth/student/register')
+         .send(student)
          .then((res: Response) => {
             assert.exists(res.body);
             assert.equal(res.status, 200);
          });
    });
 
-   it.skip('Should register tutor', () => {
+   it('Should register tutor', () => {
       return chai
          .request(server)
          .post('/auth/tutor/register')
+         .send(tutor)
          .then((res: Response) => {
             assert.exists(res.body);
             assert.equal(res.status, 200);
