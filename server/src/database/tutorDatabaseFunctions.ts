@@ -4,7 +4,6 @@ import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 import * as config from '../config/DatabaseConfigInfo.json';
 
-
 export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
       const tutor: ITutor = user as ITutor;
@@ -104,5 +103,4 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
       return data.Attributes.tutor_info.M.chatrooms.SS;
    };
-
 }

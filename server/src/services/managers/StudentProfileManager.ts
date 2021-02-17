@@ -30,5 +30,5 @@ export default class StudentProfileManager {
       let chatrooms: string[] = await this.studentDatabaseFunctions.removeChatroom(idToken, chatId);
       chatrooms = chatrooms.filter((n) => n); // removes empty string
       return chatrooms;
-   }
+   };
 }

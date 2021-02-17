@@ -30,5 +30,5 @@ export default class TutorProfileManager {
       let chatrooms: string[] = await this.tutorDatabaseFunctions.removeChatroom(idToken, chatId);
       chatrooms = chatrooms.filter((n) => n); // removes empty string
       return chatrooms;
-   }
+   };
 }

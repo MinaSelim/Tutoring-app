@@ -55,7 +55,10 @@ export class TutorProfileRoutes implements IRouteComponent {
       app.post('/profile/tutor/removeChatroom', async (req: Request, res: Response) => {
          try {
             // Guards.loggedInTutorGuard(req);
-            const chatrooms: string[] = await this.tutorProfileManager.removeChatroom(req.body.idToken, req.body.chatId);
+            const chatrooms: string[] = await this.tutorProfileManager.removeChatroom(
+               req.body.idToken,
+               req.body.chatId,
+            );
             res.status(200);
             res.send(chatrooms);
          } catch (error) {

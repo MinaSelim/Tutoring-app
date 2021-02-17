@@ -4,7 +4,6 @@ import StudentProfileManager from '../../services/managers/StudentProfileManager
 import IStudent from 'src/models/IStudent';
 import Guards from '../common/Guards';
 
-
 export class StudentProfileRoutes implements IRouteComponent {
    private studentProfileManager: StudentProfileManager;
 
@@ -56,7 +55,10 @@ export class StudentProfileRoutes implements IRouteComponent {
       app.post('/profile/student/removeChatroom', async (req: Request, res: Response) => {
          try {
             // Guards.loggedInStudentGuard(req);
-            const chatrooms: string[] = await this.studentProfileManager.removeChatroom(req.body.idToken, req.body.chatId);
+            const chatrooms: string[] = await this.studentProfileManager.removeChatroom(
+               req.body.idToken,
+               req.body.chatId,
+            );
             res.status(200);
             res.send(chatrooms);
          } catch (error) {
