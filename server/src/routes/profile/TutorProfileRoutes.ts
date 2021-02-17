@@ -30,7 +30,7 @@ export class TutorProfileRoutes implements IRouteComponent {
 
       app.post('/profile/tutor/getChatrooms', async (req: Request, res: Response) => {
          try {
-            // Guards.loggedInTutorGuard(req);
+            Guards.loggedInTutorGuard(req);
             const chatrooms: string[] = await this.tutorProfileManager.getChatrooms(req.body.idToken);
             res.status(200);
             res.send(chatrooms);
@@ -42,7 +42,7 @@ export class TutorProfileRoutes implements IRouteComponent {
 
       app.post('/profile/tutor/addChatroom', async (req: Request, res: Response) => {
          try {
-            // Guards.loggedInTutorGuard(req);
+            Guards.loggedInTutorGuard(req);
             const chatrooms: string[] = await this.tutorProfileManager.addChatroom(req.body.idToken, req.body.chatId);
             res.status(200);
             res.send(chatrooms);
@@ -54,7 +54,7 @@ export class TutorProfileRoutes implements IRouteComponent {
 
       app.post('/profile/tutor/removeChatroom', async (req: Request, res: Response) => {
          try {
-            // Guards.loggedInTutorGuard(req);
+            Guards.loggedInTutorGuard(req);
             const chatrooms: string[] = await this.tutorProfileManager.removeChatroom(
                req.body.idToken,
                req.body.chatId,
