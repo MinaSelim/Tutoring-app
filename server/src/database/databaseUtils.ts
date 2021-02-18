@@ -1,4 +1,11 @@
-import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
+import {
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   PutItemOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import {AWSError} from 'aws-sdk';
 import Dynamo from './dynamo';
 
@@ -39,6 +46,21 @@ export default class DatabaseUtils {
          .promise()
          .catch((err: AWSError) => {
             console.error('Could not get item from', params.TableName);
+            return Promise.reject(err);
+         });
+   };
+
+   /**
+    * Update an item in a dynamo table.
+    * @param params
+    * @returns A promise.
+    */
+   public updateItem = (params: UpdateItemInput): Promise<UpdateItemOutput> => {
+      return this.dynamo
+         .updateItem(params)
+         .promise()
+         .catch((err: AWSError) => {
+            console.error('Could not update item in', params.TableName);
             return Promise.reject(err);
          });
    };

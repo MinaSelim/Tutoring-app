@@ -37,7 +37,10 @@ describe('API request calls', () => {
       last_name: 'string',
       email: 'string',
       firebase_uid: 'string',
-      campus: 'string',
+      student_info: {
+         campus: 'string',
+         chatrooms: ['string'],
+      },
    };
 
    const getItemResponseGoodStudent: GetItemOutput = {
@@ -46,11 +49,16 @@ describe('API request calls', () => {
          last_name: {S: student.last_name},
          email: {S: student.email},
          firebase_uid: {S: student.firebase_uid},
-         campus: {S: 'string'},
          stripe_customer_id: {S: ''},
          is_validated: {BOOL: false},
          profileImage: {S: ''},
          phone: {S: ''},
+         student_info: {
+            M: {
+               campus: {S: student.student_info.campus},
+               chatrooms: {SS: student.student_info.chatrooms},
+            },
+         },
       },
       ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
@@ -60,6 +68,10 @@ describe('API request calls', () => {
       last_name: 'string',
       email: 'string',
       firebase_uid: 'string',
+      tutor_info: {
+         campuses: ['string'],
+         chatrooms: ['string'],
+      },
    };
 
    const getItemResponseGoodTutor: GetItemOutput = {
@@ -73,6 +85,12 @@ describe('API request calls', () => {
          profileImage: {S: ''},
          campuses: {S: ''},
          phone: {S: ''},
+         tutor_info: {
+            M: {
+               campus: {SS: tutor.tutor_info.campuses},
+               chatrooms: {SS: tutor.tutor_info.chatrooms},
+            },
+         },
       },
       ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
@@ -178,6 +196,7 @@ describe('API request calls', () => {
       return chai
          .request(server)
          .post('/auth/student/register')
+         .send(student)
          .then((res: Response) => {
             assert.exists(res.body);
             assert.equal(res.status, 200);
@@ -188,6 +207,7 @@ describe('API request calls', () => {
       return chai
          .request(server)
          .post('/auth/tutor/register')
+         .send(tutor)
          .then((res: Response) => {
             assert.exists(res.body);
             assert.equal(res.status, 200);

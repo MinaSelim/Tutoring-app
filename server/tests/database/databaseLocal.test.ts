@@ -59,8 +59,11 @@ describe('Local dynamo test', () => {
          stripe_customer_id: 'string',
          is_validated: true,
          profileImage: 'string',
-         campus: 'string',
          phone: 'string',
+         student_info: {
+            campus: 'string',
+            chatrooms: ['string'],
+         },
       };
 
       return DatabaseConfig.createTable(params)
@@ -80,7 +83,8 @@ describe('Local dynamo test', () => {
             assert.equal(res.first_name, student.first_name);
             assert.equal(res.last_name, student.last_name);
             assert.equal(res.profileImage, student.profileImage);
-            assert.equal(res.campus, student.campus);
+            assert.equal(res.student_info.campus, student.student_info.campus);
+            assert.equal(res.student_info.chatrooms, student.student_info.chatrooms);
             assert.equal(res.phone, student.phone);
          });
    });

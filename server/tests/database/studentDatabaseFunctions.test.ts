@@ -22,8 +22,11 @@ describe('Student Database Functions Test', () => {
       firebase_uid: 'string',
       stripe_customer_id: 'string',
       is_validated: true,
-      campus: 'string',
       phone: 'string',
+      student_info: {
+         campus: 'string',
+         chatrooms: ['string'],
+      },
    };
 
    const studentNoStripe: IStudent = {
@@ -33,8 +36,11 @@ describe('Student Database Functions Test', () => {
       profileImage: 'string',
       firebase_uid: 'string',
       is_validated: true,
-      campus: 'string',
       phone: 'string',
+      student_info: {
+         campus: 'string',
+         chatrooms: ['string'],
+      },
    };
 
    const studentNoValid: IStudent = {
@@ -43,8 +49,11 @@ describe('Student Database Functions Test', () => {
       email: 'string',
       profileImage: 'string',
       firebase_uid: 'string',
-      campus: 'string',
       phone: 'string',
+      student_info: {
+         campus: 'string',
+         chatrooms: ['string'],
+      },
    };
 
    const putItemResponseGood: PutItemOutput = {
@@ -60,8 +69,13 @@ describe('Student Database Functions Test', () => {
          firebase_uid: {S: student.firebase_uid},
          stripe_customer_id: {S: student.stripe_customer_id},
          profileImage: {S: student.profileImage},
-         campus: {S: student.campus},
          phone: {S: student.phone},
+         student_info: {
+            M: {
+               campus: {S: student.student_info.campus},
+               chatrooms: {SS: student.student_info.chatrooms},
+            },
+         },
       },
       ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
@@ -117,11 +131,14 @@ describe('Student Database Functions Test', () => {
             profileImage: {
                S: student.profileImage,
             },
-            campus: {
-               S: student.campus,
-            },
             phone: {
                S: student.phone,
+            },
+            student_info: {
+               M: {
+                  campus: {S: student.student_info.campus},
+                  chatrooms: {SS: student.student_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
@@ -168,11 +185,14 @@ describe('Student Database Functions Test', () => {
             profileImage: {
                S: studentNoStripe.profileImage,
             },
-            campus: {
-               S: studentNoStripe.campus,
-            },
             phone: {
                S: studentNoStripe.phone,
+            },
+            student_info: {
+               M: {
+                  campus: {S: studentNoStripe.student_info.campus},
+                  chatrooms: {SS: studentNoStripe.student_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
@@ -219,11 +239,14 @@ describe('Student Database Functions Test', () => {
             profileImage: {
                S: studentNoValid.profileImage,
             },
-            campus: {
-               S: studentNoValid.campus,
-            },
             phone: {
                S: studentNoValid.phone,
+            },
+            student_info: {
+               M: {
+                  campus: {S: studentNoValid.student_info.campus},
+                  chatrooms: {SS: studentNoValid.student_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
@@ -270,11 +293,14 @@ describe('Student Database Functions Test', () => {
             profileImage: {
                S: student.profileImage,
             },
-            campus: {
-               S: student.campus,
-            },
             phone: {
                S: student.phone,
+            },
+            student_info: {
+               M: {
+                  campus: {S: student.student_info.campus},
+                  chatrooms: {SS: student.student_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
@@ -330,8 +356,9 @@ describe('Student Database Functions Test', () => {
          assert.equal(res.first_name, student.first_name);
          assert.equal(res.last_name, student.last_name);
          assert.equal(res.profileImage, student.profileImage);
-         assert.equal(res.campus, student.campus);
          assert.equal(res.phone, student.phone);
+         assert.equal(res.student_info.campus, student.student_info.campus);
+         assert.equal(res.student_info.chatrooms, student.student_info.chatrooms);
       });
    });
 
@@ -372,7 +399,10 @@ describe('Student Database Functions Test', () => {
          last_name: 'string',
          email: 'string',
          firebase_uid: 'string',
-         campus: 'string',
+         student_info: {
+            campus: 'string',
+            chatrooms: ['string'],
+         },
       };
 
       const params: PutItemInput = {
@@ -389,9 +419,6 @@ describe('Student Database Functions Test', () => {
             firebase_uid: {
                S: studentMissingParams.firebase_uid,
             },
-            campus: {
-               S: 'string',
-            },
             stripe_customer_id: {
                S: '',
             },
@@ -403,6 +430,12 @@ describe('Student Database Functions Test', () => {
             },
             phone: {
                S: '',
+            },
+            student_info: {
+               M: {
+                  campus: {S: student.student_info.campus},
+                  chatrooms: {SS: student.student_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',

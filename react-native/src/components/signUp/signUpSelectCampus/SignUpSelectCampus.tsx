@@ -63,7 +63,10 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
         last_name: lastName,
         email,
         phone,
-        campus: universitySelection,
+        student_info: {
+          campus: universitySelection,
+          chatrooms: [],
+        },
         avatar: '',
         firebase_uid: '',
       };

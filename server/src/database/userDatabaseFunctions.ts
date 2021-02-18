@@ -1,4 +1,11 @@
-import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/clients/dynamodb';
+import {
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   PutItemOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from '../database/databaseUtils';
 import IUser from '../models/IUser';
@@ -10,6 +17,15 @@ export default abstract class UserDatabaseFunctions {
       this.databaseUtils = DatabaseUtils.getInstance();
    }
 
+   public addUserToDatabase = (user: IUser): Promise<PutItemOutput> => {
+      let tempUser: IUser = this.fillEmptyGenericUserData(user);
+      tempUser = this.fillSpecificUserData(tempUser);
+      let params: PutItemInput = this.createGenericUserParams(tempUser);
+      params = this.addSpecificUserParams(tempUser, params);
+      return this.databaseUtils.putItem(params);
+   };
+
+   // fills optional generic user values to avoid nulls
    private fillEmptyGenericUserData(user: IUser): IUser {
       const tempUser = {...user};
 
@@ -32,6 +48,7 @@ export default abstract class UserDatabaseFunctions {
       return tempUser;
    }
 
+   // fills specific user type values (like tutor campuses) to avoid nulls
    protected abstract fillSpecificUserData(tempUser: IUser): IUser;
 
    private createGenericUserParams = (user: IUser): PutItemInput => {
@@ -70,14 +87,6 @@ export default abstract class UserDatabaseFunctions {
 
    protected abstract addSpecificUserParams(tempUser: IUser, params: PutItemInput): PutItemInput;
 
-   public addUserToDatabase = (user: IUser): Promise<PutItemOutput> => {
-      let tempUser: IUser = this.fillEmptyGenericUserData(user);
-      tempUser = this.fillSpecificUserData(tempUser);
-      let params: PutItemInput = this.createGenericUserParams(tempUser);
-      params = this.addSpecificUserParams(tempUser, params);
-      return this.databaseUtils.putItem(params);
-   };
-
    public getUserByFirebaseId = async (id: string): Promise<IUser> => {
       const params: GetItemInput = {
          Key: {
@@ -108,4 +117,55 @@ export default abstract class UserDatabaseFunctions {
    };
 
    protected abstract addSpecificUserProperties(user: IUser, data: GetItemOutput): IUser;
+
+   public updateUser = async (user: IUser): Promise<IUser> => {
+      const tempUser: IUser = {...user};
+
+      if (!tempUser.profileImage) {
+         tempUser.profileImage = '';
+      }
+
+      if (!tempUser.phone) {
+         tempUser.phone = '';
+      }
+
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: tempUser.firebase_uid,
+            },
+         },
+         UpdateExpression: 'SET first_name = :fn, last_name = :ln, profileImage = :pi, phone = :ph',
+         ExpressionAttributeValues: {
+            ':fn': {
+               S: tempUser.first_name,
+            },
+            ':ln': {
+               S: tempUser.last_name,
+            },
+            ':pi': {
+               S: tempUser.profileImage,
+            },
+            ':ph': {
+               S: tempUser.phone,
+            },
+         },
+         ReturnValues: 'ALL_NEW',
+      };
+
+      const returnData: UpdateItemOutput = await this.databaseUtils.updateItem(params);
+      const updatedUser: IUser = {
+         email: returnData.Attributes.email.S,
+         is_validated: returnData.Attributes.is_validated.BOOL,
+         firebase_uid: returnData.Attributes.firebase_uid.S,
+         stripe_customer_id: returnData.Attributes.stripe_customer_id.S,
+         first_name: returnData.Attributes.first_name.S,
+         last_name: returnData.Attributes.last_name.S,
+         profileImage: returnData.Attributes.profileImage.S,
+         phone: returnData.Attributes.phone.S,
+      };
+
+      return updatedUser;
+   };
 }

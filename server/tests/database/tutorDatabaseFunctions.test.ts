@@ -23,8 +23,11 @@ describe('Tutor Database Functions Test', () => {
       firebase_uid: 'string',
       stripe_customer_id: 'string',
       is_validated: true,
-      campuses: 'string',
       phone: 'string',
+      tutor_info: {
+         campuses: ['string'],
+         chatrooms: ['string'],
+      },
    };
 
    const putItemResponseGood: PutItemOutput = {
@@ -40,8 +43,13 @@ describe('Tutor Database Functions Test', () => {
          firebase_uid: {S: tutor.firebase_uid},
          stripe_customer_id: {S: tutor.stripe_customer_id},
          profileImage: {S: tutor.profileImage},
-         campuses: {S: tutor.campuses},
          phone: {S: tutor.phone},
+         tutor_info: {
+            M: {
+               campus: {SS: tutor.tutor_info.campuses},
+               chatrooms: {SS: tutor.tutor_info.chatrooms},
+            },
+         },
       },
       ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
    };
@@ -97,11 +105,14 @@ describe('Tutor Database Functions Test', () => {
             profileImage: {
                S: tutor.profileImage,
             },
-            campuses: {
-               S: tutor.campuses,
-            },
             phone: {
                S: tutor.phone,
+            },
+            tutor_info: {
+               M: {
+                  campuses: {SS: tutor.tutor_info.campuses},
+                  chatrooms: {SS: tutor.tutor_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
@@ -148,11 +159,14 @@ describe('Tutor Database Functions Test', () => {
             profileImage: {
                S: tutor.profileImage,
             },
-            campuses: {
-               S: tutor.campuses,
-            },
             phone: {
                S: tutor.phone,
+            },
+            tutor_info: {
+               M: {
+                  campuses: {SS: tutor.tutor_info.campuses},
+                  chatrooms: {SS: tutor.tutor_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',
@@ -208,8 +222,9 @@ describe('Tutor Database Functions Test', () => {
          assert.equal(res.first_name, tutor.first_name);
          assert.equal(res.last_name, tutor.last_name);
          assert.equal(res.profileImage, tutor.profileImage);
-         assert.equal(res.campuses, tutor.campuses);
          assert.equal(res.phone, tutor.phone);
+         assert.equal(res.tutor_info.campuses, tutor.tutor_info.campuses);
+         assert.equal(res.tutor_info.chatrooms, tutor.tutor_info.chatrooms);
       });
    });
 
@@ -250,6 +265,10 @@ describe('Tutor Database Functions Test', () => {
          last_name: 'string',
          email: 'string',
          firebase_uid: 'string',
+         tutor_info: {
+            campuses: ['string'],
+            chatrooms: ['string'],
+         },
       };
 
       const params: PutItemInput = {
@@ -275,11 +294,14 @@ describe('Tutor Database Functions Test', () => {
             profileImage: {
                S: '',
             },
-            campuses: {
-               S: '',
-            },
             phone: {
                S: '',
+            },
+            tutor_info: {
+               M: {
+                  campuses: {SS: tutor.tutor_info.campuses},
+                  chatrooms: {SS: tutor.tutor_info.chatrooms},
+               },
             },
          },
          ReturnConsumedCapacity: 'TOTAL',

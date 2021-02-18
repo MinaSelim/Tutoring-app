@@ -1,6 +1,8 @@
 import {Application} from 'express';
 import {StudentAuthRoutes} from '../routes/auth/StudentAuthRoutes';
 import {TutorAuthRoutes} from '../routes/auth/TutorAuthRoutes';
+import {StudentProfileRoutes} from '../routes/profile/StudentProfileRoutes';
+import {TutorProfileRoutes} from '../routes/profile/TutorProfileRoutes';
 import RouteComposite from '../routes/RouteComposite';
 import IRouteComponent from '../routes/IRouteComponent';
 
@@ -23,8 +25,10 @@ export default class RouteRoot implements IRouteComponent {
       // Create all the auth routes
       const authRoutes: RouteComposite = new RouteComposite([new StudentAuthRoutes(), new TutorAuthRoutes()]);
 
+      const profileRoutes: RouteComposite = new RouteComposite([new StudentProfileRoutes(), new TutorProfileRoutes()]);
+
       // Add all the routes created to a root composite
-      const rootRoutes: RouteComposite = new RouteComposite([authRoutes]);
+      const rootRoutes: RouteComposite = new RouteComposite([authRoutes, profileRoutes]);
       rootRoutes.route(app);
    }
 }
