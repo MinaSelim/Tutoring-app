@@ -10,6 +10,12 @@
          "keyName": "firebase_uid",
          "keyAttributeType": "S",
          "keyType": "HASH"
+      },
+      {
+         "name": "Reviews",
+         "keyName": "reviewId",
+         "keyAttributeType": "S",
+         "keyType": "HASH"
       }
    ],
    "tableNames": {
