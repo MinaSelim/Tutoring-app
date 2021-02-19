@@ -19,6 +19,7 @@
       }
    ],
    "tableNames": {
-      "USER": "User"
+      "USER": "User",
+      "REVIEWS": "Reviews" 
    }
 }
