@@ -18,14 +18,15 @@ export class ReviewsRoutes implements IRouteComponent {
    public route(app: Application): void {
       
         app.post('/reviews/addReview', async (req: Request, res: Response) => {
+            console.log('received reviews request', req.body);
             try {
                 // Guards.loggedInStudentGuard(req);
                 const review: IReview = req.body;
                 review.studentId = '123' // get from session
-                this.reviewsManager.addReview(review);
+                await this.reviewsManager.addReview(review);
 
                 // update tutor rating 
-                res.status(200);
+                res.sendStatus(200);
             } catch (error) {
                 res.status(500);
                 res.send(error);

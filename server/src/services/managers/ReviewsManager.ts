@@ -8,7 +8,7 @@ export default class StudentProfileManager {
       this.reviewsDatabaseFunctions = new ReviewsDatabaseFunctions();
    }
 
-   public addReview = (review: IReview): void => {
-      this.reviewsDatabaseFunctions.addReviewToDatabase(review)
+   public addReview = async (review: IReview): Promise<void> => {
+        await this.reviewsDatabaseFunctions.addReviewToDatabase(review)
    };
 }
