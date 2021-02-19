@@ -1,19 +1,16 @@
 import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Text} from '@ui-kitten/components';
 import styles from './styles/ProfileStyles';
 import {TextInput, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import useAuthUser from '../../hooks/authUser';
-import IUser from '../../model/common/IUser';
 
 const InfoArea = ({tempUser}): JSX.Element => {
-  //TODO get user data
-
   return (
     <ScrollView contentContainerStyle={styles.infoArea}>
       <Text style={styles.text}>First name</Text>
       <TextInput
-        placeholder={tempUser!.first_name}
+        placeholder={useAuthUser()[0]!.first_name}
         style={styles.inputBox}
         onChangeText={(nextValue): void => {
           tempUser!.first_name = nextValue;
@@ -21,7 +18,7 @@ const InfoArea = ({tempUser}): JSX.Element => {
       />
       <Text style={styles.text}>Last name</Text>
       <TextInput
-        placeholder={tempUser!.last_name}
+        placeholder={useAuthUser()[0]!.last_name}
         style={styles.inputBox}
         onChangeText={(nextValue): void => {
           tempUser!.last_name = nextValue;
@@ -29,7 +26,7 @@ const InfoArea = ({tempUser}): JSX.Element => {
       />
       <Text style={styles.text}>Phone Number</Text>
       <TextInput
-        placeholder={tempUser!.phone}
+        placeholder={useAuthUser()[0]!.phone}
         style={styles.inputBox}
         onChangeText={(nextValue): void => {
           tempUser!.phone = nextValue;
@@ -52,7 +49,7 @@ const InfoArea = ({tempUser}): JSX.Element => {
         //TODO add event when description added to user model
       />
       <Text style={styles.text}>ID</Text>
-      <Text>{tempUser!.firebase_uid}</Text>
+      <Text>{useAuthUser()[0]!.firebase_uid}</Text>
     </ScrollView>
   );
 };

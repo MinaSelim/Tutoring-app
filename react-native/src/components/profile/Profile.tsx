@@ -11,10 +11,10 @@ import IUser from '../../model/common/IUser';
 import useUserType from '../../hooks/userType';
 
 const Profile = (): JSX.Element => {
-  let tempUser:
-    | IUser
-    | ((user: IUser | null) => void)
-    | null = useAuthUser()[0];
+  const [actualUser, setAuthUser] = useAuthUser();
+  let tempUser: IUser | ((user: IUser | null) => void) | null = JSON.parse(
+    JSON.stringify(actualUser),
+  );
   const userType = useUserType()[0];
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
@@ -31,7 +31,7 @@ const Profile = (): JSX.Element => {
         tempUser,
         JSON.stringify(userType),
       );
-      console.log('response: ' + JSON.stringify(user));
+      setAuthUser(user);
       setProfileVisibility(false);
     } catch (error) {
       Alert.alert(`${error}`);
@@ -45,7 +45,10 @@ const Profile = (): JSX.Element => {
             Alert.alert(
               'There was an problem accessing your user information.',
             );
-          } else setProfileVisibility(true);
+          } else {
+            //setTempUser();
+            setProfileVisibility(true);
+          }
         }}
         style={buttonStyles.button}
         appearance="ghost"
@@ -62,7 +65,9 @@ const Profile = (): JSX.Element => {
               <Button
                 appearance="ghost"
                 accessoryLeft={CloseButtonIcon}
-                onPress={(): void => setProfileVisibility(false)}
+                onPress={(): void => {
+                  setProfileVisibility(false);
+                }}
               />
               <Text style={styles.title}>Profile</Text>
               <TouchableOpacity

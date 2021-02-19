@@ -20,8 +20,8 @@ export default class UserUpdate {
           body: JSON.stringify(tempUser),
         },
       );
-      //const responseBody = await response.json();
-      return response;
+      const responseBody = await response.json();
+      return responseBody;
     } catch (error) {
       console.error(error);
       return null;
