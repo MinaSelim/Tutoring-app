@@ -15,13 +15,13 @@ export default class DatabaseConfig {
             AttributeDefinitions: [
                {
                   AttributeName: table.keyName,
-                  AttributeType: table.keyType,
+                  AttributeType: table.keyAttributeType,
                },
             ],
             KeySchema: [
                {
                   AttributeName: table.keyName,
-                  KeyType: table.KeyType,
+                  KeyType: table.keyType,
                },
             ],
             ProvisionedThroughput: {

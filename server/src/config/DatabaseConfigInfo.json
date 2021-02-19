@@ -8,8 +8,8 @@
       {
          "name": "User",
          "keyName": "firebase_uid",
-         "keyType": "S",
-         "KeyType": "HASH"
+         "keyAttributeType": "S",
+         "keyType": "HASH"
       }
    ],
    "tableNames": {
