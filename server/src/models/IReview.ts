@@ -6,4 +6,5 @@ export default interface IReview {
     communicationRating: number,
     knowledgeRating: number,
     wouldTakeAgainRating: number,
+    timestamp: string
 }
