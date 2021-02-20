@@ -25,11 +25,27 @@ const Profile = (): JSX.Element => {
       <Icon fill="#363636" name="close-outline" style={styles.closeButton} />
     );
   };
+  const validChange = (): boolean => {
+    if (tempUser!.first_name === '' || tempUser!.last_name === '') {
+      Alert.alert(
+        'Your name cannot be empty. \nPlease retry with a valid change.',
+      );
+      return false;
+    }
+    if (isNaN(tempUser!.phone)) {
+      Alert.alert(
+        'Your phone number must only contain digits. \nPlease retry with a valid change.',
+      );
+      return false;
+    }
+    return true;
+  };
   const updateUser = async (): Promise<void> => {
+    if (!validChange()) return;
     try {
       const user = await UserUpdate.updateUserInfo(
         tempUser,
-        JSON.stringify(userType),
+        JSON.stringify(userType), //TODO replace this by userType in future user model
       );
       setAuthUser(user);
       setProfileVisibility(false);
@@ -46,7 +62,6 @@ const Profile = (): JSX.Element => {
               'There was an problem accessing your user information.',
             );
           } else {
-            //setTempUser();
             setProfileVisibility(true);
           }
         }}
@@ -72,7 +87,9 @@ const Profile = (): JSX.Element => {
               <Text style={styles.title}>Profile</Text>
               <TouchableOpacity
                 style={styles.saveButton}
-                onPress={(): Promise<void> => updateUser()}>
+                onPress={(): void => {
+                  updateUser();
+                }}>
                 <Text style={styles.title}>Save</Text>
               </TouchableOpacity>
             </View>

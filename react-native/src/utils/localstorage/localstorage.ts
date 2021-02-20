@@ -33,6 +33,5 @@ export const persistUserType = (userType: string | null): void => {
 };
 
 export const getPersistedUserType = (): Promise<string | null> => {
-  console.log(JSON.stringify(AsyncStorage.getItem(USER_TYPE_KEY)));
   return AsyncStorage.getItem(USER_TYPE_KEY);
 };
