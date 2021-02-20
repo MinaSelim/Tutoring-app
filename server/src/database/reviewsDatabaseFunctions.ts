@@ -15,7 +15,7 @@ export default class ReviewDatabaseFunctions {
         const params: PutItemInput = {
             Item: {
                 reviewId: {
-                    S: review.studentId + review.tutorId + review.timestamp
+                    S: review.studentId + review.timestamp
                 },
                 studentId: {
                     S: review.studentId
