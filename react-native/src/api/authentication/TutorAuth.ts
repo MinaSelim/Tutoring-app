@@ -66,7 +66,7 @@ export default class TutorAuth implements IAuth {
   private signInWithServer = async (): Promise<ITutor> => {
     const user = this.firebaseAuth.currentUser;
     const token = user && (await user.getIdToken());
-
+    console.info('[FRONT]- Sending logins', user!.email);
     const response = await fetch(`${env.SERVER_LINK}/auth/tutor/login`, {
       method: 'POST',
       headers: {
@@ -75,8 +75,12 @@ export default class TutorAuth implements IAuth {
       },
       body: JSON.stringify({idToken: token}),
       credentials: 'include',
-    }).then((unformattedResponse) => unformattedResponse.json());
-
-    return response;
+    });
+    console.log('status:', response.status);
+    const responseBody = await response.json();
+    if (!response.ok) {
+      throw responseBody;
+    }
+    return responseBody;
   };
 }
