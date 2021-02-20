@@ -7,15 +7,18 @@
    "tables": [
       {
          "name": "User",
-         "keyName": "firebase_uid",
-         "keyAttributeType": "S",
-         "keyType": "HASH"
+         "partitionKeyName": "firebase_uid",
+         "partitionKeyAttributeType": "S",
+         "partitionKeyType": "HASH"
       },
       {
          "name": "Reviews",
-         "keyName": "reviewId",
-         "keyAttributeType": "S",
-         "keyType": "HASH"
+         "partitionKeyName": "reviewId",
+         "partitionKeyAttributeType": "S",
+         "partitionKeyType": "HASH",
+         "sortKeyName": "tutorId",
+         "sortKeyAttributeType": "S",
+         "soryKeyType": "RANGE"
       }
    ],
    "tableNames": {

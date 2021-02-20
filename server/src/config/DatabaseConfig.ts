@@ -11,26 +11,44 @@ export default class DatabaseConfig {
       const tablePromises = [] as Promise<CreateTableOutput | AWSError>[];
 
       for (const table of config.tables) {
-         const params = {
+         console.log("creating table", table.name);
+
+         const params: CreateTableInput = {
+            TableName: table.name,
+            KeySchema: [
+               { 
+                  AttributeName: table.partitionKeyName,
+                  KeyType: table.partitionKeyType,
+               }
+            ],
             AttributeDefinitions: [
                {
-                  AttributeName: table.keyName,
-                  AttributeType: table.keyAttributeType,
-               },
-            ],
-            KeySchema: [
-               {
-                  AttributeName: table.keyName,
-                  KeyType: table.keyType,
-               },
+                  AttributeName: table.partitionKeyName,
+                  AttributeType: table.partitionKeyAttributeType
+               }
             ],
             ProvisionedThroughput: {
                // TODO update the RW capacities as needed
                ReadCapacityUnits: 1,
                WriteCapacityUnits: 1,
-            },
-            TableName: table.name,
-         };
+            }
+         }
+
+         if (table.soryKeyType) {
+            params.KeySchema.push(
+               {
+                  AttributeName: table.sortKeyName,
+                  KeyType: table.soryKeyType,
+               }
+            );
+
+            params.AttributeDefinitions.push(
+               {
+                  AttributeName: table.sortKeyName,
+                  AttributeType: table.sortKeyAttributeType
+               }
+            );
+         }
 
          tablePromises.push(DatabaseConfig.createTable(params));
       }
