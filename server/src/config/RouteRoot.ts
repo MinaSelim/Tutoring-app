@@ -25,7 +25,7 @@ export default class RouteRoot implements IRouteComponent {
    public route(app: Application): void {
       const authRoutes: RouteComposite = new RouteComposite([new StudentAuthRoutes(), new TutorAuthRoutes()]);
       const profileRoutes: RouteComposite = new RouteComposite([new StudentProfileRoutes(), new TutorProfileRoutes()]);
-      const reviewRoutes: RouteComposite = new RouteComposite([new ReviewsRoutes()])
+      const reviewRoutes: RouteComposite = new RouteComposite([new ReviewsRoutes()]);
 
       // Add all the routes created to a root composite
       const rootRoutes: RouteComposite = new RouteComposite([authRoutes, profileRoutes, reviewRoutes]);

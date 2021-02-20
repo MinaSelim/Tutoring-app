@@ -18,7 +18,6 @@ export class ReviewsRoutes implements IRouteComponent {
    public route(app: Application): void {
       
         app.post('/reviews/addReview', async (req: Request, res: Response) => {
-            console.log('received reviews request', req.body);
             try {
                 // Guards.loggedInStudentGuard(req);
                 const review: IReview = req.body;
@@ -34,5 +33,17 @@ export class ReviewsRoutes implements IRouteComponent {
                 res.send(error);
             }
         });
+
+        // app.post('/reviews/getTutorReviews', async (req: Request, res: Response) => {
+        //     try {
+        //         Guards.loggedInStudentGuard(req);
+        //         const reviews: IReview[] = await this.reviewsManager.getTutorReviews(req.body);
+        //         res.status(200);
+        //         res.send(reviews);
+        //     } catch (error) {
+        //         res.status(500);
+        //         res.send(error);
+        //     }
+        // });
    }
 }
