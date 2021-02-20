@@ -34,16 +34,30 @@ export default class DatabaseConfig {
             },
          };
 
-         if (table.soryKeyType) {
-            params.KeySchema.push({
-               AttributeName: table.sortKeyName,
-               KeyType: table.soryKeyType,
+         if (table.GSI_indexName) {
+            params.AttributeDefinitions.push({
+               AttributeName: table.GSI_keyName,
+               AttributeType: table.GSI_keyAttributeType,
             });
 
-            params.AttributeDefinitions.push({
-               AttributeName: table.sortKeyName,
-               AttributeType: table.sortKeyAttributeType,
-            });
+            params.GlobalSecondaryIndexes = [
+               {
+                  IndexName: table.GSI_indexName,
+                  KeySchema: [
+                     {
+                        AttributeName: table.GSI_keyName,
+                        KeyType: table.GSI_keyType,
+                     },
+                  ],
+                  Projection: {
+                     ProjectionType: table.GSI_projecttion,
+                  },
+                  ProvisionedThroughput: {
+                     ReadCapacityUnits: 1,
+                     WriteCapacityUnits: 1,
+                  },
+               },
+            ];
          }
 
          tablePromises.push(DatabaseConfig.createTable(params));

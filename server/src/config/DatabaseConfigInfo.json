@@ -16,13 +16,18 @@
          "partitionKeyName": "reviewId",
          "partitionKeyAttributeType": "S",
          "partitionKeyType": "HASH",
-         "sortKeyName": "tutorId",
-         "sortKeyAttributeType": "S",
-         "soryKeyType": "RANGE"
+         "GSI_indexName": "tutorId_index",
+         "GSI_keyName": "tutorId",
+         "GSI_keyAttributeType": "S",
+         "GSI_keyType": "HASH",
+         "GSI_projecttion": "ALL"
       }
    ],
    "tableNames": {
       "USER": "User",
       "REVIEWS": "Reviews"
+   },
+   "indexNames": {
+      "REVIEWS_TUTOR_ID_INDEX": "tutorId_index"
    }
 }

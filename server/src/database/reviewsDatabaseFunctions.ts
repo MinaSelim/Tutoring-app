@@ -14,7 +14,7 @@ export default class ReviewDatabaseFunctions {
       const params: PutItemInput = {
          Item: {
             reviewId: {
-               S: review.studentId + review.timestamp,
+               S: review.studentId + review.tutorId + review.timestamp,
             },
             studentId: {
                S: review.studentId,
@@ -22,7 +22,7 @@ export default class ReviewDatabaseFunctions {
             tutorId: {
                S: review.tutorId,
             },
-            reviewTest: {
+            reviewText: {
                S: review.reviewText,
             },
             communicationRating: {
@@ -48,7 +48,7 @@ export default class ReviewDatabaseFunctions {
    public getTutorReviews = async (tutorId: string): Promise<IReview[]> => {
       const params: QueryInput = {
          TableName: dbConfig.tableNames.REVIEWS,
-         Select: 'ALL_ATTRIBUTES',
+         IndexName: dbConfig.indexNames.REVIEWS_TUTOR_ID_INDEX,
          KeyConditionExpression: 'tutorId = :tid',
          ExpressionAttributeValues: {
             ':tid': {
@@ -65,9 +65,9 @@ export default class ReviewDatabaseFunctions {
             studentId: item.studentId.S,
             tutorId: item.tutorId.S,
             reviewText: item.reviewText.S,
-            communicationRating: Number(item.communicationRating.N),
-            knowledgeRating: Number(item.knowledgeRating.N),
-            wouldTakeAgainRating: Number(item.wouldTakeAgainRating.N),
+            communicationRating: parseInt(item.communicationRating.N),
+            knowledgeRating: parseInt(item.knowledgeRating.N),
+            wouldTakeAgainRating: parseInt(item.wouldTakeAgainRating.N),
             timestamp: item.timestamp.S,
          });
       });
