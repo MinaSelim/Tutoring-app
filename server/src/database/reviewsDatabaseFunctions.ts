@@ -45,26 +45,33 @@ export default class ReviewDatabaseFunctions {
       return this.databaseUtils.putItem(params);
    };
 
-   // var params = {
-   //     TableName : "Movies",
-   //     ProjectionExpression:"#yr, title, info.genres, info.actors[0]",
-   //     KeyConditionExpression: "#yr = :yyyy and title between :letter1 and :letter2",
-   //     ExpressionAttributeNames:{
-   //         "#yr": "year"
-   //     },
-   //     ExpressionAttributeValues: {
-   //         ":yyyy": 1992,
-   //         ":letter1": "A",
-   //         ":letter2": "L"
-   //     }
-   // };
+   public getTutorReviews = async (tutorId: string): Promise<IReview[]> => {
+      const params: QueryInput = {
+         TableName: dbConfig.tableNames.REVIEWS,
+         Select: 'ALL_ATTRIBUTES',
+         KeyConditionExpression: 'tutorId = :tid',
+         ExpressionAttributeValues: {
+            ':tid': {
+               S: tutorId,
+            },
+         },
+      };
 
-   // public getTutorReviews(tutorId: string): Promise<QueryOutput => {
-   //     const params: QueryInput = {
-   //         TableName: dbConfig.tableNames.REVIEWS,
-   //         Select: "ALL_ATTRIBUTES",
-   //         KeyConditionExpression:
+      const data: QueryOutput = await this.databaseUtils.query(params);
+      const reviews: IReview[] = [];
+      data.Items.forEach((item) => {
+         reviews.push({
+            reviewId: item.reviewId.S,
+            studentId: item.studentId.S,
+            tutorId: item.tutorId.S,
+            reviewText: item.reviewText.S,
+            communicationRating: Number(item.communicationRating.N),
+            knowledgeRating: Number(item.knowledgeRating.N),
+            wouldTakeAgainRating: Number(item.wouldTakeAgainRating.N),
+            timestamp: item.timestamp.S,
+         });
+      });
 
-   //     }
-   // }
+      return reviews;
+   };
 }

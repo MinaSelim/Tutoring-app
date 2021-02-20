@@ -12,7 +12,7 @@ export default class StudentProfileManager {
       await this.reviewsDatabaseFunctions.addReviewToDatabase(review);
    };
 
-   //    public getTutorReviews = async (tutorId: string): Promise<IReview[]> => {
-   //        return await this.reviewsDatabaseFunctions.getTutorReviews(tutorId);
-   //    }
+   public getTutorReviews = async (tutorId: string): Promise<IReview[]> => {
+      return await this.reviewsDatabaseFunctions.getTutorReviews(tutorId);
+   };
 }

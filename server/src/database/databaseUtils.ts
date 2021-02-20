@@ -67,7 +67,6 @@ export default class DatabaseUtils {
          });
    };
 
-
    /**
     * Queries a dynamo table.
     * @param params
@@ -75,11 +74,11 @@ export default class DatabaseUtils {
     */
    public query = (params: QueryInput): Promise<QueryOutput> => {
       return this.dynamo
-      .query(params)
-      .promise()
-      .catch((err: AWSError) => {
-         console.error('Could not perform query on', params.TableName);
-         return Promise.reject(err);
-      });
-   }
+         .query(params)
+         .promise()
+         .catch((err: AWSError) => {
+            console.error('Could not perform query on', params.TableName);
+            return Promise.reject(err);
+         });
+   };
 }
