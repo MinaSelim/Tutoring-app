@@ -4,15 +4,8 @@ import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOu
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 import * as config from '../config/DatabaseConfigInfo.json';
-import ReviewDatabaseFunctions from './reviewsDatabaseFunctions';
 
 export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
-   private reviewDatabaseFunctions: ReviewDatabaseFunctions;
-
-   constructor() {
-      super();
-      this.reviewDatabaseFunctions = new ReviewDatabaseFunctions();
-   }
    protected fillSpecificUserData = (user: IUser): IUser => {
       const tutor: ITutor = user as ITutor;
 
@@ -120,12 +113,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       return data.Attributes.tutor_info.M.chatrooms.SS;
    };
 
-   public updateOverallRating = async (tutorId: string): Promise<void> => {
+   public updateOverallRating = (tutorId: string, reviews: IReview[]): void => {
       const communcationRatingWeight = 0.25;
       const knowledgeRatingWeight = 0.25;
       const wouldTakeAgainRatingWeight = 0.5;
-
-      const reviews: IReview[] = await this.reviewDatabaseFunctions.getTutorReviews(tutorId);
 
       let weightedRatingsSum = 0;
       reviews.forEach((review) => {
@@ -151,6 +142,6 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          ReturnValues: 'NONE',
       };
 
-      await this.databaseUtils.updateItem(params);
+      this.databaseUtils.updateItem(params);
    };
 }

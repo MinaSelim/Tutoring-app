@@ -2,15 +2,12 @@ import IReview from '../models/IReview';
 import DatabaseUtils from '../database/databaseUtils';
 import * as dbConfig from '../config/DatabaseConfigInfo.json';
 import {PutItemInput, PutItemOutput, QueryInput, QueryOutput} from 'aws-sdk/clients/dynamodb';
-import TutorDatabaseFunctions from './tutorDatabaseFunctions';
 
 export default class ReviewDatabaseFunctions {
    private databaseUtils: DatabaseUtils;
-   private tutorDatabaseFunctions: TutorDatabaseFunctions;
 
    constructor() {
       this.databaseUtils = DatabaseUtils.getInstance();
-      this.tutorDatabaseFunctions = new TutorDatabaseFunctions();
    }
 
    public addReviewToDatabase = async (review: IReview): Promise<PutItemOutput> => {
@@ -45,9 +42,7 @@ export default class ReviewDatabaseFunctions {
          ReturnConsumedCapacity: 'TOTAL',
          TableName: dbConfig.tableNames.REVIEWS,
       };
-      const data: PutItemOutput = await this.databaseUtils.putItem(params);
-      await this.tutorDatabaseFunctions.updateOverallRating(review.tutorId);
-      return data;
+      return await this.databaseUtils.putItem(params);
    };
 
    public getTutorReviews = async (tutorId: string): Promise<IReview[]> => {
