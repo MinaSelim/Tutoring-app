@@ -1,10 +1,18 @@
 import ITutor from '../models/ITutor';
+import IReview from '../models/IReview';
 import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 import * as config from '../config/DatabaseConfigInfo.json';
+import ReviewDatabaseFunctions from './reviewsDatabaseFunctions';
 
 export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
+   private reviewDatabaseFunctions: ReviewDatabaseFunctions;
+
+   constructor() {
+      super();
+      this.reviewDatabaseFunctions = new ReviewDatabaseFunctions();
+   }
    protected fillSpecificUserData = (user: IUser): IUser => {
       const tutor: ITutor = user as ITutor;
 
@@ -14,6 +22,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       if (tutor.tutor_info.chatrooms === undefined || tutor.tutor_info.chatrooms.length == 0) {
          tutor.tutor_info.chatrooms = [''];
+      }
+
+      if (!tutor.tutor_info.overallRating) {
+         tutor.tutor_info.overallRating = 0;
       }
 
       return tutor;
@@ -30,6 +42,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             chatrooms: {
                SS: tutor.tutor_info.chatrooms,
             },
+            overallRating: {
+               N: String(tutor.tutor_info.overallRating),
+            },
          },
       };
 
@@ -42,6 +57,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       tutor.tutor_info = {
          campuses: data.Item.tutor_info.M.campus.SS,
          chatrooms: data.Item.tutor_info.M.chatrooms.SS,
+         overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
       };
 
       return tutor;
@@ -102,5 +118,39 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
       return data.Attributes.tutor_info.M.chatrooms.SS;
+   };
+
+   public updateOverallRating = async (tutorId: string): Promise<void> => {
+      const communcationRatingWeight = 0.25;
+      const knowledgeRatingWeight = 0.25;
+      const wouldTakeAgainRatingWeight = 0.5;
+
+      const reviews: IReview[] = await this.reviewDatabaseFunctions.getTutorReviews(tutorId);
+
+      let weightedRatingsSum = 0;
+      reviews.forEach((review) => {
+         weightedRatingsSum += communcationRatingWeight * review.communicationRating;
+         weightedRatingsSum += knowledgeRatingWeight * review.knowledgeRating;
+         weightedRatingsSum += wouldTakeAgainRatingWeight * review.wouldTakeAgainRating;
+      });
+      const overallRating = weightedRatingsSum / reviews.length;
+
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: tutorId,
+            },
+         },
+         UpdateExpression: 'SET overallRating = :or',
+         ExpressionAttributeValues: {
+            ':or': {
+               N: String(overallRating),
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+
+      await this.databaseUtils.updateItem(params);
    };
 }

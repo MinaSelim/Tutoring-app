@@ -21,11 +21,8 @@ export class ReviewsRoutes implements IRouteComponent {
             // Guards.loggedInStudentGuard(req);
             const review: IReview = req.body;
             review.studentId = '123';
-
             // review.studentId = req.session.firebase_uid
             await this.reviewsManager.addReview(review);
-
-            // update tutor rating
             res.sendStatus(200);
          } catch (error) {
             res.status(500);
