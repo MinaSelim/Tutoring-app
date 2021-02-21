@@ -84,6 +84,7 @@ describe('Tutor Database Functions Test', () => {
          assert.equal(res.phone, tutorDefined.phone);
          assert.equal(res.tutor_info.campuses, tutorDefined.tutor_info.campuses);
          assert.equal(res.tutor_info.chatrooms, tutorDefined.tutor_info.chatrooms);
+         assert.equal(res.tutor_info.overallRating, tutorDefined.tutor_info.overallRating);
       });
    });
 
