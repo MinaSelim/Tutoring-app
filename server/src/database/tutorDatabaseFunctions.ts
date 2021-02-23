@@ -4,6 +4,7 @@ import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOu
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 import * as config from '../config/DatabaseConfigInfo.json';
+import RatingWeights from '../config/RatingWeights.json';
 
 export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
@@ -114,15 +115,11 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    };
 
    public updateOverallRating = (tutorId: string, reviews: IReview[]): void => {
-      const communcationRatingWeight = 0.25;
-      const knowledgeRatingWeight = 0.25;
-      const wouldTakeAgainRatingWeight = 0.5;
-
       let weightedRatingsSum = 0;
       reviews.forEach((review) => {
-         weightedRatingsSum += communcationRatingWeight * review.communicationRating;
-         weightedRatingsSum += knowledgeRatingWeight * review.knowledgeRating;
-         weightedRatingsSum += wouldTakeAgainRatingWeight * review.wouldTakeAgainRating;
+         weightedRatingsSum += RatingWeights.Communication * review.communicationRating;
+         weightedRatingsSum += RatingWeights.Knowledge * review.knowledgeRating;
+         weightedRatingsSum += RatingWeights.WouldTakeAgain * review.wouldTakeAgainRating;
       });
       const overallRating = weightedRatingsSum / reviews.length;
 
