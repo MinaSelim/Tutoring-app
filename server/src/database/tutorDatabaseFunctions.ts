@@ -131,11 +131,11 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                S: newReview.tutorId,
             },
          },
-         ProjectionExpression: 'overallRating, numberOfReviews',
+         ProjectionExpression: 'tutor_info.overallRating, tutor_info.numberOfReviews',
       };
       const data: GetItemOutput = await this.databaseUtils.getItem(getItemParams);
-      const overallRating = parseFloat(data.Item.overallRating.N);
-      const numberOfReviews = parseInt(data.Item.numberOfReviews.N);
+      const overallRating = parseFloat(data.Item.tutor_info.M.overallRating.N);
+      const numberOfReviews = parseInt(data.Item.tutor_info.M.numberOfReviews.N);
 
       // compute new weighted ave
       const newRating =
@@ -152,7 +152,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                S: newReview.tutorId,
             },
          },
-         UpdateExpression: 'SET overallRating = :or, numberOfReviews = :nr',
+         UpdateExpression: 'SET tutor_info.overallRating = :or, tutor_info.numberOfReviews = :nr',
          ExpressionAttributeValues: {
             ':or': {
                N: String(cumulativeMovingAverage),
