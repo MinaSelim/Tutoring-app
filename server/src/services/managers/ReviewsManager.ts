@@ -13,8 +13,7 @@ export default class StudentProfileManager {
 
    public addReview = async (review: IReview): Promise<void> => {
       await this.reviewsDatabaseFunctions.addReviewToDatabase(review);
-      const allReviews: IReview[] = await this.reviewsDatabaseFunctions.getTutorReviews(review.tutorId);
-      this.tutorDatabaseFunctions.updateOverallRating(review.tutorId, allReviews);
+      this.tutorDatabaseFunctions.updateOverallRating(review);
    };
 
    public getTutorReviews = async (tutorId: string): Promise<IReview[]> => {

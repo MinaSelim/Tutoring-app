@@ -122,31 +122,47 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       return data.Attributes.tutor_info.M.chatrooms.SS;
    };
 
-   public updateOverallRating = (tutorId: string, reviews: IReview[]): void => {
-      let weightedRatingsSum = 0;
-      reviews.forEach((review) => {
-         weightedRatingsSum += RatingWeights.Communication * review.communicationRating;
-         weightedRatingsSum += RatingWeights.Knowledge * review.knowledgeRating;
-         weightedRatingsSum += RatingWeights.WouldTakeAgain * review.wouldTakeAgainRating;
-      });
-      const overallRating = weightedRatingsSum / reviews.length;
-
-      const params: UpdateItemInput = {
+   public updateOverallRating = async (newReview: IReview): Promise<void> => {
+      // get tutor overallRating and numberOfReviews
+      const getItemParams: GetItemInput = {
          TableName: config.tableNames.USER,
          Key: {
             firebase_uid: {
-               S: tutorId,
+               S: newReview.tutorId,
             },
          },
-         UpdateExpression: 'SET overallRating = :or',
+         ProjectionExpression: 'overallRating, numberOfReviews',
+      };
+      const data: GetItemOutput = await this.databaseUtils.getItem(getItemParams);
+      const overallRating = parseFloat(data.Item.overallRating.N);
+      const numberOfReviews = parseInt(data.Item.numberOfReviews.N);
+
+      // compute new weighted ave
+      const newRating =
+         RatingWeights.Communication * newReview.communicationRating +
+         RatingWeights.Knowledge * newReview.knowledgeRating +
+         RatingWeights.WouldTakeAgain * newReview.wouldTakeAgainRating;
+      const cumulativeMovingAverage = overallRating + (newRating - overallRating) / (numberOfReviews + 1);
+
+      // update tutor overallRating and numberOfReviews
+      const updateItemParams: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: newReview.tutorId,
+            },
+         },
+         UpdateExpression: 'SET overallRating = :or, numberOfReviews = :nr',
          ExpressionAttributeValues: {
             ':or': {
-               N: String(overallRating),
+               N: String(cumulativeMovingAverage),
+            },
+            ':nr': {
+               N: String(numberOfReviews + 1),
             },
          },
          ReturnValues: 'NONE',
       };
-
-      this.databaseUtils.updateItem(params);
+      this.databaseUtils.updateItem(updateItemParams);
    };
 }
