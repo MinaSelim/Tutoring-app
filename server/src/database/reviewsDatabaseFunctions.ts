@@ -11,6 +11,10 @@ export default class ReviewDatabaseFunctions {
    }
 
    public addReviewToDatabase = async (review: IReview): Promise<PutItemOutput> => {
+      if (!review.reviewText) {
+         review.reviewText = '';
+      }
+
       const params: PutItemInput = {
          Item: {
             reviewId: {
