@@ -22,6 +22,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.overallRating = 0;
       }
 
+      if (!tutor.tutor_info.numberOfReviews) {
+         tutor.tutor_info.numberOfReviews = 0;
+      }
+
       return tutor;
    };
 
@@ -39,6 +43,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             overallRating: {
                N: String(tutor.tutor_info.overallRating),
             },
+            numberOfReviews: {
+               N: String(tutor.tutor_info.numberOfReviews),
+            },
          },
       };
 
@@ -52,6 +59,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          campuses: data.Item.tutor_info.M.campus.SS,
          chatrooms: data.Item.tutor_info.M.chatrooms.SS,
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
+         numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),
       };
 
       return tutor;

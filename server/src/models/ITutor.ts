@@ -8,5 +8,6 @@ export default interface ITutor extends IUser {
       campuses?: string[];
       chatrooms: string[];
       overallRating?: number;
+      numberOfReviews?: number;
    };
 }
