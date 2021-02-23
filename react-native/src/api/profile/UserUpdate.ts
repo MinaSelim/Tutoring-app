@@ -29,5 +29,3 @@ export default class UserUpdate {
     }
   };
 }
-
-//Note: what is returned in normal response?

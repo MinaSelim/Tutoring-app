@@ -9,8 +9,10 @@ import UserUpdate from '../../api/profile/UserUpdate';
 import useAuthUser from '../../hooks/authUser';
 import IUser from '../../model/common/IUser';
 import useUserType from '../../hooks/userType';
+import {useTheme} from '@ui-kitten/components';
 
 const Profile = (): JSX.Element => {
+  const theme = useTheme();
   const [actualUser, setAuthUser] = useAuthUser();
   let tempUser: IUser | ((user: IUser | null) => void) | null = JSON.parse(
     JSON.stringify(actualUser),
@@ -22,7 +24,11 @@ const Profile = (): JSX.Element => {
   );
   const CloseButtonIcon = (): JSX.Element => {
     return (
-      <Icon fill="#363636" name="close-outline" style={styles.closeButton} />
+      <Icon
+        fill={theme['color-basic-1000']}
+        name="close-outline"
+        style={styles.closeButton}
+      />
     );
   };
   const validChange = (): boolean => {
