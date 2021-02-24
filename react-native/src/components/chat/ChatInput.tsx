@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, {useRef, useState} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
