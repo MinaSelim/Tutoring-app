@@ -86,6 +86,8 @@ export const tutorDefined: ITutor = {
    tutor_info: {
       campuses: ['string'],
       chatrooms: ['string'],
+      overallRating: 0,
+      numberOfReviews: 0,
    },
 };
 
@@ -97,6 +99,8 @@ export const tutorIncomplete: ITutor = {
    tutor_info: {
       campuses: ['string'],
       chatrooms: ['string'],
+      overallRating: 0,
+      numberOfReviews: 0,
    },
 };
 
@@ -276,6 +280,8 @@ export const putItemInputTutorDefined: PutItemInput = {
          M: {
             campuses: {SS: tutorDefined.tutor_info.campuses},
             chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
+            overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+            numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
          },
       },
    },
@@ -297,6 +303,8 @@ export const putItemInputTutorIncomplete: PutItemInput = {
          M: {
             campuses: {SS: tutorDefined.tutor_info.campuses},
             chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
+            overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+            numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
          },
       },
    },
@@ -373,6 +381,8 @@ export const getItemTutorDefined: GetItemOutput = {
          M: {
             campus: {SS: tutorDefined.tutor_info.campuses},
             chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
+            overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+            numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
          },
       },
    },

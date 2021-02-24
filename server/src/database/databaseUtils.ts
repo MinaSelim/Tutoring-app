@@ -3,6 +3,8 @@ import {
    GetItemOutput,
    PutItemInput,
    PutItemOutput,
+   QueryInput,
+   QueryOutput,
    UpdateItemInput,
    UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
@@ -61,6 +63,21 @@ export default class DatabaseUtils {
          .promise()
          .catch((err: AWSError) => {
             console.error('Could not update item in', params.TableName);
+            return Promise.reject(err);
+         });
+   };
+
+   /**
+    * Queries a dynamo table.
+    * @param params
+    * @returns A promise.
+    */
+   public query = (params: QueryInput): Promise<QueryOutput> => {
+      return this.dynamo
+         .query(params)
+         .promise()
+         .catch((err: AWSError) => {
+            console.error('Could not perform query on', params.TableName);
             return Promise.reject(err);
          });
    };

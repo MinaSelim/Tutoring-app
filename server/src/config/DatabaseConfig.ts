@@ -11,17 +11,20 @@ export default class DatabaseConfig {
       const tablePromises = [] as Promise<CreateTableOutput | AWSError>[];
 
       for (const table of config.tables) {
-         const params = {
-            AttributeDefinitions: [
-               {
-                  AttributeName: table.keyName,
-                  AttributeType: table.keyType,
-               },
-            ],
+         console.log('creating table', table.name);
+
+         const params: CreateTableInput = {
+            TableName: table.name,
             KeySchema: [
                {
-                  AttributeName: table.keyName,
-                  KeyType: table.KeyType,
+                  AttributeName: table.partitionKeyName,
+                  KeyType: table.partitionKeyType,
+               },
+            ],
+            AttributeDefinitions: [
+               {
+                  AttributeName: table.partitionKeyName,
+                  AttributeType: table.partitionKeyAttributeType,
                },
             ],
             ProvisionedThroughput: {
@@ -29,8 +32,33 @@ export default class DatabaseConfig {
                ReadCapacityUnits: 1,
                WriteCapacityUnits: 1,
             },
-            TableName: table.name,
          };
+
+         if (table.GSI_indexName) {
+            params.AttributeDefinitions.push({
+               AttributeName: table.GSI_keyName,
+               AttributeType: table.GSI_keyAttributeType,
+            });
+
+            params.GlobalSecondaryIndexes = [
+               {
+                  IndexName: table.GSI_indexName,
+                  KeySchema: [
+                     {
+                        AttributeName: table.GSI_keyName,
+                        KeyType: table.GSI_keyType,
+                     },
+                  ],
+                  Projection: {
+                     ProjectionType: table.GSI_projecttion,
+                  },
+                  ProvisionedThroughput: {
+                     ReadCapacityUnits: 1,
+                     WriteCapacityUnits: 1,
+                  },
+               },
+            ];
+         }
 
          tablePromises.push(DatabaseConfig.createTable(params));
       }
