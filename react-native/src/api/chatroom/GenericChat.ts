@@ -28,7 +28,11 @@ export default class GenericChat {
 
       // eslint-disable-next-line no-await-in-loop
       await ref.get().then((snapshot) => {
-        if (chatType === snapshot.data().chatType) {
+        console.log('chat reference', snapshot);
+        if (
+          snapshot.data() !== undefined &&
+          chatType === snapshot.data().chatType
+        ) {
           userChatrooms.push({
             id: snapshot.id,
             value: snapshot.data(),
