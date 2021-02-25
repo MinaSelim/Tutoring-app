@@ -7,12 +7,27 @@
    "tables": [
       {
          "name": "User",
-         "keyName": "firebase_uid",
-         "keyType": "S",
-         "KeyType": "HASH"
+         "partitionKeyName": "firebase_uid",
+         "partitionKeyAttributeType": "S",
+         "partitionKeyType": "HASH"
+      },
+      {
+         "name": "Reviews",
+         "partitionKeyName": "reviewId",
+         "partitionKeyAttributeType": "S",
+         "partitionKeyType": "HASH",
+         "GSI_indexName": "tutorId_index",
+         "GSI_keyName": "tutorId",
+         "GSI_keyAttributeType": "S",
+         "GSI_keyType": "HASH",
+         "GSI_projecttion": "ALL"
       }
    ],
    "tableNames": {
-      "USER": "User"
+      "USER": "User",
+      "REVIEWS": "Reviews"
+   },
+   "indexNames": {
+      "REVIEWS_TUTOR_ID_INDEX": "tutorId_index"
    }
 }
