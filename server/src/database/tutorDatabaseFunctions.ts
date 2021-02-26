@@ -1,6 +1,13 @@
 import ITutor from '../models/ITutor';
 import IReview from '../models/IReview';
-import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
+import {
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   ScanInput,
+   UpdateItemInput,
+   UpdateItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 import * as config from '../config/DatabaseConfigInfo.json';
@@ -191,5 +198,12 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          ReturnValues: 'NONE',
       };
       this.databaseUtils.updateItem(updateItemParams);
+   };
+
+   public getAllTutors = (): Promise<ITutor[]> => {
+      const params: ScanInput = {
+         TableName: config.tableNames.USER,
+         FilterExpression: 'tutor_info.overallRating > 0',
+      };
    };
 }
