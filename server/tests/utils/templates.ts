@@ -15,6 +15,16 @@ import ITutor from '../../src/models/ITutor';
  */
 
 // --------------------------------------------
+// Databse config variables
+// --------------------------------------------
+export const databaseConfig = {
+   tableNames: {
+      USER: 'U',
+      REVIEWS: 'R',
+   },
+};
+
+// --------------------------------------------
 // Student variables
 // --------------------------------------------
 
@@ -147,14 +157,14 @@ export const createTableInputTemplate: CreateTableInput = {
    AttributeDefinitions: [{AttributeName: 'test', AttributeType: 'S'}],
    KeySchema: [{AttributeName: 'test', KeyType: 'HASH'}],
    ProvisionedThroughput: {ReadCapacityUnits: 1, WriteCapacityUnits: 1},
-   TableName: 'Test',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 // --------------------------------------------
 // OUTPUT
 export const createTableOutput: CreateTableOutput = {
    TableDescription: {
-      TableName: 'User',
+      TableName: databaseConfig.tableNames.USER,
    },
 };
 
@@ -200,7 +210,7 @@ export const putItemStudentDefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputStudentStripeUndefined: PutItemInput = {
@@ -221,7 +231,7 @@ export const putItemInputStudentStripeUndefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputStudentValidUndefined: PutItemInput = {
@@ -242,7 +252,7 @@ export const putItemInputStudentValidUndefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputStudentIncomplete: PutItemInput = {
@@ -263,7 +273,7 @@ export const putItemInputStudentIncomplete: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputTutorDefined: PutItemInput = {
@@ -286,7 +296,7 @@ export const putItemInputTutorDefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputTutorIncomplete: PutItemInput = {
@@ -309,13 +319,13 @@ export const putItemInputTutorIncomplete: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 // --------------------------------------------
 // OUTPUT
 export const putItemOutput: PutItemOutput = {
-   ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
 // --------------------------------------------
@@ -338,12 +348,12 @@ export const putItemOutputRejects = ({
 // INPUT
 export const getItemInputStudentDefined: GetItemInput = {
    Key: {firebase_uid: {S: studentDefined.firebase_uid}},
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const getItemInputTutorDefined: GetItemInput = {
    Key: {firebase_uid: {S: tutorDefined.firebase_uid}},
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 // --------------------------------------------
 // OUTPUT
@@ -364,7 +374,7 @@ export const getItemStudentDefined: GetItemOutput = {
          },
       },
    },
-   ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
 export const getItemTutorDefined: GetItemOutput = {
@@ -386,7 +396,7 @@ export const getItemTutorDefined: GetItemOutput = {
          },
       },
    },
-   ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
 // --------------------------------------------
@@ -408,6 +418,37 @@ export const getItemRejects = ({
       return Promise.reject(awsError);
    },
 } as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
+// --------------------------------------------
+// Chatroom variables
+// --------------------------------------------
+export const getItemInputChatroomStudentDefined: GetItemInput = {
+   Key: {
+      firebase_uid: {
+         S: studentDefined.firebase_uid,
+      },
+   },
+   ProjectionExpression: 'student_info.chatrooms',
+   TableName: databaseConfig.tableNames.USER,
+};
+
+export const getItemOutputChatroomStudent: GetItemOutput = {
+   Item: {
+      student_info: {
+         M: {
+            chatrooms: {SS: studentDefined.student_info.chatrooms},
+         },
+      },
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const getItemChatroomResolves = ({
+   promise() {
+      return Promise.resolve(getItemOutputChatroomStudent);
+   },
+} as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
 
 // --------------------------------------------
 // Firebase variables
