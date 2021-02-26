@@ -35,7 +35,7 @@ export const profileStyles = StyleSheet.create({
     alignSelf: 'center',
     height: 35,
     justifyContent: 'center',
-    marginRight: '8%',
+    marginLeft: '-5%',
   },
   closeButton: {
     alignSelf: 'center',
@@ -44,7 +44,6 @@ export const profileStyles = StyleSheet.create({
   },
   profilePicture: {
     borderColor: 'black',
-    borderWidth: 1,
     width: 88,
     height: 88,
     marginLeft: '8%',
@@ -94,6 +93,9 @@ export const profileStyles = StyleSheet.create({
     marginLeft: '8%',
     marginBottom: 2,
     marginTop: 2,
+  },
+  safeArea: {
+    flex: 1,
   },
 });
 
