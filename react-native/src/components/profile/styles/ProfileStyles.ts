@@ -91,11 +91,15 @@ export const profileStyles = StyleSheet.create({
   },
   termsAndConditionsButton: {
     marginLeft: '8%',
-    marginBottom: 2,
+    paddingBottom: '3%',
     marginTop: 2,
   },
   safeArea: {
     flex: 1,
+  },
+  hiddenDescription: {
+    opacity: 0,
+    height: 5,
   },
 });
 

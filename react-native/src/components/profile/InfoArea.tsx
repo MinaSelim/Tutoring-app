@@ -2,9 +2,19 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {Text} from '@ui-kitten/components';
 import styles from './styles/ProfileStyles';
-import {TextInput, TouchableOpacity, ScrollView, Alert} from 'react-native';
+import {
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  View,
+} from 'react-native';
+import IInfoArea from 'model/profile/IInfoArea';
 
-const InfoArea = ({tempUser}): JSX.Element => {
+const InfoArea: React.FunctionComponent<IInfoArea> = ({
+  tempUser,
+  userType,
+}): JSX.Element => {
   return (
     <ScrollView contentContainerStyle={styles.infoArea}>
       <Text style={styles.text}>First name</Text>
@@ -15,6 +25,7 @@ const InfoArea = ({tempUser}): JSX.Element => {
           tempUser!.first_name = nextValue;
         }}
       />
+
       <Text style={styles.text}>Last name</Text>
       <TextInput
         defaultValue={tempUser!.last_name}
@@ -37,16 +48,19 @@ const InfoArea = ({tempUser}): JSX.Element => {
         onPress={(): void => Alert.alert('Currently unavailable')}>
         <Text style={styles.buttonText}>change password</Text>
       </TouchableOpacity>
-      <Text style={styles.text}>Description</Text>
-      <TextInput
-        placeholder="Description not yet available..."
-        multiline={true}
-        textAlignVertical="top"
-        maxLength={500}
-        scrollEnabled={true}
-        style={styles.descriptionBox}
-        //TODO add event when description added to user model
-      />
+      <View
+        style={userType.includes('student') ? styles.hiddenDescription : null}>
+        <Text style={styles.text}>Description</Text>
+        <TextInput
+          placeholder="Description not yet available..."
+          multiline={true}
+          textAlignVertical="top"
+          maxLength={500}
+          scrollEnabled={true}
+          style={styles.descriptionBox}
+          //TODO add event when description added to user model
+        />
+      </View>
       <Text style={styles.text}>ID</Text>
       <Text>{tempUser!.firebase_uid}</Text>
     </ScrollView>

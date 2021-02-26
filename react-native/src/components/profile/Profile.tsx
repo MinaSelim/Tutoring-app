@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import {Text, Button, Icon, Avatar} from '@ui-kitten/components';
-import {View, TouchableOpacity, Modal, Alert, SafeAreaView} from 'react-native';
+import {View, TouchableOpacity, Modal, Alert} from 'react-native';
+import {SafeAreaView} from 'react-navigation';
 import React, {useState} from 'react';
 import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
@@ -14,10 +15,8 @@ import {useTheme} from '@ui-kitten/components';
 const Profile = (): JSX.Element => {
   const theme = useTheme();
   const [actualUser, setAuthUser] = useAuthUser();
-  let tempUser: IUser | ((user: IUser | null) => void) | null = JSON.parse(
-    JSON.stringify(actualUser),
-  );
-  const userType = useUserType()[0];
+  let tempUser: IUser = JSON.parse(JSON.stringify(actualUser));
+  const userType = JSON.stringify(useUserType()[0]);
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
@@ -51,7 +50,7 @@ const Profile = (): JSX.Element => {
     try {
       const user = await UserUpdate.updateUserInfo(
         tempUser,
-        JSON.stringify(userType), //TODO replace this by userType in future user model
+        userType, //TODO replace this by userType in future user model
       );
       setAuthUser(user);
       setProfileVisibility(false);
@@ -79,9 +78,9 @@ const Profile = (): JSX.Element => {
         Profile
       </Button>
       <Modal visible={isProfileVisible} transparent={true} animationType="fade">
-        <View style={styles.background} />
-        <View style={styles.modal}>
-          <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView forceInset={{bottom: 'never'}} style={styles.safeArea}>
+          <View style={styles.background} />
+          <View style={styles.modal}>
             <View>
               <View style={styles.ProfileHeader}>
                 <Button
@@ -96,9 +95,7 @@ const Profile = (): JSX.Element => {
                   appearance="ghost"
                   size="giant"
                   style={styles.saveButton}
-                  onPress={(): void => {
-                    updateUser();
-                  }}>
+                  onPress={(): Promise<void> => updateUser()}>
                   Save
                 </Button>
               </View>
@@ -111,13 +108,13 @@ const Profile = (): JSX.Element => {
                 />
               </TouchableOpacity>
             </View>
-            <InfoArea tempUser={tempUser} />
+            <InfoArea tempUser={tempUser} userType={userType} />
             <TouchableOpacity style={styles.termsAndConditionsButton}>
               {/* TODO Add link for terms and conditions */}
               <Text style={styles.text}>Terms & Conditions</Text>
             </TouchableOpacity>
-          </SafeAreaView>
-        </View>
+          </View>
+        </SafeAreaView>
       </Modal>
     </View>
   );
