@@ -17,8 +17,8 @@ import moment from 'moment';
 
 const chatAPI: GenericChat = new GenericChat();
 //TO DO: get these values with DYNAMO DB User model
-const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
-const chatID: string = 'Y4dnAR3kpJMzp2EY7iOq';
+const userID: string = 'sQ3hsTOxYZdjffVY6lNA0Mwt0iy2';
+const chatID: string = 'YT7Pxekhhcf4U2JRV89b';
 let newDay = false;
 let initialLoad = true;
 
@@ -50,7 +50,7 @@ const Chat = ({navigation}): JSX.Element => {
 
   const handleOnEndReached = (): void => {
     let chatLength = chatMessages.length;
-    if (chatLength > 24) {
+    if (chatLength >= SCROLL_MESSAGE_AMOUNT) {
       let chatCreatedAt = chatMessages[chatLength - 1].createdAt;
       setOffset(chatCreatedAt);
     }
@@ -66,7 +66,7 @@ const Chat = ({navigation}): JSX.Element => {
     return tempMessages;
   }, [offset]);
 
-  function appendMessage(): void {
+  const appendMessage = (): void => {
     if (newestMessage !== undefined && chatMessages[0] !== undefined) {
       const newestMsg: IMessage[] = ChatMessages(newestMessage);
       //execute if a new message has been received
@@ -74,7 +74,7 @@ const Chat = ({navigation}): JSX.Element => {
         chatMessages.unshift(...newestMsg);
       }
     }
-  }
+  };
 
   const renderWelcome = (): JSX.Element => {
     return (
@@ -114,9 +114,9 @@ const Chat = ({navigation}): JSX.Element => {
     );
   };
 
-  function scrollToBottom(): void {
+  const scrollToBottom = (): void => {
     flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
-  }
+  };
   appendMessage();
   return (
     <Layout style={styles.container}>
@@ -135,7 +135,7 @@ const Chat = ({navigation}): JSX.Element => {
             ListFooterComponent={renderWelcome}
           />
 
-          <ChatInput onFocus={scrollToBottom} />
+          <ChatInput onFocus={scrollToBottom} chatID={chatID} userID={userID} />
         </>
       )}
     </Layout>
@@ -156,12 +156,12 @@ const loadMessages = (
     .limit(messageAmount);
 };
 
-function ChatMessages(messages): Message[] {
+const ChatMessages = (messages): Message[] => {
   const currentMessages: Message[] = messages.map(
     (msg: firebase.firestore.DocumentData) =>
       new Message(msg.id, msg.content, msg.sender, msg.createdAt),
   );
   return currentMessages;
-}
+};
 
 export default Chat;

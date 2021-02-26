@@ -3,18 +3,20 @@ import React, {useRef, useState} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 import {Button, Icon, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
-import chat from '../../pages/chat';
 import GenericChat from '../../api/chatroom/GenericChat';
+import {PropsService} from '@ui-kitten/components/devsupport';
 
 const chatAPI: GenericChat = new GenericChat();
-//TO DO: get these values with DYNAMO DB User model
-const userID: string = 'YUZSCMSLtdbmJaXIUs3QnUURm572';
-const chatID: string = 'Y4dnAR3kpJMzp2EY7iOq';
+interface IChatInfo {
+  userID: string;
+  chatID: string;
+  onFocus: () => void;
+}
 
 const PaperPlaneIcon = (props): JSX.Element => (
   <Icon {...props} name="paper-plane" />
 );
-const ChatInput = (props): JSX.Element => {
+const ChatInput = ({userID, chatID, onFocus}: IChatInfo): JSX.Element => {
   const [entityText, setEntityText] = useState('');
   const sendMessage = () => {
     if (entityText && entityText.length > 0) {
@@ -42,7 +44,7 @@ const ChatInput = (props): JSX.Element => {
         textStyle={{maxHeight: 64}}
         onChangeText={(text) => setEntityText(text)}
         value={entityText}
-        onFocus={props.onFocus}
+        onFocus={onFocus}
       />
       <Button
         appearance="ghost"
