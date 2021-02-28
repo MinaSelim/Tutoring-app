@@ -5,6 +5,7 @@ import {
    GetItemOutput,
    PutItemInput,
    ScanInput,
+   ScanOutput,
    UpdateItemInput,
    UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
@@ -200,10 +201,44 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       this.databaseUtils.updateItem(updateItemParams);
    };
 
-   public getAllTutors = (): Promise<ITutor[]> => {
+   // TODO: pagination of results
+   // TODO: figure out which attributes are necessary (for now send all)
+   //       given the context possibly just name, uid, profile, and classes?
+   public getAllTutors = async (): Promise<ITutor[]> => {
+      // create the scan input object
       const params: ScanInput = {
          TableName: config.tableNames.USER,
-         FilterExpression: 'tutor_info.overallRating > 0',
+         FilterExpression: 'attribute_exists(tutor_info)',
+         ProjectionExpression:
+            'first_name, last_name, email, firebase_uid, stripe_customer_id, is_validated, profileImage, phone, \
+            tutor_info.campuses, tutor_info.chatrooms, tutor_info.overallRating, tutor_info.numberOfReviews',
       };
+
+      // scan the table
+      const scanResults: ScanOutput = await this.databaseUtils.scan(params);
+      console.log(scanResults.Items);
+
+      // extract the tutors from the scan output object
+      const tutors: ITutor[] = [];
+      scanResults.Items.forEach((item) => {
+         tutors.push({
+            first_name: item.first_name.S,
+            last_name: item.last_name.S,
+            email: item.email.S,
+            firebase_uid: item.firebase_uid.S,
+            stripe_customer_id: item.stripe_customer_id.S,
+            is_validated: item.is_validated.BOOL,
+            profileImage: item.profileImage.S,
+            phone: item.phone.S,
+            tutor_info: {
+               campuses: item.tutor_info.M.campuses.SS,
+               chatrooms: item.tutor_info.M.chatrooms.SS,
+               overallRating: parseInt(item.tutor_info.M.overallRating.N),
+               numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+            },
+         });
+      });
+      console.log(tutors);
+      return tutors;
    };
 }
