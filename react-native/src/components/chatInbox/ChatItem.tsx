@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, ListItem, Layout} from '@ui-kitten/components';
 import IChatItem from 'model/myChats/IChatItem';
 import styles from './styles/ChatItemStyles';
-import ProfilePicture from './ProfilePicture';
+import ProfilePicture from '../common/profilePicture';
 import UnreadHint from './UnreadHint';
 
 const ChatItem: React.FC<IChatItem> = (props): JSX.Element => (

@@ -1,6 +1,5 @@
 import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import DrawerContentComponentProps from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {
   Text,
@@ -11,8 +10,7 @@ import {
   Divider,
 } from '@ui-kitten/components';
 import styles from './styles/styles';
-import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
-import useAuthUser from '../../hooks/authUser';
+import useAuthUser from '../../../hooks/authUser';
 
 const PersonIcon = (props): JSX.Element => (
   <Icon {...props} name="person-outline" />
@@ -36,16 +34,6 @@ const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
 
-const tutorCalendar = (): JSX.Element => (
-  <Button
-    style={styles.button}
-    appearance="ghost"
-    status="control"
-    accessoryLeft={CalendarIcon}
-    size="giant">
-    My Calendar
-  </Button>
-);
 
 const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
   const [user, setAuthUser] = useAuthUser();

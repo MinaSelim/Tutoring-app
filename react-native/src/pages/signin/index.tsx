@@ -1,17 +1,11 @@
 import {View, TouchableOpacity, TextInput, Image, Alert} from 'react-native';
 import {NavigationInjectedProps} from 'react-navigation';
 import React, {useState, useEffect} from 'react';
-import styles from './styles/SignInStyles';
+import styles from './styles';
 import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
-import StudentAuth from '../../api/authentication/StudentAuth';
-import TutorAuth from '../../api/authentication/TutorAuth';
-import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import IUser from '../../model/common/IUser';
 import useAuthUser from '../../hooks/authUser';
-import {persistAuthUser} from '../../utils/localstorage/localstorage';
 
 import {Text} from '@ui-kitten/components';
 
@@ -20,7 +14,6 @@ interface ISignIn extends NavigationInjectedProps {
   userAuth: IAuth;
 }
 
-// This component corresponds to the sign in page
 const SignIn: React.FunctionComponent<ISignIn> = ({
   navigation,
   userType,
@@ -32,8 +25,6 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
   const [password, setPassword] = useState('');
   const [isPasswordHidden, setPasswordHidden] = useState(true);
 
-  //Send user to homepage if they are still in localstorage i.e signedIn
-  //TODO We should have access and refresh tokens
   useEffect(() => {
     if (user != null) navigation.navigate('Home');
   });

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {Icon, Button} from '@ui-kitten/components';
-import styles from './styles/MyChatStyles';
-import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
+import styles from '../../chatInbox/styles/MyChatStyles';
+import NavigationInjectedPropsConfigured from '../../../model/navigation/NavigationInjectedPropsConfigured';
 
 const BackButtonIcon = (): JSX.Element => {
   return (

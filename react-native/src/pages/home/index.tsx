@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import 'react-native-gesture-handler';
 import {Text, Button, useStyleSheet} from '@ui-kitten/components';
-import homeStyles from './styles/HomeStyles';
-import SideMenuIcon from './SideMenuIcon';
-import MessageIcon from './MessageIcon';
-import UniversityImage from './UniversityImage';
+import homeStyles from './styles/';
+import SideMenuIcon from '../../components/home/SideMenuIcon';
+import MessageIcon from '../../components/home/MessageIcon';
+import UniversityImage from '../../components/home/UniversityImage';
 import useAuthUser from '../../hooks/authUser';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '@ui-kitten/components';
@@ -32,7 +32,7 @@ const HomeUI: React.FC<INavigation> = ({
         <View style={styles.upperSection}>
           <Button
             style={styles.tabButton}
-            onPress={(): void => navigation.toggleDrawer()}
+            onPress={(): void => toggleDrawer()}
             appearance="ghost"
             accessoryLeft={SideMenuIcon}
           />

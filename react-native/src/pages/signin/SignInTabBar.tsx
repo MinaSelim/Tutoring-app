@@ -1,6 +1,6 @@
 import React from 'react';
 import {TabBar, Tab} from '@ui-kitten/components';
-import styles from './styles/SignInStyles';
+import styles from './styles';
 
 // sign tab bar to toggle between Student and Tutor signIn
 const SignInTopTabBar: React.FunctionComponent<any> = ({

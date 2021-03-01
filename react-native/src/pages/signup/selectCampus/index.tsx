@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Component, useState} from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,8 @@ import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import IStudent from '../../../model/common/IStudent';
 import StudentAuth from '../../../api/authentication/StudentAuth';
-import campuses from '../../../pages/signup/selectCampus/campuses';
+import ISignUpSelectCampusPage from '../../../model/signInSignUp/ISignUpSelectCampusPage';
+import campuses from './campuses';
 import IAuth from '../../../api/authentication/IAuth';
 import useAuthUser from '../../../hooks/authUser';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -33,6 +34,12 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
   const setAuthUser = useAuthUser()[1];
   const {firstName, lastName, email, phone, password} = route.params;
 
+  const handleSearch = (text): void => {
+    setUniversitySelection(text);
+    if (text === '') {
+      setUniversitySelection('Find your campus');
+    }
+  };
 
   const isUniversitySelected = (): boolean => {
     if (universitySelection === 'Find your campus') {

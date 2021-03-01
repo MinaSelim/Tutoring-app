@@ -5,7 +5,7 @@ import {useStyleSheet, Layout} from '@ui-kitten/components';
 import {chatStyles} from './styles/chatStyles';
 import MessageRow from './MessageRow';
 import IMessage from '../../model/IMessage';
-import DATA from './DATA';
+import DATA from '../../pages/chat/DATA';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 

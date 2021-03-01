@@ -13,7 +13,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {colors} from '../../../styles/appColors';
-import styles from './styles/SignUpCredentialsStyles';
+import styles from '../../../components/signUp/signUpCredentials/styles/SignUpCredentialsStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';

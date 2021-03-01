@@ -1,6 +1,6 @@
 import React from 'react';
 import {Layout, Text} from '@ui-kitten/components';
-import BackButton from './BackButton';
+import BackButton from '../common/backButton';
 import styles from './styles/MyChatStyles';
 
 const PageHeader = (props): JSX.Element => {

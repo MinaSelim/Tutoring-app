@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
+import SignUpCredentials from './src/pages/signup/forms/SignUpCredentials';
 import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
 import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
-import SignInMenu from './src/components/signIn/SignInMenu';
-import HomeUI from './src/components/home/Home';
-import SideBar from './src/components/sideBar/SideBar';
-import MyChats from './src/pages/myChats';
+import SignInMenu from './src/pages/signin/SignInMenu';
+import HomeUI from './src/pages/home';
+import SideBar from './src/components/common/sideBar';
+import MyChats from './src/pages/chatInbox';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
-import ChatUI from './src/components/ChatUI/ChatUI';
+import ChatUI from './src/components/chat/ChatUI';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
