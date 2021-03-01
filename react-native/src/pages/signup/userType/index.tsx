@@ -7,7 +7,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import styles from './styles/SignUpUserTypeStyles';
+import styles from './styles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import TutorAuth from '../../../api/authentication/TutorAuth';
