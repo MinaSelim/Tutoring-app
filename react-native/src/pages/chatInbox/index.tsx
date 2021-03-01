@@ -1,25 +1,37 @@
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import TopTabBar from './TopTabBar';
-import ChatTab from './ChatTab';
-import MockupStudyGroupChatsData from './mockData/MockUpStudyGroupChatsData';
-import MockupOneOnOneChatsData from './mockData/MockupOneOnOneChatsData';
+import TopTabBar from '../../components/chatInbox/TopTabBar';
+import ChatTab from '../../components/chatInbox/ChatTab';
 import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
+import IChat from 'model/chatInbox/IChat';
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
-const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = (
-  props,
+interface IChatMenu extends NavigationInjectedPropsConfigured {
+  oneOnOnesource: IChat[],
+  groupChatsource: IChat[],
+}
+
+const ChatMenu: React.FC<IChatMenu> = (
+  {
+    oneOnOnesource, 
+    groupChatsource,
+    navigation,
+    navigate,
+    goBack,
+    toggleDrawer,
+  }: IChatMenu
 ): JSX.Element => (
   <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
     <Screen
       name="One-on-one"
       children={(): JSX.Element => (
         <ChatTab
-          navigation={props.navigation}
-          navigate={props.navigate}
-          goBack={props.goBack}
-          source={MockupOneOnOneChatsData}
+          navigation={navigation}
+          navigate={navigate}
+          goBack={goBack}
+          toggleDrawer={toggleDrawer}
+          source={oneOnOnesource}
         />
       )}
     />
@@ -27,10 +39,11 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = (
       name="Group chats"
       children={(): JSX.Element => (
         <ChatTab
-          navigation={props.navigation}
-          navigate={props.navigate}
-          goBack={props.goBack}
-          source={MockupStudyGroupChatsData}
+          navigation={navigation}
+          navigate={navigate}
+          goBack={goBack}
+          toggleDrawer={toggleDrawer}
+          source={groupChatsource}
         />
       )}
     />

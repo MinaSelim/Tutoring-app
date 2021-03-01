@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import TopTabBar from './SignInTabBar';
-import SignIn from '../../components/signIn/SignIn';
+import SignIn from './index';
 import StudentAuth from '../../api/authentication/StudentAuth';
 import TutorAuth from '../../api/authentication/TutorAuth';
 import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import styles from '../../components/signIn/styles/SignInStyles';
+import styles from './styles';
 
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 

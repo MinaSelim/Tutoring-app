@@ -1,21 +1,24 @@
 import React from 'react';
 import {Text, ListItem, Layout} from '@ui-kitten/components';
-import IChatItem from 'model/myChats/IChatItem';
+import IChatItem from 'model/chatInbox/IChatItem';
 import styles from './styles/ChatItemStyles';
 import ProfilePicture from '../common/profilePicture';
 import UnreadHint from './UnreadHint';
 
-const ChatItem: React.FC<IChatItem> = (props): JSX.Element => (
+const ChatItem: React.FC<IChatItem> = ({
+  item,
+  navigation,
+} : IChatItem): JSX.Element => (
   <ListItem
     style={styles.listItem}
     onPress={(): boolean =>
-      props.navigation.navigate('ChatUI', {chatID: props.item.id})
+      navigation.navigate('ChatUI', {chatID: item.id})
     }>
     <ProfilePicture />
     <Layout style={styles.textSection}>
       <Layout style={styles.header}>
-        <Text>{props.item.roomName}</Text>
-        <Text style={styles.classNumber}>{props.item.associatedClass}</Text>
+        <Text>{item.roomName}</Text>
+        <Text style={styles.classNumber}>{item.associatedClass}</Text>
       </Layout>
       <Text
         style={[
@@ -23,7 +26,7 @@ const ChatItem: React.FC<IChatItem> = (props): JSX.Element => (
           // replace condition with item.viewedChat[user.firebaseID]
           {color: false ? 'black' : '#A3A3A3'},
         ]}>
-        {props.item.latestMessage.content}
+        {item.latestMessage.content}
       </Text>
     </Layout>
     <UnreadHint
