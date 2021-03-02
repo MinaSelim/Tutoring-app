@@ -2,7 +2,6 @@ import {Application, Request, Response} from 'express';
 import IRouteComponent from '../IRouteComponent';
 import SearchManager from '../../services/managers/SearchManager';
 import ITutor from '../../models/ITutor';
-import fs from 'fs';
 
 export class SearchRoutes implements IRouteComponent {
    private searchManager: SearchManager;
@@ -34,22 +33,14 @@ export class SearchRoutes implements IRouteComponent {
          }
       });
 
-      app.post('/search/classes', (req: Request, res: Response): void => {         
+      app.post('/search/classes', (req: Request, res: Response) => {         
          try {
-            const university: string = req.body.university;
-            const filepath = './src/universityInformation/classes/' + university.toLowerCase() + '.json';
-            
-            fs.readFile(filepath, 'utf-8', (err, data) => {
-               if (err) {
-                  res.status(500);
-                  res.send(err.message);
-               } 
-               else {
-                  const classes = JSON.parse(data);
-                  res.status(200);
-                  res.send(classes.classes);
-               }
-            })
+            const classes = this.searchManager.getUniversityClasses(req.body.university);
+            if (!classes) {
+               res.sendStatus(500);
+            }
+            res.status(200);
+            res.send(classes);
          } catch (error) {
             res.status(500);
             res.send(error);
