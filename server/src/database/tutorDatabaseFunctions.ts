@@ -26,6 +26,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.numberOfReviews = 0;
       }
 
+      if (!tutor.tutor_info.last_seen) {
+         tutor.tutor_info.last_seen = new Date().toLocaleString();
+      }
+
       return tutor;
    };
 
@@ -143,7 +147,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          ReturnValues: 'NONE',
       };
       this.databaseUtils.updateItem(updateItemParams);
-   }
+   };
 
    public updateOverallRating = async (newReview: IReview): Promise<void> => {
       // get tutor overallRating and numberOfReviews

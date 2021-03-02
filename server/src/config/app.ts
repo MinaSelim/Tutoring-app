@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 import DatabaseConfig from '../config/DatabaseConfig';
 import IRouteComponent from '../routes/IRouteComponent';
 import RouteRoot from './RouteRoot';
-import LastSeenMiddleware from './LastSeenMiddleware'
+import LastSeenMiddleware from './LastSeenMiddleware';
 /**
  * This class represents the application. It is in charge of creating a configured application.
  */
