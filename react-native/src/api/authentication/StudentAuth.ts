@@ -1,7 +1,7 @@
 import {auth} from 'firebase';
 import env from '../../../env';
 import fire from './Fire';
-import IUserLogin from '../../model/signInSignUp/IUserLogin';
+import IUserLogin from '../../model/signin/IUserLogin';
 import IAuth from './IAuth';
 import IStudent from '../../model/common/IStudent';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import styles from './styles/HomeStyles';
+import styles from './styles';
 
 export const UniversityImage = (): JSX.Element => {
   return (

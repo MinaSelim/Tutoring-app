@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import SignUpCredentials from './src/components/signUp/signUpCredentials/SignUpCredentials';
-import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
-import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
-import SignInMenu from './src/components/signIn/SignInMenu';
-import HomeUI from './src/components/home/Home';
-import SideBar from './src/components/sideBar/SideBar';
-import MyChats from './src/pages/myChats';
+import SignUpCredentials from './src/pages/signup/forms';
+import SignUpUserType from './src/pages/signup/userType';
+import SignUpSelectCampus from './src/pages/signup/selectCampus/index';
+import SignInMenu from './src/pages/signin/SignInMenu';
+import HomeUI from './src/pages/home';
+import SideBar from './src/components/common/sideBar';
+import chatInbox from './src/pages/chatInbox';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
-import ChatUI from './src/components/ChatUI/ChatUI';
+import ChatUI from './src/components/chat/ChatUI';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
@@ -24,7 +24,7 @@ const DrawerNavigator: React.FunctionComponent = () => {
       <Drawer.Screen name="SignUpUserType" component={SignUpUserType} />
       <Drawer.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
       <Drawer.Screen name="Home" component={HomeUI} />
-      <Drawer.Screen name="MyChats" component={MyChats} />
+      <Drawer.Screen name="MyChats" component={chatInbox} />
       <Drawer.Screen name="TutorSearch" component={TutorSearch} />
       <Drawer.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
       <Drawer.Screen name="ChatUI" component={ChatUI} />
