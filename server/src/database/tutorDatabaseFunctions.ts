@@ -67,7 +67,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             },
             classes: {
                SS: tutor.tutor_info.classes,
-            }
+            },
          },
       };
 
