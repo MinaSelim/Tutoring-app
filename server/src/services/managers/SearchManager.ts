@@ -1,6 +1,7 @@
 import TutorDatabaseFunctions from '../../database/tutorDatabaseFunctions';
 import ITutor from '../../models/ITutor';
 import fs from 'fs';
+import util from 'util';
 
 export default class SearchManager {
    private tutorDatabaseFunctions: TutorDatabaseFunctions;
@@ -17,17 +18,11 @@ export default class SearchManager {
       return await this.tutorDatabaseFunctions.getTutorsForClass(campus, classCode);
    };
 
-   public getUniversityClasses = (campus: string): string[] => {
-      let universityClasses: string[] = [];
-      const filepath = './src/universityInformation/classes/' + campus.toLowerCase() + '.json';
-      fs.readFile(filepath, 'utf-8', (err, data) => {
-         if (err) {
-            console.error(err);
-            return [];
-         }
-         const parsedData = JSON.parse(data);
-         universityClasses = parsedData.classes;
-      });
-      return universityClasses;
+   public getUniversityClasses = async (campus: string): Promise<string[]> => {
+      const filepath = './universityInformation/classes/' + campus.toLowerCase() + '.json';
+      const readFile = util.promisify(fs.readFile);
+      const buf = await readFile(filepath);
+      const universityClassData = JSON.parse(buf.toString('utf-8'));
+      return universityClassData.classes;
    };
 }

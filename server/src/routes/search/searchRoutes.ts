@@ -33,12 +33,9 @@ export class SearchRoutes implements IRouteComponent {
          }
       });
 
-      app.post('/search/classes', (req: Request, res: Response) => {
+      app.post('/search/classes', async (req: Request, res: Response) => {
          try {
-            const classes = this.searchManager.getUniversityClasses(req.body.university);
-            if (!classes) {
-               res.sendStatus(500);
-            }
+            const classes = await this.searchManager.getUniversityClasses(req.body.university);
             res.status(200);
             res.send(classes);
          } catch (error) {
