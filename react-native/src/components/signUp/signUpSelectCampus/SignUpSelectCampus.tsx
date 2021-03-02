@@ -33,7 +33,6 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
   const setAuthUser = useAuthUser()[1];
   const {firstName, lastName, email, phone, password} = route.params;
 
-
   const isUniversitySelected = (): boolean => {
     if (universitySelection === 'Find your campus') {
       return false;

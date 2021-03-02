@@ -17,6 +17,8 @@ import styles from '../../../components/signUp/signUpCredentials/styles/SignUpCr
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';
+import errorMessages from '../../../constants/errors';
+import constants from '../../../constants';
 
 interface IState extends ISignUpCredentialsPage {}
 
@@ -76,13 +78,13 @@ class SignUpCredentials extends Component<INavigation, IState> {
   // alert the user if some inputs are invalid
   alertMandatoryFields = (): void => {
     if (!this.state.email.includes('@')) {
-      Alert.alert('Make sure email is valid.');
+      Alert.alert(errorMessages.signup.invalidEmail);
     } else if (this.state.password.length < 8) {
-      Alert.alert('Password must be at least 8 characters.');
+      Alert.alert(errorMessages.signup.invalidPassword);
     } else if (this.state.password !== this.state.confirmPassword) {
-      Alert.alert('Password does not match password confirmation.');
+      Alert.alert(errorMessages.signup.noMatchingPassword);
     } else {
-      Alert.alert('Fields with * are mandatory.');
+      Alert.alert(errorMessages.signup.missingManadatoryFields);
     }
   };
 
@@ -137,7 +139,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <Text style={[styles.star]}>*</Text>
                 <TextInput
                   style={styles.inputBox}
-                  placeholder="First Name"
+                  placeholder={constants.signup.forms.placeHolders.firstName}
                   placeholderTextColor={colors.appSilver}
                   onChangeText={this.handleFirstName}
                 />
@@ -146,7 +148,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <Text style={[styles.star]}>*</Text>
                 <TextInput
                   style={styles.inputBox}
-                  placeholder="Last Name"
+                  placeholder={constants.signup.forms.placeHolders.lastName}
                   placeholderTextColor={colors.appSilver}
                   onChangeText={this.handleLastName}
                 />
@@ -155,7 +157,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <Text style={[styles.star]}>*</Text>
                 <TextInput
                   style={styles.inputBox}
-                  placeholder="Email"
+                  placeholder={constants.signup.forms.placeHolders.email}
                   placeholderTextColor={colors.appSilver}
                   onChangeText={this.handleEmail}
                 />
@@ -164,7 +166,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <Text style={{opacity: 0}}>*</Text>
                 <TextInput
                   style={styles.inputBox}
-                  placeholder="Phone"
+                  placeholder={constants.signup.forms.placeHolders.phone}
                   placeholderTextColor={colors.appSilver}
                   onChangeText={this.handlePhone}
                 />
@@ -173,7 +175,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <Text style={[styles.star]}>*</Text>
                 <TextInput
                   style={styles.inputBox}
-                  placeholder="Password"
+                  placeholder={constants.signup.forms.placeHolders.password}
                   secureTextEntry={this.state.passwordHidden}
                   placeholderTextColor={colors.appSilver}
                   onChangeText={this.handlePassword}
@@ -195,7 +197,9 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <Text style={[styles.star]}>*</Text>
                 <TextInput
                   style={styles.inputBox}
-                  placeholder="Confirm Password"
+                  placeholder={
+                    constants.signup.forms.placeHolders.confirmPassword
+                  }
                   secureTextEntry={this.state.passwordHidden}
                   placeholderTextColor={colors.appSilver}
                   onChangeText={this.handleConfirmPassword}
@@ -235,7 +239,10 @@ class SignUpCredentials extends Component<INavigation, IState> {
                       })
                     : this.alertMandatoryFields();
                 }}>
-                <Text style={styles.nextText}> Next </Text>
+                <Text style={styles.nextText}>
+                  {' '}
+                  {constants.signup.forms.next}{' '}
+                </Text>
                 <Image
                   source={require('../../../assets/images/icons/nextArrow.png')}
                   style={styles.nextArrow}
@@ -250,10 +257,10 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 />
                 <Text style={styles.signInWithGoogleText}>
                   {' '}
-                  Sign in with Google{' '}
+                  {constants.signup.forms.signInWithGoogle}{' '}
                 </Text>
               </TouchableOpacity>
-              <Text style={styles.footer}>go.study</Text>
+              <Text style={styles.footer}>{constants.common.goStudy}</Text>
             </View>
           </KeyboardAvoidingView>
         </SafeAreaView>

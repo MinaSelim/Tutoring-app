@@ -8,12 +8,10 @@ import UnreadHint from './UnreadHint';
 const ChatItem: React.FC<IChatItem> = ({
   item,
   navigation,
-} : IChatItem): JSX.Element => (
+}: IChatItem): JSX.Element => (
   <ListItem
     style={styles.listItem}
-    onPress={(): boolean =>
-      navigation.navigate('ChatUI', {chatID: item.id})
-    }>
+    onPress={(): boolean => navigation.navigate('ChatUI', {chatID: item.id})}>
     <ProfilePicture />
     <Layout style={styles.textSection}>
       <Layout style={styles.header}>

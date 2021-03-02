@@ -10,6 +10,7 @@ import useAuthUser from '../../hooks/authUser';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from '@ui-kitten/components';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import constant from '../../constants';
 
 const HomeUI: React.FC<INavigation> = ({
   navigation,
@@ -36,21 +37,23 @@ const HomeUI: React.FC<INavigation> = ({
             appearance="ghost"
             accessoryLeft={SideMenuIcon}
           />
-          <Text style={styles.helloMessage}>Hey {userName},</Text>
+          <Text style={styles.helloMessage}>
+            {constant.home.hey} {userName},
+          </Text>
         </View>
         <View style={styles.middleSection}>
           <Text style={styles.whatAreYouLookinFor}>
-            What are you looking for?
+            {constant.home.lookingFor}
           </Text>
           <Button
             style={[styles.button, {top: 25}]}
             onPress={(): boolean => navigation.navigate('TutorSearch')}>
-            Find a Tutor
+            {constant.home.findTutor}
           </Button>
           <Button
             style={[styles.button, {top: 30}]}
             onPress={(): boolean => navigation.navigate('StudyGroupSearch')}>
-            Find a Study Group
+            {constant.home.findGroup}
           </Button>
           <UniversityImage />
         </View>
@@ -60,9 +63,9 @@ const HomeUI: React.FC<INavigation> = ({
             onPress={(): boolean => navigation.navigate('MyChats')}
             status="basic"
             accessoryRight={MessageIcon}>
-            My Chats
+            {constant.home.myChats}
           </Button>
-          <Text style={styles.footer}> go.study </Text>
+          <Text style={styles.footer}>{constant.common.goStudy}</Text>
         </View>
       </View>
     </SafeAreaView>

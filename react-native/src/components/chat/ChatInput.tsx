@@ -1,6 +1,6 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
-import {Button, Icon, Layout, Input, Divider} from '@ui-kitten/components';
+import {Button, Icon, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
 
 const PaperPlaneIcon = (props): JSX.Element => (

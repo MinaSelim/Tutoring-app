@@ -8,6 +8,7 @@ import {
   Text,
 } from '@ui-kitten/components';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import constants from '../../constants';
 import chatStyles from './styles/chatStyles';
 
 const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
@@ -16,7 +17,7 @@ const renderRightActions = (): JSX.Element => (
   <Button size="small" style={chatStyles.bookButton}>
     {(evaProps): JSX.Element => (
       <Text style={chatStyles.bookButtonText} {...evaProps}>
-        Book
+        {constants.chat.chatHeader.Book}
       </Text>
     )}
   </Button>
@@ -24,8 +25,10 @@ const renderRightActions = (): JSX.Element => (
 
 const renderTitle = (): JSX.Element => (
   <TouchableOpacity>
-    <Text style={chatStyles.chatTitle}>Jessie Allen</Text>
-    <Text style={chatStyles.chatSubTitle}>View Details</Text>
+    <Text style={chatStyles.chatTitle} />
+    <Text style={chatStyles.chatSubTitle}>
+      {constants.chat.chatHeader.ViewDetails}
+    </Text>
   </TouchableOpacity>
 );
 

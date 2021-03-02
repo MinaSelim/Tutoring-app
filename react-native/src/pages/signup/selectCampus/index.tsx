@@ -17,6 +17,8 @@ import campuses from '../../../pages/signup/selectCampus/campuses';
 import IAuth from '../../../api/authentication/IAuth';
 import useAuthUser from '../../../hooks/authUser';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import constants from '../../../constants';
+import errors from '../../../constants/errors';
 
 interface ISignUpSelectCampus extends INavigation {
   route: any;
@@ -28,14 +30,13 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
   navigation,
 }: ISignUpSelectCampus) => {
   const [universitySelection, setUniversitySelection] = useState(
-    'Find your campus',
+    constants.signup.selectCampus.findYourCampus,
   );
   const setAuthUser = useAuthUser()[1];
   const {firstName, lastName, email, phone, password} = route.params;
 
-
   const isUniversitySelected = (): boolean => {
-    if (universitySelection === 'Find your campus') {
+    if (universitySelection === constants.signup.selectCampus.findYourCampus) {
       return false;
     }
     return true;
@@ -49,7 +50,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
     phone,
     password,
   ): Promise<void> => {
-    if (universitySelection !== 'Find your campus') {
+    if (universitySelection !== constants.signup.selectCampus.findYourCampus) {
       const studentAuth = new StudentAuth();
       const studentInfo: IStudent = {
         first_name: firstName,
@@ -69,7 +70,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
           studentInfo,
         );
       } catch (error) {
-        Alert.alert(`Something went wrong signing up as a student.\n${error}`);
+        Alert.alert(`${error.signup.genericSignUp}\n${error}`);
         return;
       }
       const auth: IAuth = new StudentAuth();
@@ -77,13 +78,13 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
         const user = await auth.signInWithEmailAndPassword({email, password});
         setAuthUser(user);
         navigation.navigate('Home');
-      } catch (error) {
-        Alert.alert(`${error}`);
+      } catch (err) {
+        Alert.alert(`${errors.signup.genericSignUp}\n${err}`);
         return;
       }
       return;
     }
-    Alert.alert('Please select a campus first.');
+    Alert.alert(errors.signup.selectCampus);
   };
 
   return (
@@ -108,7 +109,10 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
               marginRight: 25,
               justifyContent: 'space-between',
             }}>
-            <Text style={styles.selectYourCampus}>Select your campus</Text>
+            <Text style={styles.selectYourCampus}>
+              {' '}
+              {constants.signup.selectCampus.selectYourCampus}
+            </Text>
             <View
               style={{
                 justifyContent: 'space-between',
@@ -139,7 +143,8 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
                   items={campuses}
                   resetValue={false}
                   textInputProps={{
-                    placeholder: 'Search your campus...',
+                    placeholder:
+                      constants.signup.selectCampus.placeHolders.searchCampus,
                     underlineColorAndroid: 'transparent',
                     style: styles.inputBox,
                   }}
@@ -155,9 +160,11 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
                 onPress={(): void => {
                   finish(firstName, lastName, email, phone, password);
                 }}>
-                <Text style={styles.finishText}> Finish </Text>
+                <Text style={styles.finishText}>
+                  {constants.signup.selectCampus.finish}
+                </Text>
               </TouchableOpacity>
-              <Text style={styles.footer}> go.study </Text>
+              <Text style={styles.footer}> {constants.common.goStudy}</Text>
             </View>
           </View>
         </View>

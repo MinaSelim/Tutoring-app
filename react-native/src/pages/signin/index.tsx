@@ -8,6 +8,7 @@ import IAuth from '../../api/authentication/IAuth';
 import useAuthUser from '../../hooks/authUser';
 
 import {Text} from '@ui-kitten/components';
+import constants from '../../constants';
 
 interface ISignIn extends NavigationInjectedProps {
   userType: string;
@@ -57,10 +58,10 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
   return (
     <>
       <Text style={styles.welcome} category="h4">
-        Welcome!
+        {constants.signin.welcome}
       </Text>
       <View style={styles.signInAsAView}>
-        <Text style={styles.signInToContinue}>Sign in as a </Text>
+        <Text style={styles.signInToContinue}>{constants.signin.signInAs}</Text>
         <Text style={styles.signInUserType} category="s1">
           {userType}
         </Text>
@@ -120,8 +121,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
             signIn();
           }}>
           <Text style={styles.signInText} category="label">
-            {' '}
-            Sign In{' '}
+            {' ' + constants.signin.signIn + ' '}
           </Text>
           <Image
             source={require('../../assets/images/icons/nextArrow.png')}
@@ -133,7 +133,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
           style={styles.forgotPasswordButton}
           onPress={(): void => forgotPassword()}>
           <Text style={styles.forgotPasswordText} category="label">
-            Forgot password?
+            {constants.signin.forgotPassword}
           </Text>
         </TouchableOpacity>
 
@@ -143,8 +143,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
             navigation.navigate('SignUpCredentials');
           }}>
           <Text style={styles.createAccountText} category="label">
-            {' '}
-            Create an account{' '}
+            {' ' + constants.signin.createAccount + ' '}
           </Text>
         </TouchableOpacity>
 
@@ -156,8 +155,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
             style={styles.googleIcon}
           />
           <Text style={styles.signInWithGoogleText} category="label">
-            {' '}
-            Sign in with Google{' '}
+            {' ' + constants.signin.signInWithGoogle + ' '}
           </Text>
         </TouchableOpacity>
       </View>

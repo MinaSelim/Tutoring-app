@@ -8,20 +8,18 @@ import IChat from 'model/chatInbox/IChat';
 const {Navigator, Screen} = createMaterialTopTabNavigator();
 
 interface IChatMenu extends NavigationInjectedPropsConfigured {
-  oneOnOnesource: IChat[],
-  groupChatsource: IChat[],
+  oneOnOnesource: IChat[];
+  groupChatsource: IChat[];
 }
 
-const ChatMenu: React.FC<IChatMenu> = (
-  {
-    oneOnOnesource, 
-    groupChatsource,
-    navigation,
-    navigate,
-    goBack,
-    toggleDrawer,
-  }: IChatMenu
-): JSX.Element => (
+const ChatMenu: React.FC<IChatMenu> = ({
+  oneOnOnesource,
+  groupChatsource,
+  navigation,
+  navigate,
+  goBack,
+  toggleDrawer,
+}: IChatMenu): JSX.Element => (
   <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
     <Screen
       name="One-on-one"

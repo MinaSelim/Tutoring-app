@@ -9,6 +9,7 @@ import {
   Icon,
   Divider,
 } from '@ui-kitten/components';
+import constants from '../../../constants';
 import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
 
@@ -33,7 +34,6 @@ const BookIcon = (props): JSX.Element => (
 const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
-
 
 const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
   const [user, setAuthUser] = useAuthUser();
@@ -64,7 +64,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           status="control"
           accessoryLeft={PersonIcon}
           size="giant">
-          Profile
+          {constants.commonComponents.sidebar.profile}
         </Button>
         <Button
           style={styles.button}
@@ -72,7 +72,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           status="control"
           accessoryLeft={BookIcon}
           size="giant">
-          My Sessions
+          {constants.commonComponents.sidebar.mySessions}
         </Button>
         {/* conditional button: if userObject session is "tutor" display tutorCalendar*/}
         <Button
@@ -81,7 +81,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           status="control"
           accessoryLeft={CreditCardIcon}
           size="giant">
-          Payment Options
+          {constants.commonComponents.sidebar.paymentOptions}
         </Button>
         <Divider style={styles.divider} />
         <Button
@@ -90,7 +90,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           status="control"
           accessoryLeft={HistoryIcon}
           size="giant">
-          Account History
+          {constants.commonComponents.sidebar.accountHistory}
         </Button>
         <Button
           style={styles.button}
@@ -98,7 +98,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           status="control"
           accessoryLeft={CampusIcon}
           size="giant">
-          Select Campus
+          {constants.commonComponents.sidebar.selectCampus}
         </Button>
         <Divider style={styles.divider} />
         <Button
@@ -108,7 +108,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           accessoryLeft={EmptyIcon}
           size="giant"
           onPress={(): void => handleSignOut()}>
-          Sign out
+          {constants.commonComponents.sidebar.signout}
         </Button>
       </View>
       <View style={styles.terms}>
@@ -117,7 +117,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           appearance="ghost"
           status="control"
           size="medium">
-          Terms and Conditions
+          {constants.commonComponents.sidebar.termsAndConditions}
         </Button>
       </View>
     </Layout>

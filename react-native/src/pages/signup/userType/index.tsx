@@ -14,6 +14,7 @@ import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import IAuth from '../../../api/authentication/IAuth';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import constant from '../../../constants';
 
 interface IProps extends INavigation {
   route: any;
@@ -87,7 +88,9 @@ class SignUpUserType extends Component<IProps> {
                 width: '100%',
                 marginTop: '50%',
               }}>
-              <Text style={styles.iAmText}>I am a</Text>
+              <Text style={styles.iAmText}>
+                {constant.signup.userType.identity}
+              </Text>
               <TouchableOpacity
                 style={styles.student}
                 onPress={(): void => {
@@ -99,17 +102,21 @@ class SignUpUserType extends Component<IProps> {
                     password,
                   });
                 }}>
-                <Text style={styles.buttonText}> Student </Text>
+                <Text style={styles.buttonText}>
+                  {constant.signup.userType.student}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.tutor}
                 onPress={(): void => {
                   this.handleTutor(firstName, lastName, email, phone, password);
                 }}>
-                <Text style={styles.buttonText}> Tutor </Text>
+                <Text style={styles.buttonText}>
+                  {constant.signup.userType.tutor}
+                </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.footer}> go.study </Text>
+            <Text style={styles.footer}> {constant.common.goStudy} </Text>
           </View>
         </SafeAreaView>
       </ImageBackground>

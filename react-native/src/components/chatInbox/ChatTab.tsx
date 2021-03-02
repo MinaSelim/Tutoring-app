@@ -9,8 +9,8 @@ const ChatTab: React.FC<IChatTab> = ({
   navigation,
   toggleDrawer,
   goBack,
-  source, 
-  }: IChatTab): JSX.Element => (
+  source,
+}: IChatTab): JSX.Element => (
   <Layout>
     <List
       style={styles.listContainer}

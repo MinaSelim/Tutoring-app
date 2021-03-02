@@ -2,9 +2,7 @@ import React from 'react';
 import {TabBar, Tab} from '@ui-kitten/components';
 import NavigationInjectedPropsConfigured from '../../model/navigation/NavigationInjectedPropsConfigured';
 
-interface ITopTabBar extends NavigationInjectedPropsConfigured{
-  
-}
+interface ITopTabBar extends NavigationInjectedPropsConfigured {}
 const TopTabBar = ({navigation, state}): JSX.Element => (
   <TabBar
     selectedIndex={state.index}

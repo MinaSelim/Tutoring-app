@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import SignUpCredentials from './src/pages/signup/forms/SignUpCredentials';
-import SignUpUserType from './src/components/signUp/signUpUserType/SignUpUserType';
+import SignUpUserType from './src/pages/signup/userType';
 import SignUpSelectCampus from './src/components/signUp/signUpSelectCampus/SignUpSelectCampus';
 import SignInMenu from './src/pages/signin/SignInMenu';
 import HomeUI from './src/pages/home';
