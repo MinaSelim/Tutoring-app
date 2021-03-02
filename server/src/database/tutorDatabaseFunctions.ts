@@ -209,47 +209,6 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       this.databaseUtils.updateItem(updateItemParams);
    };
 
-   // TODO: pagination of results
-   // TODO: figure out which attributes are necessary (for now send all)
-   //       given the context possibly just name, uid, profile, and classes?
-   public getAllTutors = async (): Promise<ITutor[]> => {
-      // create the scan input object
-      const params: ScanInput = {
-         TableName: config.tableNames.USER,
-         FilterExpression: 'attribute_exists(tutor_info)',
-         ProjectionExpression:
-            'first_name, last_name, email, firebase_uid, stripe_customer_id, is_validated, profileImage, phone, \
-            tutor_info.campuses, tutor_info.chatrooms, tutor_info.overallRating, tutor_info.numberOfReviews',
-      };
-
-      // scan the table
-      const scanResults: ScanOutput = await this.databaseUtils.scan(params);
-
-      // extract the tutors from the scan output object
-      const tutors: ITutor[] = [];
-      scanResults.Items.forEach((item) => {
-         tutors.push({
-            first_name: item.first_name.S,
-            last_name: item.last_name.S,
-            email: item.email.S,
-            firebase_uid: item.firebase_uid.S,
-            stripe_customer_id: item.stripe_customer_id.S,
-            is_validated: item.is_validated.BOOL,
-            profileImage: item.profileImage.S,
-            phone: item.phone.S,
-            tutor_info: {
-               campuses: item.tutor_info.M.campuses.SS,
-               chatrooms: item.tutor_info.M.chatrooms.SS,
-               overallRating: parseInt(item.tutor_info.M.overallRating.N),
-               numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
-               classes: item.tutor_info.M.classes.SS,
-            },
-         });
-      });
-      console.log(tutors);
-      return tutors;
-   };
-
    public getTutorsForClass = async (campus: string, classCode: string): Promise<ITutor[]> => {
       const params: ScanInput = {
          TableName: config.tableNames.USER,

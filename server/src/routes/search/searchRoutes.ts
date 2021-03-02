@@ -11,17 +11,6 @@ export class SearchRoutes implements IRouteComponent {
    }
 
    public route(app: Application): void {
-      app.post('/search/allTutors', async (req: Request, res: Response) => {
-         try {
-            const tutors: ITutor[] = await this.searchManager.getAllTutors();
-            res.status(200);
-            res.send(tutors);
-         } catch (error) {
-            res.status(500);
-            res.send(error);
-         }
-      });
-
       app.post('/search/tutorsForClass', async (req: Request, res: Response) => {
          try {
             const tutors: ITutor[] = await this.searchManager.getTutorsForClass(req.body.campus, req.body.class);
