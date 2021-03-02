@@ -21,11 +21,10 @@ interface ISignUpUserType extends INavigation {
 }
 
 // This component corresponds to the second sign up page
-const SignUpUserType : React.FunctionComponent<ISignUpUserType> = ({
-  route, 
+const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
+  route,
   navigation,
-} : ISignUpUserType) => {
-
+}: ISignUpUserType) => {
   const {firstName, lastName, email, phone, password} = route.params;
   // Send the tutor's information to the back-end
   const handleTutor = async (
@@ -63,62 +62,61 @@ const SignUpUserType : React.FunctionComponent<ISignUpUserType> = ({
     }
   };
 
-    
-    return (
-      <ImageBackground
-        source={require('../../../assets/images/icons/signUpBackground.png')}
-        style={styles.backgroundImage}>
-        <SafeAreaView style={{flex: 1, alignItems: 'stretch'}}>
-          <View style={{flex: 1}}>
+  return (
+    <ImageBackground
+      source={require('../../../assets/images/icons/signUpBackground.png')}
+      style={styles.backgroundImage}>
+      <SafeAreaView style={{flex: 1, alignItems: 'stretch'}}>
+        <View style={{flex: 1}}>
+          <TouchableOpacity
+            style={{position: 'absolute'}}
+            onPress={(): boolean => navigation.goBack()}>
+            <Image
+              source={require('../../../assets/images/icons/backBtn.png')}
+              style={styles.goBackButton}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              height: 170,
+              marginBottom: 50,
+              justifyContent: 'space-between',
+              width: '100%',
+              marginTop: '50%',
+            }}>
+            <Text style={styles.iAmText}>
+              {constant.signup.userType.identity}
+            </Text>
             <TouchableOpacity
-              style={{position: 'absolute'}}
-              onPress={(): boolean => navigation.goBack()}>
-              <Image
-                source={require('../../../assets/images/icons/backBtn.png')}
-                style={styles.goBackButton}
-              />
-            </TouchableOpacity>
-            <View
-              style={{
-                height: 170,
-                marginBottom: 50,
-                justifyContent: 'space-between',
-                width: '100%',
-                marginTop: '50%',
+              style={styles.student}
+              onPress={(): void => {
+                navigation.navigate('SignUpSelectCampus', {
+                  firstName,
+                  lastName,
+                  email,
+                  phone,
+                  password,
+                });
               }}>
-              <Text style={styles.iAmText}>
-                {constant.signup.userType.identity}
+              <Text style={styles.buttonText}>
+                {constant.signup.userType.student}
               </Text>
-              <TouchableOpacity
-                style={styles.student}
-                onPress={(): void => {
-                  navigation.navigate('SignUpSelectCampus', {
-                    firstName,
-                    lastName,
-                    email,
-                    phone,
-                    password,
-                  });
-                }}>
-                <Text style={styles.buttonText}>
-                  {constant.signup.userType.student}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.tutor}
-                onPress={(): void => {
-                  handleTutor(firstName, lastName, email, phone, password);
-                }}>
-                <Text style={styles.buttonText}>
-                  {constant.signup.userType.tutor}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.footer}>{constant.common.goStudy}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.tutor}
+              onPress={(): void => {
+                handleTutor(firstName, lastName, email, phone, password);
+              }}>
+              <Text style={styles.buttonText}>
+                {constant.signup.userType.tutor}
+              </Text>
+            </TouchableOpacity>
           </View>
-        </SafeAreaView>
-      </ImageBackground>
-    );
-}
+          <Text style={styles.footer}>{constant.common.goStudy}</Text>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
+  );
+};
 
 export default SignUpUserType;
