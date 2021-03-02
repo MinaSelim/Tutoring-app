@@ -11,4 +11,8 @@ export default class SearchManager {
    public getAllTutors = async (): Promise<ITutor[]> => {
       return await this.tutorDatabaseFunctions.getAllTutors();
    };
+
+   public getTutorsForClass = async (campus: string, classCode: string): Promise<ITutor[]> => {
+      return await this.tutorDatabaseFunctions.getTutorsForClass(campus, classCode);
+   };
 }

@@ -216,7 +216,6 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       // scan the table
       const scanResults: ScanOutput = await this.databaseUtils.scan(params);
-      console.log(scanResults.Items);
 
       // extract the tutors from the scan output object
       const tutors: ITutor[] = [];
@@ -241,4 +240,45 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       console.log(tutors);
       return tutors;
    };
+
+
+   public getTutorsForClass = async (campus: string, classCode: string): Promise<ITutor[]> => {
+      const params: ScanInput = {
+         TableName: config.tableNames.USER,
+         FilterExpression: 'attribute_exists(tutor_info) and contains(tutor_info.campuses, :cm) and contains(tutor_info.classes, :cl)',
+         ExpressionAttributeValues: {
+            ':cm': {
+               S: campus,
+            },
+            ':cl': {
+               S: classCode,
+            },
+         },
+      }
+
+      const scanResults: ScanOutput = await this.databaseUtils.scan(params);
+
+      const tutors: ITutor[] = [];
+      scanResults.Items.forEach((item) => {
+         tutors.push({
+            first_name: item.first_name.S,
+            last_name: item.last_name.S,
+            email: item.email.S,
+            firebase_uid: item.firebase_uid.S,
+            stripe_customer_id: item.stripe_customer_id.S,
+            is_validated: item.is_validated.BOOL,
+            profileImage: item.profileImage.S,
+            phone: item.phone.S,
+            tutor_info: {
+               campuses: item.tutor_info.M.campuses.SS,
+               chatrooms: item.tutor_info.M.chatrooms.SS,
+               overallRating: parseInt(item.tutor_info.M.overallRating.N),
+               numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+            },
+         });
+      });
+
+      return tutors;
+   };
+  
 }

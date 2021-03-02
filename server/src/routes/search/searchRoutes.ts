@@ -23,6 +23,17 @@ export class SearchRoutes implements IRouteComponent {
          }
       });
 
+      app.post('/search/tutorsForClass', async (req: Request, res: Response) => {
+         try {
+            const tutors: ITutor[] = await this.searchManager.getTutorsForClass(req.body.campus, req.body.class);
+            res.status(200);
+            res.send(tutors);
+         } catch (error) {
+            res.status(500);
+            res.send(error);
+         }
+      });
+
       app.post('/search/classes', (req: Request, res: Response): void => {         
          try {
             const university: string = req.body.university;
