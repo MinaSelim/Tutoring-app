@@ -4,7 +4,7 @@ const constants = {
   },
   signin: {
     welcome: 'Welcome!',
-    signInAs: 'Sign in as a',
+    signInAs: 'Sign in as a ',
     email: 'email',
     password: 'password',
     signIn: 'Sign In',

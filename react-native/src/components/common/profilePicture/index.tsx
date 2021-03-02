@@ -8,7 +8,7 @@ const ProfilePicture = (): JSX.Element => (
     style={styles.profilePicture}
     shape="round"
     size="large"
-    source={require('../../assets/images/icons/temporaryAvatar.png')}
+    source={require('../../../assets/images/icons/temporaryAvatar.png')}
   />
 );
 

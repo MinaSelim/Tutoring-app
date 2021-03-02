@@ -33,7 +33,7 @@ const HomeUI: React.FC<INavigation> = ({
         <View style={styles.upperSection}>
           <Button
             style={styles.tabButton}
-            onPress={(): void => toggleDrawer()}
+            onPress={(): void => navigation.toggleDrawer()}
             appearance="ghost"
             accessoryLeft={SideMenuIcon}
           />
