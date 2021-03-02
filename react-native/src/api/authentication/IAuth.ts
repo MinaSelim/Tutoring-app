@@ -1,5 +1,5 @@
 import IUser from '../../model/common/IUser';
-import IUserLogin from '../../model/signInSignUp/IUserLogin';
+import IUserLogin from '../../model/signin/IUserLogin';
 
 export default interface IAuth {
   /**

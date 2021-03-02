@@ -1,10 +1,9 @@
 import {auth} from 'firebase';
 import env from '../../../env';
 import fire from './Fire';
-import IUserLogin from '../../model/signInSignUp/IUserLogin';
+import IUserLogin from '../../model/signin/IUserLogin';
 import IAuth from './IAuth';
 import ITutor from '../../model/common/ITutor';
-import IUser from 'model/common/IUser';
 
 /**
  * this class provides api abstraction for firebase
