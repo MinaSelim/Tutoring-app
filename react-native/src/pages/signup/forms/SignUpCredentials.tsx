@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   View,
   Text,
@@ -16,72 +16,30 @@ import {colors} from '../../../styles/appColors';
 import styles from '../../../components/signUp/signUpCredentials/styles/SignUpCredentialsStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
-import ISignUpCredentialsPage from '../../../model/signInSignUp/ISignUpCredentialsPage';
 import errorMessages from '../../../constants/errors';
 import constants from '../../../constants';
 
-interface IState extends ISignUpCredentialsPage {}
+interface ISignUpCredentials extends INavigation {
+}
 
 // This component corresponds to the first sign up page
-class SignUpCredentials extends Component<INavigation, IState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmPassword: '',
-      passwordHidden: true,
-    };
-
-    this.isInputValid = this.isInputValid.bind(this);
-    this.handleFirstName = this.handleFirstName.bind(this);
-    this.handleLastName = this.handleLastName.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePhone = this.handlePhone.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.handleConfirmPassword = this.handleConfirmPassword.bind(this);
-    this.alertMandatoryFields = this.alertMandatoryFields.bind(this);
-  }
-
-  handleFirstName = (text): void => {
-    this.setState({first_name: text});
-  };
-
-  handleLastName = (text): void => {
-    this.setState({last_name: text});
-  };
-
-  handleEmail = (text): void => {
-    this.setState({email: text});
-  };
-
-  handlePhone = (text): void => {
-    this.setState({phone: text});
-  };
-
-  handlePassword = (text): void => {
-    this.setState({password: text});
-  };
-
-  handleConfirmPassword = (text): void => {
-    this.setState({confirmPassword: text});
-  };
-
-  changePasswordVisibility = (): void => {
-    this.setState((prevState) => ({passwordHidden: !prevState.passwordHidden}));
-  };
+const SignUpCredentials : React.FunctionComponent<ISignUpCredentials> = ({navigation} : ISignUpCredentials) => {
+ 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordHidden, setPasswordHidden] = useState(true);
 
   // alert the user if some inputs are invalid
-  alertMandatoryFields = (): void => {
-    if (!this.state.email.includes('@')) {
+  const alertMandatoryFields = (): void => {
+    if (!email.includes('@')) {
       Alert.alert(errorMessages.signup.invalidEmail);
-    } else if (this.state.password.length < 8) {
+    } else if (password.length < 8) {
       Alert.alert(errorMessages.signup.invalidPassword);
-    } else if (this.state.password !== this.state.confirmPassword) {
+    } else if (password !== confirmPassword) {
       Alert.alert(errorMessages.signup.noMatchingPassword);
     } else {
       Alert.alert(errorMessages.signup.missingManadatoryFields);
@@ -89,15 +47,15 @@ class SignUpCredentials extends Component<INavigation, IState> {
   };
 
   // check if all inputs are valid before moving to next page
-  isInputValid = (): boolean => {
+  const isInputValid = (): boolean => {
     if (
-      this.state.first_name === '' ||
-      this.state.last_name === '' ||
-      this.state.email === '' ||
-      this.state.password === '' ||
-      !this.state.email.includes('@') ||
-      this.state.password.length < 8 ||
-      this.state.password !== this.state.confirmPassword
+      firstName === '' ||
+      lastName === '' ||
+      email === '' ||
+      password === '' ||
+      !email.includes('@') ||
+      password.length < 8 ||
+      password !== confirmPassword
     ) {
       return false;
     }
@@ -105,11 +63,10 @@ class SignUpCredentials extends Component<INavigation, IState> {
     return true;
   };
 
-  signInWithGoogle = (): void => {
+  const signInWithGoogle = (): void => {
     // TODO: Redirect to Google sign-in
   };
 
-  render(): JSX.Element {
     return (
       <ImageBackground
         source={require('../../../assets/images/icons/signUpBackground.png')}
@@ -120,7 +77,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
             style={{flex: 1}}>
             <TouchableOpacity
               style={{position: 'absolute'}}
-              onPress={(): boolean => this.props.navigation.goBack()}>
+              onPress={(): boolean => navigation.goBack()}>
               <Image
                 source={require('../../../assets/images/icons/backBtn.png')}
                 style={styles.goBackButton}
@@ -141,7 +98,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                   style={styles.inputBox}
                   placeholder={constants.signup.forms.placeHolders.firstName}
                   placeholderTextColor={colors.appSilver}
-                  onChangeText={this.handleFirstName}
+                  onChangeText={(text) => setFirstName(text)}
                 />
               </View>
               <View style={styles.inputSection}>
@@ -150,7 +107,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                   style={styles.inputBox}
                   placeholder={constants.signup.forms.placeHolders.lastName}
                   placeholderTextColor={colors.appSilver}
-                  onChangeText={this.handleLastName}
+                  onChangeText={(text) => setLastName(text)}
                 />
               </View>
               <View style={styles.inputSection}>
@@ -159,7 +116,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                   style={styles.inputBox}
                   placeholder={constants.signup.forms.placeHolders.email}
                   placeholderTextColor={colors.appSilver}
-                  onChangeText={this.handleEmail}
+                  onChangeText={(text) => setEmail(text)}
                 />
               </View>
               <View style={styles.inputSection}>
@@ -168,7 +125,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
                   style={styles.inputBox}
                   placeholder={constants.signup.forms.placeHolders.phone}
                   placeholderTextColor={colors.appSilver}
-                  onChangeText={this.handlePhone}
+                  onChangeText={(text) => setPhone(text)}
                 />
               </View>
               <View style={styles.inputSection}>
@@ -176,16 +133,16 @@ class SignUpCredentials extends Component<INavigation, IState> {
                 <TextInput
                   style={styles.inputBox}
                   placeholder={constants.signup.forms.placeHolders.password}
-                  secureTextEntry={this.state.passwordHidden}
+                  secureTextEntry={passwordHidden}
                   placeholderTextColor={colors.appSilver}
-                  onChangeText={this.handlePassword}
+                  onChangeText={(text) => setPassword(text)}
                 />
                 <TouchableOpacity
                   style={styles.eyeButton}
-                  onPress={this.changePasswordVisibility}>
+                  onPress={() => setPasswordHidden(!passwordHidden)}>
                   <Image
                     source={
-                      this.state.passwordHidden
+                      passwordHidden
                         ? require('../../../assets/images/icons/eyeClosed.png')
                         : require('../../../assets/images/icons/eyeOpened.png')
                     }
@@ -200,16 +157,16 @@ class SignUpCredentials extends Component<INavigation, IState> {
                   placeholder={
                     constants.signup.forms.placeHolders.confirmPassword
                   }
-                  secureTextEntry={this.state.passwordHidden}
+                  secureTextEntry={passwordHidden}
                   placeholderTextColor={colors.appSilver}
-                  onChangeText={this.handleConfirmPassword}
+                  onChangeText={(text) => setConfirmPassword(text)}
                 />
                 <TouchableOpacity
                   style={styles.eyeButton}
-                  onPress={this.changePasswordVisibility}>
+                  onPress={() => setPasswordHidden(!passwordHidden)}>
                   <Image
                     source={
-                      this.state.passwordHidden
+                      passwordHidden
                         ? require('../../../assets/images/icons/eyeClosed.png')
                         : require('../../../assets/images/icons/eyeOpened.png')
                     }
@@ -229,15 +186,15 @@ class SignUpCredentials extends Component<INavigation, IState> {
               <TouchableOpacity
                 style={styles.nextButton}
                 onPress={(): void => {
-                  this.isInputValid()
-                    ? this.props.navigation.navigate('SignUpUserType', {
-                        firstName: this.state.first_name,
-                        lastName: this.state.last_name,
-                        email: this.state.email,
-                        phone: this.state.phone,
-                        password: this.state.password,
+                  isInputValid()
+                    ? navigation.navigate('SignUpUserType', {
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phone,
+                        password: password,
                       })
-                    : this.alertMandatoryFields();
+                    : alertMandatoryFields();
                 }}>
                 <Text style={styles.nextText}>
                   {' '}
@@ -250,7 +207,7 @@ class SignUpCredentials extends Component<INavigation, IState> {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.signInWithGoogleButton}
-                onPress={(): void => this.signInWithGoogle()}>
+                onPress={(): void => signInWithGoogle()}>
                 <Image
                   source={require('../../../assets/images/icons/googleIcon.png')}
                   style={styles.googleIcon}
@@ -266,7 +223,6 @@ class SignUpCredentials extends Component<INavigation, IState> {
         </SafeAreaView>
       </ImageBackground>
     );
-  }
 }
 
 export default SignUpCredentials;

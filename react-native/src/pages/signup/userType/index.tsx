@@ -16,19 +16,19 @@ import IAuth from '../../../api/authentication/IAuth';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import constant from '../../../constants';
 
-interface IProps extends INavigation {
+interface ISignUpUserType extends INavigation {
   route: any;
 }
 
 // This component corresponds to the second sign up page
-class SignUpUserType extends Component<IProps> {
-  constructor(props) {
-    super(props);
-    this.handleTutor = this.handleTutor.bind(this);
-  }
+const SignUpUserType : React.FunctionComponent<ISignUpUserType> = ({
+  route, 
+  navigation,
+} : ISignUpUserType) => {
 
+  const {firstName, lastName, email, phone, password} = route.params;
   // Send the tutor's information to the back-end
-  handleTutor = async (
+  const handleTutor = async (
     firstName,
     lastName,
     email,
@@ -57,15 +57,13 @@ class SignUpUserType extends Component<IProps> {
     const auth: IAuth = new TutorAuth();
     try {
       const user = await auth.signInWithEmailAndPassword({email, password});
-      this.props.navigation.navigate('Home');
+      navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);
     }
   };
 
-  render(): JSX.Element {
-    const {route} = this.props;
-    const {firstName, lastName, email, phone, password} = route.params;
+    
     return (
       <ImageBackground
         source={require('../../../assets/images/icons/signUpBackground.png')}
@@ -74,7 +72,7 @@ class SignUpUserType extends Component<IProps> {
           <View style={{flex: 1}}>
             <TouchableOpacity
               style={{position: 'absolute'}}
-              onPress={(): boolean => this.props.navigation.goBack()}>
+              onPress={(): boolean => navigation.goBack()}>
               <Image
                 source={require('../../../assets/images/icons/backBtn.png')}
                 style={styles.goBackButton}
@@ -94,7 +92,7 @@ class SignUpUserType extends Component<IProps> {
               <TouchableOpacity
                 style={styles.student}
                 onPress={(): void => {
-                  this.props.navigation.navigate('SignUpSelectCampus', {
+                  navigation.navigate('SignUpSelectCampus', {
                     firstName,
                     lastName,
                     email,
@@ -109,19 +107,18 @@ class SignUpUserType extends Component<IProps> {
               <TouchableOpacity
                 style={styles.tutor}
                 onPress={(): void => {
-                  this.handleTutor(firstName, lastName, email, phone, password);
+                  handleTutor(firstName, lastName, email, phone, password);
                 }}>
                 <Text style={styles.buttonText}>
                   {constant.signup.userType.tutor}
                 </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.footer}> {constant.common.goStudy} </Text>
+            <Text style={styles.footer}>{constant.common.goStudy}</Text>
           </View>
         </SafeAreaView>
       </ImageBackground>
     );
-  }
 }
 
 export default SignUpUserType;
