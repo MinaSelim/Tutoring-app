@@ -102,13 +102,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
             />
           </TouchableOpacity>
           <View
-            style={{
-              flex: 1,
-              marginBottom: 10,
-              marginLeft: 25,
-              marginRight: 25,
-              justifyContent: 'space-between',
-            }}>
+            style={styles.space}>
             <Text style={styles.selectYourCampus}>
               {' '}
               {constants.signup.selectCampus.selectYourCampus}

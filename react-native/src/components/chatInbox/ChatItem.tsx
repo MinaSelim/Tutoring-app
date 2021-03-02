@@ -5,7 +5,7 @@ import styles from './styles/ChatItemStyles';
 import ProfilePicture from '../common/profilePicture';
 import UnreadHint from './UnreadHint';
 
-const ChatItem: React.FC<IChatItem> = ({
+const ChatItem: React.FunctionComponent<IChatItem> = ({
   item,
   navigation,
 }: IChatItem): JSX.Element => (

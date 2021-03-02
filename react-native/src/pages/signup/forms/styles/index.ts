@@ -82,6 +82,13 @@ export default StyleSheet.create({
     color: colors.appSilver,
     fontFamily: fonts.quickSandBold,
   },
+  space : {
+    flex: 0.5,
+    marginLeft: '5%',
+    marginRight: '5%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   googleIcon: {
     width: 20,
     height: 22,

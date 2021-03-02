@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -77,13 +77,7 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
             />
           </TouchableOpacity>
           <View
-            style={{
-              height: 170,
-              marginBottom: 50,
-              justifyContent: 'space-between',
-              width: '100%',
-              marginTop: '50%',
-            }}>
+            style={styles.space}>
             <Text style={styles.iAmText}>
               {constant.signup.userType.identity}
             </Text>

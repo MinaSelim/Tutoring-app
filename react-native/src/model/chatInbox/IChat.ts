@@ -6,5 +6,11 @@ export default interface IChat {
   associatedClass: string;
   chatType: string;
   viewedChat: Array<string>;
-  latestMessage: Array<string>;
+  latestMessage: latestMessage;
+}
+
+interface latestMessage {
+  content : string;
+  sender : string;
+  date : number;
 }

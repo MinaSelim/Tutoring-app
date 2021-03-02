@@ -40,6 +40,13 @@ export default StyleSheet.create({
     marginBottom: 10,
     fontFamily: fonts.quickSandRegular,
   },
+  space : {
+    height: 170,
+    marginBottom: 50,
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: '50%',
+  },
   buttonText: {
     color: colors.appWhite,
     fontFamily: fonts.quickSandBold,

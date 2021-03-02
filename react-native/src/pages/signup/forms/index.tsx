@@ -13,7 +13,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {colors} from '../../../styles/appColors';
-import styles from '../../../components/signUp/signUpCredentials/styles/SignUpCredentialsStyles';
+import styles from './styles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import errorMessages from '../../../constants/errors';
@@ -176,13 +176,7 @@ const SignUpCredentials: React.FunctionComponent<ISignUpCredentials> = ({
             </View>
           </ScrollView>
           <View
-            style={{
-              flex: 0.5,
-              marginLeft: '5%',
-              marginRight: '5%',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-            }}>
+            style={styles.space}>
             <TouchableOpacity
               style={styles.nextButton}
               onPress={(): void => {

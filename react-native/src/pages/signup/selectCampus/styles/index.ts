@@ -61,6 +61,13 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  space : {
+    flex: 1,
+    marginBottom: 10,
+    marginLeft: 25,
+    marginRight: 25,
+    justifyContent: 'space-between',
+  },
   image: {
     width: '100%',
     height: '100%',
