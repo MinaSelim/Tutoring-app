@@ -265,28 +265,33 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          },
       };
 
-      const scanResults: ScanOutput = await this.databaseUtils.scan(params);
-
       const tutors: ITutor[] = [];
-      scanResults.Items.forEach((item) => {
-         tutors.push({
-            first_name: item.first_name.S,
-            last_name: item.last_name.S,
-            email: item.email.S,
-            firebase_uid: item.firebase_uid.S,
-            stripe_customer_id: item.stripe_customer_id.S,
-            is_validated: item.is_validated.BOOL,
-            profileImage: item.profileImage.S,
-            phone: item.phone.S,
-            tutor_info: {
-               campuses: item.tutor_info.M.campuses.SS,
-               chatrooms: item.tutor_info.M.chatrooms.SS,
-               overallRating: parseInt(item.tutor_info.M.overallRating.N),
-               numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
-               classes: item.tutor_info.M.classes.SS,
-            },
+
+      do {
+         const scanResults: ScanOutput = await this.databaseUtils.scan(params);
+
+         scanResults.Items.forEach((item) => {
+            tutors.push({
+               first_name: item.first_name.S,
+               last_name: item.last_name.S,
+               email: item.email.S,
+               firebase_uid: item.firebase_uid.S,
+               stripe_customer_id: item.stripe_customer_id.S,
+               is_validated: item.is_validated.BOOL,
+               profileImage: item.profileImage.S,
+               phone: item.phone.S,
+               tutor_info: {
+                  campuses: item.tutor_info.M.campuses.SS,
+                  chatrooms: item.tutor_info.M.chatrooms.SS,
+                  overallRating: parseInt(item.tutor_info.M.overallRating.N),
+                  numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+                  classes: item.tutor_info.M.classes.SS,
+               },
+            });
          });
-      });
+
+         params.ExclusiveStartKey = scanResults.LastEvaluatedKey;
+      } while (typeof params.ExclusiveStartKey != 'undefined');
 
       return tutors;
    };
