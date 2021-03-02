@@ -53,6 +53,7 @@ export default class TutorAuth implements IAuth {
         },
         body: JSON.stringify(tutor),
       });
+      await this.firebaseAuth.currentUser?.sendEmailVerification();
       return response;
     } catch (error) {
       console.log(error);
