@@ -56,7 +56,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       const tutor: ITutor = user as ITutor;
 
       tutor.tutor_info = {
-         campuses: data.Item.tutor_info.M.campus.SS,
+         campuses: data.Item.tutor_info.M.campuses.SS,
          chatrooms: data.Item.tutor_info.M.chatrooms.SS,
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
          numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),

@@ -379,7 +379,7 @@ export const getItemTutorDefined: GetItemOutput = {
       phone: {S: tutorDefined.phone},
       tutor_info: {
          M: {
-            campus: {SS: tutorDefined.tutor_info.campuses},
+            campuses: {SS: tutorDefined.tutor_info.campuses},
             chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
             overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
             numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
