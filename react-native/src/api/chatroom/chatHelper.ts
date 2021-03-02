@@ -19,10 +19,11 @@ export default class chatHelper {
     const chatRef: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
       .firestore()
       .collection(constants.chatroomCollection)
-      .where(constants.participantsArray, 'array-contains', [
-        currentUser,
-        otherUser,
-      ]);
+      .where(
+        constants.participantsArray,
+        'array-contains',
+        currentUser || otherUser,
+      );
     let userChatroomData: firebase.firestore.DocumentData = {};
 
     try {
