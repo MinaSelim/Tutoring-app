@@ -235,7 +235,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                last_name: item.last_name.S,
                email: item.email.S,
                firebase_uid: item.firebase_uid.S,
-               stripe_customer_id: item.stripe_customer_id.S,
+               stripe_customer_id: '',
                is_validated: item.is_validated.BOOL,
                profileImage: item.profileImage.S,
                phone: item.phone.S,
