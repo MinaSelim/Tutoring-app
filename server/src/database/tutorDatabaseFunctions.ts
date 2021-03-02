@@ -38,6 +38,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.last_seen = new Date().toLocaleString();
       }
 
+      if (!tutor.tutor_info.classes) {
+         tutor.tutor_info.classes = [''];
+      }
+
       return tutor;
    };
 
@@ -61,6 +65,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             numberOfReviews: {
                N: String(tutor.tutor_info.numberOfReviews),
             },
+            classes: {
+               SS: tutor.tutor_info.classes,
+            }
          },
       };
 
@@ -76,6 +83,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          last_seen: data.Item.tutor_info.M.last_seen.S,
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
          numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),
+         classes: data.Item.tutor_info.M.classes.SS,
       };
 
       return tutor;
@@ -234,6 +242,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                chatrooms: item.tutor_info.M.chatrooms.SS,
                overallRating: parseInt(item.tutor_info.M.overallRating.N),
                numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+               classes: item.tutor_info.M.classes.SS,
             },
          });
       });
@@ -274,6 +283,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                chatrooms: item.tutor_info.M.chatrooms.SS,
                overallRating: parseInt(item.tutor_info.M.overallRating.N),
                numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+               classes: item.tutor_info.M.classes.SS,
             },
          });
       });
