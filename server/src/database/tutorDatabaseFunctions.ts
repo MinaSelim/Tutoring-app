@@ -241,11 +241,11 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       return tutors;
    };
 
-
    public getTutorsForClass = async (campus: string, classCode: string): Promise<ITutor[]> => {
       const params: ScanInput = {
          TableName: config.tableNames.USER,
-         FilterExpression: 'attribute_exists(tutor_info) and contains(tutor_info.campuses, :cm) and contains(tutor_info.classes, :cl)',
+         FilterExpression:
+            'attribute_exists(tutor_info) and contains(tutor_info.campuses, :cm) and contains(tutor_info.classes, :cl)',
          ExpressionAttributeValues: {
             ':cm': {
                S: campus,
@@ -254,7 +254,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                S: classCode,
             },
          },
-      }
+      };
 
       const scanResults: ScanOutput = await this.databaseUtils.scan(params);
 
@@ -280,5 +280,4 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       return tutors;
    };
-  
 }
