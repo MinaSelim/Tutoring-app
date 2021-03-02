@@ -26,6 +26,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.numberOfReviews = 0;
       }
 
+      if (!tutor.tutor_info.last_seen) {
+         tutor.tutor_info.last_seen = new Date().toLocaleString();
+      }
+
       return tutor;
    };
 
@@ -39,6 +43,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             },
             chatrooms: {
                SS: tutor.tutor_info.chatrooms,
+            },
+            last_seen: {
+               S: tutor.tutor_info.last_seen,
             },
             overallRating: {
                N: String(tutor.tutor_info.overallRating),
@@ -58,6 +65,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       tutor.tutor_info = {
          campuses: data.Item.tutor_info.M.campus.SS,
          chatrooms: data.Item.tutor_info.M.chatrooms.SS,
+         last_seen: data.Item.tutor_info.M.last_seen.S,
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
          numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),
       };
@@ -120,6 +128,25 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
       return data.Attributes.tutor_info.M.chatrooms.SS;
+   };
+
+   public updateLastSeen = async (tutorId: string, date: Date): Promise<void> => {
+      const updateItemParams: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: tutorId,
+            },
+         },
+         UpdateExpression: 'SET tutor_info.last_seen = :ls',
+         ExpressionAttributeValues: {
+            ':ls': {
+               S: date.toLocaleString(),
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+      this.databaseUtils.updateItem(updateItemParams);
    };
 
    public updateOverallRating = async (newReview: IReview): Promise<void> => {
