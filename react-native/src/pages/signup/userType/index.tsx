@@ -15,6 +15,8 @@ import ITutor from '../../../model/common/ITutor';
 import IAuth from '../../../api/authentication/IAuth';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import constant from '../../../constants';
+import useAuthUser from '../../../hooks/authUser';
+import useUserType from '../../../hooks/userType';
 
 interface ISignUpUserType extends INavigation {
   route: any;
@@ -25,6 +27,8 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
   route,
   navigation,
 }: ISignUpUserType) => {
+  const setAuthUser = useAuthUser()[1];
+  const [, setUserType] = useUserType();
   const {firstName, lastName, email, phone, password} = route.params;
   // Send the tutor's information to the back-end
   const handleTutor = async (
@@ -56,6 +60,8 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
     const auth: IAuth = new TutorAuth();
     try {
       const user = await auth.signInWithEmailAndPassword({email, password});
+      setAuthUser(user);
+      setUserType('tutor');
       navigation.navigate('Home');
     } catch (error) {
       Alert.alert(`${error}`);

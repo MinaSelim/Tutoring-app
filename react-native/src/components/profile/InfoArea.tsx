@@ -9,7 +9,12 @@ import {
   Alert,
   View,
 } from 'react-native';
-import IInfoArea from 'model/profile/IInfoArea';
+import IUser from '../../model/common/IUser';
+
+interface IInfoArea {
+  tempUser: IUser;
+  userType: string;
+}
 
 const InfoArea: React.FunctionComponent<IInfoArea> = ({
   tempUser,

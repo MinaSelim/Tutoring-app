@@ -5,12 +5,13 @@ import {SafeAreaView} from 'react-navigation';
 import React, {useState} from 'react';
 import InfoArea from './InfoArea';
 import styles from './styles/ProfileStyles';
-import buttonStyles from '../sideBar/styles/styles';
+import buttonStyles from '../common/sideBar/styles/styles';
 import UserUpdate from '../../api/profile/UserUpdate';
 import useAuthUser from '../../hooks/authUser';
 import IUser from '../../model/common/IUser';
 import useUserType from '../../hooks/userType';
 import {useTheme} from '@ui-kitten/components';
+import constants from '../../constants';
 
 const Profile = (): JSX.Element => {
   const theme = useTheme();
@@ -34,6 +35,12 @@ const Profile = (): JSX.Element => {
     if (tempUser!.first_name === '' || tempUser!.last_name === '') {
       Alert.alert(
         'Your name cannot be empty. \nPlease retry with a valid change.',
+      );
+      return false;
+    }
+    if (tempUser!.first_name.match(/\d/) || tempUser!.last_name.match(/\d/)) {
+      Alert.alert(
+        'Your name cannot contain a number. \nPlease retry with a valid change.',
       );
       return false;
     }
@@ -75,7 +82,7 @@ const Profile = (): JSX.Element => {
         status="control"
         accessoryLeft={PersonIcon}
         size="giant">
-        Profile
+        {constants.commonComponents.sidebar.profile}
       </Button>
       <Modal visible={isProfileVisible} transparent={true} animationType="fade">
         <SafeAreaView forceInset={{bottom: 'never'}} style={styles.safeArea}>
