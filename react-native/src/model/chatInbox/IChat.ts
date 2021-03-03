@@ -10,7 +10,7 @@ export default interface IChat {
 }
 
 interface latestMessage {
-  content : string;
-  sender : string;
-  date : number;
+  content: string;
+  sender: string;
+  date: number;
 }

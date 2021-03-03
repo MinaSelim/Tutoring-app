@@ -11,24 +11,33 @@ import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
 import ChatUI from './src/components/chat/ChatUI';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigator: React.FunctionComponent = () => {
+const Stack = createStackNavigator();
+const HomeNavigation: React.FunctionComponent = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props): React.ReactElement => <SideBar props={props} />}
-      initialRouteName="SignInMenu"
+      initialRouteName="Home"
       drawerType="slide">
-      <Drawer.Screen name="SignInMenu" component={SignInMenu} />
-      <Drawer.Screen name="SignUpCredentials" component={SignUpCredentials} />
-      <Drawer.Screen name="SignUpUserType" component={SignUpUserType} />
-      <Drawer.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
       <Drawer.Screen name="Home" component={HomeUI} />
-      <Drawer.Screen name="MyChats" component={chatInbox} />
-      <Drawer.Screen name="TutorSearch" component={TutorSearch} />
-      <Drawer.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
-      <Drawer.Screen name="ChatUI" component={ChatUI} />
     </Drawer.Navigator>
+  );
+};
+const StackNavigator: React.FunctionComponent = () => {
+  return (
+    <Stack.Navigator initialRouteName="SignInMenu">
+      <Stack.Screen name="SignInMenu" component={SignInMenu} />
+      <Stack.Screen name="SignUpCredentials" component={SignUpCredentials} />
+      <Stack.Screen name="SignUpUserType" component={SignUpUserType} />
+      <Stack.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
+      <Stack.Screen name="Home" component={HomeNavigation} />
+      <Stack.Screen name="MyChats" component={chatInbox} />
+      <Stack.Screen name="TutorSearch" component={TutorSearch} />
+      <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
+      <Stack.Screen name="ChatUI" component={ChatUI} />
+    </Stack.Navigator>
   );
 };
 
@@ -43,11 +52,9 @@ const Transparent = {
 class RouteStack extends Component {
   render(): React.ReactNode {
     return (
-      <>
-        <NavigationContainer theme={Transparent}>
-          <DrawerNavigator />
-        </NavigationContainer>
-      </>
+      <NavigationContainer theme={Transparent}>
+        <StackNavigator />
+      </NavigationContainer>
     );
   }
 }

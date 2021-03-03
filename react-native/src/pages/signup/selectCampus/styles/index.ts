@@ -61,7 +61,7 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  space : {
+  space: {
     flex: 1,
     marginBottom: 10,
     marginLeft: 25,

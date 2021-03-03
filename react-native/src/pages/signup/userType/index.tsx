@@ -76,8 +76,7 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
               style={styles.goBackButton}
             />
           </TouchableOpacity>
-          <View
-            style={styles.space}>
+          <View style={styles.space}>
             <Text style={styles.iAmText}>
               {constant.signup.userType.identity}
             </Text>

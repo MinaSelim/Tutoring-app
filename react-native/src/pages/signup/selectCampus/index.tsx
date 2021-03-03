@@ -101,8 +101,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
               style={styles.goBackButton}
             />
           </TouchableOpacity>
-          <View
-            style={styles.space}>
+          <View style={styles.space}>
             <Text style={styles.selectYourCampus}>
               {' '}
               {constants.signup.selectCampus.selectYourCampus}
