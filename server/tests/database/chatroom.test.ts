@@ -3,14 +3,29 @@ import Sinon from 'Sinon';
 import databaseUtils from '../../src/database/databaseUtils';
 import Dynamo from '../../src/database/dynamo';
 import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
-import {getItemChatroomResolves, getItemInputChatroomStudentDefined, studentDefined} from '../utils/templates';
+import tutorDatabaseFunctions from '../../src/database/tutorDatabaseFunctions';
 
-describe.only('Chatrooms database functions', () => {
+import {
+   awsError,
+   getItemChatroomStudentResolves,
+   getItemInputChatroomStudentDefined,
+   getItemRejects,
+   studentDefined,
+   updateItemOutputStudentChatroomResolves,
+   updateItemOutputRejects,
+   getItemChatroomTutorResolves,
+   getItemInputChatroomTutorDefined,
+   tutorDefined,
+   updateItemOutputTutorChatroomResolves,
+} from '../utils/templates';
+
+describe('Chatrooms database functions', () => {
    describe('Student chatrooms', () => {
       let studentdb: studentDatabaseFunctions;
       let dbUtils: databaseUtils;
       let sandbox: Sinon.SinonSandbox;
       let dynamo: AWS.DynamoDB;
+
       beforeEach(() => {
          // Stub all calls to dynamo
          dynamo = Dynamo.getInstance();
@@ -24,66 +39,170 @@ describe.only('Chatrooms database functions', () => {
          sandbox.restore();
       });
 
-      it.only('Should get chatrooms', () => {
-         sandbox.stub(dynamo, 'getItem').returns(getItemChatroomResolves);
+      it('Should get chatrooms', () => {
+         sandbox
+            .stub(dynamo, 'getItem')
+            .withArgs(Sinon.match(getItemInputChatroomStudentDefined))
+            .returns(getItemChatroomStudentResolves);
+         const spy = sandbox.spy(dbUtils, 'getItem');
+
+         return studentdb.getChatrooms(studentDefined.firebase_uid).then((res) => {
+            assert(spy.calledWith(getItemInputChatroomStudentDefined));
+            assert.equal(res, studentDefined.student_info.chatrooms);
+         });
+      });
+
+      it('Should fail to get chatrooms', () => {
+         sandbox
+            .stub(dynamo, 'getItem')
+            .withArgs(Sinon.match(getItemInputChatroomStudentDefined))
+            .returns(getItemRejects);
          const spy = sandbox.spy(dbUtils, 'getItem');
 
          return studentdb
             .getChatrooms(studentDefined.firebase_uid)
-            .then((res) => {
-               assert(spy.calledWith(getItemInputChatroomStudentDefined));
-               assert.equal(res, studentDefined.student_info.chatrooms);
+            .then(() => {
+               assert.fail('Get chatroom should fail with aws error');
             })
             .catch((err) => {
-               console.log(err);
-               assert.fail();
+               assert(spy.calledWith(getItemInputChatroomStudentDefined));
+               assert.equal(err, awsError);
             });
       });
 
-      it('Should fail to get chatrooms', () => {
-         return Promise.resolve();
-      });
-
       it('Should add chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputStudentChatroomResolves);
+
+         return studentdb.addChatroom(studentDefined.firebase_uid, 'chatId').then((res) => {
+            assert.equal(res, studentDefined.student_info.chatrooms);
+         });
       });
 
       it('Should fail to add chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+
+         return studentdb
+            .addChatroom(studentDefined.firebase_uid, 'chatId')
+            .then(() => {
+               assert.fail('Should fail to add chatroom');
+            })
+            .catch((err) => {
+               assert.equal(err, awsError);
+            });
       });
 
       it('Should remove chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputStudentChatroomResolves);
+
+         return studentdb.removeChatroom(studentDefined.firebase_uid, 'chatId').then((res) => {
+            assert.equal(res, studentDefined.student_info.chatrooms);
+         });
       });
 
       it('Should fail to remove chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+
+         return studentdb
+            .removeChatroom(studentDefined.firebase_uid, 'chatId')
+            .then(() => {
+               assert.fail('Should fail to add chatroom');
+            })
+            .catch((err) => {
+               assert.equal(err, awsError);
+            });
       });
    });
 
    describe('Tutor chatrooms', () => {
+      let tutordb: tutorDatabaseFunctions;
+      let dbUtils: databaseUtils;
+      let sandbox: Sinon.SinonSandbox;
+      let dynamo: AWS.DynamoDB;
+
+      beforeEach(() => {
+         // Stub all calls to dynamo
+         dynamo = Dynamo.getInstance();
+         sandbox = Sinon.createSandbox();
+         tutordb = new tutorDatabaseFunctions();
+         dbUtils = databaseUtils.getInstance();
+      });
+
+      afterEach(() => {
+         // cleanup
+         sandbox.restore();
+      });
+
       it('Should get chatrooms', () => {
-         return Promise.resolve();
+         sandbox
+            .stub(dynamo, 'getItem')
+            .withArgs(Sinon.match(getItemInputChatroomTutorDefined))
+            .returns(getItemChatroomTutorResolves);
+         const spy = sandbox.spy(dbUtils, 'getItem');
+
+         return tutordb.getChatrooms(tutorDefined.firebase_uid).then((res) => {
+            assert(spy.calledWith(getItemInputChatroomTutorDefined));
+            assert.equal(res, tutorDefined.tutor_info.chatrooms);
+         });
       });
 
       it('Should fail to get chatrooms', () => {
-         return Promise.resolve();
+         sandbox
+            .stub(dynamo, 'getItem')
+            .withArgs(Sinon.match(getItemInputChatroomTutorDefined))
+            .returns(getItemRejects);
+         const spy = sandbox.spy(dbUtils, 'getItem');
+
+         return tutordb
+            .getChatrooms(tutorDefined.firebase_uid)
+            .then(() => {
+               assert.fail('Get chatroom should fail with aws error');
+            })
+            .catch((err) => {
+               assert(spy.calledWith(getItemInputChatroomTutorDefined));
+               assert.equal(err, awsError);
+            });
       });
 
       it('Should add chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputTutorChatroomResolves);
+
+         return tutordb.addChatroom(tutorDefined.firebase_uid, 'chatId').then((res) => {
+            assert.equal(res, tutorDefined.tutor_info.chatrooms);
+         });
       });
 
       it('Should fail to add chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+
+         return tutordb
+            .addChatroom(tutorDefined.firebase_uid, 'chatId')
+            .then(() => {
+               assert.fail('Should fail to add chatroom');
+            })
+            .catch((err) => {
+               assert.equal(err, awsError);
+            });
       });
 
       it('Should remove chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputTutorChatroomResolves);
+
+         return tutordb.removeChatroom(tutorDefined.firebase_uid, 'chatId').then((res) => {
+            assert.equal(res, tutorDefined.tutor_info.chatrooms);
+         });
       });
 
       it('Should fail to remove chatrooms', () => {
-         return Promise.resolve();
+         sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+
+         return tutordb
+            .removeChatroom(tutorDefined.firebase_uid, 'chatId')
+            .then(() => {
+               assert.fail('Should fail to add chatroom');
+            })
+            .catch((err) => {
+               assert.equal(err, awsError);
+            });
       });
    });
 });

@@ -6,6 +6,8 @@ import {
    GetItemOutput,
    PutItemInput,
    PutItemOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
 import IStudent from '../../src/models/IStudent';
 import ITutor from '../../src/models/ITutor';
@@ -19,8 +21,8 @@ import ITutor from '../../src/models/ITutor';
 // --------------------------------------------
 export const databaseConfig = {
    tableNames: {
-      USER: 'U',
-      REVIEWS: 'R',
+      USER: 'User',
+      REVIEWS: 'Reviews',
    },
 };
 
@@ -423,32 +425,87 @@ export const getItemRejects = ({
 // Chatroom variables
 // --------------------------------------------
 export const getItemInputChatroomStudentDefined: GetItemInput = {
-   Key: {
-      firebase_uid: {
-         S: studentDefined.firebase_uid,
-      },
-   },
+   Key: {firebase_uid: {S: studentDefined.firebase_uid}},
    ProjectionExpression: 'student_info.chatrooms',
    TableName: databaseConfig.tableNames.USER,
 };
 
+export const getItemInputChatroomTutorDefined: GetItemInput = {
+   Key: {firebase_uid: {S: tutorDefined.firebase_uid}},
+   ProjectionExpression: 'tutor_info.chatrooms',
+   TableName: databaseConfig.tableNames.USER,
+};
+
 export const getItemOutputChatroomStudent: GetItemOutput = {
-   Item: {
-      student_info: {
-         M: {
-            chatrooms: {SS: studentDefined.student_info.chatrooms},
-         },
-      },
-   },
+   Item: {student_info: {M: {chatrooms: {SS: studentDefined.student_info.chatrooms}}}},
    ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
-export const getItemChatroomResolves = ({
+export const getItemOutputChatroomTutor: GetItemOutput = {
+   Item: {tutor_info: {M: {chatrooms: {SS: tutorDefined.tutor_info.chatrooms}}}},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const getItemChatroomStudentResolves = ({
    promise() {
       return Promise.resolve(getItemOutputChatroomStudent);
    },
 } as unknown) as AWS.Request<GetItemOutput, AWSError>;
 
+export const getItemChatroomTutorResolves = ({
+   promise() {
+      return Promise.resolve(getItemOutputChatroomTutor);
+   },
+} as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
+// todo what is chat id?
+export const updateItemInputChatroom: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: studentDefined.firebase_uid}},
+   UpdateExpression: 'ADD student_info.chatrooms :cr',
+   ExpressionAttributeValues: {':cr': {SS: ['chadId']}},
+   ReturnValues: 'UPDATED_NEW',
+};
+
+export const updateItemInputDeleteChatroom: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: studentDefined.firebase_uid}},
+   UpdateExpression: 'DELETE student_info.chatrooms :cr',
+   ExpressionAttributeValues: {':cr': {SS: ['chadId']}},
+   ReturnValues: 'UPDATED_NEW',
+};
+
+export const updateItemOutputStudentChatroom: UpdateItemOutput = {
+   Attributes: {
+      student_info: {M: {chatrooms: {SS: studentDefined.student_info.chatrooms}}},
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputTutorChatroom: UpdateItemOutput = {
+   Attributes: {
+      tutor_info: {M: {chatrooms: {SS: tutorDefined.tutor_info.chatrooms}}},
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputStudentChatroomResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputStudentChatroom);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+export const updateItemOutputTutorChatroomResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputTutorChatroom);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+export const updateItemOutputRejects = ({
+   promise() {
+      return Promise.reject(awsError);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
 
 // --------------------------------------------
 // Firebase variables
