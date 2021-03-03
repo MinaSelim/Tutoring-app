@@ -53,6 +53,7 @@ export default class StudentAuth implements IAuth {
         },
         body: JSON.stringify(student),
       });
+      await this.firebaseAuth.currentUser?.sendEmailVerification();
       return response;
     } catch (error) {
       console.error(error);
