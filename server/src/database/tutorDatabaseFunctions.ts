@@ -242,6 +242,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                tutor_info: {
                   campuses: item.tutor_info.M.campuses.SS,
                   chatrooms: item.tutor_info.M.chatrooms.SS,
+                  last_seen: item.tutor_info.M.last_seen.S,
                   overallRating: parseInt(item.tutor_info.M.overallRating.N),
                   numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
                   classes: item.tutor_info.M.classes.SS,
