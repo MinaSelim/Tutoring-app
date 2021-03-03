@@ -82,7 +82,7 @@ export default StyleSheet.create({
     color: colors.appSilver,
     fontFamily: fonts.quickSandBold,
   },
-  space : {
+  space: {
     flex: 0.5,
     marginLeft: '5%',
     marginRight: '5%',

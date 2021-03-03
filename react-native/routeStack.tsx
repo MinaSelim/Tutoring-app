@@ -52,11 +52,9 @@ const Transparent = {
 class RouteStack extends Component {
   render(): React.ReactNode {
     return (
-      <>
-        <NavigationContainer theme={Transparent}>
-          <StackNavigator />
-        </NavigationContainer>
-      </>
+      <NavigationContainer theme={Transparent}>
+        <StackNavigator />
+      </NavigationContainer>
     );
   }
 }

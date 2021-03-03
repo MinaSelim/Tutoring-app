@@ -175,8 +175,7 @@ const SignUpCredentials: React.FunctionComponent<ISignUpCredentials> = ({
               </TouchableOpacity>
             </View>
           </ScrollView>
-          <View
-            style={styles.space}>
+          <View style={styles.space}>
             <TouchableOpacity
               style={styles.nextButton}
               onPress={(): void => {

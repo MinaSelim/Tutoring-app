@@ -40,7 +40,7 @@ export default StyleSheet.create({
     marginBottom: 10,
     fontFamily: fonts.quickSandRegular,
   },
-  space : {
+  space: {
     height: 170,
     marginBottom: 50,
     justifyContent: 'space-between',
