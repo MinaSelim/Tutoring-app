@@ -3,11 +3,11 @@ import firebase from '../../api/authentication/Fire';
 import {FlatList, View} from 'react-native';
 import 'react-native-gesture-handler';
 import {useStyleSheet, Layout, Text, Divider} from '@ui-kitten/components';
-import {chatStyles} from '../../components/ChatUI/styles/chatStyles';
-import MessageRow from '../../components/ChatUI/MessageRow';
+import {chatStyles} from '../../components/chat/styles/chatStyles';
+import MessageRow from '../../components/chat/MessageRow';
 import IMessage from '../../model/IMessage';
-import ChatHeader from '../../components/ChatUI/ChatHeader';
-import ChatInput from '../../components/ChatUI/ChatInput';
+import ChatHeader from '../../components/chat/ChatHeader';
+import ChatInput from '../../components/chat/ChatInput';
 import GenericChat from '../../api/chatroom/GenericChat';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import Message from '../../api/chatroom/components/Message';
@@ -17,8 +17,8 @@ import moment from 'moment';
 
 const chatAPI: GenericChat = new GenericChat();
 //TO DO: get these values with DYNAMO DB User model
-const userID: string = 'sQ3hsTOxYZdjffVY6lNA0Mwt0iy2';
-const chatID: string = 'YT7Pxekhhcf4U2JRV89b';
+const userID: string = 'Ttu6xKu4sAcqaV6qhpvBd4p1IYR2';
+const chatID: string = 'wm6y8rsVz1sGmQqW7JsM';
 let newDay = false;
 let initialLoad = true;
 

@@ -4,7 +4,6 @@ import {KeyboardAvoidingView, Platform} from 'react-native';
 import {Button, Icon, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
 import GenericChat from '../../api/chatroom/GenericChat';
-import {PropsService} from '@ui-kitten/components/devsupport';
 
 const chatAPI: GenericChat = new GenericChat();
 interface IChatInfo {

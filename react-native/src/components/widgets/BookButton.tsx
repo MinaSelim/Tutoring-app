@@ -1,12 +1,12 @@
 import React from 'react';
 import {Button, Text} from '@ui-kitten/components';
-import chatStyles from '../ChatUI/styles/chatStyles';
-import ITutor from 'model/common/ITutor';
+import chatStyles from '../chat/styles/chatStyles';
 import {
   NavigationParams,
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
+import constants from '../../constants';
 
 interface IChatBook {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
@@ -20,7 +20,7 @@ const BookButton = ({navigation}): JSX.Element => {
       onPress={(): boolean => navigation.navigate('Booking')}>
       {(evaProps): JSX.Element => (
         <Text style={chatStyles.bookButtonText} {...evaProps}>
-          Book
+          {constants.chat.chatHeader.Book}
         </Text>
       )}
     </Button>

@@ -9,7 +9,7 @@ import SideBar from './src/components/common/sideBar';
 import chatInbox from './src/pages/chatInbox';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
-import ChatUI from './src/pages/chat/index';
+import Chat from './src/pages/chat/index';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import Booking from './src/components/booking/booking';
