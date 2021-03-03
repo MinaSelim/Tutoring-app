@@ -79,7 +79,7 @@ const Chat = ({navigation}): JSX.Element => {
   const renderWelcome = (): JSX.Element => {
     return (
       <Text appearance="hint" style={chatStyles.welcomeMessage}>
-        This is the start of your direct message history with Jessie Allen.
+        This is the start of your direct message history with {userID}.
       </Text>
     );
   };

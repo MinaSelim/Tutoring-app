@@ -37,7 +37,8 @@ const StackNavigator: React.FunctionComponent = () => {
       <Stack.Screen name="MyChats" component={chatInbox} />
       <Stack.Screen name="TutorSearch" component={TutorSearch} />
       <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
-      <Stack.Screen name="ChatUI" component={ChatUI} />
+      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen name="Booking" component={Booking} />
     </Stack.Navigator>
   );
 };

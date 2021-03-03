@@ -15,7 +15,7 @@ const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
 
 const renderTitle = (): JSX.Element => (
   <TouchableOpacity>
-    <Text style={chatStyles.chatTitle}>Jessie Allen</Text>
+    <Text style={chatStyles.chatTitle} />
     <Text style={chatStyles.chatSubTitle}>
       {constants.chat.chatHeader.ViewDetails}
     </Text>
