@@ -2,6 +2,8 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {Text} from '@ui-kitten/components';
 import styles from './styles/ProfileStyles';
+import constants from '../../constants/index';
+import errors from '../../constants/errors';
 import {
   TextInput,
   TouchableOpacity,
@@ -22,7 +24,7 @@ const InfoArea: React.FunctionComponent<IInfoArea> = ({
 }): JSX.Element => {
   return (
     <ScrollView contentContainerStyle={styles.infoArea}>
-      <Text style={styles.text}>First name</Text>
+      <Text style={styles.text}>{constants.profile.firstName}</Text>
       <TextInput
         defaultValue={tempUser!.first_name}
         style={styles.inputBox}
@@ -30,8 +32,7 @@ const InfoArea: React.FunctionComponent<IInfoArea> = ({
           tempUser!.first_name = nextValue;
         }}
       />
-
-      <Text style={styles.text}>Last name</Text>
+      <Text style={styles.text}>{constants.profile.lastName}</Text>
       <TextInput
         defaultValue={tempUser!.last_name}
         style={styles.inputBox}
@@ -39,7 +40,7 @@ const InfoArea: React.FunctionComponent<IInfoArea> = ({
           tempUser!.last_name = nextValue;
         }}
       />
-      <Text style={styles.text}>Phone Number</Text>
+      <Text style={styles.text}>{constants.profile.phone}</Text>
       <TextInput
         defaultValue={tempUser!.phone}
         style={styles.inputBox}
@@ -47,15 +48,17 @@ const InfoArea: React.FunctionComponent<IInfoArea> = ({
           tempUser!.phone = nextValue;
         }}
       />
-      <Text style={styles.text}>Password</Text>
+      <Text style={styles.text}>{constants.profile.password}</Text>
       <TouchableOpacity
         style={styles.passwordButton}
-        onPress={(): void => Alert.alert('Currently unavailable')}>
-        <Text style={styles.buttonText}>change password</Text>
+        onPress={(): void => Alert.alert(errors.profile.currentlyUnavailable)}>
+        <Text style={styles.buttonText}>
+          {constants.profile.changePassword}
+        </Text>
       </TouchableOpacity>
       <View
         style={userType.includes('student') ? styles.hiddenDescription : null}>
-        <Text style={styles.text}>Description</Text>
+        <Text style={styles.text}>{constants.profile.description}</Text>
         <TextInput
           placeholder="Description not yet available..."
           multiline={true}
@@ -66,7 +69,7 @@ const InfoArea: React.FunctionComponent<IInfoArea> = ({
           //TODO add event when description added to user model
         />
       </View>
-      <Text style={styles.text}>ID</Text>
+      <Text style={styles.text}>{constants.profile.id}</Text>
       <Text>{tempUser!.firebase_uid}</Text>
     </ScrollView>
   );

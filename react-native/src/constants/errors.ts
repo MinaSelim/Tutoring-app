@@ -9,6 +9,15 @@ const errors = {
     fillInformation: 'Please fill the required information before proceeding.',
   },
   signin: {},
+  profile: {
+    emptyName: 'Your name cannot be empty. \nPlease retry with a valid change.',
+    nameContainsNumber:
+      'Your name cannot contain a number. \nPlease retry with a valid change.',
+    phoneNonDigits:
+      'Your phone number must only contain digits. \nPlease retry with a valid change.',
+    currentlyUnavailable: 'Currently unavailable',
+    userInfo: 'There was an problem accessing your user information.',
+  },
 };
 
 export default errors;

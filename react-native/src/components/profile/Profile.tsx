@@ -12,6 +12,7 @@ import IUser from '../../model/common/IUser';
 import useUserType from '../../hooks/userType';
 import {useTheme} from '@ui-kitten/components';
 import constants from '../../constants';
+import errors from '../../constants/errors';
 
 const Profile = (): JSX.Element => {
   const theme = useTheme();
@@ -33,21 +34,15 @@ const Profile = (): JSX.Element => {
   };
   const validChange = (): boolean => {
     if (tempUser!.first_name === '' || tempUser!.last_name === '') {
-      Alert.alert(
-        'Your name cannot be empty. \nPlease retry with a valid change.',
-      );
+      Alert.alert(errors.profile.emptyName);
       return false;
     }
     if (tempUser!.first_name.match(/\d/) || tempUser!.last_name.match(/\d/)) {
-      Alert.alert(
-        'Your name cannot contain a number. \nPlease retry with a valid change.',
-      );
+      Alert.alert(errors.profile.nameContainsNumber);
       return false;
     }
     if (isNaN(tempUser!.phone)) {
-      Alert.alert(
-        'Your phone number must only contain digits. \nPlease retry with a valid change.',
-      );
+      Alert.alert(errors.profile.phoneNonDigits);
       return false;
     }
     return true;
@@ -70,9 +65,7 @@ const Profile = (): JSX.Element => {
       <Button
         onPress={(): void => {
           if (tempUser == null) {
-            Alert.alert(
-              'There was an problem accessing your user information.',
-            );
+            Alert.alert(errors.profile.userInfo);
           } else {
             setProfileVisibility(true);
           }
@@ -97,13 +90,13 @@ const Profile = (): JSX.Element => {
                     setProfileVisibility(false);
                   }}
                 />
-                <Text style={styles.title}>Profile</Text>
+                <Text style={styles.title}>{constants.profile.profile}</Text>
                 <Button
                   appearance="ghost"
                   size="giant"
                   style={styles.saveButton}
                   onPress={(): Promise<void> => updateUser()}>
-                  Save
+                  {constants.profile.save}
                 </Button>
               </View>
               <TouchableOpacity>
@@ -118,7 +111,9 @@ const Profile = (): JSX.Element => {
             <InfoArea tempUser={tempUser} userType={userType} />
             <TouchableOpacity style={styles.termsAndConditionsButton}>
               {/* TODO Add link for terms and conditions */}
-              <Text style={styles.text}>Terms & Conditions</Text>
+              <Text style={styles.text}>
+                {constants.profile.termsAndConditions}
+              </Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
