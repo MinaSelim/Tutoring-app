@@ -3,6 +3,23 @@ import {colors} from '../../../../styles/appColors';
 import {fonts} from '../../../../styles/appFonts';
 
 export default StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    alignItems: 'stretch',
+  },
+  bigView: {
+    flex: 1,
+  },
+  backButton: {
+    position: 'absolute',
+  },
+  middleView: {
+    height: 170,
+    marginBottom: 50,
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: '50%',
+  },
   student: {
     backgroundColor: colors.appOrange,
     margin: 5,

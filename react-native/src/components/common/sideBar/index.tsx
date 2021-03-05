@@ -12,10 +12,8 @@ import {
 import constants from '../../../constants';
 import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
+import Profile from '../../profile/Profile';
 
-const PersonIcon = (props): JSX.Element => (
-  <Icon {...props} name="person-outline" />
-);
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />
 );
@@ -58,14 +56,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
             style={styles.avatar}
           />
         </Layout>
-        <Button
-          style={styles.button}
-          appearance="ghost"
-          status="control"
-          accessoryLeft={PersonIcon}
-          size="giant">
-          {constants.commonComponents.sidebar.profile}
-        </Button>
+        <Profile />
         <Button
           style={styles.button}
           appearance="ghost"

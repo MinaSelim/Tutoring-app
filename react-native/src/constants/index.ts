@@ -69,6 +69,18 @@ const constants = {
       termsAndConditions: 'Terms and Conditions',
     },
   },
+  profile: {
+    firstName: 'First name',
+    lastName: 'Last name',
+    phone: 'Phone Number',
+    password: 'Password',
+    changePassword: 'change password',
+    description: 'Description',
+    id: 'ID',
+    termsAndConditions: 'Terms & Conditions',
+    profile: 'Profile',
+    save: 'Save',
+  },
   tutorSearch: {},
   groupSearch: {},
 };

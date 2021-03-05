@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginBottom: 18,
     marginLeft: 20,
     fontFamily: fonts.quickSandBold,
-    marginTop: '15%',
+    marginTop: '5%',
   },
   icon: {
     width: '60%',
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     marginBottom: 28,
   },
   inputView: {
-    marginBottom: 40,
+    marginBottom: 25,
     width: '85%',
   },
   input: {
@@ -129,6 +129,7 @@ export default StyleSheet.create({
   signInWithGoogleButton: {
     backgroundColor: colors.appLightGrey,
     margin: 5,
+    marginTop: 8,
     marginBottom: 20,
     height: 50,
     width: '85%',
