@@ -16,6 +16,7 @@ import useAuthUser from '../../../hooks/authUser';
 import Profile from '../../profile/Profile';
 import {useNavigation} from '@react-navigation/native';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
+import CampusSelect from './../../campusSelect/CampusSelect';
 
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />
@@ -25,9 +26,6 @@ const CreditCardIcon = (props): JSX.Element => (
 );
 const HistoryIcon = (props): JSX.Element => (
   <Icon {...props} name="archive-outline" />
-);
-const CampusIcon = (props): JSX.Element => (
-  <Icon {...props} name="home-outline" />
 );
 const BookIcon = (props): JSX.Element => (
   <Icon {...props} name="book-outline" />
@@ -111,14 +109,7 @@ const SideBar: React.FunctionComponent<any> = () => {
           size="giant">
           {constants.commonComponents.sidebar.accountHistory}
         </Button>
-        <Button
-          style={styles.button}
-          appearance="ghost"
-          status="control"
-          accessoryLeft={CampusIcon}
-          size="giant">
-          {constants.commonComponents.sidebar.selectCampus}
-        </Button>
+        <CampusSelect />
         <Divider style={styles.divider} />
         <Button
           style={styles.button}

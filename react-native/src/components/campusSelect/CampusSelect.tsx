@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles/CampusSelectStyles';
-import buttonStyles from '../sideBar/styles/styles';
+import buttonStyles from '../common/sideBar/styles/styles';
 import 'react-native-gesture-handler';
 import background from '../../assets/images/icons/signUpBackground.png';
 import TutorCampusSearch from './TutorCampusSearch';
+import constants from '../../constants/index';
 
 const CampusSelect = (): JSX.Element => {
   const [isCampusSelectVisible, setCampusSelectVisibility] = useState(false);
@@ -41,7 +42,7 @@ const CampusSelect = (): JSX.Element => {
         status="control"
         accessoryLeft={CampusIcon}
         size="giant">
-        Select Campus
+        {constants.commonComponents.sidebar.selectCampus}
       </Button>
       <Modal
         visible={isCampusSelectVisible}

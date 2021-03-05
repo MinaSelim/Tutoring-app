@@ -41,11 +41,6 @@ export default StyleSheet.create({
     fontSize: 22,
     fontFamily: fonts.quickSandRegular,
   },
-  listText: {
-    fontFamily: fonts.quickSandSemiBold,
-    padding: 10,
-    marginTop: 2,
-  },
   footer: {
     alignSelf: 'center',
     color: colors.appLightGrey,
