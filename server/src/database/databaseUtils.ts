@@ -5,6 +5,8 @@ import {
    PutItemOutput,
    QueryInput,
    QueryOutput,
+   ScanInput,
+   ScanOutput,
    UpdateItemInput,
    UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
@@ -78,6 +80,21 @@ export default class DatabaseUtils {
          .promise()
          .catch((err: AWSError) => {
             console.error('Could not perform query on', params.TableName);
+            return Promise.reject(err);
+         });
+   };
+
+   /**
+    * Scans a dynamo table.
+    * @param params
+    * @returns A promise.
+    */
+   public scan = (params: ScanInput): Promise<ScanOutput> => {
+      return this.dynamo
+         .scan(params)
+         .promise()
+         .catch((err: AWSError) => {
+            console.error('Could not perform scan on', params.TableName);
             return Promise.reject(err);
          });
    };

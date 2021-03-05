@@ -1,6 +1,14 @@
 import ITutor from '../models/ITutor';
 import IReview from '../models/IReview';
-import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
+import {
+   GetItemInput,
+   GetItemOutput,
+   PutItemInput,
+   ScanInput,
+   ScanOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
+} from 'aws-sdk/clients/dynamodb';
 import IUser from 'src/models/IUser';
 import UserDatabaseFunctions from './userDatabaseFunctions';
 import * as config from '../config/DatabaseConfigInfo.json';
@@ -30,6 +38,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.last_seen = new Date().toLocaleString();
       }
 
+      if (!tutor.tutor_info.classes) {
+         tutor.tutor_info.classes = [''];
+      }
+
       return tutor;
    };
 
@@ -53,6 +65,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             numberOfReviews: {
                N: String(tutor.tutor_info.numberOfReviews),
             },
+            classes: {
+               SS: tutor.tutor_info.classes,
+            },
          },
       };
 
@@ -68,6 +83,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          last_seen: data.Item.tutor_info.M.last_seen.S,
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
          numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),
+         classes: data.Item.tutor_info.M.classes.SS,
       };
 
       return tutor;
@@ -191,5 +207,52 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          ReturnValues: 'NONE',
       };
       this.databaseUtils.updateItem(updateItemParams);
+   };
+
+   public getTutorsForClass = async (campus: string, classCode: string): Promise<ITutor[]> => {
+      const params: ScanInput = {
+         TableName: config.tableNames.USER,
+         FilterExpression:
+            'attribute_exists(tutor_info) and contains(tutor_info.campuses, :cm) and contains(tutor_info.classes, :cl)',
+         ExpressionAttributeValues: {
+            ':cm': {
+               S: campus,
+            },
+            ':cl': {
+               S: classCode,
+            },
+         },
+      };
+
+      const tutors: ITutor[] = [];
+
+      do {
+         const scanResults: ScanOutput = await this.databaseUtils.scan(params);
+
+         scanResults.Items.forEach((item) => {
+            tutors.push({
+               first_name: item.first_name.S,
+               last_name: item.last_name.S,
+               email: item.email.S,
+               firebase_uid: item.firebase_uid.S,
+               stripe_customer_id: '',
+               is_validated: item.is_validated.BOOL,
+               profileImage: item.profileImage.S,
+               phone: item.phone.S,
+               tutor_info: {
+                  campuses: item.tutor_info.M.campuses.SS,
+                  chatrooms: item.tutor_info.M.chatrooms.SS,
+                  last_seen: item.tutor_info.M.last_seen.S,
+                  overallRating: parseInt(item.tutor_info.M.overallRating.N),
+                  numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+                  classes: item.tutor_info.M.classes.SS,
+               },
+            });
+         });
+
+         params.ExclusiveStartKey = scanResults.LastEvaluatedKey;
+      } while (typeof params.ExclusiveStartKey != 'undefined');
+
+      return tutors;
    };
 }

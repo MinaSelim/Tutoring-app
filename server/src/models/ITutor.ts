@@ -10,5 +10,6 @@ export default interface ITutor extends IUser {
       last_seen?: string;
       overallRating?: number;
       numberOfReviews?: number;
+      classes?: string[];
    };
 }
