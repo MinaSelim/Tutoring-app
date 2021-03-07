@@ -13,6 +13,11 @@ const bookingStyles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
   },
+  calendar: {
+    backgroundColor: '#f2f2f2',
+    width: 350,
+  },
+
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -29,7 +34,7 @@ const bookingStyles = StyleSheet.create({
     flex: 0.13,
     backgroundColor: 'white',
   },
-  calendar: {
+  calendarContainer: {
     alignItems: 'center',
     margin: 10,
     flex: 0.8,
