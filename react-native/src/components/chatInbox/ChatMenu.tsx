@@ -12,28 +12,21 @@ import {useCollectionData} from 'react-firebase-hooks/firestore';
 import useAuthUser from '../../hooks/authUser';
 import RequestUserChatrooms from '../../api/chatroom/requests/RequestUserChatrooms';
 
-interface IChatMenu extends NavigationInjectedPropsConfigured {
-  oneOnOnesource: IChat[];
-  groupChatsource: IChat[];
-}
-
-const ChatMenu: React.FC<IChatMenu> = ({
-  oneOnOnesource,
-  groupChatsource,
+const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   navigation,
   navigate,
   goBack,
   toggleDrawer,
-}: IChatMenu): JSX.Element => {
+}): JSX.Element => {
   const user = useAuthUser()[0];
   const userID: string = user!.firebase_uid;
   const {Navigator, Screen} = createMaterialTopTabNavigator();
   let [groupList, setGroupList] = useState<IChat[]>();
   let [oneToOneList, setOneToOneList] = useState<IChat[]>();
 
-  const loadChat = (
-    userID: string,
-  ): firebase.firestore.Query<firebase.firestore.DocumentData> => {
+  const loadChat = (): firebase.firestore.Query<
+    firebase.firestore.DocumentData
+  > => {
     const lastChatroom = firebase
       .firestore()
       .collection('CHATROOMS')
@@ -46,7 +39,7 @@ const ChatMenu: React.FC<IChatMenu> = ({
     newestChat,
     isLoadingRecentChat,
     RecentChatLoadError,
-  ] = useCollectionData(loadChat(userID), {idField: 'id'});
+  ] = useCollectionData(loadChat(), {idField: 'id'});
 
   const appendChat = (): void => {
     if (
@@ -64,6 +57,8 @@ const ChatMenu: React.FC<IChatMenu> = ({
           }
         }
       }
+      //TODO add conditional for tutor!!! This currently only works for students
+      //because we need to verify the usertype to properly update the local user hook!!!
       if (newestChatroom[0].chatType == 'direct' && userPresence) {
         if (oneToOneList.length === 0) {
           setOneToOneList([newestChatroom[0]]);
