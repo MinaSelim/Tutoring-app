@@ -1,4 +1,3 @@
-import {isDate} from 'moment';
 import IChat from './IChat';
 
 export default class Chat implements IChat {
