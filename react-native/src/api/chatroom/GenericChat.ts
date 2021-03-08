@@ -94,7 +94,7 @@ export default class GenericChat {
     chatroomID: string,
     message: string,
   ): void => {
-    if (message !== undefined || message !== null) {
+    if (message && message !== '') {
       firebase
         .firestore()
         .collection(constants.chatroomCollection)
@@ -133,12 +133,58 @@ export default class GenericChat {
     // eslint-disable-next-line new-cap
     const chatroomHelper = new chatHelper();
     chatroomHelper.viewedChat(chatroomID, currentUserToken);
-    const convo: firebase.firestore.CollectionReference<firebase.firestore.DocumentData> = firebase
+    const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
       .firestore()
       .collection(constants.chatroomCollection)
       .doc(chatroomID)
-      .collection(constants.messageCollection);
-
+      .collection(constants.messageCollection)
+      .orderBy('createdAt', 'desc');
+    await convo.get().then((messageRef) => {
+      messageRef.forEach((documentSnapshot) => {
+        chatMessages.push({
+          id: documentSnapshot.id,
+          value: documentSnapshot.data(),
+        });
+      });
+    });
+    const messages: Message[] = [];
+    chatMessages.forEach((messageRef) => {
+      const message = new Message(
+        messageRef.id,
+        messageRef.value.content,
+        messageRef.value.sender,
+        messageRef.value.createdAt,
+      );
+      messages.push(message);
+    });
+    return messages;
+  };
+  /**
+   * Load specific messages based on the below parameters.
+   * Mainly used on initial load of chatroom and when loading older messages.
+   * @param chatroomID The unique chatroom identifier who messages will be displayed
+   * @param currentUserToken The firebase UID of the current logged in user
+   * @param offset the last message ID displayed in the chatroom
+   * @param messageAmount How many messages we want to return from the query
+   */
+  public loadMessages = async (
+    chatroomID: string,
+    currentUserToken: string,
+    offset: number,
+    messageAmount: number,
+  ): Promise<Message[]> => {
+    const chatMessages: Array<chatMessages> = [];
+    // eslint-disable-next-line new-cap
+    const chatroomHelper = new chatHelper();
+    chatroomHelper.viewedChat(chatroomID, currentUserToken);
+    const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
+      .firestore()
+      .collection(constants.chatroomCollection)
+      .doc(chatroomID)
+      .collection(constants.messageCollection)
+      .orderBy('createdAt', 'desc')
+      .startAfter(offset)
+      .limit(messageAmount);
     await convo.get().then((messageRef) => {
       messageRef.forEach((documentSnapshot) => {
         chatMessages.push({

@@ -33,6 +33,7 @@
     "moment-timezone": "^0.5.32",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
+    "react-firebase-hooks": "^2.2.0",
     "react-native": "0.63.3",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-keychain": "^6.2.0",

@@ -96,5 +96,10 @@ export const chatStyles = StyleSheet.create({
     flexGrow: 1,
     flex: 1,
   },
+
+  welcomeMessage: {
+    paddingLeft: 5,
+    paddingBottom: 5,
+  },
 });
 export default chatStyles;

@@ -1,20 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
-import {Avatar, Divider} from '@ui-kitten/components';
-import React from 'react';
-import {View, Text} from 'react-native';
+import {Avatar, Divider, Text} from '@ui-kitten/components';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 import moment from 'moment';
 
 import IMessage from '../../model/IMessage';
 import {chatStyles} from './styles/chatStyles';
 import 'moment-timezone';
-
-const MesageRow = (props: IMessage): JSX.Element => {
+interface IMessagerow {
+  message: IMessage;
+}
+const MesageRow: React.FunctionComponent<IMessagerow> = ({
+  message,
+}: IMessagerow): JSX.Element => {
   return (
     <View style={chatStyles.messageContainer}>
       <View>
-        <Text style={chatStyles.date}>
-          {moment.unix(props.createdAt).format('MMM Do')}
-        </Text>
         <Divider />
         <View style={{flexDirection: 'row'}}>
           <Avatar
@@ -23,8 +24,14 @@ const MesageRow = (props: IMessage): JSX.Element => {
             source={require('../../assets/icons/profile2.png')}
           />
           <View style={chatStyles.messageContentContainer}>
-            <Text style={chatStyles.memberName}>{`${props.sender}`}</Text>
-            <Text style={chatStyles.chatText}>{props.content}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={chatStyles.memberName}>{`${message.sender}`}</Text>
+              <Text appearance="hint">{`\t${moment
+                .unix(message.createdAt / 1000)
+                .format('LT')}`}</Text>
+            </View>
+
+            <Text style={chatStyles.chatText}>{message.content}</Text>
           </View>
         </View>
       </View>

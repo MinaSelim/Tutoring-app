@@ -1,24 +1,49 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React, {useRef, useState} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 import {Button, Icon, Input, Divider} from '@ui-kitten/components';
 import chatStyles from './styles/chatStyles';
+import GenericChat from '../../api/chatroom/GenericChat';
+
+const chatAPI: GenericChat = new GenericChat();
+interface IChatInfo {
+  userID: string;
+  chatID: string;
+  onFocus: () => void;
+}
 
 const PaperPlaneIcon = (props): JSX.Element => (
   <Icon {...props} name="paper-plane" />
 );
-const sendMessage = (): void => {};
+const ChatInput = ({userID, chatID, onFocus}: IChatInfo): JSX.Element => {
+  const [entityText, setEntityText] = useState('');
+  const sendMessage = () => {
+    if (entityText && entityText.length > 0) {
+      chatAPI.sendMessage(userID, chatID, entityText);
+      clearTextInput();
+    }
+  };
 
-const ChatInput = (): JSX.Element => {
+  const clearTextInput = () => {
+    setEntityText('');
+  };
+  const inputBox = useRef<Input>(null);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Divider strength="medium" />
+
       <Input
+        ref={inputBox}
         status="ghost"
         style={chatStyles.input}
         placeholder="Message..."
         multiline
         textStyle={{maxHeight: 64}}
+        onChangeText={(text) => setEntityText(text)}
+        value={entityText}
+        onFocus={onFocus}
       />
       <Button
         appearance="ghost"

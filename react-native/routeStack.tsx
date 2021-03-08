@@ -9,9 +9,10 @@ import SideBar from './src/components/common/sideBar';
 import chatInbox from './src/pages/chatInbox';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
-import ChatUI from './src/components/chat/ChatUI';
+import Chat from './src/pages/chat/index';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
+import Booking from './src/components/booking/booking';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -36,7 +37,8 @@ const StackNavigator: React.FunctionComponent = () => {
       <Stack.Screen name="MyChats" component={chatInbox} />
       <Stack.Screen name="TutorSearch" component={TutorSearch} />
       <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
-      <Stack.Screen name="ChatUI" component={ChatUI} />
+      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen name="Booking" component={Booking} />
     </Stack.Navigator>
   );
 };
