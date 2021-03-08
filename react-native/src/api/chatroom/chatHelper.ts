@@ -70,7 +70,7 @@ export default class chatHelper {
         .firestore()
         .collection(constants.chatroomCollection)
         .add({
-          name: roomName,
+          roomName: roomName,
           createdAt: new Date().getTime(),
           associatedClass,
           participants: participantsTokens,

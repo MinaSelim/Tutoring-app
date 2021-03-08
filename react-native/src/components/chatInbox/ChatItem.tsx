@@ -22,18 +22,15 @@ const ChatItem: React.FunctionComponent<IChatItem> = ({
           <Text style={styles.classNumber}>{item.associatedClass}</Text>
         </Layout>
         <Text
-          style={[
-            styles.lastMessage,
-            // replace condition with item.viewedChat[user.firebaseID]
-            {color: false ? 'black' : '#A3A3A3'},
-          ]}>
+          style={
+            item.viewedChat[user!.firebaseID]
+              ? styles.lastMessageSeen
+              : styles.lastMessageUnseen
+          }>
           {item.latestMessage.content}
         </Text>
       </Layout>
-      <UnreadHint
-        newMessage={false}
-        // replace condition with item.viewedChat[user.firebaseID]
-      />
+      <UnreadHint newMessage={item.viewedChat[user!.firebaseID]} />
     </ListItem>
   );
 };

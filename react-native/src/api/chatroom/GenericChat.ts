@@ -45,7 +45,7 @@ export default class GenericChat {
         chatRef.id,
         chatRef.value.participants,
         chatRef.value.createdAt,
-        chatRef.value.name,
+        chatRef.value.roomName,
         chatRef.value.associatedClass,
         chatRef.value.chatType,
         chatRef.value.viewedChat,

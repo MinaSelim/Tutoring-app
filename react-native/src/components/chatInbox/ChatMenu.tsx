@@ -66,23 +66,21 @@ const ChatMenu: React.FC<IChatMenu> = ({
       }
       if (newestChatroom[0].chatType == 'direct' && userPresence) {
         if (oneToOneList.length === 0) {
-          console.log('1');
           setOneToOneList([newestChatroom[0]]);
+          user!.student_info.chatrooms.push(newestChatroom[0].id);
         } else if (oneToOneList[0].id !== newestChatroom[0].id) {
-          console.log('2');
           setOneToOneList([newestChatroom[0], ...oneToOneList]);
+          user!.student_info.chatrooms.push(newestChatroom[0].id);
         }
       } else if (newestChatroom[0].chatType == 'group' && userPresence) {
         if (groupList.length === 0) {
-          console.log('3');
           setGroupList([newestChatroom[0]]);
+          user!.student_info.chatrooms.push(newestChatroom[0].id);
         } else if (oneToOneList[0].id !== newestChatroom[0].id) {
-          console.log('4');
           setGroupList([newestChatroom[0], ...groupList]);
+          user!.student_info.chatrooms.push(newestChatroom[0].id);
         }
-        console.log('5');
       }
-      console.log('6');
     }
   };
 
