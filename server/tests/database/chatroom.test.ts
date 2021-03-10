@@ -3,8 +3,6 @@ import Sinon from 'Sinon';
 import databaseUtils from '../../src/database/databaseUtils';
 import Dynamo from '../../src/database/dynamo';
 import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
-import tutorDatabaseFunctions from '../../src/database/tutorDatabaseFunctions';
-// test
 import {
    awsError,
    getItemChatroomStudentResolves,
