@@ -11,6 +11,7 @@ import {
 } from 'aws-sdk/clients/dynamodb';
 import IStudent from '../../src/models/IStudent';
 import ITutor from '../../src/models/ITutor';
+import IUser from '../../src/models/IUser';
 /*
  * A file with all variable templates to be reused through multiple tests.
  * Please keep template ordered based on origin of variables
@@ -468,7 +469,6 @@ export const getItemChatroomTutorResolves = ({
    },
 } as unknown) as AWS.Request<GetItemOutput, AWSError>;
 
-// todo what is chat id?
 export const updateItemInputChatroom: UpdateItemInput = {
    TableName: databaseConfig.tableNames.USER,
    Key: {firebase_uid: {S: studentDefined.firebase_uid}},
@@ -514,6 +514,54 @@ export const updateItemOutputTutorChatroomResolves = ({
 export const updateItemOutputRejects = ({
    promise() {
       return Promise.reject(awsError);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+// --------------------------------------------
+// Update student variables
+// --------------------------------------------
+
+export const updateUser: IUser = {
+   email: 'updateEmail',
+   is_validated: true,
+   firebase_uid: 'updateFID',
+   stripe_customer_id: 'updateSID',
+   first_name: 'updateFirst',
+   last_name: 'updateLast',
+   profileImage: 'updateImg',
+   phone: 'updatePhone',
+};
+
+export const updateItemInputUpdateUser: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: updateUser.firebase_uid}},
+   UpdateExpression: 'SET first_name = :fn, last_name = :ln, profileImage = :pi, phone = :ph',
+   ExpressionAttributeValues: {
+      ':fn': {S: updateUser.first_name},
+      ':ln': {S: updateUser.last_name},
+      ':pi': {S: updateUser.profileImage},
+      ':ph': {S: updateUser.phone},
+   },
+   ReturnValues: 'ALL_NEW',
+};
+
+export const updateItemOutputUpdateUser: UpdateItemOutput = {
+   Attributes: {
+      first_name: {S: updateUser.first_name},
+      last_name: {S: updateUser.last_name},
+      email: {S: updateUser.email},
+      stripe_customer_id: {S: updateUser.stripe_customer_id},
+      is_validated: {BOOL: updateUser.is_validated},
+      firebase_uid: {S: updateUser.firebase_uid},
+      profileImage: {S: updateUser.profileImage},
+      phone: {S: updateUser.phone},
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputUpdateUserResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputUpdateUser);
    },
 } as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
 

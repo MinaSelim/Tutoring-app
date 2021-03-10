@@ -18,6 +18,10 @@ import {
    getItemRejects,
    tutorIncomplete,
    putItemInputTutorIncomplete,
+   updateItemInputUpdateUser,
+   updateItemOutputRejects,
+   updateItemOutputUpdateUserResolves,
+   updateUser,
 } from '../utils/templates';
 
 describe('Tutor Database Functions Test', () => {
@@ -113,5 +117,37 @@ describe('Tutor Database Functions Test', () => {
          assert(spy.calledWith(putItemInputTutorIncomplete));
          assert.equal(res.ConsumedCapacity.CapacityUnits, putItemOutput.ConsumedCapacity.CapacityUnits);
       });
+   });
+
+   it('Should update a user', () => {
+      sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputUpdateUserResolves);
+      const spy = sandbox.spy(dbUtils, 'updateItem');
+
+      return tutordb.updateUser(updateUser).then((res) => {
+         assert(spy.calledWith(updateItemInputUpdateUser));
+         assert.equal(res.firebase_uid, updateUser.firebase_uid);
+         assert.equal(res.email, updateUser.email);
+         assert.equal(res.is_validated, updateUser.is_validated);
+         assert.equal(res.stripe_customer_id, updateUser.stripe_customer_id);
+         assert.equal(res.first_name, updateUser.first_name);
+         assert.equal(res.last_name, updateUser.last_name);
+         assert.equal(res.profileImage, updateUser.profileImage);
+         assert.equal(res.phone, updateUser.phone);
+      });
+   });
+
+   it('Should fail to update a user', () => {
+      sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+      const spy = sandbox.spy(dbUtils, 'updateItem');
+
+      return tutordb
+         .updateUser(updateUser)
+         .then(() => {
+            assert.fail('Should fail to update user');
+         })
+         .catch((err) => {
+            assert.equal(err, awsError);
+            assert(spy.calledWith(updateItemInputUpdateUser));
+         });
    });
 });
