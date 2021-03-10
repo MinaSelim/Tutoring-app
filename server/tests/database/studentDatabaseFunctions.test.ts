@@ -7,7 +7,24 @@ import {GetItemInput, GetItemOutput, PutItemInput, PutItemOutput} from 'aws-sdk/
 import IStudent from '../../src/models/IStudent';
 import {assert} from 'chai';
 import Dynamo from '../../src/database/dynamo';
-
+import {
+   studentDefined,
+   studentValidUndefined,
+   studentIncomplete,
+   putItemStudentDefined,
+   putItemOutput,
+   studentStripeUndefined,
+   putItemInputStudentStripeUndefined,
+   putItemOutputResolves,
+   putItemInputStudentValidUndefined,
+   awsError,
+   putItemOutputRejects,
+   getItemInputStudentDefined,
+   getItemStudentDefinedResolves,
+   getItemRejects,
+   putItemInputStudentIncomplete,
+} from '../utils/templates';
+// test
 describe('Student Database Functions Test', () => {
    let studentdb: studentDatabaseFunctions;
    let dbUtils: databaseUtils;
