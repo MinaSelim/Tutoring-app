@@ -87,4 +87,12 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  campusImageSelected: {
+    alignSelf: 'center',
+    tintColor: colors.appOrange,
+  },
+  campusImageNotSelected: {
+    alignSelf: 'center',
+    tintColor: '#D8D8D8',
+  },
 });

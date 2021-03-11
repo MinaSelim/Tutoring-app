@@ -102,17 +102,18 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
               style={styles.goBackButtonImage}
             />
           </TouchableOpacity>
-          <View style={styles.space}>
+          <View style={styles.biggerMiddleArea}>
             <Text style={styles.selectYourCampus}>
               {' '}
               {constants.signup.selectCampus.selectYourCampus}
             </Text>
-            <View style={styles.biggerMiddleArea}>
+            <View style={styles.middleArea}>
               <Image
                 source={require('../../../assets/images/icons/university.png')}
                 style={[
-                  styles.middleArea,
-                  isUniversitySelected() ? {opacity: 1} : {opacity: 0.25},
+                  isUniversitySelected()
+                    ? styles.campusImageSelected
+                    : styles.campusImageNotSelected,
                 ]}
               />
               <Text style={styles.universityText}>{universitySelection}</Text>
