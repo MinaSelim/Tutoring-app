@@ -33,6 +33,9 @@ const BookIcon = (props): JSX.Element => (
 const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
+const CampusIcon = (props): JSX.Element => (
+  <Icon {...props} name="person-outline" />
+);
 
 const SideBar: React.FunctionComponent<any> = () => {
   const [user, setAuthUser] = useAuthUser();
@@ -109,7 +112,15 @@ const SideBar: React.FunctionComponent<any> = () => {
           size="giant">
           {constants.commonComponents.sidebar.accountHistory}
         </Button>
-        <CampusSelect />
+        <Button
+          onPress={(): void => navigation.navigate('EditCampuses')}
+          style={styles.button}
+          appearance="ghost"
+          status="control"
+          accessoryLeft={CampusIcon}
+          size="giant">
+          {constants.commonComponents.sidebar.selectCampus}
+        </Button>
         <Divider style={styles.divider} />
         <Button
           style={styles.button}

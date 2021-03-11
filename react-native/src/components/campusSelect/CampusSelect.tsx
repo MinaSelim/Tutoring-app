@@ -60,7 +60,7 @@ const CampusSelect = (): JSX.Element => {
                 accessoryLeft={CloseButtonIcon}
                 onPress={(): void => setCampusSelectVisibility(false)}
               />
-              <Text style={styles.title}>Campus</Text>
+              <Text style={styles.title}>Your Campuses</Text>
               <Text style={styles.placeholder}>empty</Text>
             </View>
             <Text style={styles.selectYourCampus}>Select your campus</Text>
