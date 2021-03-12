@@ -12,7 +12,7 @@ import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch
 import Chat from './src/pages/chat/index';
 import EditCampuses from './src/components/editCampuses/EditCampuses';
 import PasswordReset from './src/pages/passwordReset';
-import ChatUI from './src/pages/chat/index';
+import EditCampus from './src/components/editCampuses/EditCampus';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import PaymentOptions from './src/pages/paymentOptions';
@@ -50,6 +50,7 @@ const StackNavigator: React.FunctionComponent = () => {
       <Stack.Screen name="EditCampuses" component={EditCampuses} />
       <Stack.Screen name="PaymentOptions" component={PaymentOptions} />
       <Stack.Screen name="PasswordReset" component={PasswordReset} />
+      <Stack.Screen name="EditCampus" component={EditCampus} />
     </Stack.Navigator>
   );
 };

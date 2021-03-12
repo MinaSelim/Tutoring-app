@@ -3,6 +3,7 @@ import {colors} from '../../../styles/appColors';
 import {fonts} from '../../../styles/appFonts';
 
 export default StyleSheet.create({
+  generalView: {backgroundColor: 'white', flex: 1},
   campusSelectHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -17,8 +18,9 @@ export default StyleSheet.create({
   selectYourCampus: {
     fontSize: 16,
     fontFamily: fonts.quickSandSemiBold,
-    marginLeft: 25,
-    marginTop: 10,
+    marginTop: 7,
+    marginBottom: 10,
+    alignSelf: 'center',
   },
   placeholder: {
     opacity: 0,
