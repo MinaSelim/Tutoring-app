@@ -6,6 +6,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderWidth: 0,
     borderBottomWidth: 1,
+    borderColor: '#8B9CB3',
     borderRadius: 0,
     width: '80%',
     alignSelf: 'center',

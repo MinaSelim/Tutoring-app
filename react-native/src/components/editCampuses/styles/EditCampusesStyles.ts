@@ -13,7 +13,15 @@ export default StyleSheet.create({
   title: {
     alignSelf: 'center',
     fontSize: 22,
+    marginTop: 5,
     fontFamily: fonts.quickSandSemiBold,
+  },
+  addButton: {
+    alignSelf: 'center',
+    width: 50,
+    height: 40,
+    left: 3,
+    top: 5,
   },
   selectYourCampus: {
     fontSize: 16,
@@ -25,5 +33,23 @@ export default StyleSheet.create({
   placeholder: {
     opacity: 0,
     marginRight: '8%',
+  },
+  list: {
+    backgroundColor: 'white',
+  },
+  noCampusesIcon: {
+    alignSelf: 'center',
+    opacity: 0.1,
+    height: 156,
+    width: 220,
+    marginTop: 50,
+  },
+  noCampusesAddACampus: {
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  noCampusesAddButton: {
+    alignSelf: 'center',
+    marginTop: 20,
   },
 });
