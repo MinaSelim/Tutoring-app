@@ -45,11 +45,37 @@ export default StyleSheet.create({
     marginTop: 50,
   },
   noCampusesAddACampus: {
-    alignSelf: 'center',
+    flexDirection: 'row',
     marginTop: 20,
+    alignSelf: 'center',
+    color: '#8B9CB3',
+  },
+  noCampusAddACampusText: {
+    color: '#8B9CB3',
+  },
+  noCampusAddACampusRule: {
+    borderBottomColor: '#8B9CB3',
+    width: '30%',
+    borderBottomWidth: 1,
+    alignSelf: 'center',
   },
   noCampusesAddButton: {
     alignSelf: 'center',
     marginTop: 20,
+  },
+  modal: {
+    width: '90%',
+    height: 300,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 18,
+  },
+  modalBackground: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  autocomplete: {
+    marginTop: 20,
+    width: '90%',
+    alignSelf: 'center',
   },
 });
