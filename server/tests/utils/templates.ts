@@ -8,7 +8,10 @@ import {
    PutItemOutput,
    UpdateItemInput,
    UpdateItemOutput,
+   QueryInput,
+   QueryOutput,
 } from 'aws-sdk/clients/dynamodb';
+import IReview from '../../src/models/IReview';
 import IStudent from '../../src/models/IStudent';
 import ITutor from '../../src/models/ITutor';
 import IUser from '../../src/models/IUser';
@@ -24,6 +27,9 @@ export const databaseConfig = {
    tableNames: {
       USER: 'User',
       REVIEWS: 'Reviews',
+   },
+   indexNames: {
+      REVIEWS_TUTOR_ID_INDEX: 'tutorId_index',
    },
 };
 
@@ -575,3 +581,134 @@ export const firebaseConfig = {
    databaseURL: 'URL',
    projectId: 'ID',
 };
+
+// --------------------------------------------
+// Review variables
+// --------------------------------------------
+
+export const review0Rating: IReview = {
+   reviewId: 'string',
+   studentId: 'string',
+   tutorId: 'string',
+   reviewText: 'string',
+   communicationRating: 0,
+   knowledgeRating: 0,
+   wouldTakeAgainRating: 0,
+   timestamp: 'string',
+};
+
+export const putItemInputReviews: PutItemInput = {
+   Item: {
+      reviewId: {S: review0Rating.studentId + review0Rating.tutorId + review0Rating.timestamp},
+      studentId: {S: review0Rating.studentId},
+      tutorId: {S: review0Rating.tutorId},
+      reviewText: {S: review0Rating.reviewText},
+      communicationRating: {N: String(review0Rating.communicationRating)},
+      knowledgeRating: {N: String(review0Rating.knowledgeRating)},
+      wouldTakeAgainRating: {N: String(review0Rating.wouldTakeAgainRating)},
+      timestamp: {S: review0Rating.timestamp},
+   },
+   ReturnConsumedCapacity: 'TOTAL',
+   TableName: databaseConfig.tableNames.REVIEWS,
+};
+
+export const updateItemReview: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: review0Rating.tutorId}},
+   UpdateExpression: 'SET tutor_info.overallRating = :or, tutor_info.numberOfReviews = :nr',
+   ExpressionAttributeValues: {
+      ':or': {N: String(0)},
+      ':nr': {N: String(tutorDefined.tutor_info.numberOfReviews + 1)},
+   },
+   ReturnValues: 'NONE',
+};
+
+export const getItemInputReviews: GetItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: review0Rating.tutorId}},
+   ProjectionExpression: 'tutor_info.overallRating, tutor_info.numberOfReviews',
+};
+
+export const queryReviews: QueryInput = {
+   TableName: databaseConfig.tableNames.REVIEWS,
+   IndexName: databaseConfig.indexNames.REVIEWS_TUTOR_ID_INDEX,
+   KeyConditionExpression: 'tutorId = :tid',
+   ExpressionAttributeValues: {':tid': {S: tutorDefined.firebase_uid}},
+};
+
+// --------------------------------------------
+// OUTPUT
+export const putItemOutputReviews: PutItemOutput = {
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.REVIEWS, CapacityUnits: 1},
+};
+
+export const getItemOutputReviews: GetItemOutput = {
+   Item: {
+      tutor_info: {
+         M: {
+            overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+            numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
+         },
+      },
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputReview: UpdateItemOutput = {
+   Attributes: {
+      tutor_info: {
+         M: {
+            overallRating: {N: String(0)},
+            numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews + 1)},
+         },
+      },
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const queryOutputReviews: QueryOutput = {
+   Items: [
+      {
+         reviewId: {S: review0Rating.reviewId},
+         studentId: {S: review0Rating.studentId},
+         tutorId: {S: review0Rating.tutorId},
+         reviewText: {S: review0Rating.reviewText},
+         communicationRating: {N: String(review0Rating.communicationRating)},
+         knowledgeRating: {N: String(review0Rating.knowledgeRating)},
+         wouldTakeAgainRating: {N: String(review0Rating.wouldTakeAgainRating)},
+         timestamp: {S: review0Rating.timestamp},
+      },
+   ],
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.REVIEWS, CapacityUnits: 1},
+};
+// --------------------------------------------
+// PROMISE CONVERSION
+export const putItemOutputReviewsResolves = ({
+   promise() {
+      return Promise.resolve(putItemOutputReviews);
+   },
+} as unknown) as AWS.Request<PutItemOutput, AWSError>;
+
+export const putItemOutputReviewsRejects = ({
+   promise() {
+      return Promise.reject(awsError);
+   },
+} as unknown) as AWS.Request<PutItemOutput, AWSError>;
+
+export const getItemReviewResolves = ({
+   promise() {
+      return Promise.resolve(getItemOutputReviews);
+   },
+} as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
+export const updateItemOutputReviewsResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputReview);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+export const queryReviewsResovles = ({
+   promise() {
+      return Promise.resolve(queryOutputReviews);
+   },
+} as unknown) as AWS.Request<QueryOutput, AWSError>;
