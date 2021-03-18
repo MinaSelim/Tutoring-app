@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import Sinon from 'Sinon';
+import Sinon from 'sinon';
 import databaseUtils from '../../src/database/databaseUtils';
 import Dynamo from '../../src/database/dynamo';
 import studentDatabaseFunctions from '../../src/database/studentDatabaseFunctions';
