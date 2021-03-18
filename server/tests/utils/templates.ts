@@ -6,13 +6,26 @@ import {
    GetItemOutput,
    PutItemInput,
    PutItemOutput,
+   UpdateItemInput,
+   UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
 import IStudent from '../../src/models/IStudent';
 import ITutor from '../../src/models/ITutor';
+import IUser from '../../src/models/IUser';
 /*
  * A file with all variable templates to be reused through multiple tests.
  * Please keep template ordered based on origin of variables
  */
+
+// --------------------------------------------
+// Databse config variables
+// --------------------------------------------
+export const databaseConfig = {
+   tableNames: {
+      USER: 'User',
+      REVIEWS: 'Reviews',
+   },
+};
 
 // --------------------------------------------
 // Student variables
@@ -151,14 +164,14 @@ export const createTableInputTemplate: CreateTableInput = {
    AttributeDefinitions: [{AttributeName: 'test', AttributeType: 'S'}],
    KeySchema: [{AttributeName: 'test', KeyType: 'HASH'}],
    ProvisionedThroughput: {ReadCapacityUnits: 1, WriteCapacityUnits: 1},
-   TableName: 'Test',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 // --------------------------------------------
 // OUTPUT
 export const createTableOutput: CreateTableOutput = {
    TableDescription: {
-      TableName: 'User',
+      TableName: databaseConfig.tableNames.USER,
    },
 };
 
@@ -204,7 +217,7 @@ export const putItemStudentDefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputStudentStripeUndefined: PutItemInput = {
@@ -225,7 +238,7 @@ export const putItemInputStudentStripeUndefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputStudentValidUndefined: PutItemInput = {
@@ -246,7 +259,7 @@ export const putItemInputStudentValidUndefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputStudentIncomplete: PutItemInput = {
@@ -267,7 +280,7 @@ export const putItemInputStudentIncomplete: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputTutorDefined: PutItemInput = {
@@ -292,7 +305,7 @@ export const putItemInputTutorDefined: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const putItemInputTutorIncomplete: PutItemInput = {
@@ -317,13 +330,13 @@ export const putItemInputTutorIncomplete: PutItemInput = {
       },
    },
    ReturnConsumedCapacity: 'TOTAL',
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 // --------------------------------------------
 // OUTPUT
 export const putItemOutput: PutItemOutput = {
-   ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
 // --------------------------------------------
@@ -346,12 +359,12 @@ export const putItemOutputRejects = ({
 // INPUT
 export const getItemInputStudentDefined: GetItemInput = {
    Key: {firebase_uid: {S: studentDefined.firebase_uid}},
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 
 export const getItemInputTutorDefined: GetItemInput = {
    Key: {firebase_uid: {S: tutorDefined.firebase_uid}},
-   TableName: 'User',
+   TableName: databaseConfig.tableNames.USER,
 };
 // --------------------------------------------
 // OUTPUT
@@ -372,7 +385,7 @@ export const getItemStudentDefined: GetItemOutput = {
          },
       },
    },
-   ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
 export const getItemTutorDefined: GetItemOutput = {
@@ -396,7 +409,7 @@ export const getItemTutorDefined: GetItemOutput = {
          },
       },
    },
-   ConsumedCapacity: {TableName: 'User', CapacityUnits: 1},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
 };
 
 // --------------------------------------------
@@ -418,6 +431,139 @@ export const getItemRejects = ({
       return Promise.reject(awsError);
    },
 } as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
+// --------------------------------------------
+// Chatroom variables
+// --------------------------------------------
+export const getItemInputChatroomStudentDefined: GetItemInput = {
+   Key: {firebase_uid: {S: studentDefined.firebase_uid}},
+   ProjectionExpression: 'student_info.chatrooms',
+   TableName: databaseConfig.tableNames.USER,
+};
+
+export const getItemInputChatroomTutorDefined: GetItemInput = {
+   Key: {firebase_uid: {S: tutorDefined.firebase_uid}},
+   ProjectionExpression: 'tutor_info.chatrooms',
+   TableName: databaseConfig.tableNames.USER,
+};
+
+export const getItemOutputChatroomStudent: GetItemOutput = {
+   Item: {student_info: {M: {chatrooms: {SS: studentDefined.student_info.chatrooms}}}},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const getItemOutputChatroomTutor: GetItemOutput = {
+   Item: {tutor_info: {M: {chatrooms: {SS: tutorDefined.tutor_info.chatrooms}}}},
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const getItemChatroomStudentResolves = ({
+   promise() {
+      return Promise.resolve(getItemOutputChatroomStudent);
+   },
+} as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
+export const getItemChatroomTutorResolves = ({
+   promise() {
+      return Promise.resolve(getItemOutputChatroomTutor);
+   },
+} as unknown) as AWS.Request<GetItemOutput, AWSError>;
+
+export const updateItemInputChatroom: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: studentDefined.firebase_uid}},
+   UpdateExpression: 'ADD student_info.chatrooms :cr',
+   ExpressionAttributeValues: {':cr': {SS: ['chadId']}},
+   ReturnValues: 'UPDATED_NEW',
+};
+
+export const updateItemInputDeleteChatroom: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: studentDefined.firebase_uid}},
+   UpdateExpression: 'DELETE student_info.chatrooms :cr',
+   ExpressionAttributeValues: {':cr': {SS: ['chadId']}},
+   ReturnValues: 'UPDATED_NEW',
+};
+
+export const updateItemOutputStudentChatroom: UpdateItemOutput = {
+   Attributes: {
+      student_info: {M: {chatrooms: {SS: studentDefined.student_info.chatrooms}}},
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputTutorChatroom: UpdateItemOutput = {
+   Attributes: {
+      tutor_info: {M: {chatrooms: {SS: tutorDefined.tutor_info.chatrooms}}},
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputStudentChatroomResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputStudentChatroom);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+export const updateItemOutputTutorChatroomResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputTutorChatroom);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+export const updateItemOutputRejects = ({
+   promise() {
+      return Promise.reject(awsError);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
+
+// --------------------------------------------
+// Update student variables
+// --------------------------------------------
+
+export const updateUser: IUser = {
+   email: 'updateEmail',
+   is_validated: true,
+   firebase_uid: 'updateFID',
+   stripe_customer_id: 'updateSID',
+   first_name: 'updateFirst',
+   last_name: 'updateLast',
+   profileImage: 'updateImg',
+   phone: 'updatePhone',
+};
+
+export const updateItemInputUpdateUser: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {firebase_uid: {S: updateUser.firebase_uid}},
+   UpdateExpression: 'SET first_name = :fn, last_name = :ln, profileImage = :pi, phone = :ph',
+   ExpressionAttributeValues: {
+      ':fn': {S: updateUser.first_name},
+      ':ln': {S: updateUser.last_name},
+      ':pi': {S: updateUser.profileImage},
+      ':ph': {S: updateUser.phone},
+   },
+   ReturnValues: 'ALL_NEW',
+};
+
+export const updateItemOutputUpdateUser: UpdateItemOutput = {
+   Attributes: {
+      first_name: {S: updateUser.first_name},
+      last_name: {S: updateUser.last_name},
+      email: {S: updateUser.email},
+      stripe_customer_id: {S: updateUser.stripe_customer_id},
+      is_validated: {BOOL: updateUser.is_validated},
+      firebase_uid: {S: updateUser.firebase_uid},
+      profileImage: {S: updateUser.profileImage},
+      phone: {S: updateUser.phone},
+   },
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const updateItemOutputUpdateUserResolves = ({
+   promise() {
+      return Promise.resolve(updateItemOutputUpdateUser);
+   },
+} as unknown) as AWS.Request<UpdateItemOutput, AWSError>;
 
 // --------------------------------------------
 // Firebase variables
