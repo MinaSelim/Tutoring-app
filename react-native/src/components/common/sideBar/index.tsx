@@ -36,6 +36,7 @@ const EmptyIcon = (props): JSX.Element => (
 const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
   const [user, setAuthUser] = useAuthUser();
   const [userName, setUserName] = useState('');
+  console.log(user);
   useEffect(() => {
     if (user != null) setUserName(user!.first_name);
   }, [user]);
@@ -44,6 +45,29 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
     setAuthUser(null);
     navigation.navigate('SignInMenu');
   };
+  const TutorCalendar = (props): JSX.Element => (
+    <Button
+      style={styles.button}
+      appearance="ghost"
+      status="control"
+      accessoryLeft={CalendarIcon}
+      size="giant">
+      {constants.commonComponents.sidebar.tutorCalendar}
+    </Button>
+  );
+  /**
+   * this method conditionally renders a calendar option for tutor
+   * returns a tutor calendar menu option if the user is a tutor
+   * retruns empty view if user is not tutor
+   */
+  function ConditionalTutorCalendar(): JSX.Element {
+    try {
+      return user!.tutor_info ? <TutorCalendar /> : <View />;
+    } catch (error) {
+      console.log(error);
+      return <View />;
+    }
+  }
 
   return (
     <Layout level="primary" style={styles.container}>
@@ -65,7 +89,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           size="giant">
           {constants.commonComponents.sidebar.mySessions}
         </Button>
-        {/* conditional button: if userObject session is "tutor" display tutorCalendar*/}
+        <ConditionalTutorCalendar />
         <Button
           style={styles.button}
           appearance="ghost"
