@@ -23,14 +23,20 @@ const ChatItem: React.FunctionComponent<IChatItem> = ({
         </Layout>
         <Text
           style={
-            item.viewedChat[user!.firebaseID]
+            !item.viewedChat ||
+            item.viewedChat[JSON.stringify(user!.firebase_uid)]
               ? styles.lastMessageSeen
               : styles.lastMessageUnseen
           }>
           {item.latestMessage.content}
         </Text>
       </Layout>
-      <UnreadHint newMessage={item.viewedChat[user!.firebaseID]} />
+      <UnreadHint
+        newMessage={
+          !item.viewedChat ||
+          item.viewedChat[JSON.stringify(user!.firebase_uid)]
+        }
+      />
     </ListItem>
   );
 };
