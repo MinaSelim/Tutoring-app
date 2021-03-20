@@ -18,6 +18,9 @@ const errors = {
     currentlyUnavailable: 'Currently unavailable',
     userInfo: 'There was an problem accessing your user information.',
   },
+  passwordReset: {
+    provideEmail: 'Please provide a correct email',
+  },
 };
 
 export default errors;

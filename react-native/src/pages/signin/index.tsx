@@ -6,6 +6,7 @@ import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
 import useAuthUser from '../../hooks/authUser';
+import firebase from '../../api/authentication/Fire'
 import {Text} from '@ui-kitten/components';
 import constants from '../../constants';
 
@@ -41,13 +42,15 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         password,
       });
       setAuthUser(user);
-      navigation.navigate('HomeDrawer');
-    } catch (error) {
+      if(user) 
+         navigation.navigate('HomeDrawer');
+      } catch (error) {
       Alert.alert(`${error}`);
     }
   };
+
   const forgotPassword = (): void => {
-    // TODO: Redirect to forgot password page
+    navigation.navigate('PasswordReset');
   };
 
   const signInWithGoogle = (): void => {
