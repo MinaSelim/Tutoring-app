@@ -13,6 +13,7 @@ import constants from '../../../constants';
 import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
 import Profile from '../../profile/Profile';
+import {useNavigation} from '@react-navigation/native';
 
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />
@@ -33,9 +34,10 @@ const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
 
-const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
+const SideBar: React.FunctionComponent<any> = () => {
   const [user, setAuthUser] = useAuthUser();
   const [userName, setUserName] = useState('');
+  const navigation = useNavigation();
   console.log(user);
   useEffect(() => {
     if (user != null) setUserName(user!.first_name);
