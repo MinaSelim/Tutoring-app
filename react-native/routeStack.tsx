@@ -33,7 +33,7 @@ const StackNavigator: React.FunctionComponent = () => {
       <Stack.Screen name="SignUpCredentials" component={SignUpCredentials} />
       <Stack.Screen name="SignUpUserType" component={SignUpUserType} />
       <Stack.Screen name="SignUpSelectCampus" component={SignUpSelectCampus} />
-      <Stack.Screen name="Home" component={HomeNavigation} />
+      <Stack.Screen name="HomeDrawer" component={HomeNavigation} />
       <Stack.Screen name="MyChats" component={chatInbox} />
       <Stack.Screen name="TutorSearch" component={TutorSearch} />
       <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />

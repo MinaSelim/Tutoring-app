@@ -38,7 +38,6 @@ const SideBar: React.FunctionComponent<any> = () => {
   const [user, setAuthUser] = useAuthUser();
   const [userName, setUserName] = useState('');
   const navigation = useNavigation();
-  console.log(user);
   useEffect(() => {
     if (user != null) setUserName(user!.first_name);
   }, [user]);

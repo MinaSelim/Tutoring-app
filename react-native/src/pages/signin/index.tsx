@@ -28,7 +28,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
   const setUserType = useUserType()[1];
 
   useEffect(() => {
-    if (user != null) navigation.navigate('Home');
+    if (user != null) navigation.navigate('HomeDrawer');
   });
 
   const signIn = async (): Promise<void> => {
@@ -44,7 +44,7 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
       });
       setAuthUser(user);
       setUserType(userType);
-      navigation.navigate('Home');
+      navigation.navigate('HomeDrawer');
     } catch (error) {
       Alert.alert(`${error}`);
     }
