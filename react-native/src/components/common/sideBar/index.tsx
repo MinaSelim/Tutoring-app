@@ -13,6 +13,7 @@ import constants from '../../../constants';
 import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
 import Profile from '../../profile/Profile';
+import {useNavigation} from '@react-navigation/native';
 
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />
@@ -33,9 +34,11 @@ const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
 );
 
-const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
+const SideBar: React.FunctionComponent<any> = () => {
   const [user, setAuthUser] = useAuthUser();
   const [userName, setUserName] = useState('');
+  const navigation = useNavigation();
+  console.log(user);
   useEffect(() => {
     if (user != null) setUserName(user!.first_name);
   }, [user]);
@@ -44,6 +47,29 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
     setAuthUser(null);
     navigation.navigate('SignInMenu');
   };
+  const TutorCalendar = (props): JSX.Element => (
+    <Button
+      style={styles.button}
+      appearance="ghost"
+      status="control"
+      accessoryLeft={CalendarIcon}
+      size="giant">
+      {constants.commonComponents.sidebar.tutorCalendar}
+    </Button>
+  );
+  /**
+   * this method conditionally renders a calendar option for tutor
+   * returns a tutor calendar menu option if the user is a tutor
+   * retruns empty view if user is not tutor
+   */
+  function ConditionalTutorCalendar(): JSX.Element {
+    try {
+      return user!.tutor_info ? <TutorCalendar /> : <View />;
+    } catch (error) {
+      console.log(error);
+      return <View />;
+    }
+  }
 
   return (
     <Layout level="primary" style={styles.container}>
@@ -65,7 +91,7 @@ const SideBar: React.FunctionComponent<any> = ({navigation}: any) => {
           size="giant">
           {constants.commonComponents.sidebar.mySessions}
         </Button>
-        {/* conditional button: if userObject session is "tutor" display tutorCalendar*/}
+        <ConditionalTutorCalendar />
         <Button
           style={styles.button}
           appearance="ghost"

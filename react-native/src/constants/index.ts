@@ -63,6 +63,7 @@ const constants = {
       profile: 'Profile',
       mySessions: 'My Sessions',
       paymentOptions: 'Payment Options',
+      tutorCalendar: 'My Calendar',
       accountHistory: 'Account History',
       selectCampus: 'Select Campus',
       signout: 'Sign out',
