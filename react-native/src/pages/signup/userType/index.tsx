@@ -62,7 +62,7 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
       const user = await auth.signInWithEmailAndPassword({email, password});
       setAuthUser(user);
       setUserType('tutor');
-      navigation.navigate('Home');
+      navigation.navigate('HomeDrawer');
     } catch (error) {
       Alert.alert(`${error}`);
     }

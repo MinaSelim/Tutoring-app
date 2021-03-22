@@ -80,7 +80,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
         const user = await auth.signInWithEmailAndPassword({email, password});
         setAuthUser(user);
         setUserType('student');
-        navigation.navigate('Home');
+        navigation.navigate('HomeDrawer');
       } catch (err) {
         Alert.alert(`${errors.signup.genericSignUp}\n${err}`);
         return;
