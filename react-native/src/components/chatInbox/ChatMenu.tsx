@@ -86,19 +86,33 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   };
 
   useEffect(() => {
-    new RequestUserChatrooms().getUserChatrooms(userID).then((userChatList) => {
-      new DirectMessageChat()
-        .displayUserChatrooms('direct', userChatList)
-        .then((data) => {
-          setOneToOneList(data);
+    if (user!.student_info) {
+      new RequestUserChatrooms()
+        .getStudentChatrooms(userID)
+        .then((userChatList) => {
+          new DirectMessageChat()
+            .displayUserChatrooms('direct', userChatList)
+            .then((data) => {
+              setOneToOneList(data);
+            });
+          new GroupChat()
+            .displayUserChatrooms('group', userChatList)
+            .then((data) => {
+              setGroupList(data);
+            });
         });
-
-      new GroupChat()
-        .displayUserChatrooms('group', userChatList)
-        .then((data) => {
-          setGroupList(data);
+    } else {
+      new RequestUserChatrooms()
+        .getTutorChatrooms(userID)
+        .then((userChatList) => {
+          new DirectMessageChat()
+            .displayUserChatrooms('direct', userChatList)
+            .then((data) => {
+              setOneToOneList(data);
+            });
         });
-    });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userID]);
 
   appendChat();

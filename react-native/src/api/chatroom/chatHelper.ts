@@ -89,9 +89,8 @@ export default class chatHelper {
             sender: currentUserToken,
           });
           const request = new RequestUserChatrooms();
-          for (let user of participantsTokens) {
-            request.addUserChatroom(user, docRef.id);
-          }
+          request.addStudentChatroom(participantsTokens[0], docRef.id);
+          request.addTutorChatroom(participantsTokens[1], docRef.id);
         });
       return constants.successfulResult;
     }
