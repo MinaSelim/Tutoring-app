@@ -40,5 +40,44 @@ const tutorData: ITutor[] = [
       overallRating: 4.9,
     },
   },
+  {
+    firebase_uid: '58694a0d',
+    first_name: 'Danielle',
+    last_name: 'Dannyson',
+    email: 'lmao4@gmail.com',
+    tutor_info: {
+      chatrooms: ['comp233'],
+      personRate: 10000,
+      groupRate: 1,
+      numberOfReviews: 200,
+      overallRating: 4.1,
+    },
+  },
+  {
+    firebase_uid: '4a0e',
+    first_name: 'Elijah',
+    last_name: 'Elison',
+    email: 'lmao4@gmail.com',
+    tutor_info: {
+      chatrooms: ['comp233'],
+      personRate: 10000,
+      groupRate: 1,
+      numberOfReviews: 200,
+      overallRating: 4.9,
+    },
+  },
+  {
+    firebase_uid: '5860f',
+    first_name: 'Felix',
+    last_name: 'Forin',
+    email: 'lmao4@gmail.com',
+    tutor_info: {
+      chatrooms: ['comp233'],
+      personRate: 10000,
+      groupRate: 1,
+      numberOfReviews: 200,
+      overallRating: 5.0,
+    },
+  },
 ];
 export default tutorData;
