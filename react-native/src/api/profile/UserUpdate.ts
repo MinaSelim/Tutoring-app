@@ -5,7 +5,9 @@ export default class UserUpdate {
   public static updateUserInfo = async (
     tempUser: IUser | ((user: IUser | null) => void) | null,
   ): Promise<any> => {
-    const userType = tempUser!.tutor_info ? 'tutor' : 'student';
+    const userType = tempUser!.hasOwnProperty('tutor_info')
+      ? 'tutor'
+      : 'student';
     try {
       const response = await fetch(
         `${env.SERVER_LINK}/profile/${userType}/update`,

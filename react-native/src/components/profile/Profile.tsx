@@ -17,7 +17,9 @@ const Profile = (): JSX.Element => {
   const theme = useTheme();
   const [actualUser, setAuthUser] = useAuthUser();
   let tempUser: IUser = JSON.parse(JSON.stringify(actualUser));
-  const userType = actualUser!.tutor_info ? 'tutor' : 'student';
+  const userType = actualUser!.hasOwnProperty('tutor_info')
+    ? 'tutor'
+    : 'student';
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
