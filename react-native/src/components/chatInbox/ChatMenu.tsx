@@ -57,27 +57,27 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
           }
         }
       }
-      if (newestChatroom[0].chatType == 'direct' && userPresence) {
+      if (newestChatroom[0].chatType === 'direct' && userPresence) {
         if (oneToOneList.length === 0) {
           setOneToOneList([newestChatroom[0]]);
-          if (user!.student_info)
+          if (user!.hasOwnProperty('student_info'))
             user!.student_info.chatrooms.push(newestChatroom[0].id);
           else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
         } else if (oneToOneList[0].id !== newestChatroom[0].id) {
           setOneToOneList([newestChatroom[0], ...oneToOneList]);
-          if (user!.student_info)
+          if (user!.hasOwnProperty('student_info'))
             user!.student_info.chatrooms.push(newestChatroom[0].id);
           else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
         }
-      } else if (newestChatroom[0].chatType == 'group' && userPresence) {
+      } else if (newestChatroom[0].chatType === 'group' && userPresence) {
         if (groupList.length === 0) {
           setGroupList([newestChatroom[0]]);
-          if (user!.student_info)
+          if (user!.hasOwnProperty('student_info'))
             user!.student_info.chatrooms.push(newestChatroom[0].id);
           else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
         } else if (oneToOneList[0].id !== newestChatroom[0].id) {
           setGroupList([newestChatroom[0], ...groupList]);
-          if (user!.student_info)
+          if (user!.hasOwnProperty('student_info'))
             user!.student_info.chatrooms.push(newestChatroom[0].id);
           else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
         }
@@ -86,7 +86,7 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   };
 
   useEffect(() => {
-    if (user!.student_info) {
+    if (user!.hasOwnProperty('student_info')) {
       new RequestUserChatrooms()
         .getStudentChatrooms(userID)
         .then((userChatList) => {
