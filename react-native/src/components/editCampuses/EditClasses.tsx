@@ -10,7 +10,7 @@ interface IEditCampus extends INavigation {
   route: any;
 }
 
-const EditCampus: React.FunctionComponent<IEditCampus> = (
+const EditClasses: React.FunctionComponent<IEditCampus> = (
   props,
 ): JSX.Element => {
   //TODO replace with campuses from user
@@ -30,4 +30,4 @@ const EditCampus: React.FunctionComponent<IEditCampus> = (
   );
 };
 
-export default EditCampus;
+export default EditClasses;

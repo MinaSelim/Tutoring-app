@@ -10,9 +10,10 @@ import chatInbox from './src/pages/chatInbox';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
 import StudyGroupSearch from './src/components/studyGroupSearch/StudyGroupSearch';
 import Chat from './src/pages/chat/index';
-import EditCampuses from './src/components/editCampuses/EditCampuses';
+import EditStudentCampus from './src/components/editCampuses/EditStudentCampus';
+import EditTutorCampuses from './src/components/editCampuses/EditTutorCampuses';
+import EditClasses from './src/components/editCampuses/EditClasses';
 import PasswordReset from './src/pages/passwordReset';
-import EditCampus from './src/components/editCampuses/EditCampus';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import PaymentOptions from './src/pages/paymentOptions';
@@ -36,7 +37,7 @@ const HomeNavigation: React.FunctionComponent = () => {
 };
 const StackNavigator: React.FunctionComponent = () => {
   return (
-    <Stack.Navigator initialRouteName="EditCampuses" headerMode="none">
+    <Stack.Navigator initialRouteName="EditTutorCampuses" headerMode="none">
       <Stack.Screen name="SignInMenu" component={SignInMenu} />
       <Stack.Screen name="SignUpCredentials" component={SignUpCredentials} />
       <Stack.Screen name="SignUpUserType" component={SignUpUserType} />
@@ -47,10 +48,11 @@ const StackNavigator: React.FunctionComponent = () => {
       <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
       <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="Booking" component={Booking} />
-      <Stack.Screen name="EditCampuses" component={EditCampuses} />
+      <Stack.Screen name="EditTutorCampuses" component={EditTutorCampuses} />
+      <Stack.Screen name="EditStudentCampus" component={EditStudentCampus} />
+      <Stack.Screen name="EditClasses" component={EditClasses} />
       <Stack.Screen name="PaymentOptions" component={PaymentOptions} />
       <Stack.Screen name="PasswordReset" component={PasswordReset} />
-      <Stack.Screen name="EditCampus" component={EditCampus} />
     </Stack.Navigator>
   );
 };

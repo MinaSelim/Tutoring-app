@@ -113,7 +113,11 @@ const SideBar: React.FunctionComponent<any> = () => {
           {constants.commonComponents.sidebar.accountHistory}
         </Button>
         <Button
-          onPress={(): void => navigation.navigate('EditCampuses')}
+          onPress={(): void =>
+            user!.tutor_info
+              ? navigation.navigate('EditTutorCampuses')
+              : navigation.navigate('EditStudentCampus')
+          }
           style={styles.button}
           appearance="ghost"
           status="control"

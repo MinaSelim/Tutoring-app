@@ -17,16 +17,13 @@ const CampusCard: React.FunctionComponent<ICampusCard> = ({
     <Card
       style={styles.card}
       onPress={(): boolean =>
-        navigation.navigate('EditCampus', {campusName: name})
+        navigation.navigate('EditClasses', {campusName: name})
       }>
       <Image
         source={require('../../assets/images/icons/university.png')}
         style={styles.universityImage}
       />
       <Text style={styles.universityText}>{name}</Text>
-      {/* <Button appearance="primary" style={styles.button}>
-        Edit
-      </Button> */}
     </Card>
   );
 };
