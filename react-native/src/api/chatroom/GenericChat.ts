@@ -28,7 +28,10 @@ export default class GenericChat {
 
       // eslint-disable-next-line no-await-in-loop
       await ref.get().then((snapshot) => {
-        if (chatType === snapshot.data().chatType) {
+        if (
+          snapshot.data() !== undefined &&
+          chatType === snapshot.data().chatType
+        ) {
           userChatrooms.push({
             id: snapshot.id,
             value: snapshot.data(),
@@ -42,13 +45,16 @@ export default class GenericChat {
         chatRef.id,
         chatRef.value.participants,
         chatRef.value.createdAt,
-        chatRef.value.name,
+        chatRef.value.roomName,
         chatRef.value.associatedClass,
         chatRef.value.chatType,
         chatRef.value.viewedChat,
         chatRef.value.latestMessage,
       );
       chatrooms.push(chatroom);
+    });
+    chatrooms.sort(function (x, y) {
+      return +y.latestMessage.createdAt - +x.latestMessage.createdAt;
     });
     return chatrooms;
   };

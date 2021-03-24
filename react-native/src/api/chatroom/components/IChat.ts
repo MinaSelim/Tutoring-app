@@ -1,6 +1,6 @@
 export default interface IChat {
   id: string;
-  participants: Array<string>;
+  participants: string[];
   createdAt: number;
   roomName: string;
   associatedClass: string;

@@ -1,6 +1,7 @@
 import {Alert} from 'react-native';
 import firebase from '../authentication/Fire';
 import constants from './chatConstants';
+import RequestUserChatrooms from './requests/RequestUserChatrooms';
 
 export default class chatHelper {
   // eslint-disable-next-line no-useless-constructor
@@ -69,7 +70,7 @@ export default class chatHelper {
         .firestore()
         .collection(constants.chatroomCollection)
         .add({
-          name: roomName,
+          roomName: roomName,
           createdAt: new Date().getTime(),
           associatedClass,
           participants: participantsTokens,
@@ -87,6 +88,9 @@ export default class chatHelper {
             createdAt: new Date().getTime(),
             sender: currentUserToken,
           });
+          const request = new RequestUserChatrooms();
+          request.addStudentChatroom(participantsTokens[0], docRef.id);
+          request.addTutorChatroom(participantsTokens[1], docRef.id);
         });
       return constants.successfulResult;
     }

@@ -1,6 +1,7 @@
 import GenericChat from './GenericChat';
 import chatHelper from './chatHelper';
 import constants from './chatConstants';
+import RequestUserChatrooms from './requests/RequestUserChatrooms';
 
 export default class DirectMessageChat extends GenericChat {
   /**
@@ -11,7 +12,7 @@ export default class DirectMessageChat extends GenericChat {
    */
   public createChatroom = (
     currentUserToken: string,
-    participantsTokens: string,
+    participantToken: string,
     roomName: string,
   ): number => {
     // eslint-disable-next-line new-cap
@@ -19,12 +20,12 @@ export default class DirectMessageChat extends GenericChat {
     let creationResult: number = constants.errorValueNotSet;
 
     chatroomHelper
-      .getOneOnOneChat(currentUserToken, participantsTokens)
+      .getOneOnOneChat(currentUserToken, participantToken)
       .then((res: firebase.firestore.DocumentData) => {
         creationResult = chatroomHelper.generateChat(
           res,
           currentUserToken,
-          [currentUserToken, participantsTokens],
+          [currentUserToken, participantToken],
           roomName,
           constants.directChatString,
           constants.directChatString,

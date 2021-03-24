@@ -15,7 +15,7 @@ export default class Chat implements IChat {
 
   viewedChat: Object;
 
-  latestMessage: string[];
+  latestMessage: any[];
 
   constructor(
     id,

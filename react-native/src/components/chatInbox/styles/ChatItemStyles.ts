@@ -17,7 +17,12 @@ export default StyleSheet.create({
     fontSize: 14,
     alignSelf: 'center',
   },
-  lastMessage: {
+  lastMessageSeen: {
     fontSize: 14,
+    color: 'black',
+  },
+  lastMessageUnseen: {
+    fontSize: 14,
+    color: '#A3A3A3',
   },
 });
