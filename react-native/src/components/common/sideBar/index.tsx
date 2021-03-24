@@ -63,7 +63,7 @@ const SideBar: React.FunctionComponent<any> = () => {
    */
   function ConditionalTutorCalendar(): JSX.Element {
     try {
-      return user!.tutor_info ? <TutorCalendar /> : <View />;
+      return user!.hasOwnProperty('tutor_info') ? <TutorCalendar /> : <View />;
     } catch (error) {
       console.log(error);
       return <View />;
