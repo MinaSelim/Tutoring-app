@@ -4,11 +4,8 @@ import env from '../../../env';
 export default class UserUpdate {
   public static updateUserInfo = async (
     tempUser: IUser | ((user: IUser | null) => void) | null,
-    userType: string,
   ): Promise<any> => {
-    //TODO refactor with userType from future user model
-    if (userType.includes('student')) userType = 'student';
-    else if (userType.includes('tutor')) userType = 'tutor';
+    const userType = tempUser!.tutor_info ? 'tutor' : 'student';
     try {
       const response = await fetch(
         `${env.SERVER_LINK}/profile/${userType}/update`,

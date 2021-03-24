@@ -6,7 +6,6 @@ import {colors} from '../../styles/appColors';
 import 'react-native-gesture-handler';
 import IAuth from '../../api/authentication/IAuth';
 import useAuthUser from '../../hooks/authUser';
-import useUserType from '../../hooks/userType';
 import {Text} from '@ui-kitten/components';
 import constants from '../../constants';
 
@@ -25,7 +24,6 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordHidden, setPasswordHidden] = useState(true);
-  const setUserType = useUserType()[1];
 
   useEffect(() => {
     if (user != null) navigation.navigate('HomeDrawer');
@@ -43,7 +41,6 @@ const SignIn: React.FunctionComponent<ISignIn> = ({
         password,
       });
       setAuthUser(user);
-      setUserType(userType);
       navigation.navigate('HomeDrawer');
     } catch (error) {
       Alert.alert(`${error}`);

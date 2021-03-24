@@ -19,7 +19,6 @@ import useAuthUser from '../../../hooks/authUser';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import constants from '../../../constants';
 import errors from '../../../constants/errors';
-import useUserType from '../../../hooks/userType';
 
 interface ISignUpSelectCampus extends INavigation {
   route: any;
@@ -34,7 +33,6 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
     constants.signup.selectCampus.findYourCampus,
   );
   const setAuthUser = useAuthUser()[1];
-  const [, setUserType] = useUserType();
   const {firstName, lastName, email, phone, password} = route.params;
 
   const isUniversitySelected = (): boolean => {
@@ -79,7 +77,6 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
       try {
         const user = await auth.signInWithEmailAndPassword({email, password});
         setAuthUser(user);
-        setUserType('student');
         navigation.navigate('HomeDrawer');
       } catch (err) {
         Alert.alert(`${errors.signup.genericSignUp}\n${err}`);

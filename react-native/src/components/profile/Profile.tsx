@@ -9,7 +9,6 @@ import buttonStyles from '../common/sideBar/styles/styles';
 import UserUpdate from '../../api/profile/UserUpdate';
 import useAuthUser from '../../hooks/authUser';
 import IUser from '../../model/common/IUser';
-import useUserType from '../../hooks/userType';
 import {useTheme} from '@ui-kitten/components';
 import constants from '../../constants';
 import errors from '../../constants/errors';
@@ -18,7 +17,7 @@ const Profile = (): JSX.Element => {
   const theme = useTheme();
   const [actualUser, setAuthUser] = useAuthUser();
   let tempUser: IUser = JSON.parse(JSON.stringify(actualUser));
-  const userType = JSON.stringify(useUserType()[0]);
+  const userType = actualUser!.tutor_info ? 'tutor' : 'student';
   const [isProfileVisible, setProfileVisibility] = useState(false);
   const PersonIcon = (props): JSX.Element => (
     <Icon {...props} name="person-outline" />
@@ -50,10 +49,7 @@ const Profile = (): JSX.Element => {
   const updateUser = async (): Promise<void> => {
     if (!validChange()) return;
     try {
-      const user = await UserUpdate.updateUserInfo(
-        tempUser,
-        userType, //TODO replace this by userType in future user model
-      );
+      const user = await UserUpdate.updateUserInfo(tempUser);
       setAuthUser(user);
       setProfileVisibility(false);
     } catch (error) {
