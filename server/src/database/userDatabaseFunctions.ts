@@ -6,6 +6,7 @@ import {
    UpdateItemInput,
    UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
+import { isNullOrUndefined } from 'util';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from '../database/databaseUtils';
 import IUser from '../models/IUser';
@@ -88,6 +89,7 @@ export default abstract class UserDatabaseFunctions {
    protected abstract addSpecificUserParams(tempUser: IUser, params: PutItemInput): PutItemInput;
 
    public getUserByFirebaseId = async (id: string): Promise<IUser> => {
+      console.log('getting user', id);
       const params: GetItemInput = {
          Key: {
             firebase_uid: {
@@ -97,9 +99,12 @@ export default abstract class UserDatabaseFunctions {
          TableName: config.tableNames.USER,
       };
       const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      console.log(data.Item)
 
       let user: IUser = this.createGenericUser(data);
       user = this.addSpecificUserProperties(user, data);
+      
+      console.log('after adding the shit', user)
       return user;
    };
 
@@ -168,4 +173,22 @@ export default abstract class UserDatabaseFunctions {
 
       return updatedUser;
    };
+
+   /**
+    * Function that checks whether a user exists in the database. 
+    * @param id representing the user's firebase_uid
+    * @returns a promise of type boolean.
+    */
+   public userExists = async (id: string): Promise<boolean> => {
+      const params: GetItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            'firebase_uid': {
+               S: id,
+            }
+         }
+      }
+      const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      return data.Item != null
+   }
 }
