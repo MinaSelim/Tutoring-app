@@ -101,7 +101,7 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
    };
 
    /**
-    * Function that adds a student_info object to an existing user in the database 
+    * Function that adds a student_info object to an existing user in the database
     * @param student an IStudent object holding the student_info to be added
     * @returns void.
     */
@@ -117,21 +117,21 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
                S: student.firebase_uid,
             },
          },
-         UpdateExpression: "SET student_info = :si",
+         UpdateExpression: 'SET student_info = :si',
          ExpressionAttributeValues: {
-            ":si": {
+            ':si': {
                M: {
                   campus: {
                      S: student.student_info.campus,
                   },
                   chatrooms: {
                      SS: student.student_info.chatrooms,
-                  }
-               }
-            }
+                  },
+               },
+            },
          },
-         ReturnValues: "NONE"
-      }
+         ReturnValues: 'NONE',
+      };
 
       this.databaseUtils.updateItem(params);
    };

@@ -271,7 +271,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    };
         
    /**
-    * Function that adds a tutor_info object to an existing user in the database 
+    * Function that adds a tutor_info object to an existing user in the database
     * @param tutor an ITutor object holding the tutor_info to be added
     * @returns void.
     */
@@ -285,9 +285,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                S: tutor.firebase_uid,
             },
          },
-         UpdateExpression: "SET tutor_info = :ti",
+         UpdateExpression: 'SET tutor_info = :ti',
          ExpressionAttributeValues: {
-            ":ti": {
+            ':ti': {
                M: {
                   campuses: {
                      SS: tutor.tutor_info.campuses,
@@ -308,13 +308,13 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                      N: String(tutor.tutor_info.numberOfReviews),
                   },
                },
-            }
+            },
          },
-         ReturnValues: "NONE"
-      }
+         ReturnValues: 'NONE',
+      };
 
       this.databaseUtils.updateItem(params);
-   }
+   };
 
    /**
     * Function that initializes the tutor_info object with default values

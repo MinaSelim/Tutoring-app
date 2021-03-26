@@ -23,10 +23,11 @@ export default class TutorAuthManager {
     * @param tutor The tutor to add to the database
     */
    public registerTutor = async (tutor: ITutor): Promise<void> => {
-      if (await this.tutorDatabaseFunctions.userExists(tutor.firebase_uid)) {
+      if (await this.tutorDatabaseFunctions.userIsRegisteredAsTutor(tutor.firebase_uid)) {
+         return Promise.reject('error: user is already registered as a tutor');
+      } else if (await this.tutorDatabaseFunctions.userIsRegisteredAsStudent(tutor.firebase_uid)) {
          this.tutorDatabaseFunctions.addTutorInfoToUser(tutor);
-      }
-      else {
+      } else {
          await this.tutorDatabaseFunctions.addUserToDatabase(tutor);
       }
    };
