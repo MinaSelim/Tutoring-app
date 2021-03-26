@@ -38,6 +38,7 @@ export default StyleSheet.create({
     width: '80%',
     borderRadius: 10,
     alignSelf: 'center',
+    zIndex: -1,
   },
   universityImage: {
     tintColor: colors.appOrange,
@@ -70,6 +71,21 @@ export default StyleSheet.create({
     paddingTop: 5,
   },
   middleSection: {
-    marginTop: '20%',
+    marginTop: '7%',
+    marginBottom: 10,
+    flex: 1,
+    minHeight: 200,
+  },
+  topPart: {
+    flex: 1,
+  },
+  contentView: {
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  classList: {
+    backgroundColor: 'white',
+    width: '90%',
+    alignSelf: 'center',
   },
 });
