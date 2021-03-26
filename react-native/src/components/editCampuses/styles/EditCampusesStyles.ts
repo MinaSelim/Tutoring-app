@@ -8,6 +8,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 18,
+    marginTop: 5,
+    marginBottom: 5,
     height: 50,
   },
   title: {

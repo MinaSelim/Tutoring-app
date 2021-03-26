@@ -114,7 +114,7 @@ const SideBar: React.FunctionComponent<any> = () => {
         </Button>
         <Button
           onPress={(): void =>
-            user!.tutor_info
+            user!.hasOwnProperty('tutor_info')
               ? navigation.navigate('EditTutorCampuses')
               : navigation.navigate('EditStudentCampus')
           }

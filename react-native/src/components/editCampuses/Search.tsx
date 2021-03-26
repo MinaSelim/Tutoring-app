@@ -27,6 +27,17 @@ const Search = (items): JSX.Element => {
     );
   };
 
+  const ResultList = (): JSX.Element => {
+    if (data !== undefined) {
+      return data.map((item, index) => (
+        <AutocompleteItem key={index} title={item.title} />
+      ));
+    } else {
+      return <AutocompleteItem key={'title'} title={'No Data'} />;
+    }
+  };
+
+  //change listlength for class
   return (
     <Autocomplete
       placeholder="Select a campus"
@@ -34,9 +45,7 @@ const Search = (items): JSX.Element => {
       value={value}
       onSelect={onSelect}
       onChangeText={onChangeText}>
-      {data.map((item, index) => (
-        <AutocompleteItem key={index} title={item.title} />
-      ))}
+      <ResultList />
     </Autocomplete>
   );
 };
