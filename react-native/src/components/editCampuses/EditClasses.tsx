@@ -1,4 +1,4 @@
-import {View, SafeAreaView} from 'react-native';
+import {View, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Text, Button, List, ListItem, Card} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import styles from './styles/EditClassesStyles';
@@ -35,14 +35,18 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
   const {campusName} = props.route.params;
   const theme = useTheme();
 
-  const RemoveButton = (props): JSX.Element => (
-    <Button status="basic">Remove</Button>
-  );
+  interface IClassItem {
+    className: string;
+  }
 
-  const ClassItem = (): JSX.Element => (
-    <ListItem style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-      <Text>Class</Text>
-      <Button status="basic">Remove</Button>
+  const ClassItem: React.FunctionComponent<IClassItem> = ({
+    className,
+  }): JSX.Element => (
+    <ListItem style={styles.classListItem}>
+      <Text style={styles.classItemText}>{className}</Text>
+      <TouchableOpacity style={styles.classItemButton}>
+        <Text style={styles.classItemButtonText}>REMOVE</Text>
+      </TouchableOpacity>
     </ListItem>
   );
 
@@ -73,7 +77,9 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
             <List
               style={styles.classList}
               data={classes}
-              renderItem={(): JSX.Element => <ClassItem />}
+              renderItem={(item): JSX.Element => (
+                <ClassItem className={item.item} />
+              )}
             />
           </View>
         </View>

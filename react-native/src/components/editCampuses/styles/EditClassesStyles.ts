@@ -40,13 +40,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     zIndex: -1,
   },
-  universityImage: {
-    tintColor: colors.appOrange,
-    height: 78,
-    width: 110,
-    alignSelf: 'center',
-    marginTop: 15,
-  },
   searchBar: {
     paddingTop: 10,
     paddingBottom: 15,
@@ -71,10 +64,10 @@ export default StyleSheet.create({
     paddingTop: 5,
   },
   middleSection: {
-    marginTop: '7%',
-    marginBottom: 10,
+    //marginTop: '5%',
+    marginBottom: 25,
     flex: 1,
-    minHeight: 200,
+    //minHeight: 250,
   },
   topPart: {
     flex: 1,
@@ -85,7 +78,20 @@ export default StyleSheet.create({
   },
   classList: {
     backgroundColor: 'white',
-    width: '90%',
+    width: '85%',
     alignSelf: 'center',
+  },
+  classListItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  classItemText: {
+    fontFamily: fonts.quickSandSemiBold,
+  },
+  classItemButton: {
+    backgroundColor: '#EDEFF6',
+  },
+  classItemButtonText: {
+    color: '#8B9CB3',
   },
 });
