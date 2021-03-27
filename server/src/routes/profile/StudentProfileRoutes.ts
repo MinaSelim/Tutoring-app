@@ -66,5 +66,17 @@ export class StudentProfileRoutes implements IRouteComponent {
             res.send(error);
          }
       });
+
+      app.post('/profile/student/updateCampus', async (req: Request, res: Response) => {
+         try {
+            Guards.loggedInStudentGuard(req);
+            await this.studentProfileManager.updateCampus(req.body.idToken, req.body.campus);
+            res.sendStatus(200);
+         } catch (error) {
+            console.error(error);
+            res.status(500);
+            res.send(error);
+         }
+      });
    }
 }
