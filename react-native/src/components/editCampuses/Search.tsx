@@ -2,23 +2,19 @@ import {Autocomplete, AutocompleteItem} from '@ui-kitten/components';
 import React from 'react';
 
 const Search = (items): JSX.Element => {
-  console.log(items.items);
-  //temporary
-  items = [
-    {title: 'Star Wars'},
-    {title: 'Back to the Future'},
-    {title: 'The Matrix'},
-    {title: 'Inception'},
-    {title: 'Interstellar'},
-  ];
+  if (items.items === undefined) {
+    items = [{title: 'No Data'}];
+  } else items = items.items;
   const [value, setValue] = React.useState('');
   const [data, setData] = React.useState(items);
 
   const onSelect = (index): void => {
-    setValue(items[index].title);
+    console.log('!!!');
+    setValue(data[index].title);
   };
 
   const onChangeText = (query): void => {
+    console.log('!!!');
     setValue(query);
     setData(
       items.filter((item) =>
@@ -28,16 +24,11 @@ const Search = (items): JSX.Element => {
   };
 
   const ResultList = (): JSX.Element => {
-    if (data !== undefined) {
-      return data.map((item, index) => (
-        <AutocompleteItem key={index} title={item.title} />
-      ));
-    } else {
-      return <AutocompleteItem key={'title'} title={'No Data'} />;
-    }
+    return data.map((item, index) => (
+      <AutocompleteItem key={index} title={item.title} />
+    ));
   };
 
-  //change listlength for class
   return (
     <Autocomplete
       placeholder="Select a campus"

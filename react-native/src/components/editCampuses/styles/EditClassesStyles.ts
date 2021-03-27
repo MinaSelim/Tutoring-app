@@ -90,8 +90,14 @@ export default StyleSheet.create({
   },
   classItemButton: {
     backgroundColor: '#EDEFF6',
+    padding: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
   },
   classItemButtonText: {
     color: '#8B9CB3',
+    fontSize: 13,
+    fontFamily: fonts.quickSandSemiBold,
   },
 });
