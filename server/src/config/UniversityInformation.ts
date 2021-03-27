@@ -29,4 +29,8 @@ export default class UniversityInformation {
    public getClasses = (university: string): string[] => {
       return this.classes[university];
    };
+
+   public getCampuses = (): string[] => {
+      return this.universities;
+   };
 }

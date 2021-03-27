@@ -18,4 +18,8 @@ export default class SearchManager {
    public getUniversityClasses = (campus: string): string[] => {
       return this.universityInformation.getClasses(campus);
    };
+
+   public getCampuses = (): string[] => {
+      return this.universityInformation.getCampuses();
+   };
 }
