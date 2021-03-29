@@ -1,16 +1,15 @@
-import { app } from 'firebase';
+import {app} from 'firebase';
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../styles/appColors';
 import {fonts} from '../../../styles/appFonts';
 
 export default StyleSheet.create({
-  
   container: {
     flex: 1,
     alignItems: 'stretch',
     width: '100%',
     height: '100%',
-    backgroundColor: colors.appWhite
+    backgroundColor: colors.appWhite,
   },
 
   title: {
@@ -18,7 +17,7 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
   },
- 
+
   input: {
     height: 40,
     marginTop: 50,
@@ -49,7 +48,7 @@ export default StyleSheet.create({
     marginTop: 90,
     marginBottom: 0,
     width: '85%',
-    backgroundColor: colors.appWhite
+    backgroundColor: colors.appWhite,
   },
   forgotPasswordText: {
     color: colors.appDarkGrey,
@@ -64,7 +63,7 @@ export default StyleSheet.create({
     marginTop: 125,
     fontFamily: fonts.quickSandBold,
     alignContent: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   signInText: {
     fontSize: 14,
