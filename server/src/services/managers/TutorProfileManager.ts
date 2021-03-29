@@ -31,4 +31,12 @@ export default class TutorProfileManager {
       chatrooms = chatrooms.filter((n) => n); // removes empty string
       return chatrooms;
    };
+
+   public addCampus = async (idToken: string, campus: string): Promise<void> => {
+      await this.tutorDatabaseFunctions.addCampus(idToken, campus);
+   };
+
+   public removeCampus = async (idToken: string, campus: string): Promise<void> => {
+      await this.tutorDatabaseFunctions.removeCampus(idToken, campus);
+   };
 }
