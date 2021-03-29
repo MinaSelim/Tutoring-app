@@ -6,7 +6,6 @@ import {
    UpdateItemInput,
    UpdateItemOutput,
 } from 'aws-sdk/clients/dynamodb';
-import {isNullOrUndefined} from 'util';
 import * as config from '../config/DatabaseConfigInfo.json';
 import DatabaseUtils from '../database/databaseUtils';
 import IUser from '../models/IUser';
@@ -89,7 +88,6 @@ export default abstract class UserDatabaseFunctions {
    protected abstract addSpecificUserParams(tempUser: IUser, params: PutItemInput): PutItemInput;
 
    public getUserByFirebaseId = async (id: string): Promise<IUser> => {
-      console.log('getting user', id);
       const params: GetItemInput = {
          Key: {
             firebase_uid: {
@@ -99,12 +97,8 @@ export default abstract class UserDatabaseFunctions {
          TableName: config.tableNames.USER,
       };
       const data: GetItemOutput = await this.databaseUtils.getItem(params);
-      console.log(data.Item);
-
       let user: IUser = this.createGenericUser(data);
       user = this.addSpecificUserProperties(user, data);
-
-      console.log('after adding the shit', user);
       return user;
    };
 
