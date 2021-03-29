@@ -9,6 +9,7 @@ import firebase from '../../api/authentication/Fire'
 import {Text} from '@ui-kitten/components';
 import constants from '../../constants';
 import errorConstants from '../../constants/errors'
+import {setJSExceptionHandler} from 'react-native-exception-handler';
 import { Alert } from 'react-native';
 import { Image } from 'react-native';
 
@@ -32,7 +33,10 @@ const passwordReset: React.FunctionComponent<IPasswordReset> = ({
       return;
     }
     
-    firebase.auth().sendPasswordResetEmail(email);
+    firebase.auth().sendPasswordResetEmail(email).catch(error => {
+      Alert.alert(errorConstants.passwordReset.provideARegisteredEmail);
+    })
+   
     setEmailSent(true);
   };
 
