@@ -66,5 +66,29 @@ export class TutorProfileRoutes implements IRouteComponent {
             res.send(error);
          }
       });
+
+      app.post('/profile/tutor/addCampus', async (req: Request, res: Response) => {
+         try {
+            Guards.loggedInTutorGuard(req);
+            await this.tutorProfileManager.addCampus(req.body.idToken, req.body.campus);
+            res.sendStatus(200);
+         } catch (error) {
+            console.error(error);
+            res.status(500);
+            res.send(error);
+         }
+      });
+
+      app.post('/profile/tutor/removeCampus', async (req: Request, res: Response) => {
+         try {
+            Guards.loggedInStudentGuard(req);
+            await this.tutorProfileManager.removeCampus(req.body.idToken, req.body.campus);
+            res.sendStatus(200);
+         } catch (error) {
+            console.error(error);
+            res.status(500);
+            res.send(error);
+         }
+      });
    }
 }

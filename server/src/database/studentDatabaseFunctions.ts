@@ -99,4 +99,24 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       const data: UpdateItemOutput = await this.databaseUtils.updateItem(params);
       return data.Attributes.student_info.M.chatrooms.SS;
    };
+
+   public updateCampus = async (idToken: string, campus: string): Promise<void> => {
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: idToken,
+            },
+         },
+         UpdateExpression: 'SET student_info.campus = :cs',
+         ExpressionAttributeValues: {
+            ':cs': {
+               S: campus,
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+
+      await this.databaseUtils.updateItem(params);
+   };
 }

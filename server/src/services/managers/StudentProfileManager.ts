@@ -31,4 +31,8 @@ export default class StudentProfileManager {
       chatrooms = chatrooms.filter((n) => n); // removes empty string
       return chatrooms;
    };
+
+   public updateCampus = async (idToken: string, campus: string): Promise<void> => {
+      await this.studentDatabaseFunctions.updateCampus(idToken, campus);
+   };
 }

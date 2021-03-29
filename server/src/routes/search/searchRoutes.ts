@@ -25,10 +25,21 @@ export class SearchRoutes implements IRouteComponent {
       app.post('/search/classes', (req: Request, res: Response) => {
          try {
             const classes = this.searchManager.getUniversityClasses(req.body.university);
-            console.log(classes);
             res.status(200);
             res.send(classes);
          } catch (error) {
+            res.status(500);
+            res.send(error);
+         }
+      });
+
+      app.post('/search/campuses', (req: Request, res: Response) => {
+         try {
+            const campuses = this.searchManager.getCampuses();
+            res.status(200);
+            res.send(campuses);
+         } catch (error) {
+            console.error(error);
             res.status(500);
             res.send(error);
          }

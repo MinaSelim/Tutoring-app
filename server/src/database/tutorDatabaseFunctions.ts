@@ -26,6 +26,10 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.chatrooms = [''];
       }
 
+      if (tutor.tutor_info.classes === undefined || tutor.tutor_info.classes.length == 0) {
+         tutor.tutor_info.classes = [''];
+      }
+
       if (!tutor.tutor_info.overallRating) {
          tutor.tutor_info.overallRating = 0;
       }
@@ -38,7 +42,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.last_seen = new Date().toLocaleString();
       }
 
-      if (!tutor.tutor_info.classes) {
+      if (tutor.tutor_info.campuses === undefined || tutor.tutor_info.campuses.length == 0) {
          tutor.tutor_info.classes = [''];
       }
 
@@ -254,5 +258,43 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       } while (typeof params.ExclusiveStartKey != 'undefined');
 
       return tutors;
+   };
+
+   public addCampus = async (id: string, campus: string): Promise<void> => {
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         UpdateExpression: 'ADD tutor_info.campuses :cs',
+         ExpressionAttributeValues: {
+            ':cs': {
+               SS: [campus],
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+      await this.databaseUtils.updateItem(params);
+   };
+
+   public removeCampus = async (id: string, campus: string): Promise<void> => {
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+         UpdateExpression: 'DELETE tutor_info.campuses :cs',
+         ExpressionAttributeValues: {
+            ':cs': {
+               SS: [campus],
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+      await this.databaseUtils.updateItem(params);
    };
 }
