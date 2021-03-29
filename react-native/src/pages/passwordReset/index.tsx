@@ -34,6 +34,7 @@ const PasswordReset: React.FunctionComponent<IPasswordReset> = ({
       .sendPasswordResetEmail(email)
       .catch((error) => {
         Alert.alert(errorConstants.passwordReset.provideARegisteredEmail);
+        setEmailSent(false);
       });
 
     setEmailSent(true);
@@ -77,7 +78,7 @@ const PasswordReset: React.FunctionComponent<IPasswordReset> = ({
           </>
         )}
         {emailSent && (
-          <View style={styles.forgotPasswordButton}>
+          <View style={styles.emailSentContainer}>
             <Text style={styles.emailSentText} category="label">
               {constants.passwordReset.resetLinkSent}
             </Text>

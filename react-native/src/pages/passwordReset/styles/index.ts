@@ -19,6 +19,7 @@ export default StyleSheet.create({
   },
 
   input: {
+    flexDirection: 'row',
     height: 40,
     marginTop: 50,
     borderColor: colors.appOrange,
@@ -57,10 +58,13 @@ export default StyleSheet.create({
     fontFamily: fonts.quickSandBold,
   },
   emailSentText: {
+    flexDirection: 'column',
+    flex: 0.8,
+    // flexWrap: 'wrap',
+    // flexShrink: 1,
     color: colors.appDarkGrey,
     fontSize: 17,
     marginLeft: 115,
-    marginTop: 125,
     fontFamily: fonts.quickSandBold,
     alignContent: 'center',
     textAlign: 'center',
@@ -83,7 +87,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
+  emailSentContainer: {
+    flexDirection: 'column',
+    margin: 5,
+    height: '100%',
+    width: '85%',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   safeArea: {
     flex: 1,
   },
