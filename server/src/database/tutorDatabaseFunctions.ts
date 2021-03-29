@@ -330,7 +330,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          tutor.tutor_info.chatrooms = [''];
       }
       
-      if (tutor.tutor_info.classes === undefined || tutor.tutor_info.chatrooms.classes == 0) {
+      if (tutor.tutor_info.classes === undefined || tutor.tutor_info.classes.length == 0) {
          tutor.tutor_info.classes = [''];
       }
 
