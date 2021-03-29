@@ -6,7 +6,6 @@ export default interface IUser {
    last_name: string;
    email: string;
    firebase_uid: string;
-   stripe_customer_id?: string;
    is_validated?: boolean;
    profileImage?: string;
    phone?: string;

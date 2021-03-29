@@ -14,8 +14,8 @@ import TutorAuth from '../../../api/authentication/TutorAuth';
 import ITutor from '../../../model/common/ITutor';
 import IAuth from '../../../api/authentication/IAuth';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import constant from '../../../constants';
 import useAuthUser from '../../../hooks/authUser';
+import constant from '../../../constants';
 
 interface ISignUpUserType extends INavigation {
   route: any;

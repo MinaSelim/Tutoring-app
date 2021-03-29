@@ -33,10 +33,6 @@ export default abstract class UserDatabaseFunctions {
          tempUser.is_validated = false;
       }
 
-      if (!user.stripe_customer_id) {
-         tempUser.stripe_customer_id = '';
-      }
-
       if (!user.profileImage) {
          tempUser.profileImage = '';
       }
@@ -62,9 +58,6 @@ export default abstract class UserDatabaseFunctions {
             },
             email: {
                S: user.email,
-            },
-            stripe_customer_id: {
-               S: user.stripe_customer_id,
             },
             is_validated: {
                BOOL: user.is_validated,
@@ -107,7 +100,6 @@ export default abstract class UserDatabaseFunctions {
          email: data.Item.email.S,
          is_validated: data.Item.is_validated.BOOL,
          firebase_uid: data.Item.firebase_uid.S,
-         stripe_customer_id: data.Item.stripe_customer_id.S,
          first_name: data.Item.first_name.S,
          last_name: data.Item.last_name.S,
          profileImage: data.Item.profileImage.S,
@@ -158,7 +150,6 @@ export default abstract class UserDatabaseFunctions {
          email: returnData.Attributes.email.S,
          is_validated: returnData.Attributes.is_validated.BOOL,
          firebase_uid: returnData.Attributes.firebase_uid.S,
-         stripe_customer_id: returnData.Attributes.stripe_customer_id.S,
          first_name: returnData.Attributes.first_name.S,
          last_name: returnData.Attributes.last_name.S,
          profileImage: returnData.Attributes.profileImage.S,

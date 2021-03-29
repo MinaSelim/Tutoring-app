@@ -11,5 +11,6 @@ export default interface ITutor extends IUser {
       overallRating?: number;
       numberOfReviews?: number;
       classes?: string[];
+      stripe_account_id: string;
    };
 }

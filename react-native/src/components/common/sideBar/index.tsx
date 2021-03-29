@@ -15,6 +15,7 @@ import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
 import Profile from '../../profile/Profile';
 import {useNavigation} from '@react-navigation/native';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />
@@ -45,7 +46,7 @@ const SideBar: React.FunctionComponent<any> = () => {
 
   const handleSignOut = (): void => {
     setAuthUser(null);
-    navigation.navigate('SignInMenu');
+    navigation!.navigate('SignInMenu');
   };
   const TutorCalendar = (props): JSX.Element => (
     <Button
@@ -97,7 +98,8 @@ const SideBar: React.FunctionComponent<any> = () => {
           appearance="ghost"
           status="control"
           accessoryLeft={CreditCardIcon}
-          size="giant">
+          size="giant"
+          onPress={(): boolean => navigation!.navigate('PaymentOptions')}>
           {constants.commonComponents.sidebar.paymentOptions}
         </Button>
         <Divider style={styles.divider} />

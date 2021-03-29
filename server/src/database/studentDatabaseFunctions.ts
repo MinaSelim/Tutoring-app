@@ -1,7 +1,7 @@
 import IStudent from '../models/IStudent';
 import {GetItemInput, GetItemOutput, PutItemInput, UpdateItemInput, UpdateItemOutput} from 'aws-sdk/clients/dynamodb';
 import UserDatabaseFunctions from '../database/userDatabaseFunctions';
-import IUser from 'src/models/IUser';
+import IUser from '../models/IUser';
 import * as config from '../config/DatabaseConfigInfo.json';
 
 export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
@@ -10,6 +10,10 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
 
       if (student.student_info.chatrooms === undefined || student.student_info.chatrooms.length == 0) {
          student.student_info.chatrooms = [''];
+      }
+
+      if (!student.student_info.stripe_customer_id) {
+         student.student_info.stripe_customer_id = '';
       }
 
       return student;
@@ -26,9 +30,11 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
             chatrooms: {
                SS: student.student_info.chatrooms,
             },
+            stripe_customer_id: {
+               S: student.student_info.stripe_customer_id,
+            },
          },
       };
-
       return params;
    };
 
@@ -38,6 +44,7 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       student.student_info = {
          campus: data.Item.student_info.M.campus.S,
          chatrooms: data.Item.student_info.M.chatrooms.SS,
+         stripe_customer_id: data.Item.student_info.M.stripe_customer_id.S,
       };
 
       return student;

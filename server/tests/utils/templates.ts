@@ -45,12 +45,12 @@ export const studentDefined: IStudent = {
    email: 'string',
    profileImage: 'string',
    firebase_uid: 'string',
-   stripe_customer_id: 'string',
    is_validated: true,
    phone: 'string',
    student_info: {
       campus: 'string',
       chatrooms: ['string'],
+      stripe_customer_id: 'string',
    },
 };
 
@@ -101,7 +101,6 @@ export const tutorDefined: ITutor = {
    email: 'string',
    profileImage: 'string',
    firebase_uid: 'string',
-   stripe_customer_id: 'string',
    is_validated: true,
    phone: 'string',
    tutor_info: {
@@ -111,6 +110,7 @@ export const tutorDefined: ITutor = {
       numberOfReviews: 0,
       classes: ['string'],
       last_seen: 'string',
+      stripe_account_id: 'string',
    },
 };
 
@@ -126,6 +126,7 @@ export const tutorIncomplete: ITutor = {
       numberOfReviews: 0,
       classes: ['string'],
       last_seen: 'string',
+      stripe_account_id: 'string',
    },
 };
 
@@ -212,7 +213,6 @@ export const putItemStudentDefined: PutItemInput = {
       first_name: {S: studentDefined.first_name},
       last_name: {S: studentDefined.last_name},
       email: {S: studentDefined.email},
-      stripe_customer_id: {S: studentDefined.stripe_customer_id},
       is_validated: {BOOL: studentDefined.is_validated},
       firebase_uid: {S: studentDefined.firebase_uid},
       profileImage: {S: studentDefined.profileImage},
@@ -221,6 +221,7 @@ export const putItemStudentDefined: PutItemInput = {
          M: {
             campus: {S: studentDefined.student_info.campus},
             chatrooms: {SS: studentDefined.student_info.chatrooms},
+            stripe_customer_id: {S: studentDefined.student_info.stripe_customer_id},
          },
       },
    },
@@ -233,7 +234,6 @@ export const putItemInputStudentStripeUndefined: PutItemInput = {
       first_name: {S: studentStripeUndefined.first_name},
       last_name: {S: studentStripeUndefined.last_name},
       email: {S: studentStripeUndefined.email},
-      stripe_customer_id: {S: ''},
       is_validated: {BOOL: studentStripeUndefined.is_validated},
       firebase_uid: {S: studentStripeUndefined.firebase_uid},
       profileImage: {S: studentStripeUndefined.profileImage},
@@ -242,6 +242,7 @@ export const putItemInputStudentStripeUndefined: PutItemInput = {
          M: {
             campus: {S: studentStripeUndefined.student_info.campus},
             chatrooms: {SS: studentStripeUndefined.student_info.chatrooms},
+            stripe_customer_id: {S: ''},
          },
       },
    },
@@ -254,7 +255,6 @@ export const putItemInputStudentValidUndefined: PutItemInput = {
       first_name: {S: studentValidUndefined.first_name},
       last_name: {S: studentValidUndefined.last_name},
       email: {S: studentValidUndefined.email},
-      stripe_customer_id: {S: ''},
       is_validated: {BOOL: false},
       firebase_uid: {S: studentValidUndefined.firebase_uid},
       profileImage: {S: studentValidUndefined.profileImage},
@@ -263,6 +263,7 @@ export const putItemInputStudentValidUndefined: PutItemInput = {
          M: {
             campus: {S: studentValidUndefined.student_info.campus},
             chatrooms: {SS: studentValidUndefined.student_info.chatrooms},
+            stripe_customer_id: {S: ''},
          },
       },
    },
@@ -276,7 +277,6 @@ export const putItemInputStudentIncomplete: PutItemInput = {
       last_name: {S: studentIncomplete.last_name},
       email: {S: studentIncomplete.email},
       firebase_uid: {S: studentIncomplete.firebase_uid},
-      stripe_customer_id: {S: ''},
       is_validated: {BOOL: false},
       profileImage: {S: ''},
       phone: {S: ''},
@@ -284,6 +284,7 @@ export const putItemInputStudentIncomplete: PutItemInput = {
          M: {
             campus: {S: studentIncomplete.student_info.campus},
             chatrooms: {SS: studentIncomplete.student_info.chatrooms},
+            stripe_customer_id: {S: ''},
          },
       },
    },
@@ -296,7 +297,6 @@ export const putItemInputTutorDefined: PutItemInput = {
       first_name: {S: tutorDefined.first_name},
       last_name: {S: tutorDefined.last_name},
       email: {S: tutorDefined.email},
-      stripe_customer_id: {S: tutorDefined.stripe_customer_id},
       is_validated: {BOOL: tutorDefined.is_validated},
       firebase_uid: {S: tutorDefined.firebase_uid},
       profileImage: {S: tutorDefined.profileImage},
@@ -309,6 +309,7 @@ export const putItemInputTutorDefined: PutItemInput = {
             overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
             numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
             classes: {SS: tutorDefined.tutor_info.classes},
+            stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
          },
       },
    },
@@ -322,7 +323,6 @@ export const putItemInputTutorIncomplete: PutItemInput = {
       last_name: {S: tutorIncomplete.last_name},
       email: {S: tutorIncomplete.email},
       firebase_uid: {S: tutorIncomplete.firebase_uid},
-      stripe_customer_id: {S: ''},
       is_validated: {BOOL: false},
       profileImage: {S: ''},
       phone: {S: ''},
@@ -334,6 +334,7 @@ export const putItemInputTutorIncomplete: PutItemInput = {
             overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
             numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
             classes: {SS: tutorDefined.tutor_info.classes},
+            stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
          },
       },
    },
@@ -383,13 +384,13 @@ export const getItemStudentDefined: GetItemOutput = {
       email: {S: studentDefined.email},
       is_validated: {BOOL: studentDefined.is_validated},
       firebase_uid: {S: studentDefined.firebase_uid},
-      stripe_customer_id: {S: studentDefined.stripe_customer_id},
       profileImage: {S: studentDefined.profileImage},
       phone: {S: studentDefined.phone},
       student_info: {
          M: {
             campus: {S: studentDefined.student_info.campus},
             chatrooms: {SS: studentDefined.student_info.chatrooms},
+            stripe_customer_id: {S: studentDefined.student_info.stripe_customer_id},
          },
       },
    },
@@ -403,7 +404,6 @@ export const getItemTutorDefined: GetItemOutput = {
       email: {S: tutorDefined.email},
       is_validated: {BOOL: tutorDefined.is_validated},
       firebase_uid: {S: tutorDefined.firebase_uid},
-      stripe_customer_id: {S: tutorDefined.stripe_customer_id},
       profileImage: {S: tutorDefined.profileImage},
       phone: {S: tutorDefined.phone},
       tutor_info: {
@@ -414,6 +414,7 @@ export const getItemTutorDefined: GetItemOutput = {
             overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
             numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
             classes: {SS: tutorDefined.tutor_info.classes},
+            stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
          },
       },
    },
@@ -533,7 +534,6 @@ export const updateUser: IUser = {
    email: 'updateEmail',
    is_validated: true,
    firebase_uid: 'updateFID',
-   stripe_customer_id: 'updateSID',
    first_name: 'updateFirst',
    last_name: 'updateLast',
    profileImage: 'updateImg',
@@ -558,7 +558,6 @@ export const updateItemOutputUpdateUser: UpdateItemOutput = {
       first_name: {S: updateUser.first_name},
       last_name: {S: updateUser.last_name},
       email: {S: updateUser.email},
-      stripe_customer_id: {S: updateUser.stripe_customer_id},
       is_validated: {BOOL: updateUser.is_validated},
       firebase_uid: {S: updateUser.firebase_uid},
       profileImage: {S: updateUser.profileImage},

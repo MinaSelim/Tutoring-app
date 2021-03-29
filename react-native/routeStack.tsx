@@ -14,6 +14,7 @@ import ChatUI from './src/pages/chat/index';
 import PasswordReset from './src/pages/passwordReset';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
+import PaymentOptions from './src/pages/paymentOptions';
 import Booking from './src/components/booking/booking';
 
 const Drawer = createDrawerNavigator();
@@ -45,6 +46,7 @@ const StackNavigator: React.FunctionComponent = () => {
       <Stack.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
       <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="Booking" component={Booking} />
+      <Stack.Screen name="PaymentOptions" component={PaymentOptions} />
       <Stack.Screen name="PasswordReset" component={PasswordReset} />
     </Stack.Navigator>
   );

@@ -90,6 +90,13 @@ const constants = {
   },
   tutorSearch: {},
   groupSearch: {},
+  paymentOptions: {
+    title: 'Payment',
+    paymentMethod: 'Payment Method',
+    connectStripe: 'Connect to your STRIPE account',
+    accessStripe: 'Access your STRIPE portal',
+    dashBoardUrl: 'https://dashboard.stripe.com/login',
+  },
 };
 
 export default constants;
