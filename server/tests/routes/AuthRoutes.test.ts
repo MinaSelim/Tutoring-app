@@ -26,31 +26,34 @@ import {
    getItemStudentDefinedResolves,
    studentDefined,
    tutorDefined,
+   updateItemOutputUpdateUserResolves,
+   getItemChatroomStudentResolves,
+   updateItemOutputStudentChatroomResolves,
+   updateItemOutputRejects,
+   updateItemOutputTutorChatroomResolves,
+   getItemChatroomTutorResolves,
+   putItemOutputReviewsResolves,
+   review0Rating,
+   updateItemOutputReviewsResolves,
+   getItemReviewResolves,
+   queryReviewsResovles,
+   queryReviewsRejects,
+   searchConstants,
+   scanOuputSearchTutorResolves,
+   scanOuputSearchTutorRejects,
 } from '../utils/templates';
+import Guards from '../../src/routes/common/Guards';
 
 describe('API request calls', () => {
-   let app: Application;
    let server: Server;
    let sandbox: Sinon.SinonSandbox;
    let dynamo: AWS.DynamoDB;
 
-   // Setup all mocked values
    before(() => {
       dynamo = Dynamo.getInstance();
       sandbox = Sinon.createSandbox();
       sandbox.stub(DatabaseConfig, 'init').resolves();
-
       sandbox.stub(FirebaseAuth, 'getInstance').returns(firebase.initializeApp(firebaseConfig).auth());
-
-      // Used for registration
-      const putItemStub = sandbox.stub(dynamo, 'putItem');
-      putItemStub.onCall(0).returns(putItemOutputResolves);
-      putItemStub.onCall(1).returns(putItemOutputResolves);
-      // force error
-      putItemStub.onCall(2).returns(putItemOutputRejects);
-      putItemStub.onCall(3).returns(putItemOutputRejects);
-
-      // Used for login
       const firebaseApp = FirebaseAuth.getInstance();
       const verifyIdTokenResponse: admin.auth.DecodedIdToken = {
          uid: '',
@@ -63,17 +66,12 @@ describe('API request calls', () => {
          sub: '',
       };
       sandbox.stub(firebaseApp, 'verifyIdToken').resolves(verifyIdTokenResponse);
-
-      const getItemStub = sandbox.stub(dynamo, 'getItem');
-      getItemStub.onCall(0).returns(getItemStudentDefinedResolves);
-      getItemStub.onCall(1).returns(getItemTutorDefinedResolves);
-      // force error
-      getItemStub.onCall(2).returns(getItemRejects);
-      getItemStub.onCall(3).returns(getItemRejects);
-
-      // Start the server only after having stubbed everything
-      app = new App().app;
-      server = app.listen(3000);
+      const app: Application = new App().app;
+      return new Promise<void>((resolve) => {
+         server = app.listen(3000, () => {
+            resolve();
+         });
+      });
    });
 
    after(() => {
@@ -83,85 +81,593 @@ describe('API request calls', () => {
       return server.close();
    });
 
-   it('Should register student', () => {
-      return chai
-         .request(server)
-         .post('/auth/student/register')
-         .send(studentDefined)
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 200);
-         });
+   describe('Login api calls', () => {
+      it('Should reutrn good response on student login', () => {
+         const stub = sandbox.stub(dynamo, 'getItem').returns(getItemStudentDefinedResolves);
+         return chai
+            .request(server)
+            .post('/auth/student/login')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+            });
+      });
+
+      it('Should return good response on tutor login', () => {
+         const stub = sandbox.stub(dynamo, 'getItem').returns(getItemTutorDefinedResolves);
+         return chai
+            .request(server)
+            .post('/auth/tutor/login')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+            });
+      });
+
+      it('Should return 500 on student login fail', () => {
+         const stub = sandbox.stub(dynamo, 'getItem').returns(getItemRejects);
+         return chai
+            .request(server)
+            .post('/auth/student/login')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stub.restore();
+            });
+      });
+
+      it('Should return 500 on tutor login fail', () => {
+         const stub = sandbox.stub(dynamo, 'getItem').returns(getItemRejects);
+         return chai
+            .request(server)
+            .post('/auth/tutor/login')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stub.restore();
+            });
+      });
    });
 
-   it('Should register tutor', () => {
-      return chai
-         .request(server)
-         .post('/auth/tutor/register')
-         .send(tutorDefined)
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 200);
-         });
+   describe('Register api calls', () => {
+      it('Should return 200 on student register', () => {
+         const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputResolves);
+         return chai
+            .request(server)
+            .post('/auth/student/register')
+            .send(studentDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+            });
+      });
+
+      it('Should return 200 on tutor register', () => {
+         const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputResolves);
+         return chai
+            .request(server)
+            .post('/auth/tutor/register')
+            .send(tutorDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+            });
+      });
+
+      it('Should return 500 on bad student register', () => {
+         const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/auth/student/register')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stub.restore();
+            });
+      });
+
+      it('Should return 500 on bad tutor register', () => {
+         const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/auth/tutor/register')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stub.restore();
+            });
+      });
    });
 
-   it('Should login student', () => {
-      return chai
-         .request(server)
-         .post('/auth/student/login')
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 200);
-         });
+   describe('Student profile api calls', () => {
+      it('Should return 200 on update student profile', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputUpdateUserResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/update')
+            .send(studentDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on update student profile without being logged in', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputUpdateUserResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/update')
+            .send(studentDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on student profile update and db error', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(putItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/profile/student/update')
+            .send(studentDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on get chatroom', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const getItemStub = sandbox.stub(dynamo, 'getItem').returns(getItemChatroomStudentResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/getChatrooms')
+            .send(studentDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               getItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on get chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').throws();
+         const getItemStub = sandbox.stub(dynamo, 'getItem').returns(getItemChatroomStudentResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/getChatrooms')
+            .send(studentDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               getItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on get chatroom with db error', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const getItemStub = sandbox.stub(dynamo, 'getItem').returns(getItemRejects);
+         return chai
+            .request(server)
+            .post('/profile/student/getChatrooms')
+            .send(studentDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               getItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on add chatroom', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputStudentChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/addChatroom')
+            .send(studentDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on add chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputStudentChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/addChatroom')
+            .send(studentDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on add chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/profile/student/addChatroom')
+            .send(studentDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on remove chatroom', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputStudentChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/removeChatroom')
+            .send(studentDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on remove chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputStudentChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/student/removeChatroom')
+            .send(studentDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on remove chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/profile/student/removeChatroom')
+            .send(studentDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
    });
 
-   it('Should login tutor', () => {
-      return chai
-         .request(server)
-         .post('/auth/tutor/login')
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 200);
-         });
+   describe('Tutor profile api calls', () => {
+      it('Should return 200 on update tutor profile', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputUpdateUserResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/update')
+            .send(tutorDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on update tutor profile without being logged in', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputUpdateUserResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/update')
+            .send(tutorDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on tutor profile update and db error', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(putItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/profile/tutor/update')
+            .send(tutorDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on get chatroom', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const getItemStub = sandbox.stub(dynamo, 'getItem').returns(getItemChatroomTutorResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/getChatrooms')
+            .send(tutorDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               getItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on get chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const getItemStub = sandbox.stub(dynamo, 'getItem').returns(getItemChatroomTutorResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/getChatrooms')
+            .send(tutorDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               getItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on get chatroom with db error', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const getItemStub = sandbox.stub(dynamo, 'getItem').returns(getItemRejects);
+         return chai
+            .request(server)
+            .post('/profile/tutor/getChatrooms')
+            .send(tutorDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               getItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on add chatroom', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputTutorChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/addChatroom')
+            .send(tutorDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on add chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputTutorChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/addChatroom')
+            .send(tutorDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on add chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/profile/tutor/addChatroom')
+            .send(tutorDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on remove chatroom', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputTutorChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/removeChatroom')
+            .send(tutorDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on remove chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputTutorChatroomResolves);
+         return chai
+            .request(server)
+            .post('/profile/tutor/removeChatroom')
+            .send(tutorDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on remove chatroom without login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputRejects);
+         return chai
+            .request(server)
+            .post('/profile/tutor/removeChatroom')
+            .send(tutorDefined.firebase_uid, 'chatId')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
    });
 
-   it('Should not register bad student', () => {
-      return chai
-         .request(server)
-         .post('/auth/student/register')
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 500);
-         });
+   describe('Reviews routes', () => {
+      it('Should return 200 on adding review', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const stubPutItem = sandbox.stub(dynamo, 'putItem').returns(putItemOutputReviewsResolves);
+         const stubGetItem = sandbox.stub(dynamo, 'getItem').returns(getItemReviewResolves);
+         const udapteItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputReviewsResolves);
+         return chai
+            .request(server)
+            .post('/reviews/addReview')
+            .send(review0Rating)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stubPutItem.restore();
+               stubGetItem.restore();
+               udapteItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on adding review wtihout login', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').throws();
+         const stubPutItem = sandbox.stub(dynamo, 'putItem').returns(putItemOutputReviewsResolves);
+         const stubGetItem = sandbox.stub(dynamo, 'getItem').returns(getItemReviewResolves);
+         const udapteItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputReviewsResolves);
+         return chai
+            .request(server)
+            .post('/reviews/addReview')
+            .send(review0Rating)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stubPutItem.restore();
+               stubGetItem.restore();
+               udapteItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on adding review with db error', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const stubPutItem = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         const stubGetItem = sandbox.stub(dynamo, 'getItem').returns(getItemReviewResolves);
+         const udapteItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateItemOutputReviewsResolves);
+         return chai
+            .request(server)
+            .post('/reviews/addReview')
+            .send(review0Rating)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stubPutItem.restore();
+               stubGetItem.restore();
+               udapteItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on getting tutor reviews', () => {
+         const stub = sandbox.stub(dynamo, 'query').returns(queryReviewsResovles);
+         return chai
+            .request(server)
+            .post('/reviews/getTutorReviews')
+            .send(tutorDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+            });
+      });
+
+      it('Should return 500 on getting tutor review with db error', () => {
+         const stub = sandbox.stub(dynamo, 'query').returns(queryReviewsRejects);
+         return chai
+            .request(server)
+            .post('/reviews/getTutorReviews')
+            .send(tutorDefined.firebase_uid)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stub.restore();
+            });
+      });
    });
 
-   it('Should not register bad tutor', () => {
-      return chai
-         .request(server)
-         .post('/auth/tutor/register')
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 500);
-         });
-   });
+   describe('Search api calls', () => {
+      it('Should return 200 on searching tutors', () => {
+         const stub = sandbox.stub(dynamo, 'scan').returns(scanOuputSearchTutorResolves);
+         return chai
+            .request(server)
+            .post('/search/tutorsForClass')
+            .send(searchConstants.CAMPUS, searchConstants.CLASSCODE)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+            });
+      });
 
-   it('Should not login bad student', () => {
-      return chai
-         .request(server)
-         .post('/auth/student/login')
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 500);
-         });
-   });
+      it('Should return 500 on searching tutors', () => {
+         const stub = sandbox.stub(dynamo, 'scan').returns(scanOuputSearchTutorRejects);
+         return chai
+            .request(server)
+            .post('/search/tutorsForClass')
+            .send(searchConstants.CAMPUS, searchConstants.CLASSCODE)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 500);
+               stub.restore();
+            });
+      });
 
-   it('Should not login bad tutor', () => {
-      return chai
-         .request(server)
-         .post('/auth/tutor/login')
-         .then((res: Response) => {
-            assert.exists(res.body);
-            assert.equal(res.status, 500);
-         });
+      it('Should return 200 on searching for classes', () => {
+         return chai
+            .request(server)
+            .post('/search/classes')
+            .send(searchConstants.CAMPUS, searchConstants.CLASSCODE)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+            });
+      });
    });
 });

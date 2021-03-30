@@ -46,7 +46,7 @@ describe('Search functions', () => {
          });
    });
 
-   it('Should get classer of a university', () => {
+   it('Should get classes of a university', () => {
       const res: string[] = searchManager.getUniversityClasses('concordia');
       assert(res.length > 0);
    });
