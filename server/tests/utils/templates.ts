@@ -10,6 +10,8 @@ import {
    UpdateItemOutput,
    QueryInput,
    QueryOutput,
+   ScanInput,
+   ScanOutput,
 } from 'aws-sdk/clients/dynamodb';
 import IReview from '../../src/models/IReview';
 import IStudent from '../../src/models/IStudent';
@@ -712,3 +714,62 @@ export const queryReviewsResovles = ({
       return Promise.resolve(queryOutputReviews);
    },
 } as unknown) as AWS.Request<QueryOutput, AWSError>;
+
+export const queryReviewsRejects = ({
+   promise() {
+      return Promise.reject(awsError);
+   },
+} as unknown) as AWS.Request<QueryOutput, AWSError>;
+
+// --------------------------------------------
+// SEARCH MANAGER VARIABLES
+// --------------------------------------------
+export const searchConstants = {CAMPUS: 'campus', CLASSCODE: 'classCode'};
+
+export const scanInputSearchTutor: ScanInput = {
+   TableName: databaseConfig.tableNames.USER,
+   FilterExpression:
+      'attribute_exists(tutor_info) and contains(tutor_info.campuses, :cm) and contains(tutor_info.classes, :cl)',
+   ExpressionAttributeValues: {
+      ':cm': {S: searchConstants.CAMPUS},
+      ':cl': {S: searchConstants.CLASSCODE},
+   },
+};
+
+export const scanOutputSearchTutors: ScanOutput = {
+   Items: [
+      {
+         first_name: {S: tutorDefined.first_name},
+         last_name: {S: tutorDefined.last_name},
+         email: {S: tutorDefined.email},
+         stripe_customer_id: {S: tutorDefined.stripe_customer_id},
+         is_validated: {BOOL: tutorDefined.is_validated},
+         firebase_uid: {S: tutorDefined.firebase_uid},
+         profileImage: {S: tutorDefined.profileImage},
+         phone: {S: tutorDefined.phone},
+         tutor_info: {
+            M: {
+               campuses: {SS: tutorDefined.tutor_info.campuses},
+               chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
+               last_seen: {S: tutorDefined.tutor_info.last_seen},
+               overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+               numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
+               classes: {SS: tutorDefined.tutor_info.classes},
+            },
+         },
+      },
+   ],
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+export const scanOuputSearchTutorResolves = ({
+   promise() {
+      return Promise.resolve(scanOutputSearchTutors);
+   },
+} as unknown) as AWS.Request<ScanOutput, AWSError>;
+
+export const scanOuputSearchTutorRejects = ({
+   promise() {
+      return Promise.reject(awsError);
+   },
+} as unknown) as AWS.Request<ScanOutput, AWSError>;

@@ -47,6 +47,7 @@ describe('Chatrooms database functions', () => {
          const spy = sandbox.spy(dbUtils, 'getItem');
 
          return studentdb.getChatrooms(studentDefined.firebase_uid).then((res) => {
+            // todo why are u failing reee
             assert(spy.calledWith(getItemInputChatroomStudentDefined));
             assert.equal(res, studentDefined.student_info.chatrooms);
          });

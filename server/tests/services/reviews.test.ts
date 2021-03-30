@@ -2,9 +2,11 @@ import StudentProfileManager from '../../src/services/managers/ReviewsManager';
 import Sinon from 'sinon';
 import {assert} from 'chai';
 import {
+   awsError,
    getItemReviewResolves,
    putItemInputReviews,
    putItemOutputReviewsResolves,
+   queryReviewsRejects,
    queryReviewsResovles,
    review0Rating,
    tutorDefined,
@@ -20,13 +22,13 @@ describe('Reviews functions', () => {
    let dynamo: AWS.DynamoDB;
    let dbUtils: databaseUtils;
 
-   before(() => {
+   beforeEach(() => {
       sandbox = Sinon.createSandbox();
       dynamo = Dynamo.getInstance();
       dbUtils = databaseUtils.getInstance();
       studentManager = new StudentProfileManager();
    });
-   after(() => {
+   afterEach(() => {
       sandbox.restore();
    });
 
@@ -58,5 +60,18 @@ describe('Reviews functions', () => {
          assert.equal(res[0].wouldTakeAgainRating, review0Rating.wouldTakeAgainRating);
          assert.equal(res[0].timestamp, review0Rating.timestamp);
       });
+   });
+
+   it('Should fail to get reviews for a tutor', () => {
+      sandbox.stub(dynamo, 'query').returns(queryReviewsRejects);
+
+      return studentManager
+         .getTutorReviews(tutorDefined.firebase_uid)
+         .then(() => {
+            assert.fail('Should not return any reviews');
+         })
+         .catch((err) => {
+            assert.equal(err, awsError);
+         });
    });
 });
