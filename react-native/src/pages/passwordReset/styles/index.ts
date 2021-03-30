@@ -60,8 +60,6 @@ export default StyleSheet.create({
   emailSentText: {
     flexDirection: 'column',
     flex: 0.8,
-    // flexWrap: 'wrap',
-    // flexShrink: 1,
     color: colors.appDarkGrey,
     fontSize: 17,
     marginLeft: 115,
