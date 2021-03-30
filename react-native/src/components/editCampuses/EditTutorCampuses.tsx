@@ -4,8 +4,9 @@ import React, {useState} from 'react';
 import styles from './styles/EditCampusesStyles';
 import BackButton from '../common/backButton';
 import CampusCard from './CampusCard';
-import Search from './Search';
+import AutocompleteSearch from './AutocompleteSearch';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import DataFetcher from '../../api/search/Search';
 
 const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   props,
@@ -19,16 +20,10 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
     'test',
   ]);
 
-  //replace with backend data
-  const backendCampuses = [
-    {title: 'Star Wars'},
-    {title: 'Back to the Future'},
-    {title: 'The Matrix'},
-    {title: 'Inception'},
-    {title: 'Interstellar'},
-  ];
-
   const [isAddCampusVisible, setIsAddCampusVisibility] = useState(false);
+
+  // const [backendCampuses, setBackendCampuses] = useState([{title: 'No Data'}]);
+  // DataFetcher.getCampuses().then((data) => setBackendCampuses(data));
 
   const AddButton = (): JSX.Element => {
     return <Icon fill="black" name="plus-outline" style={styles.addButton} />;
@@ -104,7 +99,7 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
             <View style={styles.noCampusAddACampusRule} />
           </View>
           <View style={styles.autocomplete}>
-            <Search items={backendCampuses} />
+            <AutocompleteSearch category={'campuses'} />
           </View>
         </SafeAreaView>
       </Modal>

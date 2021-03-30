@@ -5,7 +5,7 @@ import styles from './styles/EditClassesStyles';
 import BackButton from '../common/backButton';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import {useTheme} from '@ui-kitten/components';
-import Search from './Search';
+import AutocompleteSearch from './AutocompleteSearch';
 
 interface IEditCampus extends INavigation {
   route: any;
@@ -66,7 +66,7 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
             <View style={styles.yourClassesRule} />
           </View>
           <View style={styles.searchBar}>
-            <Search items={undefined} />
+            <AutocompleteSearch items={undefined} />
           </View>
           <View style={styles.middleSection}>
             <View style={styles.yourClasses}>
