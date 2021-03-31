@@ -7,7 +7,8 @@ const tutorData: ITutor[] = [
     last_name: 'Annerson',
     email: 'lmao1@gmail.com',
     tutor_info: {
-      chatrooms: ['comp232'],
+      chatrooms: [],
+      classes: ['comp232', 'math204'],
       personRate: 49,
       groupRate: 10,
       numberOfReviews: 69,
@@ -21,6 +22,7 @@ const tutorData: ITutor[] = [
     email: 'lmao2@gmail.com',
     tutor_info: {
       chatrooms: [],
+      classes: ['comp232'],
       personRate: 48,
       groupRate: 20,
       numberOfReviews: 420,
@@ -34,6 +36,7 @@ const tutorData: ITutor[] = [
     email: 'lmao3@gmail.com',
     tutor_info: {
       chatrooms: [],
+      classes: ['math205'],
       personRate: 47,
       groupRate: 30,
       numberOfReviews: 42069,
@@ -46,7 +49,8 @@ const tutorData: ITutor[] = [
     last_name: 'Dannyson',
     email: 'lmao4@gmail.com',
     tutor_info: {
-      chatrooms: ['comp233'],
+      chatrooms: [],
+      classes: ['math204', 'comp232'],
       personRate: 10000,
       groupRate: 1,
       numberOfReviews: 200,
@@ -59,7 +63,8 @@ const tutorData: ITutor[] = [
     last_name: 'Elison',
     email: 'lmao4@gmail.com',
     tutor_info: {
-      chatrooms: ['comp233'],
+      chatrooms: [],
+      classes: ['comp232'],
       personRate: 10000,
       groupRate: 1,
       numberOfReviews: 200,
@@ -72,7 +77,8 @@ const tutorData: ITutor[] = [
     last_name: 'Forin',
     email: 'lmao4@gmail.com',
     tutor_info: {
-      chatrooms: ['comp233'],
+      chatrooms: [],
+      classes: ['comp232'],
       personRate: 10000,
       groupRate: 1,
       numberOfReviews: 200,

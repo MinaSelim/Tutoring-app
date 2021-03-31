@@ -11,7 +11,6 @@ import {
   TopNavigation,
   TopNavigationAction,
   Icon,
-  List,
 } from '@ui-kitten/components';
 import React from 'react';
 import DATA from './data/classData';
@@ -27,43 +26,53 @@ const SearchIcon = (props): JSX.Element => (
 const renderBackAction = (): JSX.Element => (
   <TopNavigationAction icon={BackIcon} />
 );
+
 const filter = (item, query): void =>
   item.class.toLowerCase().includes(query.toLowerCase());
 
-const renderTutorRow = ({item, index}): JSX.Element => {
-  return <TutorRow key={item.id} item={item} index={index} />;
-};
+const userFilter = (item, query): void =>
+  item.tutor_info.classes.includes(query.toLowerCase());
+
 let select = false;
+
 const TutorSearch = (): JSX.Element => {
   const [value, setValue] = React.useState('');
   const [data, setData] = React.useState(DATA);
+  const [userData, setUserData] = React.useState(tutorData);
 
-  const onSelect = (index): void => {
-    console.log('onselect', select);
-    select = true;
-    console.log('onselect', select);
-    setValue(data[index].class);
+  const renderTutorRow = ({item}): JSX.Element => {
+    if (value) {
+      return <TutorRow key={item.id} item={item} />;
+    } else return <></>;
   };
+  const onSelect = (index): void => {
+    select = true;
+    setValue(data[index].class);
+    const queryData = tutorData.filter((item) =>
+      userFilter(item, data[index].class),
+    );
+    setUserData(queryData);
+  };
+
   const onChangeText = (query): void => {
     setValue(query);
     setData(DATA.filter((item) => filter(item, query)));
+    const queryData = tutorData.filter((item) => userFilter(item, query));
+    setUserData(queryData);
   };
+
   const renderOption = (item, index): JSX.Element => (
     <AutocompleteItem key={index} title={item.class} />
   );
 
   const renderTitle = (props): JSX.Element => {
-    if (select) {
-      return (
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text {...props}>Find a Tutor</Text>
-        </View>
-      );
-    } else {
-      return <></>;
-    }
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Text {...props}>Find a Tutor</Text>
+      </View>
+    );
   };
-  console.log('before render', select);
+
   return (
     <Layout style={{flexDirection: 'column', flex: 1}}>
       <Layout style={{}}>
@@ -73,23 +82,6 @@ const TutorSearch = (): JSX.Element => {
           title={renderTitle}
         />
       </Layout>
-      {!select && (
-        <Layout
-          style={{
-            height: 100,
-            backgroundColor: 'blue',
-            justifyContent: 'center',
-          }}>
-          <Layout style={{alignSelf: 'center'}}>
-            <Text style={TutorSearchStyles.title}>Find a Tutor</Text>
-          </Layout>
-          <Text
-            appearance="hint"
-            style={{fontSize: 23, alignSelf: 'center', paddingBottom: 9}}>
-            Search for a class by course code
-          </Text>
-        </Layout>
-      )}
       <Layout style={{padding: 10}}>
         <Autocomplete
           placeholder="Class ID (e.g. MATH206)"
@@ -99,25 +91,19 @@ const TutorSearch = (): JSX.Element => {
           onSelect={onSelect}>
           {data.map(renderOption)}
         </Autocomplete>
+        <Text
+          appearance="hint"
+          style={{fontSize: 18, alignSelf: 'center', paddingBottom: 5}}>
+          Search for a class by course code
+        </Text>
       </Layout>
       <FlatList
         renderItem={renderTutorRow}
-        data={tutorData}
+        data={userData}
         keyExtractor={(item): string => item.firebase_uid.toString()}
       />
     </Layout>
   );
 };
-
-const TutorSearchStyles = StyleSheet.create({
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    width: '80%',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-});
 
 export default TutorSearch;
