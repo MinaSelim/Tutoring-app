@@ -14,7 +14,7 @@ const ChatItem: React.FunctionComponent<IChatItem> = ({
   return (
     <ListItem
       style={styles.listItem}
-      onPress={(): boolean => navigation.navigate('ChatUI', {chatID: item.id})}>
+      onPress={(): boolean => navigation.navigate('Chat', {chatID: item.id})}>
       <ProfilePicture />
       <Layout style={styles.textSection}>
         <Layout style={styles.header}>

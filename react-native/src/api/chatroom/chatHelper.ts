@@ -1,7 +1,6 @@
 import {Alert} from 'react-native';
 import firebase from '../authentication/Fire';
 import constants from './chatConstants';
-import RequestUserChatrooms from './requests/RequestUserChatrooms';
 
 export default class chatHelper {
   // eslint-disable-next-line no-useless-constructor
@@ -22,7 +21,7 @@ export default class chatHelper {
       .where(
         constants.participantsArray,
         'array-contains',
-        currentUser || otherUser,
+        currentUser && otherUser,
       );
     let userChatroomData: firebase.firestore.DocumentData = {};
 
@@ -70,7 +69,7 @@ export default class chatHelper {
         .firestore()
         .collection(constants.chatroomCollection)
         .add({
-          roomName: roomName,
+          name: roomName,
           createdAt: new Date().getTime(),
           associatedClass,
           participants: participantsTokens,
@@ -88,9 +87,6 @@ export default class chatHelper {
             createdAt: new Date().getTime(),
             sender: currentUserToken,
           });
-          const request = new RequestUserChatrooms();
-          request.addStudentChatroom(participantsTokens[0], docRef.id);
-          request.addTutorChatroom(participantsTokens[1], docRef.id);
         });
       return constants.successfulResult;
     }
@@ -110,5 +106,52 @@ export default class chatHelper {
       .collection(constants.chatroomCollection)
       .doc(chatroomID)
       .update({[`viewedChat.${currentUserToken}`]: viewedMsg});
+  };
+
+  public getChat = async (
+    currentUserToken: string,
+    otherParticipantToken: string,
+    roomName: string,
+    associatedClass: string,
+    chatType: string,
+  ): Promise<string> => {
+    const chatRef: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
+      .firestore()
+      .collection(constants.chatroomCollection)
+      .where(
+        constants.participantsArray,
+        'array-contains',
+        currentUserToken && otherParticipantToken,
+      );
+    let userChatroomId: string = '';
+
+    try {
+      const querySnapshot = await chatRef.get();
+      querySnapshot.forEach((documentSnapshot) => {
+        userChatroomId = documentSnapshot.id;
+      });
+    } catch (err) {
+      Alert.alert(`Error getting documents: ${err}`);
+    }
+
+    if (userChatroomId === '') {
+      this.generateChat(
+        {},
+        currentUserToken,
+        [currentUserToken, otherParticipantToken],
+        roomName,
+        associatedClass,
+        chatType,
+      );
+      let newUserChatroomId: Promise<string> = this.getChat(
+        currentUserToken,
+        otherParticipantToken,
+        roomName,
+        associatedClass,
+        chatType,
+      );
+      return newUserChatroomId;
+    }
+    return userChatroomId;
   };
 }

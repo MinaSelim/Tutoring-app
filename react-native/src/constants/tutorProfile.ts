@@ -1,4 +1,8 @@
 const tutorProfile = {
+  search: {
+    title: 'Find a Tutor',
+    searchSubtitle: 'Search for a class by course code',
+  },
   profile: {
     desc: 'Description goes here',
     bookNow: 'Book now',

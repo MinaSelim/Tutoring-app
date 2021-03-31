@@ -17,6 +17,8 @@ import DATA from './data/classData';
 import tutorData from './data/tutorData';
 import TutorRow from './TutorRow';
 import {FlatList} from 'react-native-gesture-handler';
+import styles from '../tutorSearch/styles/TutorProfileStyles';
+import tutorProfile from '../../constants/tutorProfile';
 
 const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
 const SearchIcon = (props): JSX.Element => (
@@ -35,14 +37,16 @@ const userFilter = (item, query): void =>
 
 let select = false;
 
-const TutorSearch = (): JSX.Element => {
+const TutorSearch = (props): JSX.Element => {
   const [value, setValue] = React.useState('');
   const [data, setData] = React.useState(DATA);
   const [userData, setUserData] = React.useState(tutorData);
 
   const renderTutorRow = ({item}): JSX.Element => {
     if (value) {
-      return <TutorRow key={item.id} item={item} />;
+      return (
+        <TutorRow key={item.id} item={item} navigation={props.navigation} />
+      );
     } else return <></>;
   };
   const onSelect = (index): void => {
@@ -68,7 +72,9 @@ const TutorSearch = (): JSX.Element => {
   const renderTitle = (props): JSX.Element => {
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text {...props}>Find a Tutor</Text>
+        <Text {...props} style={styles.title}>
+          {tutorProfile.search.title}
+        </Text>
       </View>
     );
   };
@@ -94,7 +100,7 @@ const TutorSearch = (): JSX.Element => {
         <Text
           appearance="hint"
           style={{fontSize: 18, alignSelf: 'center', paddingBottom: 5}}>
-          Search for a class by course code
+          {tutorProfile.search.searchSubtitle}
         </Text>
       </Layout>
       <FlatList

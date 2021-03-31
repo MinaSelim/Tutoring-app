@@ -20,7 +20,7 @@ const MesageRow: React.FunctionComponent<IMessagerow> = ({
           <Avatar
             size="medium"
             style={chatStyles.avatar}
-            source={require('../../assets/icons/profile2.png')}
+            source={require('../../assets/icons/profile3.png')}
           />
           <View style={chatStyles.messageContentContainer}>
             <View style={chatStyles.rowDirection}>

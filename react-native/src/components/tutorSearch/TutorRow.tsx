@@ -5,8 +5,10 @@ import 'react-native-gesture-handler';
 import {Avatar, Text, Layout, Card, Icon} from '@ui-kitten/components';
 import React from 'react';
 import {SafeAreaView, View, Modal} from 'react-native';
-import styles from '../tutorSearch/styles/TutorProfileStyles';
+import styles from '../../components/tutorSearch/styles/TutorProfileStyles';
 import tutorProfile from '../../constants/tutorProfile';
+import useAuthUser from '../../hooks/authUser';
+import chatHelper from '../../api/chatroom/chatHelper';
 const chevronDownIcon = (props): JSX.Element => (
   <Icon {...props} name="arrow-ios-downward-outline" />
 );
@@ -16,19 +18,39 @@ const fowardArrowIcon = (props): JSX.Element => (
 const chatBubbleIcon = (props): JSX.Element => (
   <Icon {...props} name="message-square" />
 );
-const TutorRow = ({item}): JSX.Element => {
+const TutorRow = ({item, navigation}): JSX.Element => {
+  const user = useAuthUser()[0];
+  const userID: string = user!.firebase_uid;
   const [visible, setVisible] = React.useState(false);
   const theme = useTheme();
+
+  const createDM = async (): Promise<void> => {
+    let dm = new chatHelper();
+    let chatID = await dm.getChat(
+      userID,
+      item.firebase_uid,
+      item.first_name,
+      'placedholder',
+      'direct',
+    );
+    setVisible(false);
+    // if (
+    //   user!.hasOwnProperty('student_info') &&
+    //   user!.student_info.chatrooms.find(chatID) === undefined
+    // ) {
+    //   user!.student_info.chatrooms.push(chatID);
+    // }
+    navigation.navigate('Chat', {
+      chatID: chatID,
+    });
+  };
+
   const CloseButtonIcon = (): JSX.Element => {
     return (
       <Icon
         fill={theme['color-basic-1000']}
         name="close-outline"
-        style={{
-          alignSelf: 'center',
-          width: 50,
-          height: 40,
-        }}
+        style={styles.closeButton}
       />
     );
   };
@@ -100,12 +122,16 @@ const TutorRow = ({item}): JSX.Element => {
                 accessoryRight={fowardArrowIcon}>
                 {tutorProfile.profile.bookNow}
               </Button>
-              <Button style={styles.navButtons} accessoryRight={chatBubbleIcon}>
+              <Button
+                style={styles.navButtons}
+                onPress={createDM}
+                accessoryRight={chatBubbleIcon}>
                 {tutorProfile.profile.sendMsg}
               </Button>
               <Button
                 style={styles.navButtons}
                 status="basic"
+                appearance="ghost"
                 accessoryRight={chevronDownIcon}>
                 {tutorProfile.profile.seeReviews}
               </Button>

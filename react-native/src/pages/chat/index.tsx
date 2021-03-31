@@ -12,23 +12,24 @@ import GenericChat from '../../api/chatroom/GenericChat';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import Message from '../../api/chatroom/components/Message';
 import moment from 'moment';
+import useAuthUser from '../../hooks/authUser';
 // This is the main front end for the chat, it calls messageRow for the layout of every single message view
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
 const chatAPI: GenericChat = new GenericChat();
-//TO DO: get these values with DYNAMO DB User model
-const userID: string = 'Ttu6xKu4sAcqaV6qhpvBd4p1IYR2';
-const chatID: string = 'wm6y8rsVz1sGmQqW7JsM';
 let newDay = false;
 let initialLoad = true;
 
-const Chat = ({navigation}): JSX.Element => {
+const Chat = ({route, navigation}): JSX.Element => {
   const UPDATE_MESSAGE_COUNT = 1;
   const SCROLL_MESSAGE_AMOUNT = 25;
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [offset, setOffset] = useState(new Date().getTime());
   const styles = useStyleSheet(chatStyles);
   const flatListRef = useRef<null | FlatList<IMessage>>(null);
+  const {chatID} = route.params;
+  const user = useAuthUser()[0];
+  const userID: string = user!.firebase_uid;
 
   useEffect(() => {
     let tempMessages;
@@ -40,12 +41,27 @@ const Chat = ({navigation}): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
-  const [newestMessage, ,] = useCollectionData(
-    loadMessages(UPDATE_MESSAGE_COUNT, 0),
-    {
-      idField: 'id',
-    },
-  );
+  const loadMessages = (
+    messageAmount,
+    offset,
+  ): firebase.firestore.Query<firebase.firestore.DocumentData> => {
+    return firebase
+      .firestore()
+      .collection('CHATROOMS')
+      .doc(chatID)
+      .collection('MESSAGES')
+      .orderBy('createdAt', 'desc')
+      .startAt([offset])
+      .limit(messageAmount);
+  };
+
+  const [
+    newestMessage,
+    isLoadingRecentMessage,
+    RecentMessageLoadError,
+  ] = useCollectionData(loadMessages(UPDATE_MESSAGE_COUNT, 0), {
+    idField: 'id',
+  });
 
   const handleOnEndReached = (): void => {
     let chatLength = chatMessages.length;
@@ -54,7 +70,6 @@ const Chat = ({navigation}): JSX.Element => {
       setOffset(chatCreatedAt);
     }
   };
-
   const GetMessages = useCallback<() => Promise<Message[]>>(async () => {
     const tempMessages: Message[] = await chatAPI.loadMessages(
       chatID,
@@ -78,7 +93,7 @@ const Chat = ({navigation}): JSX.Element => {
   const renderWelcome = (): JSX.Element => {
     return (
       <Text appearance="hint" style={chatStyles.welcomeMessage}>
-        This is the start of your direct message history with {userID}.
+        This is the start of your direct message history.
       </Text>
     );
   };
@@ -139,20 +154,6 @@ const Chat = ({navigation}): JSX.Element => {
       )}
     </Layout>
   );
-};
-
-const loadMessages = (
-  messageAmount,
-  offset,
-): firebase.firestore.Query<firebase.firestore.DocumentData> => {
-  return firebase
-    .firestore()
-    .collection('CHATROOMS')
-    .doc(chatID)
-    .collection('MESSAGES')
-    .orderBy('createdAt', 'desc')
-    .startAt([offset])
-    .limit(messageAmount);
 };
 
 const ChatMessages = (messages): Message[] => {

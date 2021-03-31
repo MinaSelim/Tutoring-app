@@ -2,10 +2,10 @@ import ITutor from '../../../../../server/src/models/ITutor';
 
 const tutorData: ITutor[] = [
   {
-    firebase_uid: '58694a0a',
+    firebase_uid: '0fKnOhVVzSgjqbMX7w3F8fxV1C72',
     first_name: 'Alice',
     last_name: 'Annerson',
-    email: 'lmao1@gmail.com',
+    email: '42@42.ca',
     tutor_info: {
       chatrooms: [],
       classes: ['comp232', 'math204'],
@@ -30,7 +30,7 @@ const tutorData: ITutor[] = [
     },
   },
   {
-    firebase_uid: '58694a0c',
+    firebase_uid: 'Vn8abG4r5pYkkY48kBBKp1E1ZJG3',
     first_name: 'Charles',
     last_name: 'Charlington',
     email: 'lmao3@gmail.com',
