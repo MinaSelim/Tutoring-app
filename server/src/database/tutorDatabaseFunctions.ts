@@ -269,7 +269,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       };
       await this.databaseUtils.updateItem(params);
    };
-        
+
    /**
     * Function that adds a tutor_info object to an existing user in the database
     * @param tutor an ITutor object holding the tutor_info to be added
@@ -329,7 +329,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
       if (tutor.tutor_info.chatrooms === undefined || tutor.tutor_info.chatrooms.length == 0) {
          tutor.tutor_info.chatrooms = [''];
       }
-      
+
       if (tutor.tutor_info.classes === undefined || tutor.tutor_info.classes.length == 0) {
          tutor.tutor_info.classes = [''];
       }
