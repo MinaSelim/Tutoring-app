@@ -1,78 +1,70 @@
 import {Autocomplete, AutocompleteItem} from '@ui-kitten/components';
+import {Alert} from 'react-native';
 import DataFetcher from '../../api/search/Search';
-import React, {useState, useMemo} from 'react';
+import React from 'react';
 
 interface IAutoCompleteSearch {
   category: string;
 }
 
-let fetched = false;
-let items;
+interface IAutoCompleteData {
+  items: string[];
+  displayedItems: string[];
+}
 
 const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
   category,
 }): JSX.Element => {
-  const [value, setValue] = React.useState('');
-  const [data, setData] = React.useState(items);
+  const [data, setData] = React.useState<IAutoCompleteData>({
+    items: [],
+    displayedItems: [],
+  });
+  const [fetched, setFetched] = React.useState<boolean>(false);
+  const [query, setQuery] = React.useState<string>('');
+  const [selectedItem, setSelectedItem] = React.useState<string>('');
 
-  const getData = async (): Promise<any> => {
-    let rawItems;
-    if (category === 'campuses') rawItems = await DataFetcher.getCampuses();
-    else rawItems = await DataFetcher.getClasses(category);
-    if (rawItems === undefined) items = [{title: 'No Data'}];
-    // else {
-    //   for (let i=0; i<rawItems) {
-    //   }
-    // }
-    items = rawItems;
-    setData(items);
-    fetched = true;
-    console.log(JSON.stringify('inside:' + data));
+  const getData = async (): Promise<void> => {
+    setFetched(true);
+    let backendData;
+    try {
+      if (category === 'campuses')
+        backendData = await DataFetcher.getCampuses();
+      else backendData = await DataFetcher.getClasses(category);
+      setData({items: backendData, displayedItems: backendData});
+    } catch (error) {
+      setData({items: ['No data'], displayedItems: ['No data']});
+      Alert.alert(`${error}`);
+    }
   };
 
-  // React.useMemo(
-  //   () =>
-  //     getData(category).then((data) => {
-  //       console.log(JSON.stringify('inside:' + data));
-  //       items = data;
-  //     }),
-  //   [items],
-  // );
-
-  // getData(category).then((data) => {
-  //   console.log(JSON.stringify('inside:' + data));
-  //   items = data;
-  // });
   if (!fetched) getData();
 
-  console.log(JSON.stringify('outside:' + items));
   const onSelect = (index): void => {
-    console.log('!!!');
-    setValue(data[index].title);
+    setSelectedItem(data.displayedItems[index]);
   };
 
-  const onChangeText = (query): void => {
-    console.log('!!!');
-    setValue(query);
-    setData(
-      items.filter((item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()),
+  const onChangeText = (newQuery): void => {
+    setQuery(newQuery);
+    setData({
+      ...data,
+      displayedItems: data.items.filter((item) =>
+        item.toLowerCase().includes(newQuery.toLowerCase()),
       ),
-    );
+    });
   };
 
   const renderOption = (item, index): JSX.Element => (
-    <AutocompleteItem key={index} title={item.title} />
+    <AutocompleteItem key={index} title={item} />
   );
 
   return (
     <Autocomplete
       placeholder="Select a campus"
       placement="bottom start"
-      value={value}
+      value={query}
       onSelect={onSelect}
       onChangeText={onChangeText}>
-      {data.map(renderOption)}
+      {data.displayedItems.map(renderOption)}
     </Autocomplete>
   );
 };
