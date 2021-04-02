@@ -1,12 +1,11 @@
 import {View, SafeAreaView, Image, TouchableOpacity} from 'react-native';
-import {Text, List, Button, Icon, Modal} from '@ui-kitten/components';
+import {Text, List, Button, Icon} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import styles from './styles/EditCampusesStyles';
 import BackButton from '../common/backButton';
 import CampusCard from './CampusCard';
-import AutocompleteSearch from './AutocompleteSearch';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
-import DataFetcher from '../../api/search/Search';
+import AddCampusModal from './AddCampusModal';
 
 const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   props,
@@ -21,9 +20,6 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   ]);
 
   const [isAddCampusVisible, setIsAddCampusVisibility] = useState(false);
-
-  // const [backendCampuses, setBackendCampuses] = useState([{title: 'No Data'}]);
-  // DataFetcher.getCampuses().then((data) => setBackendCampuses(data));
 
   const AddButton = (): JSX.Element => {
     return <Icon fill="black" name="plus-outline" style={styles.addButton} />;
@@ -85,27 +81,6 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
     );
   };
 
-  const AddCampusModal = (): JSX.Element => {
-    return (
-      <Modal
-        style={{top: 100}}
-        visible={isAddCampusVisible}
-        backdropStyle={styles.modalBackground}
-        onBackdropPress={(): void => setIsAddCampusVisibility(false)}>
-        <SafeAreaView style={styles.modal}>
-          <View style={styles.noCampusesAddACampus}>
-            <View style={styles.noCampusAddACampusRule} />
-            <Text style={styles.noCampusAddACampusText}> Add a campus </Text>
-            <View style={styles.noCampusAddACampusRule} />
-          </View>
-          <View style={styles.autocomplete}>
-            <AutocompleteSearch category={'campuses'} />
-          </View>
-        </SafeAreaView>
-      </Modal>
-    );
-  };
-
   return (
     <SafeAreaView style={styles.generalView}>
       <View style={styles.campusSelectHeader}>
@@ -120,7 +95,10 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
         />
       </View>
       <CampusListView />
-      <AddCampusModal />
+      <AddCampusModal
+        isAddCampusVisible={isAddCampusVisible}
+        setIsAddCampusVisibility={setIsAddCampusVisibility}
+      />
     </SafeAreaView>
   );
 };

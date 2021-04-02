@@ -72,6 +72,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 18,
   },
+  modalPosition: {top: 100},
   modalBackground: {
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
@@ -79,5 +80,13 @@ export default StyleSheet.create({
     marginTop: 20,
     width: '90%',
     alignSelf: 'center',
+  },
+  button: {
+    height: 40,
+    width: '80%',
+    borderRadius: 10,
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 15,
   },
 });

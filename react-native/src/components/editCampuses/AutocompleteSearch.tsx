@@ -1,10 +1,12 @@
 import {Autocomplete, AutocompleteItem} from '@ui-kitten/components';
 import {Alert} from 'react-native';
 import DataFetcher from '../../api/search/Search';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 interface IAutoCompleteSearch {
   category: string;
+  itemToAdd: string;
+  setItemToAdd: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface IAutoCompleteData {
@@ -14,6 +16,8 @@ interface IAutoCompleteData {
 
 const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
   category,
+  itemToAdd,
+  setItemToAdd,
 }): JSX.Element => {
   const [data, setData] = React.useState<IAutoCompleteData>({
     items: [],
@@ -21,7 +25,6 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
   });
   const [fetched, setFetched] = React.useState<boolean>(false);
   const [query, setQuery] = React.useState<string>('');
-  const [selectedItem, setSelectedItem] = React.useState<string>('');
 
   const getData = async (): Promise<void> => {
     setFetched(true);
@@ -39,8 +42,12 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
 
   if (!fetched) getData();
 
+  useEffect(() => {
+    setQuery(itemToAdd);
+  }, [itemToAdd]);
+
   const onSelect = (index): void => {
-    setSelectedItem(data.displayedItems[index]);
+    setItemToAdd(data.displayedItems[index]);
   };
 
   const onChangeText = (newQuery): void => {

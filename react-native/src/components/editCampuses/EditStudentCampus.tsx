@@ -1,16 +1,19 @@
 import {View, SafeAreaView, Image} from 'react-native';
-import {Text, Card} from '@ui-kitten/components';
-import React from 'react';
+import {Text, Card, Modal} from '@ui-kitten/components';
+import React, {useState} from 'react';
 import styles from './styles/EditCampusesStyles';
 import campusCardStyles from './styles/CampusCardStyles';
 import BackButton from '../common/backButton';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import useAuthUser from '../../hooks/authUser';
+import AutocompleteSearch from './AutocompleteSearch';
 
 const EditStudentCampus: React.FunctionComponent<INavigation> = (
   props,
 ): JSX.Element => {
   const [user, setAuthUser] = useAuthUser();
+  const [campusToAdd, setCampusToAdd] = useState<string>('');
+  const [isAddCampusVisible, setIsAddCampusVisibility] = useState(false);
   const campus = 'Concordia';
 
   return (
@@ -26,7 +29,28 @@ const EditStudentCampus: React.FunctionComponent<INavigation> = (
       <Card
         style={[campusCardStyles.card, {minHeight: 10}]}
         onPress={(): void => {
-          /* modal */
+          <Modal
+            style={{top: 100}}
+            visible={isAddCampusVisible}
+            backdropStyle={styles.modalBackground}
+            onBackdropPress={(): void => setIsAddCampusVisibility(false)}>
+            <SafeAreaView style={styles.modal}>
+              <View style={styles.noCampusesAddACampus}>
+                <View style={styles.noCampusAddACampusRule} />
+                <Text style={styles.noCampusAddACampusText}>
+                  {' '}
+                  Add a campus{' '}
+                </Text>
+                <View style={styles.noCampusAddACampusRule} />
+              </View>
+              <View style={styles.autocomplete}>
+                <AutocompleteSearch
+                  category={'campuses'}
+                  setItemToAdd={setCampusToAdd}
+                />
+              </View>
+            </SafeAreaView>
+          </Modal>;
         }}>
         <Image
           source={require('../../assets/images/icons/university.png')}
