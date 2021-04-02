@@ -1,5 +1,6 @@
 import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
+import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import 'react-native-gesture-handler';
 import {
   Text,
