@@ -1,11 +1,12 @@
-import {View, SafeAreaView, TouchableOpacity} from 'react-native';
-import {Text, Button, List, ListItem, Card} from '@ui-kitten/components';
-import React, {useState} from 'react';
+import {View, SafeAreaView, TouchableOpacity, Alert} from 'react-native';
+import {Text, Button, List, ListItem} from '@ui-kitten/components';
+import React, {useEffect, useState} from 'react';
 import styles from './styles/EditClassesStyles';
 import BackButton from '../common/backButton';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
-import {useTheme} from '@ui-kitten/components';
 import AutocompleteSearch from './AutocompleteSearch';
+import useAuthUser from '../../hooks/authUser';
+import UserUpdate from '../../api/profile/UserUpdate';
 
 interface IEditCampus extends INavigation {
   route: any;
@@ -14,26 +15,17 @@ interface IEditCampus extends INavigation {
 const EditClasses: React.FunctionComponent<IEditCampus> = (
   props,
 ): JSX.Element => {
-  //TODO replace with campuses from user
-  const classes = [
-    'Comp-100',
-    'Comp-101',
-    'Comp-102',
-    'Comp-103',
-    'Comp-104',
-    'Comp-100',
-    'Comp-101',
-    'Comp-102',
-    'Comp-103',
-    'Comp-104',
-    'Comp-100',
-    'Comp-101',
-    'Comp-102',
-    'Comp-103',
-    'Comp-104',
-  ];
   const {campusName} = props.route.params;
-  const theme = useTheme();
+  const user = useAuthUser()[0];
+  const [tempClasses, setTempClasses] = useState<string[]>(
+    JSON.parse(JSON.stringify(user!.tutor_info.classes)),
+  );
+  const [classToAdd, setClassToAdd] = useState<string>('');
+
+  useEffect(() => {
+    tempClasses.push(classToAdd);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classToAdd]);
 
   interface IClassItem {
     className: string;
@@ -44,7 +36,13 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
   }): JSX.Element => (
     <ListItem style={styles.classListItem}>
       <Text style={styles.classItemText}>{className}</Text>
-      <TouchableOpacity style={styles.classItemButton}>
+      <TouchableOpacity
+        style={styles.classItemButton}
+        onPress={(): void =>
+          setTempClasses(
+            tempClasses.filter((classToRemove) => classToRemove !== className),
+          )
+        }>
         <Text style={styles.classItemButtonText}>REMOVE</Text>
       </TouchableOpacity>
     </ListItem>
@@ -66,7 +64,11 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
             <View style={styles.yourClassesRule} />
           </View>
           <View style={styles.searchBar}>
-            <AutocompleteSearch items={undefined} />
+            <AutocompleteSearch
+              category={campusName}
+              itemToAdd={classToAdd}
+              setItemToAdd={setClassToAdd}
+            />
           </View>
           <View style={styles.middleSection}>
             <View style={styles.yourClasses}>
@@ -76,7 +78,7 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
             </View>
             <List
               style={styles.classList}
-              data={classes}
+              data={tempClasses}
               renderItem={(item): JSX.Element => (
                 <ClassItem className={item.item} />
               )}
@@ -84,10 +86,24 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
           </View>
         </View>
         <View>
-          <Button style={styles.button} size="large">
+          <Button
+            style={styles.button}
+            size="large"
+            onPress={(): void => {
+              //TODO refactor is required in the User object to allow adding classes
+              //for specific campuses
+              Alert.alert('Not yet available');
+            }}>
             Save Changes
           </Button>
-          <Button style={styles.button} size="large" status="basic">
+          <Button
+            style={styles.button}
+            size="large"
+            status="basic"
+            onPress={(): void => {
+              UserUpdate.removeTutorCampus(user!.firebase_uid, campusName);
+              props.navigation.goBack();
+            }}>
             Remove Campus
           </Button>
         </View>

@@ -6,19 +6,12 @@ import BackButton from '../common/backButton';
 import CampusCard from './CampusCard';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import AddCampusModal from './AddCampusModal';
+import useAuthUser from '../../hooks/authUser';
 
 const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   props,
 ): JSX.Element => {
-  //TODO replace with campuses from user
-  const [userCampuses] = useState([
-    'Concordia University',
-    'McGill University',
-    'Bishop',
-    'UDM',
-    'test',
-  ]);
-
+  const user = useAuthUser()[0];
   const [isAddCampusVisible, setIsAddCampusVisibility] = useState(false);
 
   const AddButton = (): JSX.Element => {
@@ -26,7 +19,7 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   };
 
   const CampusListView = (): JSX.Element => {
-    if (userCampuses.length === 0) return <NoCampusesView />;
+    if (user!.tutor_info.campuses.length === 0) return <NoCampusesView />;
     else return <ExistantCampusesView />;
   };
 
@@ -65,7 +58,7 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
           Press on a campus to edit its classes
         </Text>
         <List
-          data={userCampuses}
+          data={user!.tutor_info.campuses}
           renderItem={(info): JSX.Element => (
             <CampusCard
               name={info.item}

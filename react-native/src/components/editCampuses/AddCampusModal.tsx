@@ -1,8 +1,10 @@
-import {View, SafeAreaView} from 'react-native';
+import {View, SafeAreaView, Alert} from 'react-native';
 import {Text, Button, Modal} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import styles from './styles/EditCampusesStyles';
 import AutocompleteSearch from './AutocompleteSearch';
+import useAuthUser from '../../hooks/authUser';
+import UserUpdate from '../../api/profile/UserUpdate';
 
 interface IAddCampusModal {
   isAddCampusVisible: boolean;
@@ -14,7 +16,48 @@ const EditClasses: React.FunctionComponent<IAddCampusModal> = ({
   setIsAddCampusVisibility,
 }): JSX.Element => {
   const [campusToAdd, setCampusToAdd] = useState<string>('');
-  if (isAddCampusVisible === undefined) setIsAddCampusVisibility(false);
+  const user = useAuthUser()[0];
+  const userType = user!.hasOwnProperty('tutor_info') ? 'tutor' : 'student';
+
+  function isButtonDisabled(): boolean {
+    if (userType === 'tutor')
+      return (
+        campusToAdd === '' ||
+        JSON.stringify(user!.tutor_info.campuses).includes(campusToAdd)
+      );
+    else
+      return (
+        campusToAdd === '' ||
+        JSON.stringify(user!.student_info.campuses).includes(campusToAdd)
+      );
+  }
+
+  function addTutorCampus(): void {
+    try {
+      const response = UserUpdate.addTutorCampus(
+        user!.firebase_uid,
+        campusToAdd,
+      );
+      console.log(response);
+      user!.tutor_info.campuses.push(campusToAdd);
+    } catch (error) {
+      Alert.alert(`${error}`);
+    }
+  }
+
+  function updateStudentCampus(): void {
+    try {
+      const response = UserUpdate.updateStudentCampus(
+        user!.firebase_uid,
+        campusToAdd,
+      );
+      console.log(response);
+      user!.student_info.campus = campusToAdd;
+    } catch (error) {
+      Alert.alert(`${error}`);
+    }
+  }
+
   return (
     <Modal
       style={styles.modalPosition}
@@ -37,12 +80,11 @@ const EditClasses: React.FunctionComponent<IAddCampusModal> = ({
         <Button
           style={styles.button}
           size="medium"
-          disabled={
-            campusToAdd === '' /*|| userCampuses.includes(campusToAdd)*/
-          }
+          disabled={isButtonDisabled()}
           onPress={(): void => {
-            // userCampuses.push(campusToAdd);
-            // setIsAddCampusVisibility(false);
+            if (userType === 'tutor') addTutorCampus();
+            else updateStudentCampus();
+            setIsAddCampusVisibility(false);
           }}>
           Confirm
         </Button>
