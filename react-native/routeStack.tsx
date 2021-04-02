@@ -37,7 +37,7 @@ const HomeNavigation: React.FunctionComponent = () => {
 };
 const StackNavigator: React.FunctionComponent = () => {
   return (
-    <Stack.Navigator initialRouteName="EditTutorCampuses" headerMode="none">
+    <Stack.Navigator initialRouteName="SignInMenu" headerMode="none">
       <Stack.Screen name="SignInMenu" component={SignInMenu} />
       <Stack.Screen name="SignUpCredentials" component={SignUpCredentials} />
       <Stack.Screen name="SignUpUserType" component={SignUpUserType} />

@@ -17,6 +17,8 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
 ): JSX.Element => {
   const {campusName} = props.route.params;
   const user = useAuthUser()[0];
+  //TODO bug when getting campuses from backend: first item is empty
+  if (user!.tutor_info.classes[0] === '') user!.tutor_info.classes.shift();
   const [tempClasses, setTempClasses] = useState<string[]>(
     JSON.parse(JSON.stringify(user!.tutor_info.classes)),
   );

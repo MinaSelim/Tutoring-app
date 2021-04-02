@@ -1,6 +1,6 @@
 import {View, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import {Text, List, Button, Icon} from '@ui-kitten/components';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles/EditCampusesStyles';
 import BackButton from '../common/backButton';
 import CampusCard from './CampusCard';
@@ -12,16 +12,27 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   props,
 ): JSX.Element => {
   const user = useAuthUser()[0];
-  const [isAddCampusVisible, setIsAddCampusVisibility] = useState(false);
+  //TODO bug when getting campuses from backend: first item is empty
+  if (user!.tutor_info.campuses[0] === '') user!.tutor_info.campuses.shift();
+  const [isAddCampusVisible, setIsAddCampusVisibility] = useState<boolean>(
+    false,
+  );
+  const [hasNoCampus, setHasNoCampus] = useState<boolean>(
+    user!.tutor_info.campuses.length === 0,
+  );
 
   const AddButton = (): JSX.Element => {
     return <Icon fill="black" name="plus-outline" style={styles.addButton} />;
   };
 
   const CampusListView = (): JSX.Element => {
-    if (user!.tutor_info.campuses.length === 0) return <NoCampusesView />;
+    if (hasNoCampus) return <NoCampusesView />;
     else return <ExistantCampusesView />;
   };
+
+  useEffect(() => {
+    setHasNoCampus(user!.tutor_info.campuses.length === 0);
+  }, [user]);
 
   const NoCampusesView = (): JSX.Element => {
     return (

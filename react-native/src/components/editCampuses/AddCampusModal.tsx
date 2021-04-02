@@ -28,17 +28,13 @@ const EditClasses: React.FunctionComponent<IAddCampusModal> = ({
     else
       return (
         campusToAdd === '' ||
-        JSON.stringify(user!.student_info.campuses).includes(campusToAdd)
+        JSON.stringify(user!.student_info.campus).includes(campusToAdd)
       );
   }
 
   function addTutorCampus(): void {
     try {
-      const response = UserUpdate.addTutorCampus(
-        user!.firebase_uid,
-        campusToAdd,
-      );
-      console.log(response);
+      UserUpdate.addTutorCampus(user!.firebase_uid, campusToAdd);
       user!.tutor_info.campuses.push(campusToAdd);
     } catch (error) {
       Alert.alert(`${error}`);
@@ -47,11 +43,7 @@ const EditClasses: React.FunctionComponent<IAddCampusModal> = ({
 
   function updateStudentCampus(): void {
     try {
-      const response = UserUpdate.updateStudentCampus(
-        user!.firebase_uid,
-        campusToAdd,
-      );
-      console.log(response);
+      UserUpdate.updateStudentCampus(user!.firebase_uid, campusToAdd);
       user!.student_info.campus = campusToAdd;
     } catch (error) {
       Alert.alert(`${error}`);

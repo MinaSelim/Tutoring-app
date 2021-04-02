@@ -33,6 +33,8 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
       if (category === 'campuses')
         backendData = await DataFetcher.getCampuses();
       else backendData = await DataFetcher.getClasses(category);
+      console.log(JSON.stringify(backendData));
+      if (backendData === null) throw 'Data is null';
       setData({items: backendData, displayedItems: backendData});
     } catch (error) {
       setData({items: ['No data'], displayedItems: ['No data']});
