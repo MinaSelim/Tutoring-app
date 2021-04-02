@@ -21,6 +21,7 @@ export class StudentAuthRoutes implements IRouteComponent {
             await this.authManager.registerStudent(req.body);
             res.sendStatus(200);
          } catch (error) {
+            console.error(error);
             res.status(500);
             res.send(error);
          }

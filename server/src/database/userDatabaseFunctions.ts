@@ -97,7 +97,6 @@ export default abstract class UserDatabaseFunctions {
          TableName: config.tableNames.USER,
       };
       const data: GetItemOutput = await this.databaseUtils.getItem(params);
-
       let user: IUser = this.createGenericUser(data);
       user = this.addSpecificUserProperties(user, data);
       return user;
@@ -167,5 +166,50 @@ export default abstract class UserDatabaseFunctions {
       };
 
       return updatedUser;
+   };
+
+   /**
+    * Function that checks whether a user exists in the database.
+    * @param id representing the user's firebase_uid
+    * @returns a promise of type boolean.
+    */
+   public userExists = async (id: string): Promise<boolean> => {
+      const params: GetItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+      };
+      const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      // return data.Item != null
+      return data.Item != null && data.Item.firebase_uid.S == id;
+   };
+
+   public userIsRegisteredAsStudent = async (id: string): Promise<boolean> => {
+      const params: GetItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+      };
+      const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      return data.Item != null && data.Item.student_info != null;
+   };
+
+   public userIsRegisteredAsTutor = async (id: string): Promise<boolean> => {
+      const params: GetItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+      };
+      const data: GetItemOutput = await this.databaseUtils.getItem(params);
+      return data.Item != null && data.Item.tutor_info != null;
    };
 }

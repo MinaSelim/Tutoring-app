@@ -16,36 +16,8 @@ import RatingWeights from '../config/RatingWeights.json';
 
 export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
    protected fillSpecificUserData = (user: IUser): IUser => {
-      const tutor: ITutor = user as ITutor;
-
-      if (tutor.tutor_info.campuses === undefined || tutor.tutor_info.campuses.length == 0) {
-         tutor.tutor_info.campuses = [''];
-      }
-
-      if (tutor.tutor_info.chatrooms === undefined || tutor.tutor_info.chatrooms.length == 0) {
-         tutor.tutor_info.chatrooms = [''];
-      }
-
-      if (tutor.tutor_info.classes === undefined || tutor.tutor_info.classes.length == 0) {
-         tutor.tutor_info.classes = [''];
-      }
-
-      if (!tutor.tutor_info.overallRating) {
-         tutor.tutor_info.overallRating = 0;
-      }
-
-      if (!tutor.tutor_info.numberOfReviews) {
-         tutor.tutor_info.numberOfReviews = 0;
-      }
-
-      if (!tutor.tutor_info.last_seen) {
-         tutor.tutor_info.last_seen = new Date().toLocaleString();
-      }
-
-      if (tutor.tutor_info.campuses === undefined || tutor.tutor_info.campuses.length == 0) {
-         tutor.tutor_info.classes = [''];
-      }
-
+      let tutor: ITutor = user as ITutor;
+      tutor = this.initializeTutorInfoAttributes(tutor);
       return tutor;
    };
 
@@ -296,5 +268,84 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          ReturnValues: 'NONE',
       };
       await this.databaseUtils.updateItem(params);
+   };
+
+   /**
+    * Function that adds a tutor_info object to an existing user in the database
+    * @param tutor an ITutor object holding the tutor_info to be added
+    * @returns void.
+    */
+   public addTutorInfoToUser = (tutor: ITutor): void => {
+      tutor = this.initializeTutorInfoAttributes(tutor);
+
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: tutor.firebase_uid,
+            },
+         },
+         UpdateExpression: 'SET tutor_info = :ti',
+         ExpressionAttributeValues: {
+            ':ti': {
+               M: {
+                  campuses: {
+                     SS: tutor.tutor_info.campuses,
+                  },
+                  chatrooms: {
+                     SS: tutor.tutor_info.chatrooms,
+                  },
+                  classes: {
+                     SS: tutor.tutor_info.classes,
+                  },
+                  last_seen: {
+                     S: tutor.tutor_info.last_seen,
+                  },
+                  overallRating: {
+                     N: String(tutor.tutor_info.overallRating),
+                  },
+                  numberOfReviews: {
+                     N: String(tutor.tutor_info.numberOfReviews),
+                  },
+               },
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+
+      this.databaseUtils.updateItem(params);
+   };
+
+   /**
+    * Function that initializes the tutor_info object with default values
+    * @param tutor an ITutor with potentially missing tutor_info attributes
+    * @returns tutor object with initialized tutor_info.
+    */
+   private initializeTutorInfoAttributes = (tutor: ITutor): ITutor => {
+      if (tutor.tutor_info.campuses === undefined || tutor.tutor_info.campuses.length == 0) {
+         tutor.tutor_info.campuses = [''];
+      }
+
+      if (tutor.tutor_info.chatrooms === undefined || tutor.tutor_info.chatrooms.length == 0) {
+         tutor.tutor_info.chatrooms = [''];
+      }
+
+      if (tutor.tutor_info.classes === undefined || tutor.tutor_info.classes.length == 0) {
+         tutor.tutor_info.classes = [''];
+      }
+
+      if (!tutor.tutor_info.overallRating) {
+         tutor.tutor_info.overallRating = 0;
+      }
+
+      if (!tutor.tutor_info.numberOfReviews) {
+         tutor.tutor_info.numberOfReviews = 0;
+      }
+
+      if (!tutor.tutor_info.last_seen) {
+         tutor.tutor_info.last_seen = new Date().toLocaleString();
+      }
+
+      return tutor;
    };
 }

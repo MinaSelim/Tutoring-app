@@ -1,7 +1,10 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import IStudent from '../../models/IStudent';
+import IUser from '../../models/IUser';
+import ITutor from '../../models/ITutor';
 import studentDatabaseFunctions from '../../database/studentDatabaseFunctions';
+import {exception} from 'console';
 
 /**
  * The service that manages student authenthication
@@ -23,7 +26,13 @@ export default class StudentAuthManager {
     * @param student The student to add to the database
     */
    public registerStudent = async (student: IStudent): Promise<void> => {
-      await this.database.addUserToDatabase(student);
+      if (await this.database.userIsRegisteredAsStudent(student.firebase_uid)) {
+         return Promise.reject('error: user is already registered as a student');
+      } else if (await this.database.userIsRegisteredAsTutor(student.firebase_uid)) {
+         this.database.addStudentInfoToUser(student);
+      } else {
+         await this.database.addUserToDatabase(student);
+      }
    };
 
    /**

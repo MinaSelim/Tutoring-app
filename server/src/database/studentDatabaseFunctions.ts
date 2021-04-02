@@ -100,6 +100,42 @@ export default class StudentDatabaseFunctions extends UserDatabaseFunctions {
       return data.Attributes.student_info.M.chatrooms.SS;
    };
 
+   /**
+    * Function that adds a student_info object to an existing user in the database
+    * @param student an IStudent object holding the student_info to be added
+    * @returns void.
+    */
+   public addStudentInfoToUser = (student: IStudent): void => {
+      if (student.student_info.chatrooms === undefined || student.student_info.chatrooms.length == 0) {
+         student.student_info.chatrooms = [''];
+      }
+
+      const params: UpdateItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: student.firebase_uid,
+            },
+         },
+         UpdateExpression: 'SET student_info = :si',
+         ExpressionAttributeValues: {
+            ':si': {
+               M: {
+                  campus: {
+                     S: student.student_info.campus,
+                  },
+                  chatrooms: {
+                     SS: student.student_info.chatrooms,
+                  },
+               },
+            },
+         },
+         ReturnValues: 'NONE',
+      };
+
+      this.databaseUtils.updateItem(params);
+   };
+
    public updateCampus = async (idToken: string, campus: string): Promise<void> => {
       const params: UpdateItemInput = {
          TableName: config.tableNames.USER,
