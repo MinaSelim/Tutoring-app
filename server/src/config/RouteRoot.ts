@@ -7,6 +7,8 @@ import {ReviewsRoutes} from '../routes/reviews/ReviewsRoutes';
 import {SearchRoutes} from '../routes/search/searchRoutes';
 import RouteComposite from '../routes/RouteComposite';
 import IRouteComponent from '../routes/IRouteComponent';
+import {PaymentRoutes} from '../routes/Payment/PaymentRoutes';
+import {MessageRoutes} from '../routes/Payment/MessageRoutes';
 
 //Declaration merging for the session objects in student and tutor route
 declare module 'express-session' {
@@ -25,12 +27,19 @@ export default class RouteRoot implements IRouteComponent {
     */
    public route(app: Application): void {
       const authRoutes: RouteComposite = new RouteComposite([new StudentAuthRoutes(), new TutorAuthRoutes()]);
+      const paymentRoutes: RouteComposite = new RouteComposite([new PaymentRoutes(), new MessageRoutes()]);
       const profileRoutes: RouteComposite = new RouteComposite([new StudentProfileRoutes(), new TutorProfileRoutes()]);
       const reviewRoutes: RouteComposite = new RouteComposite([new ReviewsRoutes()]);
       const searchRoutes: RouteComposite = new RouteComposite([new SearchRoutes()]);
 
       // Add all the routes created to a root composite
-      const rootRoutes: RouteComposite = new RouteComposite([authRoutes, profileRoutes, reviewRoutes, searchRoutes]);
+      const rootRoutes: RouteComposite = new RouteComposite([
+         authRoutes,
+         profileRoutes,
+         reviewRoutes,
+         paymentRoutes,
+         searchRoutes,
+      ]);
       rootRoutes.route(app);
    }
 }

@@ -39,7 +39,7 @@ describe('Tutor Database Functions Test', () => {
    });
 
    afterEach(() => {
-      // CLeanup
+      // Cleanup
       sandbox.restore();
    });
 
@@ -81,7 +81,6 @@ describe('Tutor Database Functions Test', () => {
          assert.equal(res.email, tutorDefined.email);
          assert.equal(res.is_validated, tutorDefined.is_validated);
          assert.equal(res.firebase_uid, tutorDefined.firebase_uid);
-         assert.equal(res.stripe_customer_id, tutorDefined.stripe_customer_id);
          assert.equal(res.first_name, tutorDefined.first_name);
          assert.equal(res.last_name, tutorDefined.last_name);
          assert.equal(res.profileImage, tutorDefined.profileImage);
@@ -89,6 +88,7 @@ describe('Tutor Database Functions Test', () => {
          assert.equal(res.tutor_info.campuses, tutorDefined.tutor_info.campuses);
          assert.equal(res.tutor_info.chatrooms, tutorDefined.tutor_info.chatrooms);
          assert.equal(res.tutor_info.overallRating, tutorDefined.tutor_info.overallRating);
+         assert.equal(res.tutor_info.stripe_account_id, tutorDefined.tutor_info.stripe_account_id);
       });
    });
 
@@ -128,7 +128,6 @@ describe('Tutor Database Functions Test', () => {
          assert.equal(res.firebase_uid, updateUser.firebase_uid);
          assert.equal(res.email, updateUser.email);
          assert.equal(res.is_validated, updateUser.is_validated);
-         assert.equal(res.stripe_customer_id, updateUser.stripe_customer_id);
          assert.equal(res.first_name, updateUser.first_name);
          assert.equal(res.last_name, updateUser.last_name);
          assert.equal(res.profileImage, updateUser.profileImage);

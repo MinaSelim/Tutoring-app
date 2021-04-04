@@ -3,3 +3,4 @@
 /docs/**
 /jsdoc/**
 /tools/internal-rules/node_modules/**
+src/hooks/authUser.ts

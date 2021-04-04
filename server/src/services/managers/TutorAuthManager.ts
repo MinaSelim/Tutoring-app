@@ -1,6 +1,7 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import ITutor from '../../models/ITutor';
+import PaymentManager from './PaymentManager';
 import tutorDatabaseFunctions from '../../database/tutorDatabaseFunctions';
 
 /**
@@ -9,6 +10,7 @@ import tutorDatabaseFunctions from '../../database/tutorDatabaseFunctions';
 export default class TutorAuthManager {
    private firebase_auth: firebase.auth.Auth;
    private tutorDatabaseFunctions: tutorDatabaseFunctions;
+   private stripeManager: PaymentManager;
 
    /**
     * @param firebase_auth this parameter should be only passed in testing injections, otherwise, use default
@@ -16,6 +18,7 @@ export default class TutorAuthManager {
    constructor(firebase_auth = FirebaseAuth.getInstance()) {
       this.firebase_auth = firebase_auth;
       this.tutorDatabaseFunctions = new tutorDatabaseFunctions();
+      this.stripeManager = new PaymentManager();
    }
 
    /**

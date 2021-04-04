@@ -106,11 +106,11 @@ describe('Student Database Functions Test', () => {
          assert.equal(res.email, studentDefined.email);
          assert.equal(res.is_validated, studentDefined.is_validated);
          assert.equal(res.firebase_uid, studentDefined.firebase_uid);
-         assert.equal(res.stripe_customer_id, studentDefined.stripe_customer_id);
          assert.equal(res.first_name, studentDefined.first_name);
          assert.equal(res.last_name, studentDefined.last_name);
          assert.equal(res.profileImage, studentDefined.profileImage);
          assert.equal(res.phone, studentDefined.phone);
+         assert.equal(res.student_info.stripe_customer_id, studentDefined.student_info.stripe_customer_id);
          assert.equal(res.student_info.campus, studentDefined.student_info.campus);
          assert.equal(res.student_info.chatrooms, studentDefined.student_info.chatrooms);
       });
@@ -152,7 +152,6 @@ describe('Student Database Functions Test', () => {
          assert.equal(res.firebase_uid, updateUser.firebase_uid);
          assert.equal(res.email, updateUser.email);
          assert.equal(res.is_validated, updateUser.is_validated);
-         assert.equal(res.stripe_customer_id, updateUser.stripe_customer_id);
          assert.equal(res.first_name, updateUser.first_name);
          assert.equal(res.last_name, updateUser.last_name);
          assert.equal(res.profileImage, updateUser.profileImage);

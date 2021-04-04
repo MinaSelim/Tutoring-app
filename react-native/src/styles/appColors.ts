@@ -7,4 +7,5 @@ export const colors = {
   appLightGrey: '#E9EAEE',
   appOrange: '#E86D2C',
   appSilver: '#8B9CB3',
+  appStripeBlack: '#0B3253',
 };

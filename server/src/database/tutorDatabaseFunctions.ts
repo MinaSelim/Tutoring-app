@@ -44,6 +44,9 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             classes: {
                SS: tutor.tutor_info.classes,
             },
+            stripe_account_id: {
+               S: tutor.tutor_info.stripe_account_id,
+            },
          },
       };
 
@@ -60,6 +63,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
          numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),
          classes: data.Item.tutor_info.M.classes.SS,
+         stripe_account_id: data.Item.tutor_info.M.stripe_account_id.S,
       };
 
       return tutor;
@@ -211,7 +215,6 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                last_name: item.last_name.S,
                email: item.email.S,
                firebase_uid: item.firebase_uid.S,
-               stripe_customer_id: '',
                is_validated: item.is_validated.BOOL,
                profileImage: item.profileImage.S,
                phone: item.phone.S,
@@ -222,6 +225,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                   overallRating: parseInt(item.tutor_info.M.overallRating.N),
                   numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
                   classes: item.tutor_info.M.classes.SS,
+                  stripe_account_id: item.tutor_info.M.stripe_account_id.S,
                },
             });
          });
