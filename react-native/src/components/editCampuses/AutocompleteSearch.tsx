@@ -2,6 +2,8 @@ import {Autocomplete, AutocompleteItem} from '@ui-kitten/components';
 import {Alert} from 'react-native';
 import DataFetcher from '../../api/search/Search';
 import React, {useEffect} from 'react';
+import constants from '../../constants/index';
+import errors from '../../constants/errors';
 
 interface IAutoCompleteSearch {
   category: string;
@@ -34,7 +36,7 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
         backendData = await DataFetcher.getCampuses();
       else backendData = await DataFetcher.getClasses(category);
       console.log(JSON.stringify(backendData));
-      if (backendData === null) throw 'Data is null';
+      if (backendData === null) throw errors.editCampuses.dataRetrievedIsNull;
       setData({items: backendData, displayedItems: backendData});
     } catch (error) {
       setData({items: ['No data'], displayedItems: ['No data']});
@@ -68,7 +70,7 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
 
   return (
     <Autocomplete
-      placeholder="Select a campus"
+      placeholder={constants.editCampuses.selectACampus}
       placement="bottom start"
       value={query}
       onSelect={onSelect}

@@ -7,6 +7,7 @@ import INavigation from '../../model/navigation/NavigationInjectedPropsConfigure
 import AutocompleteSearch from './AutocompleteSearch';
 import useAuthUser from '../../hooks/authUser';
 import UserUpdate from '../../api/profile/UserUpdate';
+import constants from '../../constants/index';
 
 interface IEditCampus extends INavigation {
   route: any;
@@ -45,7 +46,9 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
             tempClasses.filter((classToRemove) => classToRemove !== className),
           )
         }>
-        <Text style={styles.classItemButtonText}>REMOVE</Text>
+        <Text style={styles.classItemButtonText}>
+          {constants.editCampuses.remove}
+        </Text>
       </TouchableOpacity>
     </ListItem>
   );
@@ -54,15 +57,17 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
     <SafeAreaView style={styles.generalView}>
       <View style={styles.campusSelectHeader}>
         <BackButton {...props} />
-        <Text style={styles.title}>Edit Courses</Text>
-        <Text style={styles.placeholder}>empty</Text>
+        <Text style={styles.title}>{constants.editCampuses.editCourses}</Text>
+        <Text style={styles.placeholder}>{constants.editCampuses.empty}</Text>
       </View>
       <View style={styles.contentView}>
         <View style={styles.topPart}>
           <Text style={styles.universityText}>{campusName}</Text>
           <View style={styles.yourClasses}>
             <View style={styles.yourClassesRule} />
-            <Text style={styles.yourClassesText}> Add a class </Text>
+            <Text style={styles.yourClassesText}>
+              {constants.editCampuses.addAClass}
+            </Text>
             <View style={styles.yourClassesRule} />
           </View>
           <View style={styles.searchBar}>
@@ -75,7 +80,9 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
           <View style={styles.middleSection}>
             <View style={styles.yourClasses}>
               <View style={styles.yourClassesRule} />
-              <Text style={styles.yourClassesText}> Your Classes </Text>
+              <Text style={styles.yourClassesText}>
+                {constants.editCampuses.yourClasses}
+              </Text>
               <View style={styles.yourClassesRule} />
             </View>
             <List
@@ -96,7 +103,7 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
               //for specific campuses
               Alert.alert('Not yet available');
             }}>
-            Save Changes
+            {constants.editCampuses.saveChanges}
           </Button>
           <Button
             style={styles.button}
@@ -106,7 +113,7 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
               UserUpdate.removeTutorCampus(user!.firebase_uid, campusName);
               props.navigation.goBack();
             }}>
-            Remove Campus
+            {constants.editCampuses.removeCampus}
           </Button>
         </View>
       </View>

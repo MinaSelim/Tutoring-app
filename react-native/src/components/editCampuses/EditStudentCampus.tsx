@@ -7,6 +7,7 @@ import BackButton from '../common/backButton';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import useAuthUser from '../../hooks/authUser';
 import AddCampusModal from './AddCampusModal';
+import constants from '../../constants/index';
 
 const EditStudentCampus: React.FunctionComponent<INavigation> = (
   props,
@@ -18,12 +19,12 @@ const EditStudentCampus: React.FunctionComponent<INavigation> = (
     <SafeAreaView style={styles.generalView}>
       <View style={styles.campusSelectHeader}>
         <BackButton {...props} />
-        <Text style={styles.title}>Your Campus</Text>
-        <Text style={{opacity: 0}}>Placeholder</Text>
+        <Text style={styles.title}>{constants.editCampuses.yourCampus}</Text>
+        <Text style={{opacity: 0}}>{constants.editCampuses.placeholder}</Text>
       </View>
-      <Text style={styles.selectYourCampus}>
+      {/* <Text style={styles.selectYourCampus}>
         Press on a campus to edit its classes
-      </Text>
+      </Text> */}
       <Card
         style={[campusCardStyles.card, {minHeight: 10}]}
         onPress={(): void => {

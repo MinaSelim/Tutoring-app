@@ -5,6 +5,7 @@ import styles from './styles/EditCampusesStyles';
 import AutocompleteSearch from './AutocompleteSearch';
 import useAuthUser from '../../hooks/authUser';
 import UserUpdate from '../../api/profile/UserUpdate';
+import constants from '../../constants/index';
 
 interface IAddCampusModal {
   isAddCampusVisible: boolean;
@@ -59,7 +60,10 @@ const EditClasses: React.FunctionComponent<IAddCampusModal> = ({
       <SafeAreaView style={styles.modal}>
         <View style={styles.noCampusesAddACampus}>
           <View style={styles.noCampusAddACampusRule} />
-          <Text style={styles.noCampusAddACampusText}> Add a campus </Text>
+          <Text style={styles.noCampusAddACampusText}>
+            {' '}
+            {constants.editCampuses.addACampus}{' '}
+          </Text>
           <View style={styles.noCampusAddACampusRule} />
         </View>
         <View style={styles.autocomplete}>
@@ -78,7 +82,7 @@ const EditClasses: React.FunctionComponent<IAddCampusModal> = ({
             else updateStudentCampus();
             setIsAddCampusVisibility(false);
           }}>
-          Confirm
+          {constants.editCampuses.confirm}
         </Button>
       </SafeAreaView>
     </Modal>

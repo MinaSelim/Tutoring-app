@@ -7,6 +7,7 @@ import CampusCard from './CampusCard';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import AddCampusModal from './AddCampusModal';
 import useAuthUser from '../../hooks/authUser';
+import constants from '../../constants/index';
 
 const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   props,
@@ -38,7 +39,7 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
     return (
       <>
         <Text style={styles.selectYourCampus}>
-          You have no associated campuses
+          {constants.editCampuses.noAssociatedCampuses}
         </Text>
         <Image
           source={require('../../assets/images/icons/university.png')}
@@ -46,7 +47,10 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
         />
         <View style={styles.noCampusesAddACampus}>
           <View style={styles.noCampusAddACampusRule} />
-          <Text style={styles.noCampusAddACampusText}> Add a campus </Text>
+          <Text style={styles.noCampusAddACampusText}>
+            {' '}
+            {constants.editCampuses.addACampus}{' '}
+          </Text>
           <View style={styles.noCampusAddACampusRule} />
         </View>
         <TouchableOpacity
@@ -66,7 +70,7 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
     return (
       <>
         <Text style={styles.selectYourCampus}>
-          Press on a campus to edit its classes
+          {constants.editCampuses.pressOnCampusToEditClasses}
         </Text>
         <List
           data={user!.tutor_info.campuses}
@@ -89,7 +93,7 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
     <SafeAreaView style={styles.generalView}>
       <View style={styles.campusSelectHeader}>
         <BackButton {...props} />
-        <Text style={styles.title}>Your Campuses</Text>
+        <Text style={styles.title}>{constants.editCampuses.yourCampuses}</Text>
         <Button
           appearance="ghost"
           onPress={(): void => {

@@ -22,6 +22,9 @@ const errors = {
     provideEmail: 'Please provide a correct email',
     provideARegisteredEmail: 'This email is not attached to a known account, try a valid email',
   },
+  editCampuses: {
+    dataRetrievedIsNull: 'Data retrieved is null',
+  },
 };
 
 export default errors;
