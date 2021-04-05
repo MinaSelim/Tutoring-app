@@ -5,7 +5,7 @@
    "main": "build/src/server.js",
    "scripts": {
       "build": "tsc",
-      "prebuild":"node prebuild.js",
+      "prebuild": "node prebuild.js",
       "prebuild-unix": "rm -rf build",
       "prebuild-windows": "cleandir build/",
       "postbuild": "cpy universityInformation/classes/** build/universityInformation/classes",

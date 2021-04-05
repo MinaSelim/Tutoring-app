@@ -1,6 +1,5 @@
 import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import 'react-native-gesture-handler';
 import {
   Text,
@@ -15,8 +14,6 @@ import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
 import Profile from '../../profile/Profile';
 import {useNavigation} from '@react-navigation/native';
-import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
-import CampusSelect from './../../campusSelect/CampusSelect';
 
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />
@@ -100,7 +97,7 @@ const SideBar: React.FunctionComponent<any> = () => {
           status="control"
           accessoryLeft={CreditCardIcon}
           size="giant"
-          onPress={(): boolean => navigation!.navigate('PaymentOptions')}>
+          onPress={(): void => navigation!.navigate('PaymentOptions')}>
           {constants.commonComponents.sidebar.paymentOptions}
         </Button>
         <Divider style={styles.divider} />
