@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {colors} from './appColors';
-import {fonts} from './appFonts';
+import {colors} from '../../../../styles/appColors';
+import {fonts} from '../../../../styles/appFonts';
 
 export const CampusDropdownSearchStyles = StyleSheet.create({
   containerStyle: {

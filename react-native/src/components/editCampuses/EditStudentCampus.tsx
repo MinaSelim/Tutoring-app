@@ -20,13 +20,13 @@ const EditStudentCampus: React.FunctionComponent<INavigation> = (
       <View style={styles.campusSelectHeader}>
         <BackButton {...props} />
         <Text style={styles.title}>{constants.editCampuses.yourCampus}</Text>
-        <Text style={{opacity: 0}}>{constants.editCampuses.placeholder}</Text>
+        <Text style={styles.placeholder}>{constants.editCampuses.empty}</Text>
       </View>
-      {/* <Text style={styles.selectYourCampus}>
-        Press on a campus to edit its classes
-      </Text> */}
+      <Text style={styles.selectYourCampus}>
+        {constants.editCampuses.pressToChange}
+      </Text>
       <Card
-        style={[campusCardStyles.card, {minHeight: 10}]}
+        style={[campusCardStyles.card, campusCardStyles.studentCampus]}
         onPress={(): void => {
           setIsAddCampusVisibility(true);
         }}>

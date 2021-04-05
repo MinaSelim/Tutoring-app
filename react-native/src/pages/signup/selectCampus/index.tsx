@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import styles from './styles';
-import dropdownStyles from './../../../styles/CampusDropdownSearchStyles';
+import dropdownStyles from './styles/CampusDropdownSearchStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import IStudent from '../../../model/common/IStudent';
@@ -130,6 +130,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
                   itemStyle={dropdownStyles.listText}
                   itemTextStyle={dropdownStyles.itemTextStyle}
                   itemsContainerStyle={dropdownStyles.itemsContainerStyle}
+                  //TODO: get the list of campuses from the backend instead of local file as done for edit campuses
                   items={campuses}
                   resetValue={false}
                   textInputProps={{

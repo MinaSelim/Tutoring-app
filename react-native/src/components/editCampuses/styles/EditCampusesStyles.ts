@@ -29,7 +29,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontFamily: fonts.quickSandSemiBold,
     marginTop: 7,
-    marginBottom: 10,
+    marginBottom: 20,
     alignSelf: 'center',
   },
   placeholder: {

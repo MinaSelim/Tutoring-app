@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../styles/appColors';
+import {fonts} from '../../../styles/appFonts';
 
 export default StyleSheet.create({
   card: {
@@ -13,10 +14,16 @@ export default StyleSheet.create({
   },
   universityImage: {
     tintColor: colors.appOrange,
-    height: 78,
-    width: 110,
+    height: 90,
+    width: 127,
     alignSelf: 'center',
   },
-  universityText: {fontSize: 22, marginTop: 10, alignSelf: 'center'},
+  universityText: {
+    fontSize: 22,
+    marginTop: 10,
+    alignSelf: 'center',
+    fontFamily: fonts.quickSandSemiBold,
+  },
   button: {width: 110, height: 40, alignSelf: 'center'},
+  studentCampus: {borderTopWidth: 1, marginTop: 20},
 });

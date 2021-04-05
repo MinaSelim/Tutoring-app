@@ -91,6 +91,7 @@ const constants = {
     placeholder: 'placeholder',
     noAssociatedCampuses: 'You have no associated campuses',
     pressOnCampusToEditClasses: 'Press on a campus to edit its classes',
+    pressToChange: 'Press on your campus to modify it',
     yourCampuses: 'Your Campuses',
   },
   profile: {

@@ -110,6 +110,7 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
             size="large"
             status="basic"
             onPress={(): void => {
+              user!.tutor_info.campuses.pop(campusName);
               UserUpdate.removeTutorCampus(user!.firebase_uid, campusName);
               props.navigation.goBack();
             }}>

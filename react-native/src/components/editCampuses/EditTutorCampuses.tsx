@@ -33,7 +33,8 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
 
   useEffect(() => {
     setHasNoCampus(user!.tutor_info.campuses.length === 0);
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddCampusVisible]);
 
   const NoCampusesView = (): JSX.Element => {
     return (

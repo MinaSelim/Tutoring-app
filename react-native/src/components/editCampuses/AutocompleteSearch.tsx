@@ -35,7 +35,6 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
       if (category === 'campuses')
         backendData = await DataFetcher.getCampuses();
       else backendData = await DataFetcher.getClasses(category);
-      console.log(JSON.stringify(backendData));
       if (backendData === null) throw errors.editCampuses.dataRetrievedIsNull;
       setData({items: backendData, displayedItems: backendData});
     } catch (error) {
@@ -51,7 +50,8 @@ const AutocompleteSearch: React.FunctionComponent<IAutoCompleteSearch> = ({
   }, [itemToAdd]);
 
   const onSelect = (index): void => {
-    setItemToAdd(data.displayedItems[index]);
+    if (data.displayedItems[index] !== 'No data')
+      setItemToAdd(data.displayedItems[index]);
   };
 
   const onChangeText = (newQuery): void => {

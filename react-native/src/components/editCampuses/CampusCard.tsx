@@ -1,8 +1,7 @@
-import {View, Image} from 'react-native';
-import {Text, Button, Card, ListItem} from '@ui-kitten/components';
-import React, {useState} from 'react';
+import {Image} from 'react-native';
+import {Text, Card} from '@ui-kitten/components';
+import React from 'react';
 import styles from './styles/CampusCardStyles';
-import {colors} from '../../styles/appColors';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 
 interface ICampusCard extends INavigation {
@@ -17,7 +16,9 @@ const CampusCard: React.FunctionComponent<ICampusCard> = ({
     <Card
       style={styles.card}
       onPress={(): boolean =>
-        navigation.navigate('EditClasses', {campusName: name})
+        navigation.navigate('EditClasses', {
+          campusName: name,
+        })
       }>
       <Image
         source={require('../../assets/images/icons/university.png')}
