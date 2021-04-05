@@ -93,7 +93,12 @@ const EditTutorCampuses: React.FunctionComponent<INavigation> = (
   return (
     <SafeAreaView style={styles.generalView}>
       <View style={styles.campusSelectHeader}>
-        <BackButton {...props} />
+        <BackButton
+          navigate={props.navigate}
+          toggleDrawer={props.toggleDrawer}
+          goBack={props.navigation.goBack}
+          navigation={props.navigation}
+        />
         <Text style={styles.title}>{constants.editCampuses.yourCampuses}</Text>
         <Button
           appearance="ghost"

@@ -56,7 +56,12 @@ const EditClasses: React.FunctionComponent<IEditCampus> = (
   return (
     <SafeAreaView style={styles.generalView}>
       <View style={styles.campusSelectHeader}>
-        <BackButton {...props} />
+        <BackButton
+          navigate={props.navigate}
+          toggleDrawer={props.toggleDrawer}
+          goBack={props.navigation.goBack}
+          navigation={props.navigation}
+        />
         <Text style={styles.title}>{constants.editCampuses.editCourses}</Text>
         <Text style={styles.placeholder}>{constants.editCampuses.empty}</Text>
       </View>
