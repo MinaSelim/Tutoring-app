@@ -41,8 +41,13 @@ import {
    searchConstants,
    scanOuputSearchTutorResolves,
    scanOuputSearchTutorRejects,
+   getItemEmptyResolves,
+   updateUserNoReturn,
+   updateStudent,
 } from '../utils/templates';
 import Guards from '../../src/routes/common/Guards';
+import StripeApi from '../../src/services/StripeApi';
+import Stripe from 'stripe';
 
 describe('API request calls', () => {
    let server: Server;
@@ -66,6 +71,10 @@ describe('API request calls', () => {
          sub: '',
       };
       sandbox.stub(firebaseApp, 'verifyIdToken').resolves(verifyIdTokenResponse);
+
+      const stripeDev = new Stripe('apikey', null);
+      sandbox.stub(StripeApi, 'getInstance').returns(stripeDev);
+
       const app: Application = new App().app;
       return new Promise<void>((resolve) => {
          server = app.listen(3000, () => {
@@ -134,6 +143,8 @@ describe('API request calls', () => {
    describe('Register api calls', () => {
       it('Should return 200 on student register', () => {
          const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputResolves);
+         const isNotAlreadyRegistered = sandbox.stub(dynamo, 'getItem').returns(getItemEmptyResolves);
+
          return chai
             .request(server)
             .post('/auth/student/register')
@@ -142,11 +153,13 @@ describe('API request calls', () => {
                assert.exists(res.body);
                assert.equal(res.status, 200);
                stub.restore();
+               isNotAlreadyRegistered.restore();
             });
       });
 
       it('Should return 200 on tutor register', () => {
          const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputResolves);
+         const isNotAlreadyRegistered = sandbox.stub(dynamo, 'getItem').returns(getItemEmptyResolves);
          return chai
             .request(server)
             .post('/auth/tutor/register')
@@ -155,23 +168,70 @@ describe('API request calls', () => {
                assert.exists(res.body);
                assert.equal(res.status, 200);
                stub.restore();
+               isNotAlreadyRegistered.restore();
             });
       });
 
-      it('Should return 500 on bad student register', () => {
+      it('Should return 500 on student already exists as student', () => {
          const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         const isRegistered = sandbox.stub(dynamo, 'getItem');
+         isRegistered.onCall(0).returns(getItemStudentDefinedResolves);
          return chai
             .request(server)
             .post('/auth/student/register')
+            .send(studentDefined)
             .then((res: Response) => {
                assert.exists(res.body);
                assert.equal(res.status, 500);
                stub.restore();
+               isRegistered.restore();
             });
       });
 
-      it('Should return 500 on bad tutor register', () => {
+      it('Should return 200 on student already exists as tutor', () => {
          const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         const isRegistered = sandbox.stub(dynamo, 'getItem');
+         isRegistered.onCall(0).returns(getItemEmptyResolves);
+         isRegistered.onCall(1).returns(getItemTutorDefinedResolves);
+         const updateStub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+
+         return chai
+            .request(server)
+            .post('/auth/student/register')
+            .send(updateStudent)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+               isRegistered.restore();
+               updateStub.restore();
+            });
+      });
+
+      it('Should return 200 on tutor already registed as student', () => {
+         const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         const isRegistered = sandbox.stub(dynamo, 'getItem');
+         isRegistered.onCall(0).returns(getItemEmptyResolves);
+         isRegistered.onCall(1).returns(getItemStudentDefinedResolves);
+         const updateStub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+
+         return chai
+            .request(server)
+            .post('/auth/tutor/register')
+            .send(tutorDefined)
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+               isRegistered.restore();
+               updateStub.restore();
+            });
+      });
+
+      it('Should return 500 on tutor already registed as tutor', () => {
+         const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputRejects);
+         const isRegistered = sandbox.stub(dynamo, 'getItem');
+         isRegistered.onCall(0).returns(getItemEmptyResolves);
          return chai
             .request(server)
             .post('/auth/tutor/register')
@@ -179,6 +239,7 @@ describe('API request calls', () => {
                assert.exists(res.body);
                assert.equal(res.status, 500);
                stub.restore();
+               isRegistered.restore();
             });
       });
    });
