@@ -29,8 +29,10 @@ export default class TutorAuthManager {
       if (await this.tutorDatabaseFunctions.userIsRegisteredAsTutor(tutor.firebase_uid)) {
          return Promise.reject('error: user is already registered as a tutor');
       } else if (await this.tutorDatabaseFunctions.userIsRegisteredAsStudent(tutor.firebase_uid)) {
+         tutor.tutor_info.stripe_account_id = await this.stripeManager.createStripeProviderAccount();
          this.tutorDatabaseFunctions.addTutorInfoToUser(tutor);
       } else {
+         tutor.tutor_info.stripe_account_id = await this.stripeManager.createStripeProviderAccount();
          await this.tutorDatabaseFunctions.addUserToDatabase(tutor);
       }
    };
