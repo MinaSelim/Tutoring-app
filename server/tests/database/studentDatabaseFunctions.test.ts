@@ -173,4 +173,11 @@ describe('Student Database Functions Test', () => {
             assert(spy.calledWith(updateItemInputUpdateUser));
          });
    });
+
+   it('Should check if a user exists', () => {
+      sandbox.stub(dynamo, 'getItem').returns(getItemStudentDefinedResolves);
+      return studentdb.userExists(studentDefined.firebase_uid).then((res) => {
+         assert(res);
+      });
+   });
 });

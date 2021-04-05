@@ -424,6 +424,21 @@ describe('API request calls', () => {
                guard.restore();
             });
       });
+
+      it('Should return 200 on update campus', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').returns();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+         return chai
+            .request(server)
+            .post('/profile/student/updateCampus')
+            .send(studentDefined.firebase_uid, 'campus')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
    });
 
    describe('Tutor profile api calls', () => {
@@ -603,6 +618,36 @@ describe('API request calls', () => {
                assert.exists(res.body);
                assert.equal(res.status, 500);
                updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on adding a campus', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const stub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+         return chai
+            .request(server)
+            .post('/profile/tutor/addCampus')
+            .send(tutorDefined.firebase_uid, 'campus')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 200 on removing a campus', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const stub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+         return chai
+            .request(server)
+            .post('/profile/tutor/removeCampus')
+            .send(tutorDefined.firebase_uid, 'campus')
+            .then((res: Response) => {
+               assert.exists(res.body);
+               assert.equal(res.status, 200);
+               stub.restore();
                guard.restore();
             });
       });

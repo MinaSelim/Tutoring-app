@@ -35,6 +35,8 @@ export const databaseConfig = {
    },
 };
 
+export const dateToTest = new Date('2019-01-16');
+
 // --------------------------------------------
 // Student variables
 // --------------------------------------------
@@ -115,18 +117,14 @@ export const tutorDefined: ITutor = {
 };
 
 export const tutorIncomplete: ITutor = {
-   first_name: 'string',
-   last_name: 'string',
-   email: 'string',
-   firebase_uid: 'string',
+   first_name: 'stringIncomplete',
+   last_name: 'stringIncomplete',
+   email: 'stringIncomplete',
+   firebase_uid: 'stringIncomplete',
    tutor_info: {
-      campuses: ['string'],
-      chatrooms: ['string'],
-      overallRating: 0,
-      numberOfReviews: 0,
-      classes: ['string'],
-      last_seen: 'string',
-      stripe_account_id: 'string',
+      chatrooms: [''],
+      stripe_account_id: 'stringIncomplete',
+      last_seen: dateToTest.toLocaleString(),
    },
 };
 
@@ -328,13 +326,13 @@ export const putItemInputTutorIncomplete: PutItemInput = {
       phone: {S: ''},
       tutor_info: {
          M: {
-            campuses: {SS: tutorDefined.tutor_info.campuses},
-            chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
-            last_seen: {S: tutorDefined.tutor_info.last_seen},
-            overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
-            numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
-            classes: {SS: tutorDefined.tutor_info.classes},
-            stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
+            campuses: {SS: ['']},
+            chatrooms: {SS: ['']},
+            last_seen: {S: tutorIncomplete.tutor_info.last_seen},
+            overallRating: {N: '0'},
+            numberOfReviews: {N: '0'},
+            classes: {SS: ['']},
+            stripe_account_id: {S: tutorIncomplete.tutor_info.stripe_account_id},
          },
       },
    },
@@ -824,7 +822,7 @@ export const scanOutputSearchTutors: ScanOutput = {
       {
          first_name: {S: tutorDefined.first_name},
          last_name: {S: tutorDefined.last_name},
-         email: {S: tutorDefined.email},   
+         email: {S: tutorDefined.email},
          is_validated: {BOOL: tutorDefined.is_validated},
          firebase_uid: {S: tutorDefined.firebase_uid},
          profileImage: {S: tutorDefined.profileImage},
@@ -837,7 +835,7 @@ export const scanOutputSearchTutors: ScanOutput = {
                overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
                numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
                classes: {SS: tutorDefined.tutor_info.classes},
-               stripe_account_id: {S:tutorDefined.tutor_info.stripe_account_id},
+               stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
             },
          },
       },
@@ -856,3 +854,70 @@ export const scanOuputSearchTutorRejects = ({
       return Promise.reject(awsError);
    },
 } as unknown) as AWS.Request<ScanOutput, AWSError>;
+
+// --------------------------------------------
+// CAMPUS/CLASS VARIABLES
+// --------------------------------------------
+
+export const updateItemInputStudentCampus: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {
+      firebase_uid: {
+         S: studentDefined.firebase_uid,
+      },
+   },
+   UpdateExpression: 'SET student_info.campus = :cs',
+   ExpressionAttributeValues: {
+      ':cs': {
+         S: studentDefined.student_info.campus,
+      },
+   },
+   ReturnValues: 'NONE',
+};
+
+export const updateItemOutputStudentCampus: UpdateItemOutput = {
+   ConsumedCapacity: {TableName: databaseConfig.tableNames.USER, CapacityUnits: 1},
+};
+
+// --------------------------------------------
+// LAST SEEN VARIABLES
+// --------------------------------------------
+
+export const updateItemLastSeenTutor: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {
+      firebase_uid: {
+         S: tutorDefined.firebase_uid,
+      },
+   },
+   UpdateExpression: 'SET tutor_info.last_seen = :ls',
+   ExpressionAttributeValues: {
+      ':ls': {
+         S: dateToTest.toLocaleString(),
+      },
+   },
+   ReturnValues: 'NONE',
+};
+
+export const updateItemIncompleteTutor: UpdateItemInput = {
+   TableName: databaseConfig.tableNames.USER,
+   Key: {
+      firebase_uid: {
+         S: tutorIncomplete.firebase_uid,
+      },
+   },
+   UpdateExpression: 'SET tutor_info = :ti',
+   ExpressionAttributeValues: {
+      ':ti': {
+         M: {
+            campuses: {SS: ['']},
+            chatrooms: {SS: ['']},
+            classes: {SS: ['']},
+            last_seen: {S: tutorIncomplete.tutor_info.last_seen},
+            overallRating: {N: '0'},
+            numberOfReviews: {N: '0'},
+         },
+      },
+   },
+   ReturnValues: 'NONE',
+};

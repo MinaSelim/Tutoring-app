@@ -29,7 +29,7 @@ export default class TutorAuthManager {
       if (await this.tutorDatabaseFunctions.userIsRegisteredAsTutor(tutor.firebase_uid)) {
          return Promise.reject('error: user is already registered as a tutor');
       } else if (await this.tutorDatabaseFunctions.userIsRegisteredAsStudent(tutor.firebase_uid)) {
-         this.tutorDatabaseFunctions.addTutorInfoToUser(tutor);
+         await this.tutorDatabaseFunctions.addTutorInfoToUser(tutor);
       } else {
          await this.tutorDatabaseFunctions.addUserToDatabase(tutor);
       }
