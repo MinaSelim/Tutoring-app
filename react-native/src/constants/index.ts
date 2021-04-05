@@ -12,11 +12,11 @@ const constants = {
     createAccount: 'Create an account',
     signInWithGoogle: 'Sign in with Google',
   },
-  passwordReset : {
-    reset : 'Reset',
+  passwordReset: {
+    reset: 'Reset',
     forgotPassword: 'Forgot password?',
     resetLinkSent: 'A reset link has been sent to your email address',
-    regexString: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
+    regexString: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
   },
   signup: {
     forms: {

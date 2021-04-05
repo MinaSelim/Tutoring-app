@@ -4,7 +4,7 @@ import SignUpCredentials from './src/pages/signup/forms';
 import SignUpUserType from './src/pages/signup/userType';
 import SignUpSelectCampus from './src/pages/signup/selectCampus/index';
 import SignInMenu from './src/pages/signin/SignInMenu';
-import HomeUI from './src/pages/home';
+import Home from './src/pages/home';
 import SideBar from './src/components/common/sideBar';
 import chatInbox from './src/pages/chatInbox';
 import TutorSearch from './src/components/tutorSearch/TutorSearch';
@@ -24,14 +24,16 @@ const Stack = createStackNavigator();
 const HomeNavigation: React.FunctionComponent = () => {
   return (
     <Drawer.Navigator
-      drawerContent={({navigation}: any): React.ReactElement => <SideBar navigation={navigation} />}
+      drawerContent={({navigation}: any): React.ReactElement => (
+        <SideBar navigation={navigation} />
+      )}
       initialRouteName="Home"
       drawerType="slide">
-      <Drawer.Screen name="Home" component={HomeUI} />
+      <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="MyChats" component={chatInbox} />
       <Drawer.Screen name="TutorSearch" component={TutorSearch} />
       <Drawer.Screen name="StudyGroupSearch" component={StudyGroupSearch} />
-      <Drawer.Screen name="ChatUI" component={ChatUI} />
+      <Drawer.Screen name="ChatUI" component={Chat} />
     </Drawer.Navigator>
   );
 };

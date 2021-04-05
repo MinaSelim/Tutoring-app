@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon, Button, TopNavigation} from '@ui-kitten/components';
 import styles from './styles';
-import BackButtonComponent from './backButtonComponent'
+import BackButtonComponent from './backButtonComponent';
 import NavigationInjectedPropsConfigured from '../../../model/navigation/NavigationInjectedPropsConfigured';
 
 const BackButtonIcon = (): JSX.Element => {
@@ -10,17 +10,14 @@ const BackButtonIcon = (): JSX.Element => {
   );
 };
 
-const BackButton: React.FC<NavigationInjectedPropsConfigured> = (
-  {
-    goBack,
-  } : NavigationInjectedPropsConfigured
-): JSX.Element => {
+const BackButton: React.FC<NavigationInjectedPropsConfigured> = ({
+  goBack,
+}: NavigationInjectedPropsConfigured): JSX.Element => {
   return (
     <TopNavigation
-        alignment="center"
-        accessoryLeft={(): JSX.Element => <BackButtonComponent goBack={goBack}/>}
-        
-      />
+      alignment="center"
+      accessoryLeft={(): JSX.Element => <BackButtonComponent goBack={goBack} />}
+    />
   );
 };
 
