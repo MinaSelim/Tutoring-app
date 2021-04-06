@@ -1,10 +1,7 @@
 import firebase from 'firebase-admin';
 import FirebaseAuth from '../FirebaseAuth';
 import IStudent from '../../models/IStudent';
-import IUser from '../../models/IUser';
-import ITutor from '../../models/ITutor';
 import studentDatabaseFunctions from '../../database/studentDatabaseFunctions';
-import {exception} from 'console';
 
 /**
  * The service that manages student authenthication

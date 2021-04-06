@@ -15,7 +15,6 @@ import styles from './styles/styles';
 import useAuthUser from '../../../hooks/authUser';
 import Profile from '../../profile/Profile';
 import {useNavigation} from '@react-navigation/native';
-import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 
 const CalendarIcon = (props): JSX.Element => (
   <Icon {...props} name="calendar-outline" />

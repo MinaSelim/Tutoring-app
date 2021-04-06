@@ -279,7 +279,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
     * @param tutor an ITutor object holding the tutor_info to be added
     * @returns void.
     */
-   public addTutorInfoToUser = (tutor: ITutor): void => {
+   public addTutorInfoToUser = async (tutor: ITutor): Promise<void> => {
       tutor = this.initializeTutorInfoAttributes(tutor);
 
       const params: UpdateItemInput = {
@@ -317,7 +317,7 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          ReturnValues: 'NONE',
       };
 
-      this.databaseUtils.updateItem(params);
+      await this.databaseUtils.updateItem(params);
    };
 
    /**

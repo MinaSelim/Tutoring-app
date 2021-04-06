@@ -73,7 +73,6 @@ export class TutorProfileRoutes implements IRouteComponent {
             await this.tutorProfileManager.addCampus(req.body.idToken, req.body.campus);
             res.sendStatus(200);
          } catch (error) {
-            console.error(error);
             res.status(500);
             res.send(error);
          }
@@ -81,11 +80,10 @@ export class TutorProfileRoutes implements IRouteComponent {
 
       app.post('/profile/tutor/removeCampus', async (req: Request, res: Response) => {
          try {
-            Guards.loggedInStudentGuard(req);
+            Guards.loggedInTutorGuard(req);
             await this.tutorProfileManager.removeCampus(req.body.idToken, req.body.campus);
             res.sendStatus(200);
          } catch (error) {
-            console.error(error);
             res.status(500);
             res.send(error);
          }

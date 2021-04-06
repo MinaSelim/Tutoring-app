@@ -22,6 +22,10 @@ import {
    updateItemOutputRejects,
    updateItemOutputUpdateUserResolves,
    updateUser,
+   updateUserNoReturn,
+   dateToTest,
+   updateItemLastSeenTutor,
+   updateItemIncompleteTutor,
 } from '../utils/templates';
 
 describe('Tutor Database Functions Test', () => {
@@ -148,5 +152,23 @@ describe('Tutor Database Functions Test', () => {
             assert.equal(err, awsError);
             assert(spy.calledWith(updateItemInputUpdateUser));
          });
+   });
+
+   it('Should update last seen data', () => {
+      sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+      const spy = sandbox.spy(dbUtils, 'updateItem');
+
+      return tutordb.updateLastSeen(tutorDefined.firebase_uid, dateToTest).then(() => {
+         assert(spy.calledWith(updateItemLastSeenTutor));
+      });
+   });
+
+   it('Should add missing tutor parameters', () => {
+      sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+      const spy = sandbox.spy(dbUtils, 'updateItem');
+
+      return tutordb.addTutorInfoToUser(tutorIncomplete).then(() => {
+         assert(spy.calledWith(updateItemIncompleteTutor));
+      });
    });
 });
