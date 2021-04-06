@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import styles from './styles';
+import dropdownStyles from './styles/CampusDropdownSearchStyles';
 import 'react-native-gesture-handler';
 import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import IStudent from '../../../model/common/IStudent';
@@ -44,8 +45,8 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
 
   // Send the student's information to the back-end
   const finish = async (
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     email,
     phone,
     password,
@@ -53,8 +54,8 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
     if (universitySelection !== constants.signup.selectCampus.findYourCampus) {
       const studentAuth = new StudentAuth();
       const studentInfo: IStudent = {
-        first_name: firstName,
-        last_name: lastName,
+        first_name,
+        last_name,
         email,
         phone,
         student_info: {
@@ -91,32 +92,28 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
     <ImageBackground
       source={require('../../../assets/images/icons/signUpBackground.png')}
       style={styles.backgroundImage}>
-      <SafeAreaView style={{flex: 1, alignItems: 'stretch'}}>
-        <View style={{flex: 1, justifyContent: 'center'}}>
+      <SafeAreaView style={styles.safeView}>
+        <View style={styles.generalView}>
           <TouchableOpacity
-            style={{position: 'absolute', top: 10}}
+            style={styles.goBackButton}
             onPress={(): boolean => navigation.goBack()}>
             <Image
               source={require('../../../assets/images/icons/backBtn.png')}
-              style={styles.goBackButton}
+              style={styles.goBackButtonImage}
             />
           </TouchableOpacity>
-          <View style={styles.space}>
+          <View style={styles.biggerMiddleArea}>
             <Text style={styles.selectYourCampus}>
               {' '}
               {constants.signup.selectCampus.selectYourCampus}
             </Text>
-            <View
-              style={{
-                justifyContent: 'space-between',
-                height: 200,
-                marginBottom: 100,
-              }}>
+            <View style={styles.middleArea}>
               <Image
                 source={require('../../../assets/images/icons/university.png')}
                 style={[
-                  {alignSelf: 'center'},
-                  isUniversitySelected() ? {opacity: 1} : {opacity: 0.25},
+                  isUniversitySelected()
+                    ? styles.campusImageSelected
+                    : styles.campusImageNotSelected,
                 ]}
               />
               <Text style={styles.universityText}>{universitySelection}</Text>
@@ -129,17 +126,18 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
                     );
                     setUniversitySelection(campus);
                   }}
-                  containerStyle={{padding: 5}}
-                  itemStyle={styles.listText}
-                  itemTextStyle={{color: '#222'}}
-                  itemsContainerStyle={{maxHeight: 150}}
+                  containerStyle={dropdownStyles.containerStyle}
+                  itemStyle={dropdownStyles.listText}
+                  itemTextStyle={dropdownStyles.itemTextStyle}
+                  itemsContainerStyle={dropdownStyles.itemsContainerStyle}
+                  //TODO: get the list of campuses from the backend instead of local file as done for edit campuses
                   items={campuses}
                   resetValue={false}
                   textInputProps={{
                     placeholder:
                       constants.signup.selectCampus.placeHolders.searchCampus,
                     underlineColorAndroid: 'transparent',
-                    style: styles.inputBox,
+                    style: dropdownStyles.inputBox,
                   }}
                   listProps={{
                     nestedScrollEnabled: true,

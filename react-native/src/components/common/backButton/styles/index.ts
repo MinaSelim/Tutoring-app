@@ -8,5 +8,4 @@ export default StyleSheet.create({
     left: 3,
     top: 5,
   },
-
 });

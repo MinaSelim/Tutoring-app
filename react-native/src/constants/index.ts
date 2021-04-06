@@ -12,11 +12,11 @@ const constants = {
     createAccount: 'Create an account',
     signInWithGoogle: 'Sign in with Google',
   },
-  passwordReset : {
-    reset : 'Reset',
+  passwordReset: {
+    reset: 'Reset',
     forgotPassword: 'Forgot password?',
     resetLinkSent: 'A reset link has been sent to your email address',
-    regexString: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
+    regexString: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
   },
   signup: {
     forms: {
@@ -75,6 +75,24 @@ const constants = {
       signout: 'Sign out',
       termsAndConditions: 'Terms and Conditions',
     },
+  },
+  editCampuses: {
+    addACampus: 'Add a campus',
+    confirm: 'Confirm',
+    selectACampus: 'Select a campus',
+    remove: 'REMOVE',
+    editCourses: 'Edit Courses',
+    empty: 'empty',
+    addAClass: 'Add a class',
+    yourClasses: 'Your Classes',
+    saveChanges: 'Save Changes',
+    removeCampus: 'Remove Campus',
+    yourCampus: 'Your Campus',
+    placeholder: 'placeholder',
+    noAssociatedCampuses: 'You have no associated campuses',
+    pressOnCampusToEditClasses: 'Press on a campus to edit its classes',
+    pressToChange: 'Press on your campus to modify it',
+    yourCampuses: 'Your Campuses',
   },
   profile: {
     firstName: 'First name',

@@ -7,7 +7,12 @@ import styles from './styles/MyChatStyles';
 const PageHeader = (props): JSX.Element => {
   return (
     <Layout style={styles.ChatListHeader}>
-      <BackButton {...props} />
+      <BackButton
+        navigate={props.navigate}
+        toggleDrawer={props.toggleDrawer}
+        goBack={props.navigation.goBack}
+        navigation={props.navigation}
+      />
       <Text style={styles.title}>{constants.chatInbox.pageHeader.myChats}</Text>
       <Text style={styles.placeholder}>
         {constants.chatInbox.pageHeader.placeholder}

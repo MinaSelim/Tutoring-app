@@ -49,7 +49,6 @@ const PaymentOptions: React.FunctionComponent<IPaymentPage> = ({
     );
   });
 
-
   const openIAB = async (): Promise<void> => {
     try {
       const response = await fetch(
@@ -147,7 +146,7 @@ const PaymentOptions: React.FunctionComponent<IPaymentPage> = ({
         navigation={navigation}
       />
       <Text style={Style.titleText}>{constants.paymentOptions.title}</Text>
-      {(isTutor && !tutorHasConnectedStripeAccount)? (
+      {isTutor && !tutorHasConnectedStripeAccount ? (
         <>
           <Text style={Style.subTitleText}>
             {constants.paymentOptions.paymentMethod}
@@ -160,19 +159,20 @@ const PaymentOptions: React.FunctionComponent<IPaymentPage> = ({
             {constants.paymentOptions.connectStripe}
           </Button>
         </>
-      ): 
-      <>
-      <Text style={Style.subTitleText}>
-        {constants.paymentOptions.paymentMethod}
-      </Text>
-      <Button
-        style={Style.connectWithStripeButton}
-        onPress={(): void => {
-          openStripePortal();
-        }}>
-        {constants.paymentOptions.accessStripe}
-      </Button>
-    </>}
+      ) : (
+        <>
+          <Text style={Style.subTitleText}>
+            {constants.paymentOptions.paymentMethod}
+          </Text>
+          <Button
+            style={Style.connectWithStripeButton}
+            onPress={(): void => {
+              openStripePortal();
+            }}>
+            {constants.paymentOptions.accessStripe}
+          </Button>
+        </>
+      )}
     </View>
   );
 };

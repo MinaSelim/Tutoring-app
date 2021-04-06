@@ -1,6 +1,5 @@
 import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import INavigation from '../../../model/navigation/NavigationInjectedPropsConfigured';
 import 'react-native-gesture-handler';
 import {
   Text,
@@ -25,14 +24,14 @@ const CreditCardIcon = (props): JSX.Element => (
 const HistoryIcon = (props): JSX.Element => (
   <Icon {...props} name="archive-outline" />
 );
-const CampusIcon = (props): JSX.Element => (
-  <Icon {...props} name="home-outline" />
-);
 const BookIcon = (props): JSX.Element => (
   <Icon {...props} name="book-outline" />
 );
 const EmptyIcon = (props): JSX.Element => (
   <Icon {...props} name="code-outline" fill="#ffffff00" />
+);
+const CampusIcon = (props): JSX.Element => (
+  <Icon {...props} name="person-outline" />
 );
 
 const SideBar: React.FunctionComponent<any> = () => {
@@ -98,7 +97,7 @@ const SideBar: React.FunctionComponent<any> = () => {
           status="control"
           accessoryLeft={CreditCardIcon}
           size="giant"
-          onPress={(): boolean => navigation!.navigate('PaymentOptions')}>
+          onPress={(): void => navigation!.navigate('PaymentOptions')}>
           {constants.commonComponents.sidebar.paymentOptions}
         </Button>
         <Divider style={styles.divider} />
@@ -111,6 +110,11 @@ const SideBar: React.FunctionComponent<any> = () => {
           {constants.commonComponents.sidebar.accountHistory}
         </Button>
         <Button
+          onPress={(): void =>
+            user!.hasOwnProperty('tutor_info')
+              ? navigation.navigate('EditTutorCampuses')
+              : navigation.navigate('EditStudentCampus')
+          }
           style={styles.button}
           appearance="ghost"
           status="control"
