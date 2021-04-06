@@ -34,12 +34,12 @@ const TutorRow = ({item, navigation}): JSX.Element => {
       'direct',
     );
     setVisible(false);
-    // if (
-    //   user!.hasOwnProperty('student_info') &&
-    //   user!.student_info.chatrooms.find(chatID) === undefined
-    // ) {
-    //   user!.student_info.chatrooms.push(chatID);
-    // }
+    if (
+      user!.hasOwnProperty('student_info') &&
+      user!.student_info.chatrooms.includes(chatID) === undefined
+    ) {
+      user!.student_info.chatrooms.push(chatID);
+    }
     navigation.navigate('Chat', {
       chatID: chatID,
     });

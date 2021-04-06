@@ -11,6 +11,7 @@ const tutorData: ITutor[] = [
       classes: ['comp232', 'math204'],
       personRate: 49,
       groupRate: 10,
+      stripe_account_id: 'fdfgdff',
       numberOfReviews: 69,
       overallRating: 4.4,
     },
@@ -23,6 +24,7 @@ const tutorData: ITutor[] = [
     tutor_info: {
       chatrooms: [],
       classes: ['comp232'],
+      stripe_account_id: 'dddd',
       personRate: 48,
       groupRate: 20,
       numberOfReviews: 420,
@@ -35,6 +37,7 @@ const tutorData: ITutor[] = [
     last_name: 'Charlington',
     email: 'lmao3@gmail.com',
     tutor_info: {
+      stripe_account_id: 'dddddvg',
       chatrooms: [],
       classes: ['math205'],
       personRate: 47,
@@ -49,6 +52,7 @@ const tutorData: ITutor[] = [
     last_name: 'Dannyson',
     email: 'lmao4@gmail.com',
     tutor_info: {
+      stripe_account_id: 'ddddg',
       chatrooms: [],
       classes: ['math204', 'comp232'],
       personRate: 10000,
@@ -63,6 +67,7 @@ const tutorData: ITutor[] = [
     last_name: 'Elison',
     email: 'lmao4@gmail.com',
     tutor_info: {
+      stripe_account_id: 'fdffffgdff',
       chatrooms: [],
       classes: ['comp232'],
       personRate: 10000,
@@ -77,6 +82,7 @@ const tutorData: ITutor[] = [
     last_name: 'Forin',
     email: 'lmao4@gmail.com',
     tutor_info: {
+      stripe_account_id: 'fdddfgdff',
       chatrooms: [],
       classes: ['comp232'],
       personRate: 10000,
