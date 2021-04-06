@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState, useRef, useCallback} from 'react';
 import firebase from '../../api/authentication/Fire';
 import {FlatList, View} from 'react-native';

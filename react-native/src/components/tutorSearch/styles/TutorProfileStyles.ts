@@ -82,7 +82,7 @@ export const TutorProfileStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  closeButton:{
+  closeButton: {
     alignSelf: 'center',
     width: 50,
     height: 40,
