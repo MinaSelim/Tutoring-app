@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// These must be called with require to force loading before test
+//These must be called with require to force loading before test
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -9,7 +9,7 @@ import {assert} from 'chai';
 import 'mocha';
 import App from '../../src/config/app';
 import {Server} from 'http';
-import {Application} from 'express';
+import {Application, json, Response} from 'express';
 import DatabaseConfig from '../../src/config/DatabaseConfig';
 import Sinon from 'sinon';
 import Dynamo from '../../src/database/dynamo';
@@ -48,11 +48,13 @@ import {
 import Guards from '../../src/routes/common/Guards';
 import StripeApi from '../../src/services/StripeApi';
 import Stripe from 'stripe';
+import {stripeAccount, stripeAccountLink} from '../utils/stripeTemplates';
 
 describe('API request calls', () => {
    let server: Server;
    let sandbox: Sinon.SinonSandbox;
    let dynamo: AWS.DynamoDB;
+   let stripeDev: Stripe;
 
    before(() => {
       dynamo = Dynamo.getInstance();
@@ -72,10 +74,11 @@ describe('API request calls', () => {
       };
       sandbox.stub(firebaseApp, 'verifyIdToken').resolves(verifyIdTokenResponse);
 
-      const stripeDev = new Stripe('apikey', null);
+      stripeDev = new Stripe('apikey', null);
       sandbox.stub(StripeApi, 'getInstance').returns(stripeDev);
 
       const app: Application = new App().app;
+
       return new Promise<void>((resolve) => {
          server = app.listen(3000, () => {
             resolve();
@@ -97,8 +100,8 @@ describe('API request calls', () => {
             .request(server)
             .post('/auth/student/login')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
             });
       });
@@ -109,8 +112,8 @@ describe('API request calls', () => {
             .request(server)
             .post('/auth/tutor/login')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
             });
       });
@@ -121,8 +124,8 @@ describe('API request calls', () => {
             .request(server)
             .post('/auth/student/login')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
             });
       });
@@ -133,8 +136,8 @@ describe('API request calls', () => {
             .request(server)
             .post('/auth/tutor/login')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
             });
       });
@@ -150,8 +153,8 @@ describe('API request calls', () => {
             .post('/auth/student/register')
             .send(studentDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
                isNotAlreadyRegistered.restore();
             });
@@ -160,15 +163,19 @@ describe('API request calls', () => {
       it('Should return 200 on tutor register', () => {
          const stub = sandbox.stub(dynamo, 'putItem').returns(putItemOutputResolves);
          const isNotAlreadyRegistered = sandbox.stub(dynamo, 'getItem').returns(getItemEmptyResolves);
+
+         const accountStub = sandbox.stub(stripeDev.accounts, 'create').resolves(stripeAccount);
+
          return chai
             .request(server)
             .post('/auth/tutor/register')
             .send(tutorDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
                isNotAlreadyRegistered.restore();
+               accountStub.restore();
             });
       });
 
@@ -181,8 +188,8 @@ describe('API request calls', () => {
             .post('/auth/student/register')
             .send(studentDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
                isRegistered.restore();
             });
@@ -200,8 +207,8 @@ describe('API request calls', () => {
             .post('/auth/student/register')
             .send(updateStudent)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
                isRegistered.restore();
                updateStub.restore();
@@ -215,16 +222,19 @@ describe('API request calls', () => {
          isRegistered.onCall(1).returns(getItemStudentDefinedResolves);
          const updateStub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
 
+         const accountStub = sandbox.stub(stripeDev.accounts, 'create').resolves(stripeAccount);
+
          return chai
             .request(server)
             .post('/auth/tutor/register')
             .send(tutorDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
                isRegistered.restore();
                updateStub.restore();
+               accountStub.restore();
             });
       });
 
@@ -236,8 +246,8 @@ describe('API request calls', () => {
             .request(server)
             .post('/auth/tutor/register')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
                isRegistered.restore();
             });
@@ -253,8 +263,8 @@ describe('API request calls', () => {
             .post('/profile/student/update')
             .send(studentDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                updateItemStub.restore();
                guard.restore();
             });
@@ -268,8 +278,8 @@ describe('API request calls', () => {
             .post('/profile/student/update')
             .send(studentDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -283,8 +293,8 @@ describe('API request calls', () => {
             .post('/profile/student/update')
             .send(studentDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -298,8 +308,8 @@ describe('API request calls', () => {
             .post('/profile/student/getChatrooms')
             .send(studentDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                getItemStub.restore();
                guard.restore();
             });
@@ -313,8 +323,8 @@ describe('API request calls', () => {
             .post('/profile/student/getChatrooms')
             .send(studentDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                getItemStub.restore();
                guard.restore();
             });
@@ -328,8 +338,8 @@ describe('API request calls', () => {
             .post('/profile/student/getChatrooms')
             .send(studentDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                getItemStub.restore();
                guard.restore();
             });
@@ -343,8 +353,8 @@ describe('API request calls', () => {
             .post('/profile/student/addChatroom')
             .send(studentDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                updateItemStub.restore();
                guard.restore();
             });
@@ -358,8 +368,8 @@ describe('API request calls', () => {
             .post('/profile/student/addChatroom')
             .send(studentDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -373,8 +383,8 @@ describe('API request calls', () => {
             .post('/profile/student/addChatroom')
             .send(studentDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -388,8 +398,8 @@ describe('API request calls', () => {
             .post('/profile/student/removeChatroom')
             .send(studentDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                updateItemStub.restore();
                guard.restore();
             });
@@ -403,8 +413,8 @@ describe('API request calls', () => {
             .post('/profile/student/removeChatroom')
             .send(studentDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -418,8 +428,8 @@ describe('API request calls', () => {
             .post('/profile/student/removeChatroom')
             .send(studentDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -433,8 +443,23 @@ describe('API request calls', () => {
             .post('/profile/student/updateCampus')
             .send(studentDefined.firebase_uid, 'campus')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+               updateItemStub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on update campus', () => {
+         const guard = sandbox.stub(Guards, 'loggedInStudentGuard').throws();
+         const updateItemStub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+         return chai
+            .request(server)
+            .post('/profile/student/updateCampus')
+            .send(studentDefined.firebase_uid, 'campus')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -450,8 +475,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/update')
             .send(tutorDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                updateItemStub.restore();
                guard.restore();
             });
@@ -465,8 +490,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/update')
             .send(tutorDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -480,8 +505,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/update')
             .send(tutorDefined)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -495,8 +520,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/getChatrooms')
             .send(tutorDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                getItemStub.restore();
                guard.restore();
             });
@@ -510,8 +535,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/getChatrooms')
             .send(tutorDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                getItemStub.restore();
                guard.restore();
             });
@@ -525,8 +550,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/getChatrooms')
             .send(tutorDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                getItemStub.restore();
                guard.restore();
             });
@@ -540,8 +565,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/addChatroom')
             .send(tutorDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                updateItemStub.restore();
                guard.restore();
             });
@@ -555,8 +580,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/addChatroom')
             .send(tutorDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -570,8 +595,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/addChatroom')
             .send(tutorDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -585,8 +610,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/removeChatroom')
             .send(tutorDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                updateItemStub.restore();
                guard.restore();
             });
@@ -600,8 +625,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/removeChatroom')
             .send(tutorDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -615,8 +640,8 @@ describe('API request calls', () => {
             .post('/profile/tutor/removeChatroom')
             .send(tutorDefined.firebase_uid, 'chatId')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                updateItemStub.restore();
                guard.restore();
             });
@@ -630,8 +655,23 @@ describe('API request calls', () => {
             .post('/profile/tutor/addCampus')
             .send(tutorDefined.firebase_uid, 'campus')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+               stub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on adding a campus', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const stub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+         return chai
+            .request(server)
+            .post('/profile/tutor/addCampus')
+            .send(tutorDefined.firebase_uid, 'campus')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
                guard.restore();
             });
@@ -645,8 +685,23 @@ describe('API request calls', () => {
             .post('/profile/tutor/removeCampus')
             .send(tutorDefined.firebase_uid, 'campus')
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+               stub.restore();
+               guard.restore();
+            });
+      });
+
+      it('Should return 500 on removing a campus', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const stub = sandbox.stub(dynamo, 'updateItem').returns(updateUserNoReturn);
+         return chai
+            .request(server)
+            .post('/profile/tutor/removeCampus')
+            .send(tutorDefined.firebase_uid, 'campus')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
                guard.restore();
             });
@@ -664,8 +719,8 @@ describe('API request calls', () => {
             .post('/reviews/addReview')
             .send(review0Rating)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stubPutItem.restore();
                stubGetItem.restore();
                udapteItemStub.restore();
@@ -683,8 +738,8 @@ describe('API request calls', () => {
             .post('/reviews/addReview')
             .send(review0Rating)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stubPutItem.restore();
                stubGetItem.restore();
                udapteItemStub.restore();
@@ -702,8 +757,8 @@ describe('API request calls', () => {
             .post('/reviews/addReview')
             .send(review0Rating)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stubPutItem.restore();
                stubGetItem.restore();
                udapteItemStub.restore();
@@ -718,8 +773,8 @@ describe('API request calls', () => {
             .post('/reviews/getTutorReviews')
             .send(tutorDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
             });
       });
@@ -731,8 +786,8 @@ describe('API request calls', () => {
             .post('/reviews/getTutorReviews')
             .send(tutorDefined.firebase_uid)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
             });
       });
@@ -746,8 +801,8 @@ describe('API request calls', () => {
             .post('/search/tutorsForClass')
             .send(searchConstants.CAMPUS, searchConstants.CLASSCODE)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
                stub.restore();
             });
       });
@@ -759,8 +814,8 @@ describe('API request calls', () => {
             .post('/search/tutorsForClass')
             .send(searchConstants.CAMPUS, searchConstants.CLASSCODE)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 500);
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
                stub.restore();
             });
       });
@@ -771,8 +826,110 @@ describe('API request calls', () => {
             .post('/search/classes')
             .send(searchConstants.CAMPUS, searchConstants.CLASSCODE)
             .then((res: Response) => {
-               assert.exists(res.body);
-               assert.equal(res.status, 200);
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+            });
+      });
+
+      it('Should return 200 on searching for campuses', () => {
+         return chai
+            .request(server)
+            .post('/search/campuses')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+            });
+      });
+   });
+
+   describe('Payement stripe api calls', () => {
+      it('Should return 200 on connect a stripe account', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const getUser = sandbox.stub(dynamo, 'getItem').returns(getItemTutorDefinedResolves);
+         const account = sandbox.stub(stripeDev.accountLinks, 'create').resolves(stripeAccountLink);
+
+         return chai
+            .request(server)
+            .get('/payment/connect-stripe-account')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+               guard.restore();
+               getUser.restore();
+               account.restore();
+            });
+      });
+
+      it('Should return 500 on connect a stripe account if user not logged in', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const getUser = sandbox.stub(dynamo, 'getItem').returns(getItemTutorDefinedResolves);
+         const account = sandbox.stub(stripeDev.accountLinks, 'create').resolves(stripeAccountLink);
+
+         return chai
+            .request(server)
+            .get('/payment/connect-stripe-account')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
+               guard.restore();
+               getUser.restore();
+               account.restore();
+            });
+      });
+
+      it('Should return 200 on check if user has connected stripe account', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').returns();
+         const getUser = sandbox.stub(dynamo, 'getItem').returns(getItemTutorDefinedResolves);
+         const account = sandbox.stub(stripeDev.accounts, 'retrieve').resolves(stripeAccount);
+
+         return chai
+            .request(server)
+            .get('/payment/is-tutor-account-connected')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+               guard.restore();
+               getUser.restore();
+               account.restore();
+            });
+      });
+
+      it('Should return 500 on check if user has connected stripe account', () => {
+         const guard = sandbox.stub(Guards, 'loggedInTutorGuard').throws();
+         const getUser = sandbox.stub(dynamo, 'getItem').returns(getItemTutorDefinedResolves);
+         const account = sandbox.stub(stripeDev.accounts, 'retrieve').resolves(stripeAccount);
+
+         return chai
+            .request(server)
+            .get('/payment/is-tutor-account-connected')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 500);
+               guard.restore();
+               getUser.restore();
+               account.restore();
+            });
+      });
+   });
+
+   describe('Message stripe api calls', () => {
+      it('Should return 200 on success', () => {
+         return chai
+            .request(server)
+            .get('/message/success')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 200);
+            });
+      });
+
+      it('Should return 408 on refresh', () => {
+         return chai
+            .request(server)
+            .get('/message/refresh')
+            .then((res: Response) => {
+               assert.exists(res);
+               assert.equal(res.statusCode, 408);
             });
       });
    });

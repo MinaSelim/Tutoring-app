@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import expressSession from 'express-session';
 import * as dotenv from 'dotenv';
 import DatabaseConfig from '../config/DatabaseConfig';
@@ -29,9 +28,9 @@ export default class App {
    private config(): void {
       // support application/json type post data
       dotenv.config();
-      this.app.use(bodyParser.json());
+      this.app.use(express.json());
       //support application/x-www-form-urlencoded post data
-      this.app.use(bodyParser.urlencoded({extended: false}));
+      this.app.use(express.urlencoded({extended: false}));
       this.app.use(expressSession({secret: process.env.SESSION_SECRET, saveUninitialized: false, resave: false}));
       this.app.use(LastSeenMiddleware.updateLastSeenTutor);
       Promise.resolve(DatabaseConfig.init());
