@@ -1,4 +1,5 @@
 import TutorDatabaseFunctions from '../../database/tutorDatabaseFunctions';
+import IUser from '../../models/IUser';
 import ITutor from '../../models/ITutor';
 import UniversityInformation from '../../config/UniversityInformation';
 
@@ -21,5 +22,9 @@ export default class SearchManager {
 
    public getCampuses = (): string[] => {
       return this.universityInformation.getCampuses();
+   };
+
+   public getBasicUserInfo = async (id: string): Promise<IUser> => {
+      return await this.tutorDatabaseFunctions.getBasicUserInfo(id);
    };
 }

@@ -203,4 +203,18 @@ export default abstract class UserDatabaseFunctions {
       const data: GetItemOutput = await this.databaseUtils.getItem(params);
       return data.Item != null && data.Item.tutor_info != null;
    };
+
+   public getBasicUserInfo = async (id: string): Promise<IUser> => {
+      const params: GetItemInput = {
+         TableName: config.tableNames.USER,
+         Key: {
+            firebase_uid: {
+               S: id,
+            },
+         },
+      };
+      const queryResponse: GetItemOutput = await this.databaseUtils.getItem(params);
+      const user: IUser = this.createGenericUser(queryResponse);
+      return user;
+   };
 }
