@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Text, Button} from '@ui-kitten/components';
 
 const SetupPayment: React.FunctionComponent = () => {

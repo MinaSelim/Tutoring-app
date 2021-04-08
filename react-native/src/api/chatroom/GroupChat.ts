@@ -15,7 +15,6 @@ export default class GroupChat extends GenericChat {
     roomName: string,
     associatedClass: string,
   ): number => {
-    // eslint-disable-next-line new-cap
     const chatroomHelper: chatHelper = new chatHelper();
     const creationResult: number = chatroomHelper.generateChat(
       {},

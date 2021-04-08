@@ -44,18 +44,12 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
   };
 
   // Send the student's information to the back-end
-  const finish = async (
-    first_name,
-    last_name,
-    email,
-    phone,
-    password,
-  ): Promise<void> => {
+  const finish = async (): Promise<void> => {
     if (universitySelection !== constants.signup.selectCampus.findYourCampus) {
       const studentAuth = new StudentAuth();
       const studentInfo: IStudent = {
-        first_name,
-        last_name,
+        first_name: firstName,
+        last_name: lastName,
         email,
         phone,
         student_info: {
@@ -149,7 +143,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
               <TouchableOpacity
                 style={styles.finishButton}
                 onPress={(): void => {
-                  finish(firstName, lastName, email, phone, password);
+                  finish();
                 }}>
                 <Text style={styles.finishText}>
                   {constants.signup.selectCampus.finish}

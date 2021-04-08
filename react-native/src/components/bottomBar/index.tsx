@@ -13,8 +13,6 @@ const BottomBar: React.FunctionComponent<IBottomBar> = ({
   children,
   offset,
   containerHeight,
-  startUp,
-  downDisplay,
 }: IBottomBar) => {
   return (
     <BottomDrawer containerHeight={containerHeight} offset={offset}>

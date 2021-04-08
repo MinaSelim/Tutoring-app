@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../styles/appColors';
-import {useTheme} from '@ui-kitten/components';
 
 export default StyleSheet.create({
   logoStyle: {},

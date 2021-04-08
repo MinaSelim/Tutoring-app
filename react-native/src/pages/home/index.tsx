@@ -12,10 +12,7 @@ import {useTheme} from '@ui-kitten/components';
 import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
 import constant from '../../constants';
 
-const HomeUI: React.FC<INavigation> = ({
-  navigation,
-  toggleDrawer,
-}: INavigation) => {
+const HomeUI: React.FC<INavigation> = ({navigation}: INavigation) => {
   const styles = useStyleSheet(homeStyles);
   const theme = useTheme();
   const user = useAuthUser()[0];
@@ -46,12 +43,12 @@ const HomeUI: React.FC<INavigation> = ({
             {constant.home.lookingFor}
           </Text>
           <Button
-            style={[styles.button, {top: 25}]}
+            style={[styles.button, styles.smallButtonDistance]}
             onPress={(): boolean => navigation.navigate('TutorSearch')}>
             {constant.home.findTutor}
           </Button>
           <Button
-            style={[styles.button, {top: 30}]}
+            style={[styles.button, styles.smallButtonDistance]}
             onPress={(): boolean => navigation.navigate('StudyGroupSearch')}>
             {constant.home.findGroup}
           </Button>

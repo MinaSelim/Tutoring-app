@@ -19,14 +19,12 @@ export default class GenericChat {
     chatroomIds: Array<string>,
   ): Promise<Chatroom[]> => {
     const userChatrooms: firebase.firestore.DocumentData[] = [];
-    // eslint-disable-next-line no-restricted-syntax
     for (const element of chatroomIds) {
       const ref: firebase.firestore.DocumentData = firebase
         .firestore()
         .collection(constants.chatroomCollection)
         .doc(element);
 
-      // eslint-disable-next-line no-await-in-loop
       await ref.get().then((snapshot) => {
         if (
           snapshot.data() !== undefined &&
@@ -53,7 +51,7 @@ export default class GenericChat {
       );
       chatrooms.push(chatroom);
     });
-    chatrooms.sort(function (x, y) {
+    chatrooms.sort((x, y) => {
       return +y.latestMessage.createdAt - +x.latestMessage.createdAt;
     });
     return chatrooms;
@@ -136,7 +134,6 @@ export default class GenericChat {
     currentUserToken: string,
   ): Promise<Message[]> => {
     const chatMessages: Array<chatMessages> = [];
-    // eslint-disable-next-line new-cap
     const chatroomHelper = new chatHelper();
     chatroomHelper.viewedChat(chatroomID, currentUserToken);
     const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
@@ -180,7 +177,6 @@ export default class GenericChat {
     messageAmount: number,
   ): Promise<Message[]> => {
     const chatMessages: Array<chatMessages> = [];
-    // eslint-disable-next-line new-cap
     const chatroomHelper = new chatHelper();
     chatroomHelper.viewedChat(chatroomID, currentUserToken);
     const convo: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase

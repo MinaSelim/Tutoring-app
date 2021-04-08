@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../styles/appColors';
-import {useTheme} from '@ui-kitten/components';
 
 export default StyleSheet.create({
   logoStyle: {},
@@ -48,6 +47,12 @@ export default StyleSheet.create({
     height: 50,
     width: '80%',
     borderRadius: 10,
+  },
+  smallButtonDistance: {
+    top: 25,
+  },
+  bigButtonDistance: {
+    top: 30,
   },
   universityImage: {
     alignSelf: 'center',

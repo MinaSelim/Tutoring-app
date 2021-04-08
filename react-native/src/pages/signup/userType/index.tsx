@@ -29,13 +29,7 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
   const setAuthUser = useAuthUser()[1];
   const {firstName, lastName, email, phone, password} = route.params;
   // Send the tutor's information to the back-end
-  const handleTutor = async (
-    firstName,
-    lastName,
-    email,
-    phone,
-    password,
-  ): Promise<void> => {
+  const handleTutor = async (): Promise<void> => {
     const tutorAuth = new TutorAuth();
     const tutor: ITutor = {
       first_name: firstName,
@@ -69,10 +63,10 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
     <ImageBackground
       source={require('../../../assets/images/icons/signUpBackground.png')}
       style={styles.backgroundImage}>
-      <SafeAreaView style={{flex: 1, alignItems: 'stretch'}}>
-        <View style={{flex: 1}}>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.bigView}>
           <TouchableOpacity
-            style={{position: 'absolute'}}
+            style={styles.backButton}
             onPress={(): boolean => navigation.goBack()}>
             <Image
               source={require('../../../assets/images/icons/backBtn.png')}
@@ -101,7 +95,7 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
             <TouchableOpacity
               style={styles.tutor}
               onPress={(): void => {
-                handleTutor(firstName, lastName, email, phone, password);
+                handleTutor();
               }}>
               <Text style={styles.buttonText}>
                 {constant.signup.userType.tutor}

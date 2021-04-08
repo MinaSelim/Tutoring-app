@@ -4,7 +4,10 @@ import styles from './styles/MyChatStyles';
 
 const UnreadHint = (props): JSX.Element => (
   <Avatar
-    style={[styles.unreadHint, {opacity: props.newMessage ? 1 : 0}]}
+    style={[
+      styles.unreadHint,
+      props.newMessage ? styles.hintShown : styles.hintHidden,
+    ]}
     shape="round"
     source={require('../../assets/images/icons/notificationDot.png')}
   />
