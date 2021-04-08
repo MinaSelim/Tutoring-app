@@ -12,7 +12,7 @@ export default interface ITutor extends IUser {
       numberOfReviews?: number;
       classes?: string[];
       stripe_account_id: string;
-      personRate: number;
-      groupRate: number;
+      personRate?: number;
+      groupRate?: number;
    };
 }

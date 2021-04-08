@@ -38,6 +38,12 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
             overallRating: {
                N: String(tutor.tutor_info.overallRating),
             },
+            personRate: {
+               N: String(tutor.tutor_info.personRate),
+            },
+            groupRate: {
+               N: String(tutor.tutor_info.groupRate),
+            },
             numberOfReviews: {
                N: String(tutor.tutor_info.numberOfReviews),
             },
@@ -62,6 +68,8 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
          last_seen: data.Item.tutor_info.M.last_seen.S,
          overallRating: parseInt(data.Item.tutor_info.M.overallRating.N),
          numberOfReviews: parseInt(data.Item.tutor_info.M.numberOfReviews.N),
+         personRate: parseInt(data.Item.tutor_info.M.personRate.N),
+         groupRate: parseInt(data.Item.tutor_info.M.groupRate.N),
          classes: data.Item.tutor_info.M.classes.SS,
          stripe_account_id: data.Item.tutor_info.M.stripe_account_id.S,
       };
@@ -224,6 +232,8 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                   last_seen: item.tutor_info.M.last_seen.S,
                   overallRating: parseInt(item.tutor_info.M.overallRating.N),
                   numberOfReviews: parseInt(item.tutor_info.M.numberOfReviews.N),
+                  personRate: parseInt(item.tutor_info.M.personRate.N),
+                  groupRate: parseInt(item.tutor_info.M.groupRate.N),
                   classes: item.tutor_info.M.classes.SS,
                   stripe_account_id: item.tutor_info.M.stripe_account_id.S,
                },
@@ -311,6 +321,12 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
                   numberOfReviews: {
                      N: String(tutor.tutor_info.numberOfReviews),
                   },
+                  personRate: {
+                     N: String(tutor.tutor_info.personRate),
+                  },
+                  groupRate: {
+                     N: String(tutor.tutor_info.groupRate),
+                  },
                },
             },
          },
@@ -344,6 +360,13 @@ export default class TutorDatabaseFunctions extends UserDatabaseFunctions {
 
       if (!tutor.tutor_info.numberOfReviews) {
          tutor.tutor_info.numberOfReviews = 0;
+      }
+
+      if (!tutor.tutor_info.personRate) {
+         tutor.tutor_info.personRate = 0;
+      }
+      if (!tutor.tutor_info.groupRate) {
+         tutor.tutor_info.groupRate = 0;
       }
 
       if (!tutor.tutor_info.last_seen) {

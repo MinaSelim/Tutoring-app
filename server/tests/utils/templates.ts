@@ -113,6 +113,8 @@ export const tutorDefined: ITutor = {
       classes: ['string'],
       last_seen: 'string',
       stripe_account_id: 'string',
+      personRate: 0,
+      groupRate: 0,
    },
 };
 
@@ -125,6 +127,8 @@ export const tutorIncomplete: ITutor = {
       chatrooms: [''],
       stripe_account_id: 'stringIncomplete',
       last_seen: dateToTest.toLocaleString(),
+      personRate: 0,
+      groupRate: 0,
    },
 };
 
@@ -305,6 +309,8 @@ export const putItemInputTutorDefined: PutItemInput = {
             chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
             last_seen: {S: tutorDefined.tutor_info.last_seen},
             overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+            groupRate: {N: String(tutorDefined.tutor_info.groupRate)},
+            personRate: {N: String(tutorDefined.tutor_info.personRate)},
             numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
             classes: {SS: tutorDefined.tutor_info.classes},
             stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
@@ -330,6 +336,8 @@ export const putItemInputTutorIncomplete: PutItemInput = {
             chatrooms: {SS: ['']},
             last_seen: {S: tutorIncomplete.tutor_info.last_seen},
             overallRating: {N: '0'},
+            groupRate: {N: '0'},
+            personRate: {N: '0'},
             numberOfReviews: {N: '0'},
             classes: {SS: ['']},
             stripe_account_id: {S: tutorIncomplete.tutor_info.stripe_account_id},
@@ -410,6 +418,8 @@ export const getItemTutorDefined: GetItemOutput = {
             chatrooms: {SS: tutorDefined.tutor_info.chatrooms},
             last_seen: {S: tutorDefined.tutor_info.last_seen},
             overallRating: {N: String(tutorDefined.tutor_info.overallRating)},
+            groupRate: {N: String(tutorDefined.tutor_info.groupRate)},
+            personRate: {N: String(tutorDefined.tutor_info.personRate)},
             numberOfReviews: {N: String(tutorDefined.tutor_info.numberOfReviews)},
             classes: {SS: tutorDefined.tutor_info.classes},
             stripe_account_id: {S: tutorDefined.tutor_info.stripe_account_id},
@@ -916,6 +926,8 @@ export const updateItemIncompleteTutor: UpdateItemInput = {
             last_seen: {S: tutorIncomplete.tutor_info.last_seen},
             overallRating: {N: '0'},
             numberOfReviews: {N: '0'},
+            groupRate: {N: '0'},
+            personRate: {N: '0'},
          },
       },
    },
