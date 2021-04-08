@@ -35,11 +35,7 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
     return lastChatroom;
   };
 
-  const [
-    newestChat,
-    isLoadingRecentChat,
-    RecentChatLoadError,
-  ] = useCollectionData(loadChat(), {idField: 'id'});
+  const [newestChat, ,] = useCollectionData(loadChat(), {idField: 'id'});
 
   const appendChat = (): void => {
     if (

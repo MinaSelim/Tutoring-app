@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {AppRegistry} from 'react-native';
-import env from './env';
 import 'react-native-gesture-handler';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';

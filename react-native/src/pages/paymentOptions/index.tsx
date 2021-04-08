@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Linking, View} from 'react-native';
+import {Linking, View} from 'react-native';
 import {Button, Text} from '@ui-kitten/components';
 import BackButton from '../../components/common/backButton';
 import Style from './styles';
@@ -64,7 +64,7 @@ const PaymentOptions: React.FunctionComponent<IPaymentPage> = ({
 
       console.log('url', responseBody.url);
       if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.open(responseBody.url, {
+        await InAppBrowser.open(responseBody.url, {
           // iOS Properties
           dismissButtonStyle: 'cancel',
           preferredBarTintColor: colors.appStripeBlack,
@@ -101,39 +101,36 @@ const PaymentOptions: React.FunctionComponent<IPaymentPage> = ({
   const openStripePortal = async (): Promise<void> => {
     try {
       if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.open(
-          constants.paymentOptions.dashBoardUrl,
-          {
-            // iOS Properties
-            dismissButtonStyle: 'cancel',
-            preferredBarTintColor: colors.appStripeBlack,
-            preferredControlTintColor: 'white',
-            readerMode: false,
-            animated: true,
-            modalPresentationStyle: 'fullScreen',
-            modalTransitionStyle: 'coverVertical',
-            modalEnabled: true,
-            enableBarCollapsing: false,
-            // Android Properties
-            showTitle: true,
-            toolbarColor: colors.appStripeBlack,
-            secondaryToolbarColor: colors.appStripeBlack,
-            enableUrlBarHiding: true,
-            enableDefaultShare: true,
-            forceCloseOnRedirection: false,
-            // Specify full animation resource identifier(package:anim/name)
-            // or only resource name(in case of animation bundled with app).
-            animations: {
-              startEnter: 'slide_in_right',
-              startExit: 'slide_out_left',
-              endEnter: 'slide_in_left',
-              endExit: 'slide_out_right',
-            },
-            headers: {
-              'my-custom-header': 'Connect to your STRIPE account',
-            },
+        await InAppBrowser.open(constants.paymentOptions.dashBoardUrl, {
+          // iOS Properties
+          dismissButtonStyle: 'cancel',
+          preferredBarTintColor: colors.appStripeBlack,
+          preferredControlTintColor: 'white',
+          readerMode: false,
+          animated: true,
+          modalPresentationStyle: 'fullScreen',
+          modalTransitionStyle: 'coverVertical',
+          modalEnabled: true,
+          enableBarCollapsing: false,
+          // Android Properties
+          showTitle: true,
+          toolbarColor: colors.appStripeBlack,
+          secondaryToolbarColor: colors.appStripeBlack,
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+          // Specify full animation resource identifier(package:anim/name)
+          // or only resource name(in case of animation bundled with app).
+          animations: {
+            startEnter: 'slide_in_right',
+            startExit: 'slide_out_left',
+            endEnter: 'slide_in_left',
+            endExit: 'slide_out_right',
           },
-        );
+          headers: {
+            'my-custom-header': 'Connect to your STRIPE account',
+          },
+        });
       } else Linking.openURL(constants.paymentOptions.dashBoardUrl);
     } catch (error) {}
   };

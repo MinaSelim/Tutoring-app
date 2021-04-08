@@ -47,4 +47,10 @@ export default StyleSheet.create({
   placeholder: {
     opacity: 0,
   },
+  hintShown: {
+    opacity: 1,
+  },
+  hintHidden: {
+    opacity: 0,
+  },
 });

@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {fonts} from '../../../styles/appFonts';
-import {colors} from '../../../styles/appColors';
 
 export default StyleSheet.create({
   generalView: {backgroundColor: 'white', flex: 1},

@@ -40,7 +40,7 @@ const ChatInput = ({userID, chatID, onFocus}: IChatInfo): JSX.Element => {
         style={chatStyles.input}
         placeholder="Message..."
         multiline
-        textStyle={{maxHeight: 64}}
+        textStyle={chatStyles.inputMaxHeight}
         onChangeText={(text) => setEntityText(text)}
         value={entityText}
         onFocus={onFocus}

@@ -40,13 +40,12 @@ const Chat = ({navigation}): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
-  const [
-    newestMessage,
-    isLoadingRecentMessage,
-    RecentMessageLoadError,
-  ] = useCollectionData(loadMessages(UPDATE_MESSAGE_COUNT, 0), {
-    idField: 'id',
-  });
+  const [newestMessage, ,] = useCollectionData(
+    loadMessages(UPDATE_MESSAGE_COUNT, 0),
+    {
+      idField: 'id',
+    },
+  );
 
   const handleOnEndReached = (): void => {
     let chatLength = chatMessages.length;

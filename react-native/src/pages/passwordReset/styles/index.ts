@@ -1,4 +1,3 @@
-import {app} from 'firebase';
 import {StyleSheet} from 'react-native';
 import {colors} from '../../../styles/appColors';
 import {fonts} from '../../../styles/appFonts';

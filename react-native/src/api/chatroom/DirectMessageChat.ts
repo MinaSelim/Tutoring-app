@@ -1,7 +1,6 @@
 import GenericChat from './GenericChat';
 import chatHelper from './chatHelper';
 import constants from './chatConstants';
-import RequestUserChatrooms from './requests/RequestUserChatrooms';
 
 export default class DirectMessageChat extends GenericChat {
   /**
@@ -15,7 +14,6 @@ export default class DirectMessageChat extends GenericChat {
     participantToken: string,
     roomName: string,
   ): number => {
-    // eslint-disable-next-line new-cap
     const chatroomHelper: chatHelper = new chatHelper();
     let creationResult: number = constants.errorValueNotSet;
 

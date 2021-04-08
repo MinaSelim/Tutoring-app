@@ -71,27 +71,22 @@ const SignUpCredentials: React.FunctionComponent<ISignUpCredentials> = ({
     <ImageBackground
       source={require('../../../assets/images/icons/signUpBackground.png')}
       style={styles.backgroundImage}>
-      <SafeAreaView style={{flex: 1, alignItems: 'stretch'}}>
+      <SafeAreaView style={styles.safeAreaView}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{flex: 1}}>
+          style={styles.keyboardAvoidingView}>
           <TouchableOpacity
-            style={{position: 'absolute'}}
+            style={styles.backButton}
             onPress={(): boolean => navigation.goBack()}>
             <Image
               source={require('../../../assets/images/icons/backBtn.png')}
-              style={styles.goBackButton}
+              style={styles.backButtonImage}
             />
           </TouchableOpacity>
-          <View
-            style={{
-              flex: 0.3,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <View style={styles.formView}>
             <Text style={styles.signUpText}>Sign up</Text>
           </View>
-          <ScrollView contentContainerStyle={{flex: 1}}>
+          <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.inputSection}>
               <Text style={[styles.star]}>*</Text>
               <TextInput
@@ -120,7 +115,7 @@ const SignUpCredentials: React.FunctionComponent<ISignUpCredentials> = ({
               />
             </View>
             <View style={styles.inputSection}>
-              <Text style={{opacity: 0}}>*</Text>
+              <Text style={styles.hidden}>*</Text>
               <TextInput
                 style={styles.inputBox}
                 placeholder={constants.signup.forms.placeHolders.phone}

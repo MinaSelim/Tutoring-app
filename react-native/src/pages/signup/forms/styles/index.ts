@@ -3,6 +3,8 @@ import {colors} from '../../../../styles/appColors';
 import {fonts} from '../../../../styles/appFonts';
 
 export default StyleSheet.create({
+  safeAreaView: {flex: 1, alignItems: 'stretch'},
+  keyboardAvoidingView: {flex: 1},
   text: {
     fontSize: 18,
     color: colors.appSilver,
@@ -12,12 +14,19 @@ export default StyleSheet.create({
     height: '100%',
     position: 'absolute',
   },
-  goBackButton: {
+  backButton: {position: 'absolute'},
+  backButtonImage: {
     width: 35,
     height: 25,
     left: 10,
     top: 10,
   },
+  formView: {
+    flex: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scrollView: {flex: 1},
   signUpText: {
     fontSize: 36,
     fontFamily: fonts.quickSandSemiBold,
@@ -102,4 +111,5 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  hidden: {opacity: 0},
 });

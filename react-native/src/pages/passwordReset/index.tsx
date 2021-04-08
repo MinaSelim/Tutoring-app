@@ -32,7 +32,7 @@ const PasswordReset: React.FunctionComponent<IPasswordReset> = ({
     firebase
       .auth()
       .sendPasswordResetEmail(email)
-      .catch((error) => {
+      .catch(() => {
         Alert.alert(errorConstants.passwordReset.provideARegisteredEmail);
         setEmailSent(false);
       });
