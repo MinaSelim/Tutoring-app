@@ -1,6 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
 import {Avatar, Divider, Text} from '@ui-kitten/components';
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import moment from 'moment';
 
@@ -17,14 +16,14 @@ const MesageRow: React.FunctionComponent<IMessagerow> = ({
     <View style={chatStyles.messageContainer}>
       <View>
         <Divider />
-        <View style={{flexDirection: 'row'}}>
+        <View style={chatStyles.rowDirection}>
           <Avatar
             size="medium"
             style={chatStyles.avatar}
             source={require('../../assets/icons/profile2.png')}
           />
           <View style={chatStyles.messageContentContainer}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={chatStyles.rowDirection}>
               <Text style={chatStyles.memberName}>{`${message.sender}`}</Text>
               <Text appearance="hint">{`\t${moment
                 .unix(message.createdAt / 1000)

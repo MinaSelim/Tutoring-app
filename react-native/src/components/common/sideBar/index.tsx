@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import 'react-native-gesture-handler';
@@ -46,7 +47,7 @@ const SideBar: React.FunctionComponent<any> = () => {
     setAuthUser(null);
     navigation!.navigate('SignInMenu');
   };
-  const TutorCalendar = (props): JSX.Element => (
+  const TutorCalendar = (): JSX.Element => (
     <Button
       style={styles.button}
       appearance="ghost"

@@ -101,5 +101,7 @@ export const chatStyles = StyleSheet.create({
     paddingLeft: 5,
     paddingBottom: 5,
   },
+  rowDirection: {flexDirection: 'row'},
+  inputMaxHeight: {maxHeight: 64},
 });
 export default chatStyles;
