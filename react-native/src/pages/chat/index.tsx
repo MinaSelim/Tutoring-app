@@ -14,6 +14,7 @@ import {useCollectionData} from 'react-firebase-hooks/firestore';
 import Message from '../../api/chatroom/components/Message';
 import moment from 'moment';
 import useAuthUser from '../../hooks/authUser';
+import env from '../../../env';
 // This is the main front end for the chat, it calls messageRow for the layout of every single message view
 // and uses placeholder data from DATA.tsx to display messages, for prototyping.
 
@@ -31,6 +32,8 @@ const Chat = ({route, navigation}): JSX.Element => {
   const {chatID} = route.params;
   const user = useAuthUser()[0];
   const userID: string = user!.firebase_uid;
+  const [isUserNameLoaded, setIsUserNameLoaded] = useState(false);
+  const [otherUser, setOtherName] = useState('');
 
   useEffect(() => {
     let tempMessages;
@@ -56,6 +59,19 @@ const Chat = ({route, navigation}): JSX.Element => {
       .limit(messageAmount);
   };
 
+  const ChatMessages = (messages): Message[] => {
+    const currentMessages: Message[] = messages.map((msg) => {
+      let name = '';
+      if (msg.sender === user!.firebase_uid) {
+        name = user!.first_name + ' ' + user!.last_name;
+      } else {
+        name = otherUser;
+      }
+      return new Message(msg.id, msg.content, name, msg.createdAt);
+    });
+    return currentMessages;
+  };
+
   const [
     newestMessage,
     isLoadingRecentMessage,
@@ -78,7 +94,7 @@ const Chat = ({route, navigation}): JSX.Element => {
       offset,
       SCROLL_MESSAGE_AMOUNT,
     );
-    return tempMessages;
+    return await ChatMessages(tempMessages);
   }, [offset]);
 
   const appendMessage = (): void => {
@@ -132,12 +148,46 @@ const Chat = ({route, navigation}): JSX.Element => {
   const scrollToBottom = (): void => {
     flatListRef?.current?.scrollToOffset({animated: true, offset: 0});
   };
+  useEffect(() => {
+    (async (): Promise<void> => {
+      let otherUserString: string = '';
+      await firebase
+        .firestore()
+        .collection('CHATROOMS')
+        .doc(chatID)
+        .get()
+        .then((doc) => {
+          const chatParticipants = doc.get('participants');
+          chatParticipants.forEach(function (participant) {
+            if (participant !== userID) {
+              otherUserString = participant;
+            }
+          });
+        });
+      const queryData = await fetch(`${env.SERVER_LINK}/search/basicUserInfo`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: otherUserString}),
+        credentials: 'include',
+      });
+      await queryData.json().then((jsonResponse) => {
+        const otherUserName =
+          jsonResponse.first_name + ' ' + jsonResponse.last_name;
+        setIsUserNameLoaded(true);
+        setOtherName(otherUserName);
+      });
+    })();
+  }, []);
+
   appendMessage();
   return (
     <Layout style={styles.container}>
-      {!initialLoad && (
+      {!initialLoad && isUserNameLoaded && (
         <>
-          <ChatHeader navigation={navigation} />
+          <ChatHeader otherUser={otherUser} navigation={navigation} />
 
           <FlatList<any>
             keyExtractor={(item): string => item.id.toString()}
@@ -155,14 +205,6 @@ const Chat = ({route, navigation}): JSX.Element => {
       )}
     </Layout>
   );
-};
-
-const ChatMessages = (messages): Message[] => {
-  const currentMessages: Message[] = messages.map(
-    (msg: firebase.firestore.DocumentData) =>
-      new Message(msg.id, msg.content, msg.sender, msg.createdAt),
-  );
-  return currentMessages;
 };
 
 export default Chat;

@@ -13,20 +13,19 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import React from 'react';
-import DATA from './data/classData';
-import tutorData from './data/tutorData';
+import DATA from '../tutorSearch/data/concordia';
+//import tutorData from './data/tutorData';
 import TutorRow from './TutorRow';
-import {FlatList} from 'react-native-gesture-handler';
+import {BaseButton, FlatList} from 'react-native-gesture-handler';
 import styles from '../tutorSearch/styles/TutorProfileStyles';
 import tutorProfile from '../../constants/tutorProfile';
-
+import env from '../../../env';
+import ITutor from 'model/common/ITutor';
+import INavigation from '../../model/navigation/NavigationInjectedPropsConfigured';
+import BackButton from '../../components/common/backButton';
 const BackIcon = (props): JSX.Element => <Icon {...props} name="arrow-back" />;
 const SearchIcon = (props): JSX.Element => (
   <Icon {...props} name="search-outline" />
-);
-
-const renderBackAction = (): JSX.Element => (
-  <TopNavigationAction icon={BackIcon} />
 );
 
 const filter = (item, query): void =>
@@ -40,7 +39,11 @@ let select = false;
 const TutorSearch = (props): JSX.Element => {
   const [value, setValue] = React.useState('');
   const [data, setData] = React.useState(DATA);
-  const [userData, setUserData] = React.useState(tutorData);
+  const [userData, setUserData] = React.useState<ITutor[]>([]);
+
+  // const renderBackAction = (): JSX.Element => (
+  //   <TopNavigationAction icon={BackIcon} onPress={props.navigation.goBack} />
+  // );
 
   const renderTutorRow = ({item}): JSX.Element => {
     if (value) {
@@ -49,20 +52,39 @@ const TutorSearch = (props): JSX.Element => {
       );
     } else return <></>;
   };
-  const onSelect = (index): void => {
+  const onSelect = async (index): Promise<void> => {
     select = true;
     setValue(data[index].class);
-    const queryData = tutorData.filter((item) =>
-      userFilter(item, data[index].class),
-    );
-    setUserData(queryData);
+    const queryData = await fetch(`${env.SERVER_LINK}/search/tutorsForClass`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({campus: 'concordia', class: value}),
+      credentials: 'include',
+    });
+    console.log(queryData);
+    const responseTutorArray = await queryData.json();
+    if (responseTutorArray !== undefined) {
+      setUserData(responseTutorArray);
+    }
   };
 
-  const onChangeText = (query): void => {
+  const onChangeText = async (query): Promise<void> => {
     setValue(query);
-    setData(DATA.filter((item) => filter(item, query)));
-    const queryData = tutorData.filter((item) => userFilter(item, query));
-    setUserData(queryData);
+    const queryData = await fetch(`${env.SERVER_LINK}/search/classes`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({campus: 'concordia'}),
+      credentials: 'include',
+    });
+    const responseClassesArray = await queryData.json();
+    setData(responseClassesArray.filter((item) => filter(item, query)));
+    setUserData(responseClassesArray);
   };
 
   const renderOption = (item, index): JSX.Element => (
@@ -82,10 +104,16 @@ const TutorSearch = (props): JSX.Element => {
   return (
     <Layout style={{flexDirection: 'column', flex: 1}}>
       <Layout style={{}}>
-        <TopNavigation
+        {/* <TopNavigation
           alignment="center"
           accessoryLeft={renderBackAction}
           title={renderTitle}
+        /> */}
+        <BackButton
+          navigate={props.navigate}
+          toggleDrawer={props.toggleDrawer}
+          goBack={props.navigation.goBack}
+          navigation={props.navigation}
         />
       </Layout>
       <Layout style={{padding: 10}}>

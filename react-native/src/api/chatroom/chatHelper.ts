@@ -16,30 +16,24 @@ export default class chatHelper {
     currentUser: string,
     otherUser: string,
   ): Promise<firebase.firestore.DocumentData> => {
-    const chatRef: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
+    let userChatroomData: firebase.firestore.DocumentData = {};
+    await firebase
       .firestore()
       .collection(constants.chatroomCollection)
-      .where(
-        constants.participantsArray,
-        'array-contains',
-        currentUser && otherUser,
-      );
-    let userChatroomData: firebase.firestore.DocumentData = {};
-
-    try {
-      const querySnapshot = await chatRef.get();
-      querySnapshot.forEach((documentSnapshot) => {
-        userChatroomData = documentSnapshot.data();
+      .where(constants.participantsArray, 'array-contains', currentUser)
+      .get()
+      .then((docs) => {
+        docs.forEach((documentSnapshot) => {
+          documentSnapshot.data().participants.forEach((participant) => {
+            if (participant === otherUser) {
+              userChatroomData = documentSnapshot.data();
+            }
+          });
+        });
       });
-    } catch (err) {
-      Alert.alert(`Error getting documents: ${err}`);
-    }
     return userChatroomData;
   };
-
-  /**
-   * Create a chatroom within the firestore DB.
-   * If a one on one chat already exists between the same two users, do not create a new chatroom
+  /*If a one on one chat already exists between the same two users, do not create a new chatroom
    * @param chatRef Specific chatroom reference
    * @param currentUserToken The firebase UID of the current logged in user
    * @param participantsTokens An array of users firebase UID's for a given chat room
@@ -120,24 +114,21 @@ export default class chatHelper {
     associatedClass: string,
     chatType: string,
   ): Promise<string> => {
-    const chatRef: firebase.firestore.Query<firebase.firestore.DocumentData> = firebase
+    let userChatroomId: string = '';
+    await firebase
       .firestore()
       .collection(constants.chatroomCollection)
-      .where(
-        constants.participantsArray,
-        'array-contains',
-        currentUserToken && otherParticipantToken,
-      );
-    let userChatroomId: string = '';
-
-    try {
-      const querySnapshot = await chatRef.get();
-      querySnapshot.forEach((documentSnapshot) => {
-        userChatroomId = documentSnapshot.id;
+      .where(constants.participantsArray, 'array-contains', currentUserToken)
+      .get()
+      .then((docs) => {
+        docs.forEach((documentSnapshot) => {
+          documentSnapshot.data().participants.forEach((participant) => {
+            if (participant === otherParticipantToken) {
+              userChatroomId = documentSnapshot.id;
+            }
+          });
+        });
       });
-    } catch (err) {
-      Alert.alert(`Error getting documents: ${err}`);
-    }
 
     if (userChatroomId === '') {
       this.generateChat(
