@@ -11,6 +11,7 @@ const ChatItem: React.FunctionComponent<IChatItem> = ({
   navigation,
 }: IChatItem): JSX.Element => {
   const user = useAuthUser()[0];
+  console.log('item', item);
   return (
     <ListItem
       style={styles.listItem}

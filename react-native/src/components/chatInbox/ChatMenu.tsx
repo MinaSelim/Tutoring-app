@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import TopTabBar from './TopTabBar';
 import ChatTab from './ChatTab';
@@ -11,6 +11,7 @@ import firebase from '../../api/authentication/Fire';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import useAuthUser from '../../hooks/authUser';
 import RequestUserChatrooms from '../../api/chatroom/requests/RequestUserChatrooms';
+import env from '../../../env';
 
 const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   navigation,
@@ -23,6 +24,7 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   const {Navigator, Screen} = createMaterialTopTabNavigator();
   let [groupList, setGroupList] = useState<IChat[]>();
   let [oneToOneList, setOneToOneList] = useState<IChat[]>();
+  const chatListWithTitles = useRef<IChat[]>(new Array());
 
   const loadChat = (): firebase.firestore.Query<
     firebase.firestore.DocumentData
@@ -35,49 +37,112 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
     return lastChatroom;
   };
 
+  const ChatGenerator = async (chat): Promise<void> => {
+    chatListWithTitles.current = new Array();
+    chat.map((data) => {
+      //Get other participants
+      let otherUserIDs: string[] = [];
+      let chatTitle: string = '';
+      data.participants.forEach((participant) => {
+        if (participant !== userID) {
+          otherUserIDs.push(participant);
+        }
+      });
+
+      let chatWithTitle: Chat;
+      //Get user name for each ID and wrap into a promise
+      otherUserIDs.forEach(async (otherUserID, idx, array) => {
+        const queryData = await fetch(
+          `${env.SERVER_LINK}/search/basicUserInfo`,
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: otherUserID}),
+            credentials: 'include',
+          },
+        );
+
+        //Make a title using everyone's first, last names
+        await queryData.json().then((jsonResponse) => {
+          chatTitle =
+            chatTitle + jsonResponse.first_name + ' ' + jsonResponse.last_name;
+        });
+
+        if (idx === array.length - 1) {
+          chatWithTitle = new Chat(
+            data.id,
+            data.participants,
+            data.createdAt,
+            data.roomName,
+            chatTitle,
+            data.chatType,
+            data.viewChat,
+            data.latestMessage,
+          );
+
+          chatListWithTitles.current = [
+            ...chatListWithTitles.current,
+            chatWithTitle,
+          ];
+        }
+      });
+    });
+    console.log('chatRef', chatListWithTitles.current);
+    //const chatMap = chatListWithTitles.current;
+    //console.log('chatMap', chatMap);
+  };
+
   const [newestChat, ,] = useCollectionData(loadChat(), {idField: 'id'});
 
-  const appendChat = (): void => {
+  const appendChat = async (): Promise<void> => {
     if (
       newestChat !== undefined &&
       oneToOneList !== undefined &&
       groupList !== undefined
     ) {
-      const newestChatroom: Chat[] = ChatGenerator(newestChat);
-      let userPresence: boolean = false;
-      //execute if a new message has been received
-      if (newestChatroom[0].participants !== undefined) {
-        for (let i = 0; i < newestChatroom[0].participants.length - 1; i++) {
-          if (newestChatroom[0].participants[i] === userID) {
-            userPresence = true;
+      let newestChatroom: Chat[];
+      await ChatGenerator(newestChat).then(() => {
+        newestChatroom = chatListWithTitles.current;
+        let userPresence: boolean = false;
+        //execute if a new message has been received
+        console.log('newestChat', newestChat);
+        console.log('newestChatroom', newestChatroom);
+        if (newestChatroom[0].participants !== undefined) {
+          for (let i = 0; i < newestChatroom[0].participants.length - 1; i++) {
+            if (newestChatroom[0].participants[i] === userID) {
+              userPresence = true;
+            }
           }
         }
-      }
-      if (newestChatroom[0].chatType === 'direct' && userPresence) {
-        if (oneToOneList.length === 0) {
-          setOneToOneList([newestChatroom[0]]);
-          if (user!.hasOwnProperty('student_info'))
-            user!.student_info.chatrooms.push(newestChatroom[0].id);
-          else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-        } else if (oneToOneList[0].id !== newestChatroom[0].id) {
-          setOneToOneList([newestChatroom[0], ...oneToOneList]);
-          if (user!.hasOwnProperty('student_info'))
-            user!.student_info.chatrooms.push(newestChatroom[0].id);
-          else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
+        if (newestChatroom[0].chatType === 'direct' && userPresence) {
+          if (oneToOneList.length === 0) {
+            setOneToOneList([newestChatroom[0]]);
+            if (user!.hasOwnProperty('student_info'))
+              user!.student_info.chatrooms.push(newestChatroom[0].id);
+            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
+          } else if (oneToOneList[0].id !== newestChatroom[0].id) {
+            setOneToOneList([newestChatroom[0], ...oneToOneList]);
+            if (user!.hasOwnProperty('student_info'))
+              user!.student_info.chatrooms.push(newestChatroom[0].id);
+            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
+          }
+        } else if (newestChatroom[0].chatType === 'group' && userPresence) {
+          if (groupList.length === 0) {
+            setGroupList([newestChatroom[0]]);
+            if (user!.hasOwnProperty('student_info'))
+              user!.student_info.chatrooms.push(newestChatroom[0].id);
+            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
+          } else if (oneToOneList[0].id !== newestChatroom[0].id) {
+            setGroupList([newestChatroom[0], ...groupList]);
+            if (user!.hasOwnProperty('student_info'))
+              user!.student_info.chatrooms.push(newestChatroom[0].id);
+            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
+          }
         }
-      } else if (newestChatroom[0].chatType === 'group' && userPresence) {
-        if (groupList.length === 0) {
-          setGroupList([newestChatroom[0]]);
-          if (user!.hasOwnProperty('student_info'))
-            user!.student_info.chatrooms.push(newestChatroom[0].id);
-          else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-        } else if (oneToOneList[0].id !== newestChatroom[0].id) {
-          setGroupList([newestChatroom[0], ...groupList]);
-          if (user!.hasOwnProperty('student_info'))
-            user!.student_info.chatrooms.push(newestChatroom[0].id);
-          else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-        }
-      }
+      });
     }
   };
 
@@ -88,13 +153,17 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
         .then((userChatList) => {
           new DirectMessageChat()
             .displayUserChatrooms('direct', userChatList)
-            .then((data) => {
-              setOneToOneList(data);
+            .then(async (data) => {
+              await ChatGenerator(data).then((result) =>
+                setOneToOneList(chatListWithTitles.current),
+              );
             });
           new GroupChat()
             .displayUserChatrooms('group', userChatList)
-            .then((data) => {
-              setGroupList(data);
+            .then(async (data) => {
+              await ChatGenerator(data).then((result) =>
+                setGroupList(chatListWithTitles.current),
+              );
             });
         });
     } else {
@@ -103,16 +172,28 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
         .then((userChatList) => {
           new DirectMessageChat()
             .displayUserChatrooms('direct', userChatList)
-            .then((data) => {
-              setOneToOneList(data);
+            .then(async (data) => {
+              await ChatGenerator(data).then((result) =>
+                setOneToOneList(chatListWithTitles.current),
+              );
+            });
+          new GroupChat()
+            .displayUserChatrooms('group', userChatList)
+            .then(async (data) => {
+              await ChatGenerator(data).then(() =>
+                setGroupList(chatListWithTitles.current),
+              );
             });
         });
     }
+    return (): void => {
+      setOneToOneList([]);
+      setGroupList([]);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userID]);
 
   appendChat();
-
   return (
     <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
       <Screen
@@ -142,22 +223,5 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
     </Navigator>
   );
 };
-
-function ChatGenerator(chat): Chat[] {
-  const currentChat: Chat[] = chat.map(
-    (data: firebase.firestore.DocumentData) =>
-      new Chat(
-        data.id,
-        data.participants,
-        data.createdAt,
-        data.roomName,
-        data.associatedClass,
-        data.chatType,
-        data.viewChat,
-        data.latestMessage,
-      ),
-  );
-  return currentChat;
-}
 
 export default ChatMenu;

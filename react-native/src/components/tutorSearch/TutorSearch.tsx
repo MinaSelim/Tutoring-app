@@ -13,7 +13,7 @@ import {
   Icon,
 } from '@ui-kitten/components';
 import React from 'react';
-import DATA from '../tutorSearch/data/concordia';
+import DATA from '../tutorSearch/data/classData';
 //import tutorData from './data/tutorData';
 import TutorRow from './TutorRow';
 import {BaseButton, FlatList} from 'react-native-gesture-handler';
