@@ -13,19 +13,24 @@ import useAuthUser from '../../hooks/authUser';
 import RequestUserChatrooms from '../../api/chatroom/requests/RequestUserChatrooms';
 import env from '../../../env';
 
+interface chatNames {
+  chatID: string;
+  chatName: string;
+}
 const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   navigation,
   navigate,
   goBack,
   toggleDrawer,
 }): JSX.Element => {
-  const user = useAuthUser()[0];
-  const userID: string = user!.firebase_uid;
+  //Hooks
   const {Navigator, Screen} = createMaterialTopTabNavigator();
-  let [groupList, setGroupList] = useState<IChat[]>();
-  let [oneToOneList, setOneToOneList] = useState<IChat[]>();
-  const chatListWithTitles = useRef<IChat[]>(new Array());
+  const user = useAuthUser()[0];
 
+  let [groupList, setGroupList] = useState<IChat[]>([]);
+  let [oneToOneList, setOneToOneList] = useState<IChat[]>([]);
+  let currentListOfNamesForAChat = useRef<chatNames[]>([]);
+  //custom chat functions
   const loadChat = (): firebase.firestore.Query<
     firebase.firestore.DocumentData
   > => {
@@ -36,164 +41,156 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
       .limit(1);
     return lastChatroom;
   };
-
-  const ChatGenerator = async (chat): Promise<void> => {
-    chatListWithTitles.current = new Array();
-    chat.map((data) => {
-      //Get other participants
-      let otherUserIDs: string[] = [];
-      let chatTitle: string = '';
-      data.participants.forEach((participant) => {
-        if (participant !== userID) {
-          otherUserIDs.push(participant);
-        }
-      });
-
-      let chatWithTitle: Chat;
-      //Get user name for each ID and wrap into a promise
-      otherUserIDs.forEach(async (otherUserID, idx, array) => {
-        const queryData = await fetch(
-          `${env.SERVER_LINK}/search/basicUserInfo`,
-          {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id: otherUserID}),
-            credentials: 'include',
-          },
-        );
-
-        //Make a title using everyone's first, last names
-        await queryData.json().then((jsonResponse) => {
-          chatTitle =
-            chatTitle + jsonResponse.first_name + ' ' + jsonResponse.last_name;
-        });
-
-        if (idx === array.length - 1) {
-          chatWithTitle = new Chat(
-            data.id,
-            data.participants,
-            data.createdAt,
-            data.roomName,
-            chatTitle,
-            data.chatType,
-            data.viewChat,
-            data.latestMessage,
-          );
-
-          chatListWithTitles.current = [
-            ...chatListWithTitles.current,
-            chatWithTitle,
-          ];
-        }
-      });
-    });
-    console.log('chatRef', chatListWithTitles.current);
-    //const chatMap = chatListWithTitles.current;
-    //console.log('chatMap', chatMap);
-  };
-
+  //Firestore hooks to listen in on new chats
   const [newestChat, ,] = useCollectionData(loadChat(), {idField: 'id'});
 
-  const appendChat = async (): Promise<void> => {
-    if (
-      newestChat !== undefined &&
-      oneToOneList !== undefined &&
-      groupList !== undefined
-    ) {
-      let newestChatroom: Chat[];
-      await ChatGenerator(newestChat).then(() => {
-        newestChatroom = chatListWithTitles.current;
-        let userPresence: boolean = false;
-        //execute if a new message has been received
-        console.log('newestChat', newestChat);
-        console.log('newestChatroom', newestChatroom);
-        if (newestChatroom[0].participants !== undefined) {
-          for (let i = 0; i < newestChatroom[0].participants.length - 1; i++) {
-            if (newestChatroom[0].participants[i] === userID) {
-              userPresence = true;
-            }
-          }
-        }
-        if (newestChatroom[0].chatType === 'direct' && userPresence) {
-          if (oneToOneList.length === 0) {
-            setOneToOneList([newestChatroom[0]]);
-            if (user!.hasOwnProperty('student_info'))
-              user!.student_info.chatrooms.push(newestChatroom[0].id);
-            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-          } else if (oneToOneList[0].id !== newestChatroom[0].id) {
-            setOneToOneList([newestChatroom[0], ...oneToOneList]);
-            if (user!.hasOwnProperty('student_info'))
-              user!.student_info.chatrooms.push(newestChatroom[0].id);
-            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-          }
-        } else if (newestChatroom[0].chatType === 'group' && userPresence) {
-          if (groupList.length === 0) {
-            setGroupList([newestChatroom[0]]);
-            if (user!.hasOwnProperty('student_info'))
-              user!.student_info.chatrooms.push(newestChatroom[0].id);
-            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-          } else if (oneToOneList[0].id !== newestChatroom[0].id) {
-            setGroupList([newestChatroom[0], ...groupList]);
-            if (user!.hasOwnProperty('student_info'))
-              user!.student_info.chatrooms.push(newestChatroom[0].id);
-            else user!.tutor_info.chatrooms.push(newestChatroom[0].id);
-          }
-        }
-      });
-    }
+  //Local methods
+
+  //Create records of a chatID and its corresponding list of participants
+  const getParticipantNamesList = (
+    chatID: string,
+    participantIDList: string[],
+  ): void => {
+    //let chatTitle: string = '';
+
+    // use map() to perform a fetch and handle the response for each url
+    participantIDList.forEach((participantID) =>
+      fetch(`${env.SERVER_LINK}/search/basicUserInfo`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: participantID}),
+        credentials: 'include',
+      })
+        .then(async (response) => await response.json())
+        .then((user) => {
+          let chatNamePartial: string = user.first_name + ' ' + user.last_name;
+          currentListOfNamesForAChat.current.push({
+            chatID: chatID,
+            chatName: chatNamePartial,
+          });
+        })
+        .catch((error) => console.log(error)),
+    );
   };
 
-  useEffect(() => {
-    if (user!.hasOwnProperty('student_info')) {
-      new RequestUserChatrooms()
-        .getStudentChatrooms(userID)
-        .then((userChatList) => {
-          new DirectMessageChat()
-            .displayUserChatrooms('direct', userChatList)
-            .then(async (data) => {
-              await ChatGenerator(data).then((result) =>
-                setOneToOneList(chatListWithTitles.current),
-              );
-            });
-          new GroupChat()
-            .displayUserChatrooms('group', userChatList)
-            .then(async (data) => {
-              await ChatGenerator(data).then((result) =>
-                setGroupList(chatListWithTitles.current),
-              );
-            });
-        });
-    } else {
-      new RequestUserChatrooms()
-        .getTutorChatrooms(userID)
-        .then((userChatList) => {
-          new DirectMessageChat()
-            .displayUserChatrooms('direct', userChatList)
-            .then(async (data) => {
-              await ChatGenerator(data).then((result) =>
-                setOneToOneList(chatListWithTitles.current),
-              );
-            });
-          new GroupChat()
-            .displayUserChatrooms('group', userChatList)
-            .then(async (data) => {
-              await ChatGenerator(data).then(() =>
-                setGroupList(chatListWithTitles.current),
-              );
-            });
-        });
-    }
-    return (): void => {
-      setOneToOneList([]);
-      setGroupList([]);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userID]);
+  // const createChatWithTitle = (chat: Chat, participantIDList: string[]) => {
+  //   let allChatsWithTitles: IChat[];
+  //   let chatTitle: string;
 
+  //   let chat: IChat = chat;
+  //   listOfNames.forEach(async (otherUserID, idx, array) => {
+  //       let chatWithTitle: IChat;
+
+  //       //When at last name in the chat, create a chat object
+  //       if (idx === array.length - 1) {
+  //         chatWithTitle = new Chat(
+  //           chat.id,
+  //           chat.participants,
+  //           chat.createdAt,
+  //           chat.roomName,
+  //           chatTitle,
+  //           chat.chatType,
+  //           chat.viewedChat,
+  //           chat.latestMessage
+  //         );
+
+  //         allChatsWithTitles.push(chatWithTitle);
+  //       }
+  //     });
+  //    };
+
+  // const buildChatName = (chats) => {
+  //   chats.map(async (data) => {
+  //     //Get other participants
+  //     let otherUserIDs: string[] = [];
+  //     data.participants.forEach((participant) => {
+  //       if (participant !== user!.id) {
+  //         otherUserIDs.push(participant);
+  //       }
+  //     });
+  //   });
+  // };
+
+  const rebuildAllChatsWithNames = (data: Chat[]): IChat[] => {
+    let rebuiltChatsWithNames: Chat[] = [];
+
+    data.forEach((chat) => {
+      rebuiltChatsWithNames.push(
+        new Chat(
+          chat.id,
+          chat.participants,
+          chat.createdAt,
+          currentListOfNamesForAChat.current.find(
+            (chatNameObject) => chatNameObject.chatID === chat.id,
+          )?.chatName,
+          chat.associatedClass,
+          chat.chatType,
+          chat.viewedChat,
+          chat.latestMessage,
+        ),
+      );
+    });
+
+    return rebuiltChatsWithNames;
+  };
+
+  const appendChat = async (): Promise<void> => {};
+
+  useEffect(() => {
+    let userChatList: string[];
+    if (user!.hasOwnProperty('student_info')) {
+      userChatList = user!.student_info.chatrooms;
+    } else {
+      userChatList = user!.tutor_info.chatrooms;
+    }
+
+    userChatList = userChatList.filter((e) => e != '');
+
+    console.log('MKC0: user chat list', userChatList);
+    new DirectMessageChat()
+      .displayUserChatrooms('direct', userChatList)
+      .then((data) => {
+        console.log('MKC2', data);
+        //Recreate every chat with their respective names
+        data.forEach((chat) =>
+          getParticipantNamesList(chat.id, chat.participants),
+        );
+        let allRebuiltChats: IChat[] = rebuildAllChatsWithNames(data);
+        console.log('MKC1', allRebuiltChats);
+
+        return allRebuiltChats;
+      })
+      .then((finalRebuiltChats) => {
+        //Set the one on one list
+        setOneToOneList(finalRebuiltChats);
+      })
+      .catch((error) => console.log('MKC3:', error));
+
+    new GroupChat()
+      .displayUserChatrooms('group', userChatList)
+      .then((data) => {
+        //Recreate every chat with their respective names
+        let allRebuiltChats: IChat[] = rebuildAllChatsWithNames(data);
+        console.log('MKC1', allRebuiltChats);
+        console.log('MKC2', data);
+        return allRebuiltChats;
+      })
+      .then((finalRebuiltChats) => {
+        //Set the group list
+        setGroupList(finalRebuiltChats);
+      })
+      .catch((error) => console.log('MKC3:', error));
+    console.log('group list', groupList);
+    console.log('one to one list', oneToOneList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user!.id]);
+
+  //Build and Add new chats that contain this user
   appendChat();
+
   return (
     <Navigator tabBar={(props): JSX.Element => <TopTabBar {...props} />}>
       <Screen
