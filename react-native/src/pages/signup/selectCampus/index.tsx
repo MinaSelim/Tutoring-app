@@ -149,7 +149,7 @@ const SignUpSelectCampus: React.FunctionComponent<ISignUpSelectCampus> = ({
                   {constants.signup.selectCampus.finish}
                 </Text>
               </TouchableOpacity>
-              <Text style={styles.footer}> {constants.common.goStudy}</Text>
+              <Text style={styles.footer}> {constants.common.BookingApp}</Text>
             </View>
           </View>
         </View>

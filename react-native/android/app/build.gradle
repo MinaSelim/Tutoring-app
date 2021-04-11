@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gostudy"
+        applicationId "com.BookingApp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

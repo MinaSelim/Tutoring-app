@@ -24,7 +24,7 @@ const chatInbox: React.FunctionComponent<INavigation> = ({
         goBack={goBack}
         toggleDrawer={toggleDrawer}
       />
-      <Text style={styles.footer}> go.study </Text>
+      <Text style={styles.footer}> BookingApp </Text>
     </Layout>
   );
 };

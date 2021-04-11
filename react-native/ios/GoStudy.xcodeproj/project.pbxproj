@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* GoStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GoStudyTests.m */; };
+		00E356F31AD99517003FC87E /* BookingAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BookingAppTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1C17B6EA830A36081B504E15 /* libPods-GoStudy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC38F71B89AC81DC2C2B96C9 /* libPods-GoStudy.a */; };
-		208DEE22227691031A2074F8 /* libPods-GoStudy-GoStudyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 694BFB8A1ABC53D71ACC2760 /* libPods-GoStudy-GoStudyTests.a */; };
+		1C17B6EA830A36081B504E15 /* libPods-BookingApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC38F71B89AC81DC2C2B96C9 /* libPods-BookingApp.a */; };
+		208DEE22227691031A2074F8 /* libPods-BookingApp-BookingAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 694BFB8A1ABC53D71ACC2760 /* libPods-BookingApp-BookingAppTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* GoStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GoStudyTests.m */; };
-		5EE1F7E7DE717E266A947BC9 /* libPods-GoStudy-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB14F359D6557555C071B1C7 /* libPods-GoStudy-tvOS.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* BookingAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BookingAppTests.m */; };
+		5EE1F7E7DE717E266A947BC9 /* libPods-BookingApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB14F359D6557555C071B1C7 /* libPods-BookingApp-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C3CC400625A3CB7E00CD8F85 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400125A3CB7E00CD8F85 /* Quicksand-Light.ttf */; };
 		C3CC400725A3CB7E00CD8F85 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */; };
@@ -29,7 +29,7 @@
 		C3CC400D25A3CC4500CD8F85 /* Quicksand-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */; };
 		C3CC400E25A3CC4500CD8F85 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */; };
 		C3CC400F25A3CC4500CD8F85 /* Quicksand-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */; };
-		C6C7AFE5488FE880355DE77E /* libPods-GoStudy-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D42D7268AC322796066C3507 /* libPods-GoStudy-tvOSTests.a */; };
+		C6C7AFE5488FE880355DE77E /* libPods-BookingApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D42D7268AC322796066C3507 /* libPods-BookingApp-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,48 +38,48 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = GoStudy;
+			remoteInfo = BookingApp;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "GoStudy-tvOS";
+			remoteInfo = "BookingApp-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* GoStudyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoStudyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* BookingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* GoStudyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoStudyTests.m; sourceTree = "<group>"; };
-		0A9B37A578803B0DF7EC6149 /* Pods-GoStudy-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOSTests/Pods-GoStudy-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* GoStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GoStudy/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GoStudy/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GoStudy/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GoStudy/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GoStudy/main.m; sourceTree = "<group>"; };
-		23C152DC74DC15596BF5829B /* Pods-GoStudy-GoStudyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-GoStudyTests.release.xcconfig"; path = "Target Support Files/Pods-GoStudy-GoStudyTests/Pods-GoStudy-GoStudyTests.release.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* GoStudy-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GoStudy-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* GoStudy-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GoStudy-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		425C2CAC454FA29B2431A32F /* Pods-GoStudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy/Pods-GoStudy.debug.xcconfig"; sourceTree = "<group>"; };
-		694BFB8A1ABC53D71ACC2760 /* libPods-GoStudy-GoStudyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy-GoStudyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7034F7ECD2E1E3B960C854C1 /* Pods-GoStudy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy.release.xcconfig"; path = "Target Support Files/Pods-GoStudy/Pods-GoStudy.release.xcconfig"; sourceTree = "<group>"; };
-		757CFF1BD9320A814D47EF55 /* Pods-GoStudy-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOS.release.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOS/Pods-GoStudy-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		7ACB7B05A53F81C03C553039 /* Pods-GoStudy-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOSTests/Pods-GoStudy-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GoStudy/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		968A57F648D153BA3F93C47E /* Pods-GoStudy-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy-tvOS/Pods-GoStudy-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		AC38F71B89AC81DC2C2B96C9 /* libPods-GoStudy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA3FEB89D946BB105B0497AA /* Pods-GoStudy-GoStudyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoStudy-GoStudyTests.debug.xcconfig"; path = "Target Support Files/Pods-GoStudy-GoStudyTests/Pods-GoStudy-GoStudyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* BookingAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookingAppTests.m; sourceTree = "<group>"; };
+		0A9B37A578803B0DF7EC6149 /* Pods-BookingApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-BookingApp-tvOSTests/Pods-BookingApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BookingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BookingApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BookingApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BookingApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BookingApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BookingApp/main.m; sourceTree = "<group>"; };
+		23C152DC74DC15596BF5829B /* Pods-BookingApp-BookingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp-BookingAppTests.release.xcconfig"; path = "Target Support Files/Pods-BookingApp-BookingAppTests/Pods-BookingApp-BookingAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* BookingApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BookingApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* BookingApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BookingApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		425C2CAC454FA29B2431A32F /* Pods-BookingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp.debug.xcconfig"; path = "Target Support Files/Pods-BookingApp/Pods-BookingApp.debug.xcconfig"; sourceTree = "<group>"; };
+		694BFB8A1ABC53D71ACC2760 /* libPods-BookingApp-BookingAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookingApp-BookingAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7034F7ECD2E1E3B960C854C1 /* Pods-BookingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp.release.xcconfig"; path = "Target Support Files/Pods-BookingApp/Pods-BookingApp.release.xcconfig"; sourceTree = "<group>"; };
+		757CFF1BD9320A814D47EF55 /* Pods-BookingApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BookingApp-tvOS/Pods-BookingApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		7ACB7B05A53F81C03C553039 /* Pods-BookingApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-BookingApp-tvOSTests/Pods-BookingApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BookingApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		968A57F648D153BA3F93C47E /* Pods-BookingApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-BookingApp-tvOS/Pods-BookingApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		AC38F71B89AC81DC2C2B96C9 /* libPods-BookingApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookingApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3FEB89D946BB105B0497AA /* Pods-BookingApp-BookingAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingApp-BookingAppTests.debug.xcconfig"; path = "Target Support Files/Pods-BookingApp-BookingAppTests/Pods-BookingApp-BookingAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C3CC400125A3CB7E00CD8F85 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Light.ttf"; path = "../src/assets/fonts/Quicksand-Light.ttf"; sourceTree = "<group>"; };
 		C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "../src/assets/fonts/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-SemiBold.ttf"; path = "../src/assets/fonts/Quicksand-SemiBold.ttf"; sourceTree = "<group>"; };
 		C3CC400425A3CB7E00CD8F85 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Bold.ttf"; path = "../src/assets/fonts/Quicksand-Bold.ttf"; sourceTree = "<group>"; };
 		C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Medium.ttf"; path = "../src/assets/fonts/Quicksand-Medium.ttf"; sourceTree = "<group>"; };
-		CB14F359D6557555C071B1C7 /* libPods-GoStudy-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D42D7268AC322796066C3507 /* libPods-GoStudy-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoStudy-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB14F359D6557555C071B1C7 /* libPods-BookingApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookingApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42D7268AC322796066C3507 /* libPods-BookingApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookingApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				208DEE22227691031A2074F8 /* libPods-GoStudy-GoStudyTests.a in Frameworks */,
+				208DEE22227691031A2074F8 /* libPods-BookingApp-BookingAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C17B6EA830A36081B504E15 /* libPods-GoStudy.a in Frameworks */,
+				1C17B6EA830A36081B504E15 /* libPods-BookingApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EE1F7E7DE717E266A947BC9 /* libPods-GoStudy-tvOS.a in Frameworks */,
+				5EE1F7E7DE717E266A947BC9 /* libPods-BookingApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,20 +113,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6C7AFE5488FE880355DE77E /* libPods-GoStudy-tvOSTests.a in Frameworks */,
+				C6C7AFE5488FE880355DE77E /* libPods-BookingApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* GoStudyTests */ = {
+		00E356EF1AD99517003FC87E /* BookingAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* GoStudyTests.m */,
+				00E356F21AD99517003FC87E /* BookingAppTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = GoStudyTests;
+			path = BookingAppTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -137,7 +137,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* GoStudy */ = {
+		13B07FAE1A68108700A75B9A /* BookingApp */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -148,7 +148,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = GoStudy;
+			name = BookingApp;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -156,10 +156,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				AC38F71B89AC81DC2C2B96C9 /* libPods-GoStudy.a */,
-				694BFB8A1ABC53D71ACC2760 /* libPods-GoStudy-GoStudyTests.a */,
-				CB14F359D6557555C071B1C7 /* libPods-GoStudy-tvOS.a */,
-				D42D7268AC322796066C3507 /* libPods-GoStudy-tvOSTests.a */,
+				AC38F71B89AC81DC2C2B96C9 /* libPods-BookingApp.a */,
+				694BFB8A1ABC53D71ACC2760 /* libPods-BookingApp-BookingAppTests.a */,
+				CB14F359D6557555C071B1C7 /* libPods-BookingApp-tvOS.a */,
+				D42D7268AC322796066C3507 /* libPods-BookingApp-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -167,14 +167,14 @@
 		66BAF1061FD280286BE69F7B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				425C2CAC454FA29B2431A32F /* Pods-GoStudy.debug.xcconfig */,
-				BA3FEB89D946BB105B0497AA /* Pods-GoStudy-GoStudyTests.debug.xcconfig */,
-				23C152DC74DC15596BF5829B /* Pods-GoStudy-GoStudyTests.release.xcconfig */,
-				968A57F648D153BA3F93C47E /* Pods-GoStudy-tvOS.debug.xcconfig */,
-				757CFF1BD9320A814D47EF55 /* Pods-GoStudy-tvOS.release.xcconfig */,
-				7ACB7B05A53F81C03C553039 /* Pods-GoStudy-tvOSTests.debug.xcconfig */,
-				0A9B37A578803B0DF7EC6149 /* Pods-GoStudy-tvOSTests.release.xcconfig */,
-				7034F7ECD2E1E3B960C854C1 /* Pods-GoStudy.release.xcconfig */,
+				425C2CAC454FA29B2431A32F /* Pods-BookingApp.debug.xcconfig */,
+				BA3FEB89D946BB105B0497AA /* Pods-BookingApp-BookingAppTests.debug.xcconfig */,
+				23C152DC74DC15596BF5829B /* Pods-BookingApp-BookingAppTests.release.xcconfig */,
+				968A57F648D153BA3F93C47E /* Pods-BookingApp-tvOS.debug.xcconfig */,
+				757CFF1BD9320A814D47EF55 /* Pods-BookingApp-tvOS.release.xcconfig */,
+				7ACB7B05A53F81C03C553039 /* Pods-BookingApp-tvOSTests.debug.xcconfig */,
+				0A9B37A578803B0DF7EC6149 /* Pods-BookingApp-tvOSTests.release.xcconfig */,
+				7034F7ECD2E1E3B960C854C1 /* Pods-BookingApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -194,9 +194,9 @@
 				C3CC400525A3CB7E00CD8F85 /* Quicksand-Medium.ttf */,
 				C3CC400225A3CB7E00CD8F85 /* Quicksand-Regular.ttf */,
 				C3CC400325A3CB7E00CD8F85 /* Quicksand-SemiBold.ttf */,
-				13B07FAE1A68108700A75B9A /* GoStudy */,
+				13B07FAE1A68108700A75B9A /* BookingApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* GoStudyTests */,
+				00E356EF1AD99517003FC87E /* BookingAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				66BAF1061FD280286BE69F7B /* Pods */,
@@ -209,10 +209,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* GoStudy.app */,
-				00E356EE1AD99517003FC87E /* GoStudyTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* GoStudy-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* GoStudy-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* BookingApp.app */,
+				00E356EE1AD99517003FC87E /* BookingAppTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* BookingApp-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* BookingApp-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,9 +220,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* GoStudyTests */ = {
+		00E356ED1AD99517003FC87E /* BookingAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GoStudyTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BookingAppTests" */;
 			buildPhases = (
 				F42A67A0FFD71D0F20320C35 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -235,14 +235,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = GoStudyTests;
-			productName = GoStudyTests;
-			productReference = 00E356EE1AD99517003FC87E /* GoStudyTests.xctest */;
+			name = BookingAppTests;
+			productName = BookingAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* BookingAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* GoStudy */ = {
+		13B07F861A680F5B00A75B9A /* BookingApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GoStudy" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BookingApp" */;
 			buildPhases = (
 				BB380FFD9DB8888B5C59891C /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -256,14 +256,14 @@
 			);
 			dependencies = (
 			);
-			name = GoStudy;
-			productName = GoStudy;
-			productReference = 13B07F961A680F5B00A75B9A /* GoStudy.app */;
+			name = BookingApp;
+			productName = BookingApp;
+			productReference = 13B07F961A680F5B00A75B9A /* BookingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* GoStudy-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* BookingApp-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GoStudy-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BookingApp-tvOS" */;
 			buildPhases = (
 				928B0870D2F282CA0D790079 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -276,14 +276,14 @@
 			);
 			dependencies = (
 			);
-			name = "GoStudy-tvOS";
-			productName = "GoStudy-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* GoStudy-tvOS.app */;
+			name = "BookingApp-tvOS";
+			productName = "BookingApp-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* BookingApp-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* GoStudy-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* BookingApp-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GoStudy-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BookingApp-tvOSTests" */;
 			buildPhases = (
 				8217C93A07955847D635F218 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -295,9 +295,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "GoStudy-tvOSTests";
-			productName = "GoStudy-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* GoStudy-tvOSTests.xctest */;
+			name = "BookingApp-tvOSTests";
+			productName = "BookingApp-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* BookingApp-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -327,7 +327,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GoStudy" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BookingApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -340,10 +340,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* GoStudy */,
-				00E356ED1AD99517003FC87E /* GoStudyTests */,
-				2D02E47A1E0B4A5D006451C7 /* GoStudy-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* GoStudy-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* BookingApp */,
+				00E356ED1AD99517003FC87E /* BookingAppTests */,
+				2D02E47A1E0B4A5D006451C7 /* BookingApp-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* BookingApp-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -413,7 +413,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoStudy/Pods-GoStudy-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BookingApp/Pods-BookingApp-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -422,7 +422,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoStudy/Pods-GoStudy-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookingApp/Pods-BookingApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* [CP] Check Pods Manifest.lock */ = {
@@ -440,7 +440,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GoStudy-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BookingApp-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -462,7 +462,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GoStudy-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BookingApp-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -484,7 +484,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GoStudy-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BookingApp-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -506,7 +506,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GoStudy-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BookingApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -519,7 +519,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoStudy-GoStudyTests/Pods-GoStudy-GoStudyTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BookingApp-BookingAppTests/Pods-BookingApp-BookingAppTests-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -528,7 +528,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoStudy-GoStudyTests/Pods-GoStudy-GoStudyTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookingApp-BookingAppTests/Pods-BookingApp-BookingAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F42A67A0FFD71D0F20320C35 /* [CP] Check Pods Manifest.lock */ = {
@@ -546,7 +546,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GoStudy-GoStudyTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BookingApp-BookingAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -598,7 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* GoStudyTests.m in Sources */,
+				00E356F31AD99517003FC87E /* BookingAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,7 +624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* GoStudyTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* BookingAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,12 +633,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* GoStudy */;
+			target = 13B07F861A680F5B00A75B9A /* BookingApp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* GoStudy-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* BookingApp-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -646,14 +646,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA3FEB89D946BB105B0497AA /* Pods-GoStudy-GoStudyTests.debug.xcconfig */;
+			baseConfigurationReference = BA3FEB89D946BB105B0497AA /* Pods-BookingApp-BookingAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = GoStudyTests/Info.plist;
+				INFOPLIST_FILE = BookingAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -663,17 +663,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoStudy.app/GoStudy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BookingApp.app/BookingApp";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23C152DC74DC15596BF5829B /* Pods-GoStudy-GoStudyTests.release.xcconfig */;
+			baseConfigurationReference = 23C152DC74DC15596BF5829B /* Pods-BookingApp-BookingAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = GoStudyTests/Info.plist;
+				INFOPLIST_FILE = BookingAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -683,20 +683,20 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoStudy.app/GoStudy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BookingApp.app/BookingApp";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 425C2CAC454FA29B2431A32F /* Pods-GoStudy.debug.xcconfig */;
+			baseConfigurationReference = 425C2CAC454FA29B2431A32F /* Pods-BookingApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6P9W63363P;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = GoStudy/Info.plist;
+				INFOPLIST_FILE = BookingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -704,7 +704,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = GoStudy;
+				PRODUCT_NAME = BookingApp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -713,13 +713,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7034F7ECD2E1E3B960C854C1 /* Pods-GoStudy.release.xcconfig */;
+			baseConfigurationReference = 7034F7ECD2E1E3B960C854C1 /* Pods-BookingApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6P9W63363P;
-				INFOPLIST_FILE = GoStudy/Info.plist;
+				INFOPLIST_FILE = BookingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -727,7 +727,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = GoStudy;
+				PRODUCT_NAME = BookingApp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -735,7 +735,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 968A57F648D153BA3F93C47E /* Pods-GoStudy-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 968A57F648D153BA3F93C47E /* Pods-BookingApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -746,14 +746,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GoStudy-tvOS/Info.plist";
+				INFOPLIST_FILE = "BookingApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GoStudy-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.BookingApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -763,7 +763,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 757CFF1BD9320A814D47EF55 /* Pods-GoStudy-tvOS.release.xcconfig */;
+			baseConfigurationReference = 757CFF1BD9320A814D47EF55 /* Pods-BookingApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -774,14 +774,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GoStudy-tvOS/Info.plist";
+				INFOPLIST_FILE = "BookingApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GoStudy-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.BookingApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -791,7 +791,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7ACB7B05A53F81C03C553039 /* Pods-GoStudy-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 7ACB7B05A53F81C03C553039 /* Pods-BookingApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -801,24 +801,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GoStudy-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "BookingApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GoStudy-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.BookingApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoStudy-tvOS.app/GoStudy-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BookingApp-tvOS.app/BookingApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A9B37A578803B0DF7EC6149 /* Pods-GoStudy-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 0A9B37A578803B0DF7EC6149 /* Pods-BookingApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -828,17 +828,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "GoStudy-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "BookingApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.GoStudy-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.BookingApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoStudy-tvOS.app/GoStudy-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BookingApp-tvOS.app/BookingApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -959,7 +959,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GoStudyTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BookingAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -968,7 +968,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GoStudy" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BookingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -977,7 +977,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GoStudy-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BookingApp-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -986,7 +986,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "GoStudy-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "BookingApp-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -995,7 +995,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GoStudy" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BookingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
