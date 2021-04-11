@@ -20,7 +20,6 @@ const ChatItem: React.FunctionComponent<IChatItem> = ({
       <Layout style={styles.textSection}>
         <Layout style={styles.header}>
           <Text>{item.roomName}</Text>
-          <Text style={styles.classNumber}>{item.associatedClass}</Text>
         </Layout>
         <Text
           style={

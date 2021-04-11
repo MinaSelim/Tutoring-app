@@ -12,7 +12,7 @@ import {useCollectionData} from 'react-firebase-hooks/firestore';
 import useAuthUser from '../../hooks/authUser';
 import RequestUserChatrooms from '../../api/chatroom/requests/RequestUserChatrooms';
 import env from '../../../env';
-import { auth } from 'firebase';
+import {auth} from 'firebase';
 
 interface chatNames {
   chatID: string;
@@ -30,7 +30,9 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
 
   let [groupList, setGroupList] = useState<IChat[]>([]);
   let [oneToOneList, setOneToOneList] = useState<IChat[]>([]);
-  const [currentListOfNamesForAChat, setCurrentListOfNamesForAChat] = useState<chatNames[]>([]);
+  const [currentListOfNamesForAChat, setCurrentListOfNamesForAChat] = useState<
+    chatNames[]
+  >([]);
   const [isLoadingChats, setIsLoadingChats] = useState(true);
   //custom chat functions
   const loadChat = (): firebase.firestore.Query<
@@ -52,56 +54,69 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
   const getParticipantNamesList = (
     // chatID: string,
     // participantIDList: string[],
-    chats: IChat[]
+    chats: IChat[],
   ): void => {
     //let chatTitle: string = '';
-    
+
     // use map() to perform a fetch and handle the response for each url
-       for(var i = 0; i <= chats.length; i++ ){
-         if(!chats[i]) {
-          setIsLoadingChats(false);
-          break;
-         }
-        for(var j = 0; j <= chats[i].participants.length; j++){
-          let participantID = chats[i].participants[j];
-          let chatID = chats[i].id;
-          if(participantID != authUser?.id){
-            fetch(`${env.SERVER_LINK}/search/basicUserInfo`, {
-             method: 'POST',
-             headers: {
-               Accept: 'application/json',
-               'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({id: participantID}),
-             credentials: 'include',
-           })
-             .then(async(response) => await response.json())
-             .then((user) => {
-               let chatNamePartial: string = user.first_name + ' ' + user.last_name;
-               let chatNameObject = currentListOfNamesForAChat.find((chatNameObject) => chatNameObject.chatID == chatID);
-               if(chatNameObject) {
-                 //If object exists, rebuild chatName and replace object
-                 chatNameObject.chatName = chatNameObject.chatName + ' ' + chatNamePartial;
-                 let tempChatNameObject: chatNames[] = currentListOfNamesForAChat.filter((chatNameObject) => chatNameObject.chatID !== chatID);
-                 tempChatNameObject.push(chatNameObject);
-                 console.log('MKC-A: Before setting the listOfNames');
-                 setCurrentListOfNamesForAChat(tempChatNameObject);
-                 console.log('MKCB-A2: After setting the listOfNames', currentListOfNamesForAChat);
-                 // currentListOfNamesForAChat.current = [];
-                 // currentListOfNamesForAChat.current = tempChatNameObject;
-               }
-               else {
-                 console.log('MKC-A: Before setting the listOfNames');
-                 setCurrentListOfNamesForAChat([...currentListOfNamesForAChat, {chatID: chatID, chatName: chatNamePartial}])
-                 console.log('MKCB-A2: After setting the listOfNames', currentListOfNamesForAChat);
-               }
-               setIsLoadingChats(false);
-             })
-             .catch((error) => console.log(error))
-        
-           }
-         }
-       }  
+    for (var i = 0; i <= chats.length; i++) {
+      if (!chats[i]) {
+        setIsLoadingChats(false);
+        break;
+      }
+      for (var j = 0; j <= chats[i].participants.length; j++) {
+        let participantID = chats[i].participants[j];
+        let chatID = chats[i].id;
+        if (participantID != authUser?.id) {
+          fetch(`${env.SERVER_LINK}/search/basicUserInfo`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: participantID}),
+            credentials: 'include',
+          })
+            .then(async (response) => await response.json())
+            .then((user) => {
+              let chatNamePartial: string =
+                user.first_name + ' ' + user.last_name;
+              let chatNameObject = currentListOfNamesForAChat.find(
+                (chatNameObject) => chatNameObject.chatID == chatID,
+              );
+              if (chatNameObject) {
+                //If object exists, rebuild chatName and replace object
+                chatNameObject.chatName =
+                  chatNameObject.chatName + ' ' + chatNamePartial;
+                let tempChatNameObject: chatNames[] = currentListOfNamesForAChat.filter(
+                  (chatNameObject) => chatNameObject.chatID !== chatID,
+                );
+                tempChatNameObject.push(chatNameObject);
+                console.log('MKC-A: Before setting the listOfNames');
+                setCurrentListOfNamesForAChat(tempChatNameObject);
+                console.log(
+                  'MKCB-A2: After setting the listOfNames',
+                  currentListOfNamesForAChat,
+                );
+                // currentListOfNamesForAChat.current = [];
+                // currentListOfNamesForAChat.current = tempChatNameObject;
+              } else {
+                console.log('MKC-A: Before setting the listOfNames');
+                setCurrentListOfNamesForAChat([
+                  ...currentListOfNamesForAChat,
+                  {chatID: chatID, chatName: chatNamePartial},
+                ]);
+                console.log(
+                  'MKCB-A2: After setting the listOfNames',
+                  currentListOfNamesForAChat,
+                );
+              }
+              setIsLoadingChats(false);
+            })
+            .catch((error) => console.log(error));
+        }
+      }
+    }
   };
 
   const rebuildAllChatsWithNames = (data: Chat[]): IChat[] => {
@@ -115,7 +130,7 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
           // currentListOfNamesForAChat.find(
           //   (chatNameObject) => chatNameObject.chatID === chat.id,
           // )?.chatName,
-          "Alice The Tutor",
+          'Alice The Tutor',
           chat.associatedClass,
           chat.chatType,
           chat.viewedChat,
@@ -141,14 +156,16 @@ const ChatMenu: React.FC<NavigationInjectedPropsConfigured> = ({
 
     console.log('MKC0: user chat list', userChatList);
 
-      new DirectMessageChat()
+    new DirectMessageChat()
       .displayUserChatrooms('direct', userChatList)
       .then((data) => {
         console.log('MKC1', data);
         //Recreate every chat with their respective names
-        getParticipantNamesList(data),
-       
-        console.log('MKCB: Get participant names list', currentListOfNamesForAChat);
+        getParticipantNamesList(data);
+        console.log(
+          'MKCB: Get participant names list',
+          currentListOfNamesForAChat,
+        );
         let allRebuiltChats: IChat[] = rebuildAllChatsWithNames(data);
         console.log('MKC-D: Finished rebuilding chats', allRebuiltChats);
         return allRebuiltChats;

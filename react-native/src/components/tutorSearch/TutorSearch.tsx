@@ -66,13 +66,14 @@ const TutorSearch = (props): JSX.Element => {
     });
     console.log(queryData);
     const responseTutorArray = await queryData.json();
-    if (responseTutorArray !== undefined) {
+    if (responseTutorArray) {
       setUserData(responseTutorArray);
     }
   };
 
   const onChangeText = async (query): Promise<void> => {
     setValue(query);
+    setData(DATA.filter((item) => filter(item, query)));
     const queryData = await fetch(`${env.SERVER_LINK}/search/classes`, {
       method: 'POST',
       headers: {
@@ -83,7 +84,6 @@ const TutorSearch = (props): JSX.Element => {
       credentials: 'include',
     });
     const responseClassesArray = await queryData.json();
-    setData(responseClassesArray.filter((item) => filter(item, query)));
     setUserData(responseClassesArray);
   };
 

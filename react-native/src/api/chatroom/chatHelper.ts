@@ -77,11 +77,11 @@ export default class chatHelper {
           },
         })
         .then((docRef) => {
-          docRef.collection(constants.messageCollection).add({
-            content: `You have joined the room ${roomName}.`,
-            createdAt: new Date().getTime(),
-            sender: currentUserToken,
-          });
+          // docRef.collection(constants.messageCollection).add({
+          //   content: `You have joined the room ${roomName}.`,
+          //   createdAt: new Date().getTime(),
+          //   sender: currentUserToken,
+          // });
           const chatID = docRef.id;
           const addChatrooms = new RequestUserChatrooms();
           addChatrooms.addStudentChatroom(currentUserToken, chatID);
