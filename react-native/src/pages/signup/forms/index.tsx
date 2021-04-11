@@ -205,7 +205,7 @@ const SignUpCredentials: React.FunctionComponent<ISignUpCredentials> = ({
                 {constants.signup.forms.signInWithGoogle}{' '}
               </Text>
             </TouchableOpacity>
-            <Text style={styles.footer}>{constants.common.goStudy}</Text>
+            <Text style={styles.footer}>{constants.common.BookingApp}</Text>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

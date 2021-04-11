@@ -62,7 +62,7 @@ const HomeUI: React.FC<INavigation> = ({navigation}: INavigation) => {
             accessoryRight={MessageIcon}>
             {constant.home.myChats}
           </Button>
-          <Text style={styles.footer}>{constant.common.goStudy}</Text>
+          <Text style={styles.footer}>{constant.common.BookingApp}</Text>
         </View>
       </View>
     </SafeAreaView>

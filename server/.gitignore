@@ -1,7 +1,7 @@
 /node_modules
 /dist
 Fire.ts
-service_account_gostudy.json
+service_account_BookingApp.json
 /coverage
 /.vscode
 /.nyc_output

@@ -1,6 +1,6 @@
 const constants = {
   common: {
-    goStudy: 'go.study',
+    BookingApp: 'BookingApp',
   },
   signin: {
     welcome: 'Welcome!',

@@ -1,1 +1,1 @@
-# Welcome to the GoStudy application
+# Welcome to the BookingApp application

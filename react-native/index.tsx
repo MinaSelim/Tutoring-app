@@ -32,4 +32,4 @@ const App: React.FunctionComponent = () => {
   );
 };
 
-AppRegistry.registerComponent('GoStudy', () => App);
+AppRegistry.registerComponent('BookingApp', () => App);

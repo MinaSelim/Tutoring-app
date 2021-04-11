@@ -102,7 +102,7 @@ const SignUpUserType: React.FunctionComponent<ISignUpUserType> = ({
               </Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.footer}>{constant.common.goStudy}</Text>
+          <Text style={styles.footer}>{constant.common.BookingApp}</Text>
         </View>
       </SafeAreaView>
     </ImageBackground>

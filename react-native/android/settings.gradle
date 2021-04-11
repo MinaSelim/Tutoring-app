@@ -1,4 +1,4 @@
-rootProject.name = 'GoStudy'
+rootProject.name = 'BookingApp'
 include ':react-native-inappbrowser-reborn'
 project(':react-native-inappbrowser-reborn').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-inappbrowser-reborn/android')
 include ':react-native-keychain'
