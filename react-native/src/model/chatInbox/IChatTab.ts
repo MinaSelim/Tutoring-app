@@ -3,4 +3,5 @@ import NavigationInjectedPropsConfigured from '../navigation/NavigationInjectedP
 
 export default interface IChatTab extends NavigationInjectedPropsConfigured {
   source: IChat[] | undefined;
+  isLoadingChats: boolean;
 }
